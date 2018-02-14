@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+
 
 import { ContentPagesRoutingModule } from './content-pages-routing.module';
 
@@ -11,12 +14,18 @@ import { LockScreenPageComponent } from './lock-screen/lock-screen-page.componen
 import { LoginPageComponent } from './login/login-page.component';
 import { MaintenancePageComponent } from './maintenance/maintenance-page.component';
 import { RegisterPageComponent } from './register/register-page.component';
+import { SignupComponent } from './signup/signup.component';
+import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
+import { SignupService } from './signup/service/signup.service';
 @NgModule({
     imports: [
         CommonModule,
         ContentPagesRoutingModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        RouterModule
     ],
     declarations: [
         ComingSoonPageComponent,
@@ -26,6 +35,8 @@ import { RegisterPageComponent } from './register/register-page.component';
         LoginPageComponent,
         MaintenancePageComponent,
         RegisterPageComponent,
-    ]
+        SignupComponent
+    ],
+    providers: [ SignupService, GlobalVaribles]
 })
 export class ContentPagesModule { }

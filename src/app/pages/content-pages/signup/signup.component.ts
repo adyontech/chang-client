@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { SignupService } from './service//signup.service';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Routes, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { emailValidator, passwordValidator, userNameValidator, phoneValidator } from './signup.validators';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-signup-page',
   templateUrl: './signup.component.html',
   styleUrls: ['signup.component.scss']
 })

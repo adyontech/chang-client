@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import { SignupComponent } from './../../pages/content-pages/signup/signup.component'
+
 // Route for content layout with sidebar, navbar and footer.
 
 export const Full_ROUTES: Routes = [

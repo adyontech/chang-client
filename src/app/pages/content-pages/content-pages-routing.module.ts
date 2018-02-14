@@ -8,6 +8,7 @@ import { LockScreenPageComponent } from './lock-screen/lock-screen-page.componen
 import { LoginPageComponent } from './login/login-page.component';
 import { MaintenancePageComponent } from './maintenance/maintenance-page.component';
 import { RegisterPageComponent } from './register/register-page.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,13 @@ const routes: Routes = [
         component: RegisterPageComponent,
         data: {
           title: 'Register Page'
+        }
+      },
+      {
+        path: 'signup',
+        component: SignupComponent,
+        data: {
+          title: 'Signup Page'
         }
       }
     ]
