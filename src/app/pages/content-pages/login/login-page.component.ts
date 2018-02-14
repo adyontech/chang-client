@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-login-page',
@@ -15,7 +15,7 @@ export class LoginPageComponent {
     constructor(private router: Router,
         private route: ActivatedRoute) { }
 
-    // On submit button click    
+    // On submit button click
     onSubmit() {
         this.loginForm.reset();
     }
