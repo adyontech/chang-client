@@ -43,18 +43,15 @@ export class LoginPageComponent implements OnInit {
 
   // On submit button click
   onSubmit(user) {
-    this._loginService
-      .validateUser(user)
-      // .subscribe(res => user = res)
-      .subscribe(
-        data => {
-          // console.log(data)
+    this._loginService.validateUser(user).subscribe(res => {
+
+        if (res.success === true) {
           this.router.navigate([this.returnURL]);
-        },
-        error => {
-          this.loading = false;
         }
-      );
+      },
+      error => {
+        this.loading = false;
+      });
   }
   // On Forgot password link click
   onForgotPassword() {
