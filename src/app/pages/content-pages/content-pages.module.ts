@@ -18,6 +18,7 @@ import { SignupComponent } from './signup/signup.component';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
 import { SignupService } from './signup/service/signup.service';
+import { LoginService } from "./login/service/login-page.service";
 @NgModule({
     imports: [
         CommonModule,
@@ -37,6 +38,6 @@ import { SignupService } from './signup/service/signup.service';
         RegisterPageComponent,
         SignupComponent
     ],
-    providers: [ SignupService, GlobalVaribles]
+    providers: [ SignupService, GlobalVaribles, LoginService]
 })
 export class ContentPagesModule { }

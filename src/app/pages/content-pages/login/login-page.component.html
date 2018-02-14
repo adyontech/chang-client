@@ -1,55 +1,95 @@
-<!--Login Page Starts-->
-<section id="login">
-    <div class="container-fluid">
-        <div class="row full-height-vh">
-            <div class="col-12 d-flex align-items-center justify-content-center">
-                <div class="card gradient-indigo-purple text-center width-400">
-                    <div class="card-img overlap">
-                        <img alt="element 06" class="mb-1" src="assets/img/portrait/avatars/avatar-08.png" width="190">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-block">
-                            <h2 class="white">Login</h2>
-                            <form novalidate="" (ngSubmit)="onSubmit()" #f="ngForm">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Email" ngModel required email>
-                                    </div>
-                                </div>
+<div class="container-fluid">
 
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="password" class="form-control" name="inputPass" id="inputPass" placeholder="Password" ngModel required>
-                                    </div>
-                                </div>
+  <div class="row">
+    <div class="col-md-8 col-sm-6 col-xs-7">
+      <div class="logo">
+        <img src="./../../../../assets/pwt/logo.png">
+      </div>
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 ml-3">
-                                                <input type="checkbox" class="custom-control-input" checked id="rememberme">
-                                                <label class="custom-control-label float-left white" for="rememberme">Remember Me</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+      <div class="col-md-10 col-sm-12 col-xs-12 details">
+        <button id="client-btn" class="btn-lg btn-info">CLIENT LOGO</button>
 
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-pink btn-block btn-raised">Submit</button>
-                                        <button type="button" class="btn btn-secondary btn-block btn-raised">Cancel</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="float-left"><a (click)="onForgotPassword()" class="white">Recover Password</a></div>
-                        <div class="float-right"><a (click)="onRegister()" class="white">New User?</a></div>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <table class="table">
+              <tr>
+                <td>
+                  <p>aadii04
+                    <a href="#"> usual coder</a> labo ris nisi ut aliquip ex ea commo do consequat. Duis aute irure dolor in reprehenderit.</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    <br> Excepteur sint occaecat cupidatat nn proi-dent, sunt in culpa ptate velit ess cillum dolore eu fugiat
+                    nulla pariatur. Excepteur dolore e </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12 table-2">
+            <table class="table">
+              <tr>
+                <td>
+                  <div class="tick">
+
+                    <img src="../../../assets/pwt/tick.png">
+                  </div>
+                  <p>ut fugit, sed quia consequu ntur magni dolores eos qui ratione voluptatem </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="tick">
+                    <img src="../../../assets/pwt/tick.png">
+                  </div>
+                  <p>Sequi nesciunt. Neque ro quisquam est. qui dolor em ipsum </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="tick">
+                    <img src="../../../assets/pwt/tick.png">
+                  </div>
+                  <p>quia dolor sit amet consec tetur, adipisci veli </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="#" id="reg-btn">REGISTER NOW</a>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
+      </div>
     </div>
-</section>
-<!--Login Page Ends-->
+
+    <div class="col-md-3 col-sm-3 col-xs-4 right-panel">
+      <div class="form-back">
+        <div class="form-content">
+          <p id="welcome">Welcome to</p>
+          <p id="name">Proworktree</p>
+          <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="form-group">
+              <input type="text" class="form-control" id="email" placeholder="Email" name="email" formControlName="email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password">
+            </div>
+            <div class="captcha">
+              <!--Put here code from your own captcha provider-->
+              <img src="../../../assets/pwt/captcha.PNG" id="captcha-img">
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="!form.valid">LOG IN</button>
+          </form>
+
+          <a id="signup-now" href="/signup">or SIGN UP NOW</a>
+          <a id="forgot-psw">Forgot Password?</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

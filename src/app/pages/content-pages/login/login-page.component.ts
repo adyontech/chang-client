@@ -1,30 +1,67 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { LoginService } from './service/login-page.service';
+import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { any } from 'codelyzer/util/function';
+
+import { emailValidator, passwordValidator } from '../signup/signup.validators';
 
 @Component({
-    selector: 'app-login-page',
-    templateUrl: './login-page.component.html',
-    styleUrls: ['./login-page.component.scss']
+  selector: 'app-login-page',
+  templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.scss'],
 })
+export class LoginPageComponent implements OnInit {
+  // @ViewChild('f') loginForm: NgForm;
 
-export class LoginPageComponent {
+  form: FormGroup;
+  loading = false;
+  returnURL: string;
 
-    @ViewChild('f') loginForm: NgForm;
+  constructor(
+    public _loginService: LoginService,
+    public fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-    constructor(private router: Router,
-        private route: ActivatedRoute) { }
+  ngOnInit() {
+    this._loginService.logOut();
+    this.fillForm();
 
-    // On submit button click
-    onSubmit() {
-        this.loginForm.reset();
-    }
-    // On Forgot password link click
-    onForgotPassword() {
-        this.router.navigate(['forgotpassword'], { relativeTo: this.route.parent });
-    }
-    // On registration link click
-    onRegister() {
-        this.router.navigate(['register'], { relativeTo: this.route.parent });
-    }
+    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
+  }
+
+  fillForm() {
+    this.form = this.fb.group({
+      password: ['', passwordValidator],
+      email: ['', emailValidator],
+    });
+  }
+
+  // On submit button click
+  onSubmit(user) {
+    this._loginService
+      .validateUser(user)
+      // .subscribe(res => user = res)
+      .subscribe(
+        data => {
+          // console.log(data)
+          this.router.navigate([this.returnURL]);
+        },
+        error => {
+          this.loading = false;
+        }
+      );
+  }
+  // On Forgot password link click
+  onForgotPassword() {
+    this.router.navigate(['forgotpassword'], { relativeTo: this.route.parent });
+  }
+  // On registration link click
+  onRegister() {
+    this.router.navigate(['register'], { relativeTo: this.route.parent });
+  }
 }
