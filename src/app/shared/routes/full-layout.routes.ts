@@ -4,7 +4,6 @@ import { SignupComponent } from './../../pages/content-pages/signup/signup.compo
 
 export const Full_ROUTES: Routes = [
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
-  { path: 'signup',  component: SignupComponent, },
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarsModule' },
   { path: 'charts', loadChildren: './charts/charts.module#ChartsNg2Module' },
