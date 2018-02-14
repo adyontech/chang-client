@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ButtonsComponent } from "./bootstrap/buttons/buttons.component";
-import { ListsComponent } from "./bootstrap/lists/lists.component";
-import { AlertsComponent } from "./bootstrap/alerts/alerts.component";
-import { SweetAlertsComponent } from "./extra/sweet-alerts/sweet-alerts.component";
-import { ToastrComponent } from "./extra/toastr/toastr.component";
-import { NouiSliderComponent } from "./extra/nouislider/nouislider.component";
-import { BadgesComponent } from "./bootstrap/badges/badges.component";
-import { DropdownsComponent } from "./bootstrap/dropdowns/dropdowns.component";
-import { InputGroupsComponent } from "./bootstrap/input-groups/input-groups.component";
-import { MediaObjectsComponent } from "./bootstrap/media-objects/media-objects.component";
-import { PaginationComponent } from "./bootstrap/pagination/pagination.component";
-import { ProgressBarsComponent } from "./bootstrap/progress/progress.component";
-import { ModalsComponent } from "./bootstrap/modals/modals.component";
-import { CollapseComponent } from "./bootstrap/collapse/collapse.component";
+import { ButtonsComponent } from './bootstrap/buttons/buttons.component';
+import { ListsComponent } from './bootstrap/lists/lists.component';
+import { AlertsComponent } from './bootstrap/alerts/alerts.component';
+import { SweetAlertsComponent } from './extra/sweet-alerts/sweet-alerts.component';
+import { ToastrComponent } from './extra/toastr/toastr.component';
+import { NouiSliderComponent } from './extra/nouislider/nouislider.component';
+import { BadgesComponent } from './bootstrap/badges/badges.component';
+import { DropdownsComponent } from './bootstrap/dropdowns/dropdowns.component';
+import { InputGroupsComponent } from './bootstrap/input-groups/input-groups.component';
+import { MediaObjectsComponent } from './bootstrap/media-objects/media-objects.component';
+import { PaginationComponent } from './bootstrap/pagination/pagination.component';
+import { ProgressBarsComponent } from './bootstrap/progress/progress.component';
+import { ModalsComponent } from './bootstrap/modals/modals.component';
+import { CollapseComponent } from './bootstrap/collapse/collapse.component';
 import { AccordionComponent } from './bootstrap/accordion/accordion.component';
 import { CarouselComponent } from './bootstrap/carousel/carousel.component';
 import { DatepickerComponent } from './bootstrap/datepicker/datepicker.component';
@@ -24,7 +24,7 @@ import { TabsComponent } from './bootstrap/tabs/tabs.component';
 import { TimepickerComponent } from './bootstrap/timepicker/timepicker.component';
 import { TooltipComponent } from './bootstrap/tooltip/tooltip.component';
 import { TypeaheadComponent } from './bootstrap/typeahead/typeahead.component';
-import { NgButtonsComponent } from "./bootstrap/ng-buttons/ng-buttons.component";
+import { NgButtonsComponent } from './bootstrap/ng-buttons/ng-buttons.component';
 import { UploadComponent } from './extra/upload/upload.component';
 import { EditorComponent } from './extra/editor/editor.component';
 import { DragDropComponent } from './extra/drag-drop/drag-drop.component';
@@ -43,8 +43,8 @@ const routes: Routes = [
         data: {
           title: 'Buttons'
         }
-      },      
-      
+      },
+
       {
         path: 'lists',
         component: ListsComponent,
@@ -72,7 +72,7 @@ const routes: Routes = [
         data: {
           title: 'Toastr'
         }
-      },     
+      },
       {
         path: 'nouislider',
         component: NouiSliderComponent,
@@ -135,7 +135,7 @@ const routes: Routes = [
         data: {
           title: 'Input Groups'
         }
-      },    
+      },
       {
         path: 'media',
         component: MediaObjectsComponent,
@@ -240,22 +240,22 @@ const routes: Routes = [
         data: {
           title: 'Ngb-Bootstrap'
         }
-      },  
+      },
       {
         path: 'tags',
         component: TagsInputComponent,
         data: {
           title: 'Tags'
         }
-      }, 
+      },
       {
         path: 'switch',
         component: SwitchComponent,
         data: {
           title: 'Switch'
         }
-      },    
-      
+      },
+
     ]
   }
 ];

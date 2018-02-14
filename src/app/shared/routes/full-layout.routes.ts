@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
-//Route for content layout with sidebar, navbar and footer.
+// Route for content layout with sidebar, navbar and footer.
 
 export const Full_ROUTES: Routes = [
   {
@@ -75,4 +75,4 @@ export const Full_ROUTES: Routes = [
     path: 'player',
     loadChildren: './player/player.module#PlayerModule'
   }
-];
+]

@@ -97,7 +97,7 @@ import { SwitchComponent } from './extra/switch/switch.component';
         TourComponent,
         CropperComponent,
         TagsInputComponent,
-        SwitchComponent        
+        SwitchComponent
     ],
     providers: [],
     entryComponents: [NgbdModalContent]
