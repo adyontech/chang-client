@@ -10,12 +10,12 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'dashboard',
+        path: '/',
         component: DashboardComponent,
         data: {
-          title: 'Dashboard 1',
+          title: 'Dashboard',
         },
-      }
+      },
       {
         path: 'dashboard1',
         component: Dashboard1Component,
