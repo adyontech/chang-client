@@ -1,81 +1,81 @@
 import * as shape from 'd3-shape';
-//Bar Chart
+// Bar Chart
 
-export var barChartView: any[] = [550, 400];
+export let barChartView: any[] = [550, 400];
 
 // options
-export var barChartShowXAxis = true;
-export var barChartShowYAxis = true;
-export var barChartGradient = false;
-export var barChartShowLegend = false;
-export var barChartShowXAxisLabel = true;
-export var barChartXAxisLabel = 'Country';
-export var barChartShowYAxisLabel = true;
-export var barChartYAxisLabel = 'Population';
+export let barChartShowXAxis = true;
+export let barChartShowYAxis = true;
+export let barChartGradient = false;
+export let barChartShowLegend = false;
+export let barChartShowXAxisLabel = true;
+export let barChartXAxisLabel = 'Country';
+export let barChartShowYAxisLabel = true;
+export let barChartYAxisLabel = 'Population';
 
-export var barChartColorScheme = {
+export let barChartColorScheme = {
     domain: ['#009DA0', '#FF8D60', '#FF586B', '#AAAAAA']
 };
 
-//Pie CHart
+// Pie CHart
 
-export var pieChartView: any[] = [550, 400];
+export let pieChartView: any[] = [550, 400];
 
 // options
-export var pieChartShowLegend = false;
+export let pieChartShowLegend = false;
 
-export var pieChartColorScheme = {
+export let pieChartColorScheme = {
     domain: ['#009DA0', '#FF8D60', '#FF586B', '#AAAAAA']
 };
 
 // pie
-export var pieChartShowLabels = true;
-export var pieChartExplodeSlices = false;
-export var pieChartDoughnut = true;
-export var pieChartGradient = false;
+export let pieChartShowLabels = true;
+export let pieChartExplodeSlices = false;
+export let pieChartDoughnut = true;
+export let pieChartGradient = false;
 
-export var pieChart1ExplodeSlices = true;
-export var pieChart1Doughnut = false;
+export let pieChart1ExplodeSlices = true;
+export let pieChart1Doughnut = false;
 
-//Line Charts
+// Line Charts
 
-export var lineChartView: any[] = [550, 400];
+export let lineChartView: any[] = [550, 400];
 
 // options
-export var lineChartShowXAxis = true;
-export var lineChartShowYAxis = true;
-export var lineChartGradient = false;
-export var lineChartShowLegend = false;
-export var lineChartShowXAxisLabel = true;
-export var lineChartXAxisLabel = 'Country';
-export var lineChartShowYAxisLabel = true;
-export var lineChartYAxisLabel = 'Population';
+export let lineChartShowXAxis = true;
+export let lineChartShowYAxis = true;
+export let lineChartGradient = false;
+export let lineChartShowLegend = false;
+export let lineChartShowXAxisLabel = true;
+export let lineChartXAxisLabel = 'Country';
+export let lineChartShowYAxisLabel = true;
+export let lineChartYAxisLabel = 'Population';
 
-export var lineChartColorScheme = {
+export let lineChartColorScheme = {
     domain: ['#009DA0', '#FF8D60', '#FF586B', '#AAAAAA']
 };
 
 // line, area
-export var lineChartAutoScale = true;
-export var lineChartLineInterpolation = shape.curveBasis;
+export let lineChartAutoScale = true;
+export let lineChartLineInterpolation = shape.curveBasis;
 
-//Area Charts
-export var areaChartView: any[] = [550, 400];
+// Area Charts
+export let areaChartView: any[] = [550, 400];
 
 // options
-export var areaChartShowXAxis = true;
-export var areaChartShowYAxis = true;
-export var areaChartGradient = false;
-export var areaChartShowLegend = false;
-export var areaChartShowXAxisLabel = true;
-export var areaChartXAxisLabel = 'Country';
-export var areaChartShowYAxisLabel = true;
-export var areaChartYAxisLabel = 'Population';
+export let areaChartShowXAxis = true;
+export let areaChartShowYAxis = true;
+export let areaChartGradient = false;
+export let areaChartShowLegend = false;
+export let areaChartShowXAxisLabel = true;
+export let areaChartXAxisLabel = 'Country';
+export let areaChartShowYAxisLabel = true;
+export let areaChartYAxisLabel = 'Population';
 
-export var areaChartColorScheme = {
+export let areaChartColorScheme = {
     domain: ['#FF8D60', '#FF586B', '#1CBCD8', '#AAAAAA']
 };
 
 // line, area
-export var areaChartAutoScale = true;
-export var areaChartLineInterpolation = shape.curveBasis;
+export let areaChartAutoScale = true;
+export let areaChartLineInterpolation = shape.curveBasis

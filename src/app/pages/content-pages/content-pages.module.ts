@@ -12,7 +12,6 @@ import { LoginPageComponent } from './login/login-page.component';
 import { MaintenancePageComponent } from './maintenance/maintenance-page.component';
 import { RegisterPageComponent } from './register/register-page.component';
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -26,7 +25,7 @@ import { RegisterPageComponent } from './register/register-page.component';
         LockScreenPageComponent,
         LoginPageComponent,
         MaintenancePageComponent,
-        RegisterPageComponent
+        RegisterPageComponent,
     ]
 })
 export class ContentPagesModule { }

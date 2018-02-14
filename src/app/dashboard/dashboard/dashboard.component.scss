@@ -142,6 +142,7 @@
   :host /deep/ .BarChart .ct-series-a .ct-bar:nth-of-type(4n+1) {
     stroke: url($dashboard1-gradient-path +  #gradient7);
   }
+  
   :host /deep/ .BarChart .ct-series-a .ct-bar:nth-of-type(4n+2) {
     stroke: url($dashboard1-gradient-path +  #gradient5);
   }
