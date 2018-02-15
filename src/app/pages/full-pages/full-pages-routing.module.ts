@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GalleryPageComponent } from "./gallery/gallery-page.component";
-import { InvoicePageComponent } from "./invoice/invoice-page.component";
-import { HorizontalTimelinePageComponent } from "./timeline/horizontal/horizontal-timeline-page.component";
-import { VerticalTimelinePageComponent } from "./timeline/vertical/vertical-timeline-page.component";
-import { UserProfilePageComponent } from "./user-profile/user-profile-page.component";
+import { GalleryPageComponent } from './gallery/gallery-page.component';
+import { InvoicePageComponent } from './invoice/invoice-page.component';
+import { HorizontalTimelinePageComponent } from './timeline/horizontal/horizontal-timeline-page.component';
+import { VerticalTimelinePageComponent } from './timeline/vertical/vertical-timeline-page.component';
+import { UserProfilePageComponent } from './user-profile/user-profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { FaqComponent } from './faq/faq.component';
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
@@ -14,7 +14,6 @@ const routes: Routes = [
   {
     path: '',
     children: [
-       
       {
         path: 'gallery',
         component: GalleryPageComponent,
@@ -28,7 +27,7 @@ const routes: Routes = [
         data: {
           title: 'Invoice Page'
         }
-      },      
+      },
       {
         path: 'horizontaltimeline',
         component: HorizontalTimelinePageComponent,
@@ -70,7 +69,7 @@ const routes: Routes = [
         data: {
           title: 'Knowledge Base'
         }
-      }  
+      }
     ]
   }
 ];
