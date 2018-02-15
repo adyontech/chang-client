@@ -11,7 +11,9 @@ export class SignupService {
 
     _URL = `${this._globalVariables.baseServerUrl}/auth/register`;
 
-    constructor(private http: Http, public _globalVariables: GlobalVaribles) {
+    constructor(private http: Http,
+         public _globalVariables: GlobalVaribles
+        ) {
     }
 
     createNewUser(user: any): Observable<any> {

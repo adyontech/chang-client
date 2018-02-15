@@ -9,7 +9,7 @@ import { LoginPageComponent } from './login/login-page.component';
 import { MaintenancePageComponent } from './maintenance/maintenance-page.component';
 import { RegisterPageComponent } from './register/register-page.component';
 import { SignupComponent } from './signup/signup.component';
-
+import { ActivationComponent } from './activation/activation.component';
 
 const routes: Routes = [
   {
@@ -70,6 +70,13 @@ const routes: Routes = [
         component: SignupComponent,
         data: {
           title: 'Signup Page'
+        }
+      },
+      {
+        path: 'activation/:id',
+        component: ActivationComponent,
+        data: {
+          title: 'activation Page'
         }
       }
     ]
