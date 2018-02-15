@@ -6,5 +6,9 @@ export const CONTENT_ROUTES: Routes = [
      {
         path: 'pages',
         loadChildren: './pages/content-pages/content-pages.module#ContentPagesModule'
+    },
+    {
+        path: 'app',
+        loadChildren: './../../outerPages/content-pages/outerContent-pages.module#OuterContentPagesModule'
     }
 ];
