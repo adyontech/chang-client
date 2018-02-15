@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { ContentPagesRoutingModule } from './content-pages-routing.module';
 
-import { ActivationComponent } from './activation/activation.component';
+// import { ActivationComponent } from './activation/activation.component';
 import { ComingSoonPageComponent } from './coming-soon/coming-soon-page.component';
 import { ErrorPageComponent } from './error/error-page.component';
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
@@ -19,12 +19,12 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
 import { SignupService } from './signup/service/signup.service';
 import { LoginService } from './login/service/login-page.service';
-import { ActivationService } from './activation/service/activation.service';
+// import { ActivationService } from './activation/service/activation.service';
 
 @NgModule({
   imports: [CommonModule, ContentPagesRoutingModule, FormsModule, ReactiveFormsModule, HttpModule, RouterModule],
   declarations: [
-    ActivationComponent,
+    // ActivationComponent,
     ComingSoonPageComponent,
     ErrorPageComponent,
     ForgotPasswordPageComponent,
@@ -34,6 +34,6 @@ import { ActivationService } from './activation/service/activation.service';
     RegisterPageComponent,
     SignupComponent,
   ],
-  providers: [SignupService, GlobalVaribles, LoginService, ActivationService],
+  providers: [SignupService, GlobalVaribles, LoginService],
 })
 export class ContentPagesModule {}

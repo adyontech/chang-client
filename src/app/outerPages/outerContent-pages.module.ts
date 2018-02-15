@@ -36,4 +36,4 @@ import { ActivationService } from './activation/service/activation.service';
   ],
   providers: [SignupService, GlobalVaribles, LoginService, ActivationService],
 })
-export class ContentPagesModule {}
+export class OuterContentPagesModule {}
