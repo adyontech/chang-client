@@ -11,7 +11,6 @@ import { Params } from '@angular/router/src/shared';
   styleUrls: ['activation.component.scss'],
 })
 export class ActivationComponent implements OnInit {
-
   somevar: any;
   returnURL: string;
 
@@ -29,11 +28,11 @@ export class ActivationComponent implements OnInit {
       const token = params['id'];
       this._activationService.authentication(token).subscribe(res => {
         this.somevar = res.message;
-      console.log(this.somevar);
-      if (res.success === true) {
-        this.router.navigate([this.returnURL]);
-      }
-      }
+        console.log(this.somevar);
+        if (res.success === true) {
+          this.router.navigate([this.returnURL]);
+        }
+      });
     });
   }
 }
