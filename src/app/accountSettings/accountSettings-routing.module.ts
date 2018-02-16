@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import {EditProfileComponent} from './editProfile/editProfile.component'
 // import { GalleryPageComponent } from './gallery/gallery-page.component';
 // import { InvoicePageComponent } from './invoice/invoice-page.component';
 // import { HorizontalTimelinePageComponent } from './timeline/horizontal/horizontal-timeline-page.component';
@@ -14,13 +15,13 @@ const routes: Routes = [
   {
     path: '',
     children: [
-    //   {
-    //     path: 'gallery',
-    //     component: GalleryPageComponent,
-    //     data: {
-    //       title: 'Gallery Page',
-    //     },
-    //   },
+      {
+        path: 'edit',
+        component: EditProfileComponent,
+        data: {
+          title: 'Gallery Page',
+        },
+      },
     //   {
     //     path: 'invoice',
     //     component: InvoicePageComponent,

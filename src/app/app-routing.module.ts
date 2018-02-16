@@ -7,7 +7,7 @@ import { ContentLayoutComponent } from './layouts/content/content-layout.compone
 import { Full_ROUTES } from './shared/routes/full-layout.routes';
 import { CONTENT_ROUTES } from './shared/routes/content-layout.routes';
 import { OUTER_CONTENT_ROUTES } from './shared/routes/outerContent-layout.routes';
-
+import { SETTINGS_ROUTES } from './shared/routes/setting.route';
 
 import { AuthGuard } from './shared/auth/auth-guard.service';
 
@@ -17,15 +17,38 @@ const appRoutes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full',
   },
-  { path: '', component: FullLayoutComponent, data: { title: 'full Views' }, children: Full_ROUTES, canActivate: [AuthGuard] },
-  { path: '', component: ContentLayoutComponent, data: { title: 'content Views' }, children: CONTENT_ROUTES, canActivate: [AuthGuard] },
-  { path: '', component: ContentLayoutComponent, data: { title: 'App Views' }, children: OUTER_CONTENT_ROUTES, canActivate: [AuthGuard] },
+  {
+    path: '',
+    component: FullLayoutComponent,
+    data: { title: 'full Views' },
+    children: Full_ROUTES,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    data: { title: 'content Views' },
+    children: CONTENT_ROUTES,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    data: { title: 'App Views' },
+    children: OUTER_CONTENT_ROUTES,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    data: { title: 'Setting' },
+    children: SETTINGS_ROUTES,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
