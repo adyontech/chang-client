@@ -59,6 +59,6 @@ export class LoginPageComponent implements OnInit {
   }
   // On registration link click
   onRegister() {
-    this.router.navigate(['register'], { relativeTo: this.route.parent });
+    this.router.navigate(['signup'], { relativeTo: this.route.parent });
   }
 }

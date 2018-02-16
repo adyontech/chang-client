@@ -16,7 +16,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 import { SignupService } from './signup/service/signup.service';
 import { LoginService } from './login/service/login-page.service';
 import { ActivationService } from './activation/service/activation.service';
-
+import { PassForgotService } from './forgot-password/service/forgot-password-page.service';
 @NgModule({
   imports: [CommonModule, OuterContentPagesRoutingModule, FormsModule, ReactiveFormsModule, HttpModule, RouterModule],
   declarations: [
@@ -26,6 +26,6 @@ import { ActivationService } from './activation/service/activation.service';
     RegisterPageComponent,
     SignupComponent,
   ],
-  providers: [SignupService, GlobalVaribles, LoginService, ActivationService],
+  providers: [SignupService, GlobalVaribles, LoginService, ActivationService, PassForgotService],
 })
 export class OuterContentPagesModule {}

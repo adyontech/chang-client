@@ -22,7 +22,7 @@ export class ActivationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/pages/login';
+    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/app/login';
     this._activatedRoute.params.subscribe((params: Params) => {
       console.log(params);
       const token = params['id'];

@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.fillForm();
-    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/pages/login';
+    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/app/login';
   }
 
   fillForm() {

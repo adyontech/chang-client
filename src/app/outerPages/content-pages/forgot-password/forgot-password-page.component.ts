@@ -1,31 +1,49 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { PassForgotService } from './service/forgot-password-page.service';
+import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { any } from 'codelyzer/util/function';
 
 @Component({
-    selector: 'app-forgot-password-page',
-    templateUrl: './forgot-password-page.component.html',
-    styleUrls: ['./forgot-password-page.component.scss']
+  selector: 'app-forgot-password-page',
+  templateUrl: './forgot-password-page.component.html',
+  styleUrls: ['./forgot-password-page.component.scss'],
 })
+export class ForgotPasswordPageComponent implements OnInit {
+  form: FormGroup;
+  loading = false;
+  returnURL: string;
 
-export class ForgotPasswordPageComponent {
-    @ViewChild('f') forogtPasswordForm: NgForm;
+  constructor(
+    public _passForgotService: PassForgotService,
+    public fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-    constructor(private router: Router,
-        private route: ActivatedRoute) { }
+  ngOnInit() {
+    this.fillForm();
+    // this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
+  }
+  // On submit click, reset form fields
+  onSubmit(user) {
+    this._passForgotService.validateUser(user).subscribe(
+      res => {
+        if (res.success === true) {
+          this.router.navigate([this.returnURL]);
+        }
+      },
+      error => {
+        this.loading = false;
+      }
+    );
+  }
 
-    // On submit click, reset form fields
-    onSubmit() {
-        this.forogtPasswordForm.reset();
-    }
-
-    // On login link click
-    onLogin() {
-        this.router.navigate(['login'], { relativeTo: this.route.parent });
-    }
-
-    // On registration link click
-    onRegister() {
-        this.router.navigate(['register'], { relativeTo: this.route.parent });
-    }
+  fillForm() {
+    this.form = this.fb.group({
+      email: [''],
+    });
+  }
 }
