@@ -16,7 +16,7 @@ export const Full_ROUTES: Routes = [
   { path: 'components', loadChildren: './components/ui-components.module#UIComponentsModule' },
 
   { path: 'pages', loadChildren: './pages/full-pages/full-pages.module#FullPagesModule' },
-  { path: 'gateway', loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule' },
+  // { path: 'gateway', loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule' },
   { path: 'input', loadChildren: './dataPages/input-pages/input-pages.module#InputPagesModule' },
   { path: 'report', loadChildren: './dataPages/report-pages/report-pages.module#ReportPagesModule' },
 
