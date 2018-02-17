@@ -14,7 +14,12 @@ export const Full_ROUTES: Routes = [
   { path: 'datatables', loadChildren: './data-tables/data-tables.module#DataTablesModule' },
   { path: 'uikit', loadChildren: './ui-kit/ui-kit.module#UIKitModule' },
   { path: 'components', loadChildren: './components/ui-components.module#UIComponentsModule' },
+
   { path: 'pages', loadChildren: './pages/full-pages/full-pages.module#FullPagesModule' },
+  { path: 'gateway', loadChildren: './pages/full-pages/full-pages.module#FullPagesModule' },
+  { path: 'input', loadChildren: './pages/full-pages/full-pages.module#FullPagesModule' },
+  { path: 'report', loadChildren: './pages/full-pages/full-pages.module#FullPagesModule' },
+
   { path: 'cards', loadChildren: './cards/cards.module#CardsModule' },
   { path: 'colorpalettes', loadChildren: './color-palette/color-palette.module#ColorPaletteModule' },
   { path: 'chat', loadChildren: './chat/chat.module#ChatModule' },

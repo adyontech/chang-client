@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { InputPagesRoutingModule } from './input-pages-routing.module';
+import { GatewayRoutingModule } from './gateway-routing.module';
 import { ChartistModule} from 'ng-chartist';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +20,7 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
 @NgModule({
     imports: [
         CommonModule,
-        InputPagesRoutingModule,
+        GatewayRoutingModule,
         FormsModule,
         ChartistModule,
         AgmCoreModule,
@@ -37,4 +37,4 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
         KnowledgeBaseComponent
     ]
 })
-export class InputPagesModule { }
+export class GatewayPagesModule { }

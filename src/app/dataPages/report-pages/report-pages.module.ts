@@ -20,7 +20,7 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
 @NgModule({
     imports: [
         CommonModule,
-        FullPagesRoutingModule,
+        ReportPagesRoutingModule,
         FormsModule,
         ChartistModule,
         AgmCoreModule,
