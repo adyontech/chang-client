@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileComponent } from './editProfile/editProfile.component';
 import { MeProfileComponent } from './me/me.component';
 import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.component';
+import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 // import { InvoicePageComponent } from './invoice/invoice-page.component';
 // import { HorizontalTimelinePageComponent } from './timeline/horizontal/horizontal-timeline-page.component';
 // import { VerticalTimelinePageComponent } from './timeline/vertical/vertical-timeline-page.component';
@@ -24,6 +25,7 @@ import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.
     EditProfileComponent,
     MeProfileComponent,
     PasswordChangeProfileComponent,
+    MailSubsProfileComponent,
     // InvoicePageComponent,
     // HorizontalTimelinePageComponent,
     // VerticalTimelinePageComponent,
