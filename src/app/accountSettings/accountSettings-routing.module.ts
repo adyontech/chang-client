@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {EditProfileComponent} from './editProfile/editProfile.component'
+import { EditProfileComponent } from './editProfile/editProfile.component';
+import { MeProfileComponent } from './me/me.component';
+import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.component';
 // import { GalleryPageComponent } from './gallery/gallery-page.component';
 // import { InvoicePageComponent } from './invoice/invoice-page.component';
 // import { HorizontalTimelinePageComponent } from './timeline/horizontal/horizontal-timeline-page.component';
@@ -16,61 +18,54 @@ const routes: Routes = [
     path: '',
     children: [
       {
+        path: '',
+        component: MeProfileComponent,
+        data: {
+          title: 'Me',
+        },
+      },
+      {
+        path: 'me',
+        component: MeProfileComponent,
+        data: {
+          title: 'Me',
+        },
+      },
+      {
+        path: 'edit',
+        component: EditProfileComponent,
+        data: {
+          title: 'edit profile',
+        },
+      },
+      {
+        path: 'passwordchange',
+        component: PasswordChangeProfileComponent,
+        data: {
+          title: 'password change',
+        },
+      },
+      {
         path: 'edit',
         component: EditProfileComponent,
         data: {
           title: 'Gallery Page',
         },
       },
-    //   {
-    //     path: 'invoice',
-    //     component: InvoicePageComponent,
-    //     data: {
-    //       title: 'Invoice Page',
-    //     },
-    //   },
-    //   {
-    //     path: 'horizontaltimeline',
-    //     component: HorizontalTimelinePageComponent,
-    //     data: {
-    //       title: 'Horizontal Timeline Page',
-    //     },
-    //   },
-    //   {
-    //     path: 'verticaltimeline',
-    //     component: VerticalTimelinePageComponent,
-    //     data: {
-    //       title: 'Vertical Timeline Page',
-    //     },
-    //   },
-    //   {
-    //     path: 'profile',
-    //     component: UserProfilePageComponent,
-    //     data: {
-    //       title: 'User Profile Page',
-    //     },
-    //   },
-    //   {
-    //     path: 'search',
-    //     component: SearchComponent,
-    //     data: {
-    //       title: 'Search',
-    //     },
-    //   },
-    //   {
-    //     path: 'faq',
-    //     component: FaqComponent,
-    //     data: {
-    //       title: 'FAQ',
-    //     },
-    //   },
-    //   {
-    //     path: 'kb',
-    //     component: KnowledgeBaseComponent,
-    //     data: {
-    //       title: 'Knowledge Base',
-    //     },
-    //   },
+      {
+        path: 'edit',
+        component: EditProfileComponent,
+        data: {
+          title: 'Gallery Page',
+        },
+      },
+      {
+        path: 'edit',
+        component: EditProfileComponent,
+        data: {
+          title: 'Gallery Page',
+        },
+      },
     ],
   },
 ];
