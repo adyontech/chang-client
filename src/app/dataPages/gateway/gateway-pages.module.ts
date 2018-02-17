@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { GatewayRoutingModule } from './gateway-routing.module';
-import { ChartistModule} from 'ng-chartist';
+import { ChartistModule } from 'ng-chartist';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,25 +16,17 @@ import { SearchComponent } from './search/search.component';
 import { FaqComponent } from './faq/faq.component';
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
 
-
 @NgModule({
-    imports: [
-        CommonModule,
-        GatewayRoutingModule,
-        FormsModule,
-        ChartistModule,
-        AgmCoreModule,
-        NgbModule
-    ],
-    declarations: [
-        GalleryPageComponent,
-        InvoicePageComponent,
-        HorizontalTimelinePageComponent,
-        VerticalTimelinePageComponent,
-        UserProfilePageComponent,
-        SearchComponent,
-        FaqComponent,
-        KnowledgeBaseComponent
-    ]
+  imports: [CommonModule, GatewayRoutingModule, FormsModule, ChartistModule, AgmCoreModule, NgbModule],
+  declarations: [
+    GalleryPageComponent,
+    InvoicePageComponent,
+    HorizontalTimelinePageComponent,
+    VerticalTimelinePageComponent,
+    UserProfilePageComponent,
+    SearchComponent,
+    FaqComponent,
+    KnowledgeBaseComponent,
+  ],
 })
-export class GatewayPagesModule { }
+export class GatewayPagesModule {}
