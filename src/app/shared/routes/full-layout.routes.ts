@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 // Route for content layout with sidebar, navbar and footer.
 
 export const Full_ROUTES: Routes = [
-  { path: 'settings', loadChildren: './accountSettings/accountSettings.module#AccountSettingsModule' },
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  // { path: 'settings', loadChildren: './accountSettings/accountSettings.module#AccountSettingsModule' },
+  // { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarsModule' },
   { path: 'charts', loadChildren: './charts/charts.module#ChartsNg2Module' },
