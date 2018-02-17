@@ -6,15 +6,7 @@ import { MeProfileComponent } from './me/me.component';
 import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.component';
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
-
-// import { GalleryPageComponent } from './gallery/gallery-page.component';
-// import { InvoicePageComponent } from './invoice/invoice-page.component';
-// import { HorizontalTimelinePageComponent } from './timeline/horizontal/horizontal-timeline-page.component';
-// import { VerticalTimelinePageComponent } from './timeline/vertical/vertical-timeline-page.component';
-// import { UserProfilePageComponent } from './user-profile/user-profile-page.component';
-// import { SearchComponent } from './search/search.component';
-// import { FaqComponent } from './faq/faq.component';
-// import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
+import {UpgradeProfileComponent} from './upgrade/upgrade.component';
 
 const routes: Routes = [
   {
