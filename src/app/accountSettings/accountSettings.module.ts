@@ -8,6 +8,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { EditProfileComponent } from './editProfile/editProfile.component';
+import { MeProfileComponent } from './me/me.component';
 // import { InvoicePageComponent } from './invoice/invoice-page.component';
 // import { HorizontalTimelinePageComponent } from './timeline/horizontal/horizontal-timeline-page.component';
 // import { VerticalTimelinePageComponent } from './timeline/vertical/vertical-timeline-page.component';
@@ -20,6 +21,7 @@ import { EditProfileComponent } from './editProfile/editProfile.component';
   imports: [CommonModule, AccountSettingRoutingModule, FormsModule, ChartistModule, AgmCoreModule, NgbModule],
   declarations: [
     EditProfileComponent,
+    MeProfileComponent,
     // InvoicePageComponent,
     // HorizontalTimelinePageComponent,
     // VerticalTimelinePageComponent,
@@ -28,6 +30,6 @@ import { EditProfileComponent } from './editProfile/editProfile.component';
     // FaqComponent,
     // KnowledgeBaseComponent
   ],
-  providers: []
+  providers: [],
 })
 export class AccountSettingsModule {}
