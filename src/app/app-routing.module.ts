@@ -3,6 +3,7 @@ import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 import { FullLayoutComponent } from './layouts/full/full-layout.component';
 import { ContentLayoutComponent } from './layouts/content/content-layout.component';
+import { SettingsLayoutComponent } from './layouts/settings-layout/settings-layout.component';
 
 import { Full_ROUTES } from './shared/routes/full-layout.routes';
 import { CONTENT_ROUTES } from './shared/routes/content-layout.routes';
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    component: ContentLayoutComponent,
+    component: SettingsLayoutComponent,
     data: { title: 'Setting' },
     children: SETTINGS_ROUTES,
     canActivate: [AuthGuard],

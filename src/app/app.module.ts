@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -14,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { ContentLayoutComponent } from './layouts/content/content-layout.component';
+import { SettingsLayoutComponent } from './layouts/settings-layout/settings-layout.component';
 import { FullLayoutComponent } from './layouts/full/full-layout.component';
 
 import { CustomOption } from './shared/toastr/custom-option';
@@ -23,43 +23,37 @@ import { AuthGuard } from './shared/auth/auth-guard.service';
 
 import * as $ from 'jquery';
 
-
-
 export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-  }
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        FullLayoutComponent,
-        ContentLayoutComponent
-    ],
-    imports: [
-        BrowserAnimationsModule,
-        StoreModule.forRoot({}),
-        AppRoutingModule,
-        SharedModule,
-        HttpClientModule,
-        ToastModule.forRoot(),
-        NgbModule.forRoot(),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-              }
-        }),
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBr5_picK8YJK7fFR2CPzTVMj6GG1TtRGo'
-        })
-    ],
-    providers: [
-        // Toastr and auth providers
-        { provide: ToastOptions, useClass: CustomOption },
-        AuthService,
-        AuthGuard
-    ],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent, SettingsLayoutComponent],
+  imports: [
+    BrowserAnimationsModule,
+    StoreModule.forRoot({}),
+    AppRoutingModule,
+    SharedModule,
+    HttpClientModule,
+    ToastModule.forRoot(),
+    NgbModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBr5_picK8YJK7fFR2CPzTVMj6GG1TtRGo',
+    }),
+  ],
+  providers: [
+    // Toastr and auth providers
+    { provide: ToastOptions, useClass: CustomOption },
+    AuthService,
+    AuthGuard,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
