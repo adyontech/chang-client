@@ -5,6 +5,7 @@ import { EditProfileComponent } from './editProfile/editProfile.component';
 import { MeProfileComponent } from './me/me.component';
 import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.component';
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
+import { ContributorsComponent } from './contributors/contributors.component';
 
 // import { GalleryPageComponent } from './gallery/gallery-page.component';
 // import { InvoicePageComponent } from './invoice/invoice-page.component';
@@ -55,10 +56,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'edit',
-        component: EditProfileComponent,
+        path: 'cntributors',
+        component: ContributorsComponent,
         data: {
-          title: 'Gallery Page',
+          title: 'Contributors Page',
         },
       },
       {

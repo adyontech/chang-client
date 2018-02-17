@@ -11,6 +11,7 @@ import { EditProfileComponent } from './editProfile/editProfile.component';
 import { MeProfileComponent } from './me/me.component';
 import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.component';
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
+import {  ContributorsComponent} from './contributors/contributors.component';
 // import { InvoicePageComponent } from './invoice/invoice-page.component';
 // import { HorizontalTimelinePageComponent } from './timeline/horizontal/horizontal-timeline-page.component';
 // import { VerticalTimelinePageComponent } from './timeline/vertical/vertical-timeline-page.component';
@@ -26,6 +27,7 @@ import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
     MeProfileComponent,
     PasswordChangeProfileComponent,
     MailSubsProfileComponent,
+    ContributorsComponent
     // InvoicePageComponent,
     // HorizontalTimelinePageComponent,
     // VerticalTimelinePageComponent,
