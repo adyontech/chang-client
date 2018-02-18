@@ -17,8 +17,19 @@ import { SignupService } from './signup/service/signup.service';
 import { LoginService } from './login/service/login-page.service';
 import { ActivationService } from './activation/service/activation.service';
 import { PassForgotService } from './forgot-password/service/forgot-password-page.service';
+
+import { RecaptchaModule } from 'ng-recaptcha';
+
 @NgModule({
-  imports: [CommonModule, OuterContentPagesRoutingModule, FormsModule, ReactiveFormsModule, HttpModule, RouterModule],
+  imports: [
+    CommonModule,
+    OuterContentPagesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    RouterModule,
+    RecaptchaModule,
+  ],
   declarations: [
     ActivationComponent,
     ForgotPasswordPageComponent,
