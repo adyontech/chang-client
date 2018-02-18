@@ -35,7 +35,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    component: ContentLayoutComponent,
+    component: SettingsLayoutComponent,
     data: { title: 'Gateway' },
     children: GATEWAY_ROUTES,
     canActivate: [AuthGuard],

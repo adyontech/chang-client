@@ -4,7 +4,7 @@ import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
   {
     path: '',
-    title: 'Dashboard',
+    title: 'Gateway',
     icon: 'ft-home',
     class: 'has-sub',
     badge: '2',
@@ -12,8 +12,8 @@ export const ROUTES: RouteInfo[] = [
     isExternalLink: false,
     submenu: [
       {
-        path: '/dashboard/dashboard1',
-        title: 'Dashboard1',
+        path: '/gateway',
+        title: 'View Company',
         icon: '',
         class: '',
         badge: '',
@@ -22,8 +22,8 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/dashboard/dashboard2',
-        title: 'Dashboard2',
+        path: '/gateway/addcompany',
+        title: 'Add COmpany',
         icon: '',
         class: '',
         badge: '',
