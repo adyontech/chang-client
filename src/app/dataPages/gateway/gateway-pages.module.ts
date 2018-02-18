@@ -12,10 +12,11 @@ import { AddCompanyComponent } from './addCompany/addCompany.component';
 
 import { AddCompanyService } from './addCompany/service/addCompany.service';
 import { ShowCompanyService } from './showCompany/service/showCompany.service';
+import { GatewayService } from './service/gateway.service';
 
 @NgModule({
   imports: [CommonModule, GatewayRoutingModule, FormsModule, ChartistModule, AgmCoreModule, NgbModule],
   declarations: [ShowCompanyComponent, AddCompanyComponent],
-  providers: [AddCompanyService, ShowCompanyService],
+  providers: [AddCompanyService, ShowCompanyService, GatewayService],
 })
 export class GatewayPagesModule {}
