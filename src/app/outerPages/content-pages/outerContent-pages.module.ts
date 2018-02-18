@@ -11,12 +11,14 @@ import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-p
 import { LoginPageComponent } from './login/login-page.component';
 import { RegisterPageComponent } from './register/register-page.component';
 import { SignupComponent } from './signup/signup.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
 import { SignupService } from './signup/service/signup.service';
 import { LoginService } from './login/service/login-page.service';
 import { ActivationService } from './activation/service/activation.service';
 import { PassForgotService } from './forgot-password/service/forgot-password-page.service';
+import { UpdatePasswordService } from './update-password/service/update-password.service';
 
 import { RecaptchaModule } from 'ng-recaptcha';
 
@@ -36,7 +38,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
     LoginPageComponent,
     RegisterPageComponent,
     SignupComponent,
+    UpdatePasswordComponent,
   ],
-  providers: [SignupService, GlobalVaribles, LoginService, ActivationService, PassForgotService],
+  providers: [SignupService, GlobalVaribles, LoginService, ActivationService, PassForgotService, UpdatePasswordService],
 })
 export class OuterContentPagesModule {}

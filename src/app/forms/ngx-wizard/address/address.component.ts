@@ -26,19 +26,21 @@ export class AddressComponent implements OnInit {
   ngOnInit() {
     this.address = this.formDataService.getAddress();
   }
-  //Save button event Starts
+  // Save button event Starts
   save(form: any) {
-    if (!form.valid) return;
+    if (!form.valid) {
+      return;
+    }
 
     this.formDataService.setAddress(this.address);
-    let firstState = this.workflowService.getFirstInvalidStep(STEPS.work);
+    const firstState = this.workflowService.getFirstInvalidStep(STEPS.work);
     this.router.navigate(['result'], { relativeTo: this.route.parent, skipLocationChange: true });
   }
-  //Save button event Ends
+  // Save button event Ends
 
-  //Cancel button event Starts
+  // Cancel button event Starts
   cancel() {
     this.router.navigate(['work'], { relativeTo: this.route.parent, skipLocationChange: true });
   }
-  //Cancel button event Ends
+  // Cancel button event Ends
 }

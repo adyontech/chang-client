@@ -6,6 +6,7 @@ import { LoginPageComponent } from './login/login-page.component';
 import { RegisterPageComponent } from './register/register-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { ActivationComponent } from './activation/activation.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 
 const routes: Routes = [
   {
@@ -15,43 +16,50 @@ const routes: Routes = [
         path: 'forgotpassword',
         component: ForgotPasswordPageComponent,
         data: {
-          title: 'Forgot Password Page'
-        }
+          title: 'Forgot Password Page',
+        },
+      },
+      {
+        path: 'updatepassword',
+        component: UpdatePasswordComponent,
+        data: {
+          title: 'update Password Page',
+        },
       },
       {
         path: 'login',
         component: LoginPageComponent,
         data: {
-          title: 'Login Page'
-        }
+          title: 'Login Page',
+        },
       },
       {
         path: 'register',
         component: RegisterPageComponent,
         data: {
-          title: 'Register Page'
-        }
+          title: 'Register Page',
+        },
       },
       {
         path: 'signup',
         component: SignupComponent,
         data: {
-          title: 'Signup Page'
-        }
+          title: 'Signup Page',
+        },
       },
       {
         path: 'activation/:id',
         component: ActivationComponent,
         data: {
-          title: 'activation Page'
-        }
-      }
-    ]
-  }
+          title: 'activation Page',
+        },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class OuterContentPagesRoutingModule { }
+export class OuterContentPagesRoutingModule {}
