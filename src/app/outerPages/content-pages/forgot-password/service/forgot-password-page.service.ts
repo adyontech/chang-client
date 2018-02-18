@@ -12,7 +12,7 @@ import 'rxjs/'
 export class PassForgotService {
   result: any;
   loggedIn: Boolean;
-  _URL = `${this._globalVariableService.baseServerUrl}/auth/login`;
+  _URL = `${this._globalVariableService.baseServerUrl}/auth/forgotPassword`;
 
 
 
@@ -23,28 +23,14 @@ export class PassForgotService {
 
 
   validateUser(user: any) {
-    return this.http.post(this._URL, user)
+    return this.http.patch(this._URL, user)
       .map((res: Response) => {
         this.result = res.json();
         console.log(this.result);
         if (this.result.success) {
-          this.setGlobal(this.result);
-          console.log(this._userStateService);
         }
         return user;
       });
-  }
-
-  setGlobal(data) {
-    this._userStateService.dummySetter();
-    this._userStateService.setUserData(data.user, data.token);
-  }
-
-
-
-  logOut() {
-    // remove user from local storage to log user out
-    window.localStorage.removeItem('user');
   }
 }
 

@@ -30,7 +30,7 @@ export class LoginPageComponent implements OnInit {
     this._loginService.logOut();
     this.fillForm();
 
-    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
+    // this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
   }
 
   fillForm() {
