@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { RecaptchaModule } from 'ng-recaptcha';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -33,6 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
     AppRoutingModule,
+    RecaptchaModule.forRoot(),
     SharedModule,
     HttpClientModule,
     ToastModule.forRoot(),

@@ -3,7 +3,7 @@ import { RouteInfo } from './settingSidebar.metadata';
 // Sidebar menu Routes and data
 export const ROUTES: RouteInfo[] = [
   {
-    path: '/inbox',
+    path: '/settings/me',
     title: 'Me',
     icon: 'ft-mail',
     class: '',
@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: '',
+    path: '/settings/edit',
     title: 'Profile Edit',
     icon: 'ft-home',
     class: '',
@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: '/inbox',
+    path: '/settings/passwordchange',
     title: 'Password',
     icon: 'ft-mail',
     class: '',
@@ -33,7 +33,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: '/chat',
+    path: '/settings/managemail',
     title: 'Manage emails',
     icon: 'ft-message-square',
     class: '',
@@ -43,7 +43,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: '/chat-ngrx',
+    path: '/settings/contributors',
     title: 'Contributers',
     icon: 'ft-message-square',
     class: '',

@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
-    selector: 'multi-step-wizard-app',
-    templateUrl: './ngx-wizard.component.html',
-    styleUrls: ['./ngx-wizard.component.scss']
+  selector: 'multi-step-wizard-app',
+  templateUrl: './ngx-wizard.component.html',
+  styleUrls: ['./ngx-wizard.component.scss'],
 })
-
 export class NGXFormWizardComponent implements OnInit {
-    constructor(private router: Router,
-        private route: ActivatedRoute) {
-    }
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.router.navigate(['/forms/ngx/wizard'], { skipLocationChange: true });
-    }
-
+  ngOnInit() {
+    this.router.navigate(['/forms/ngx/wizard'], { skipLocationChange: true });
+  }
 }

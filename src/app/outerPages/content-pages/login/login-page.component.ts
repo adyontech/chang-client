@@ -5,7 +5,6 @@ import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angul
 import { Routes, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { any } from 'codelyzer/util/function';
-
 import { emailValidator, passwordValidator } from '../signup/signup.validators';
 
 @Component({
@@ -31,7 +30,7 @@ export class LoginPageComponent implements OnInit {
     this._loginService.logOut();
     this.fillForm();
 
-    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
+    // this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
   }
 
   fillForm() {
@@ -53,6 +52,9 @@ export class LoginPageComponent implements OnInit {
         this.loading = false;
       });
   }
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
+}
   // On Forgot password link click
   onForgotPassword() {
     this.router.navigate(['forgotpassword'], { relativeTo: this.route.parent });

@@ -5,6 +5,7 @@ import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angul
 import { Routes, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { any } from 'codelyzer/util/function';
+import { emailValidator, passwordValidator } from '../signup/signup.validators';
 
 @Component({
   selector: 'app-forgot-password-page',
@@ -27,23 +28,23 @@ export class ForgotPasswordPageComponent implements OnInit {
     this.fillForm();
     // this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
   }
+
+  fillForm() {
+    this.form = this.fb.group({
+      email: [''],
+    });
+  }
   // On submit click, reset form fields
   onSubmit(user) {
     this._passForgotService.validateUser(user).subscribe(
       res => {
         if (res.success === true) {
-          this.router.navigate([this.returnURL]);
+          this.router.navigate(['/login']);
         }
       },
       error => {
         this.loading = false;
       }
     );
-  }
-
-  fillForm() {
-    this.form = this.fb.group({
-      email: [''],
-    });
   }
 }

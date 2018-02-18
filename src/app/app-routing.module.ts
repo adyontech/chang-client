@@ -8,6 +8,7 @@ import { SettingsLayoutComponent } from './layouts/settings-layout/settings-layo
 import { Full_ROUTES } from './shared/routes/full-layout.routes';
 import { CONTENT_ROUTES } from './shared/routes/content-layout.routes';
 import { OUTER_CONTENT_ROUTES } from './shared/routes/outerContent-layout.routes';
+import { GATEWAY_ROUTES } from './shared/routes/gateway-layout.routes';
 import { SETTINGS_ROUTES } from './shared/routes/setting.route';
 
 import { AuthGuard } from './shared/auth/auth-guard.service';
@@ -30,6 +31,13 @@ const appRoutes: Routes = [
     component: ContentLayoutComponent,
     data: { title: 'content Views' },
     children: CONTENT_ROUTES,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    data: { title: 'Gateway' },
+    children: GATEWAY_ROUTES,
     canActivate: [AuthGuard],
   },
   {
