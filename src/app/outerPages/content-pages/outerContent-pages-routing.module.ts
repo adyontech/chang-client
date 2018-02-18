@@ -20,7 +20,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'updatepassword',
+        path: 'updatepassword/:id',
         component: UpdatePasswordComponent,
         data: {
           title: 'update Password Page',

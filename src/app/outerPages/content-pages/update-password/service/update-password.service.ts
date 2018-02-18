@@ -16,7 +16,8 @@ export class UpdatePasswordService {
         ) {
     }
 
-    createNewUser(user: any): Observable<any> {
+    createNewUser(user: any, token: string): Observable<any> {
+        this._URL = `${this._globalVariables.baseServerUrl}/auth/updatepassword?token=${token}`;
         // let headers = new Headers({ 'Content-Type': 'application/json' });
         // let options = new RequestOptions({ headers: headers });
         return this.http.patch(this._URL, user)
