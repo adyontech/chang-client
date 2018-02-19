@@ -64,6 +64,8 @@ export class AddCompanyComponent implements OnInit {
     console.log(user);
     user.pan = user.pan.toUpperCase();
     user.gstin = user.gstin.toUpperCase();
+    user.startDate = new Date(user.startDate.year, user.startDate.month, user.startDate.day);
+    user.endDate = new Date(user.endDate.year, user.endDate.month, user.endDate.day);
     user.logo = this.imageFile;
     user.logo = 'https://lorempixel.com/400/200/';
 
