@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
@@ -11,13 +11,18 @@ export class GatewayService {
   windowStorage: any;
   _url: string;
 
-  constructor(
-    private http: Http,
-    public _globalVariableService: GlobalVaribles
-  ) {
-    this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
-    this.token = this.windowStorage.token;
-    console.log(this.windowStorage);
+  constructor(private http: HttpClient, public _globalVariableService: GlobalVaribles) {
+    this.setToken();
+  }
+
+  setToken() {
+    const windowStorage = JSON.parse(window.localStorage.getItem('user'));
+    if (windowStorage === null) {
+      // redirecction code;
+    } else {
+      this.token = windowStorage.token;
+      console.log(this.windowStorage);
+    }
   }
   createNewCompany(user: any) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/gateway?token=${this.token}`;
