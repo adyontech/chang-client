@@ -17,6 +17,7 @@ export class ContributorsComponent implements OnInit {
   public dataCopy: any;
   userList = [];
   collabAddWriteModel: any;
+  collabAddReadModel: any;
 
   constructor(
     public _contributorService: ContributorService,
@@ -45,6 +46,14 @@ export class ContributorsComponent implements OnInit {
       return;
     } else {
       this._contributorService.collabAddWrite(this.collabAddWriteModel)
+      .subscribe(res => console.log(res.json()))
+    }
+  }
+  collabAddRead() {
+    if (this.collabAddReadModel === undefined) {
+      return;
+    } else {
+      this._contributorService.collabAddRead(this.collabAddReadModel)
       .subscribe(res => console.log(res.json()))
     }
   }

@@ -34,11 +34,14 @@ export class ContributorService {
     console.log(user);
     this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddWrite?token=${this.token}`;
     console.log(this._url);
-    // this.http.patch(this._url, user);
-    // return this.http.post(this._url, user).map((res: Response) => {
-    //   console.log('this.result');
-    //   this.result = res.json();
-    // });
     return this.http.patch(this._url, user);
   }
+
+  collabAddRead(user) {
+    console.log(user);
+    this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddRead?token=${this.token}`;
+    console.log(this._url);
+    return this.http.patch(this._url, user);
+  }
+
 }

@@ -60,4 +60,24 @@
         <button  href="javascript:void(0)" (click)="collabAddWrite()" class="btn btn-raised btn-primary col-md-1">Add</button>
       </div>
     </div>
+
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+      <h6 class="border-bottom border-gray pb-2 mb-0">Read access.</h6>
+      <div class="media text-muted pt-3">
+        <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
+        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+          <strong class="d-block text-gray-dark">Search by Email address</strong>
+          You'll only be able to find a user by their email address if they are already on platform. Otherwise, please invite them
+          on platform.
+        </p>
+
+      </div>
+      <div class="row mt-3">
+        <ng-select class="col-md-6" [items]="userList" bindLabel="name" [(ngModel)]="collabAddReadModel">
+        </ng-select>
+        <button  href="javascript:void(0)" (click)="collabAddWrite()" class="btn btn-raised btn-primary col-md-1">Add</button>
+      </div>
+    </div>
+
+
   </main>
