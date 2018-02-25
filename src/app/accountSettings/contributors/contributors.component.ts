@@ -14,6 +14,9 @@ export class ContributorsComponent implements OnInit {
   form: FormGroup;
   loading = false;
   returnURL: string;
+  public dataCopy: any;
+  userList = [];
+  collabAddWriteModel: any;
 
   constructor(
     public _contributorService: ContributorService,
@@ -23,30 +26,36 @@ export class ContributorsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._contributorService.getUsers();
+    this.getUsers();
     // this.fillForm();
 
     this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway';
   }
 
-  //   fillForm() {
-  //     this.form = this.fb.group({
-  //       password: ['', passwordValidator],
-  //       email: ['', emailValidator],
-  //     });
-  //   }
-
-  // On submit button click
-  onSubmit(user) {
-    // this._loginService.validateUser(user).subscribe(
-    //   res => {
-    //     if (res.success === true) {
-    //       this.router.navigate([this.returnURL]);
-    //     }
-    //   },
-    //   error => {
-    //     this.loading = false;
-    //   }
-    // );
+  getUsers() {
+    this.dataCopy = this._contributorService.getUsers().subscribe((data) => {
+      data.json().user.map(el => {
+        this.userList.push({ id: el.username, name: el.email });
+        this.userList = [...this.userList];
+      });
+    });
   }
+  collabAddWrite() {
+    if (this.collabAddWriteModel === undefined) {
+      return;
+    } else {
+      this._contributorService.collabAddWrite(this.collabAddWriteModel)
+      .subscribe(res => console.log(res.json()))
+    }
+  }
+}
+
+interface IUser {
+  username: string;
+  email: string;
+}
+
+interface IData {
+  success: boolean;
+  user: IUser[];
 }

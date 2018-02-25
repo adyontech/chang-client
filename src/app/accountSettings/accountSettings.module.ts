@@ -18,6 +18,9 @@ import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 
 import { ContributorService } from './contributors/service/contributors.service';
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
+
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +32,7 @@ import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
     ChartistModule,
     AgmCoreModule,
     NgbModule,
+    NgSelectModule
   ],
   declarations: [
     EditProfileComponent,
