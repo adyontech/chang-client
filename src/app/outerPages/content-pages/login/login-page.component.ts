@@ -27,7 +27,7 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._loginService.logOut();
+    // this._loginService.logOut();
     this._loginService.checkToken();
     this.fillForm();
 

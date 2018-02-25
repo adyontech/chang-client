@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-// import { UserStateService } from './../../../sharedService/userDetails/user-state.service';
 import { AuthService } from './../../../../shared/auth/auth.service';
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
