@@ -48,7 +48,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'cntributors',
+        path: 'contributors',
         component: ContributorsComponent,
         data: {
           title: 'Contributors Page',

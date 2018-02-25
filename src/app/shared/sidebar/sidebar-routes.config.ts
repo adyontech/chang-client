@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
       },
       {
         path: '/gateway/addcompany',
-        title: 'Add COmpany',
+        title: 'Add Company',
         icon: '',
         class: '',
         badge: '',
