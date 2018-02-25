@@ -2,45 +2,50 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 // import { UserStateService } from './../../../sharedService/userDetails/user-state.service';
 import { AuthService } from './../../../../shared/auth/auth.service';
-
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/'
+import 'rxjs/';
 @Injectable()
-
 export class LoginService {
   result: any;
   loggedIn: Boolean;
+  token: string;
   _URL = `${this._globalVariableService.baseServerUrl}/auth/login`;
 
-
-
-  constructor(private http: Http,
+  constructor(
+    private http: Http,
     private _userStateService: AuthService,
-    public _globalVariableService: GlobalVaribles) {
+    public _globalVariableService: GlobalVaribles,
+    private router: Router
+  ) {}
+
+  checkToken() {
+    const windowStorages = JSON.parse(window.localStorage.getItem('user'));
+    if (windowStorages != null || windowStorages !== undefined) {
+      // redirection code;
+      this.router.navigate(['/gateway']);
+    }
   }
 
-
   validateUser(user: any) {
-    return this.http.post(this._URL, user)
-      .map((res: Response) => {
-        this.result = res.json();
-        console.log(this.result);
-        if (this.result.success) {
-          this.setGlobal(this.result);
-          console.log(this._userStateService);
-        }
-        return user;
-      });
+    return this.http.post(this._URL, user).map((res: Response) => {
+      this.result = res.json();
+      console.log(this.result);
+      if (this.result.success) {
+        this.setGlobal(this.result);
+        console.log(this._userStateService);
+      }
+      return user;
+    });
   }
 
   setGlobal(data) {
     this._userStateService.dummySetter();
     this._userStateService.setUserData(data.user, data.token);
   }
-
-
 
   logOut() {
     // remove user from local storage to log user out
@@ -49,6 +54,6 @@ export class LoginService {
 }
 
 interface LoginUser {
-  email: String,
-  password: String
+  email: String;
+  password: String;
 }

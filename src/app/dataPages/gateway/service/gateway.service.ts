@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/';
@@ -11,17 +13,25 @@ export class GatewayService {
   windowStorage: any;
   _url: string;
 
-  constructor(private http: HttpClient, public _globalVariableService: GlobalVaribles) {
+  constructor(
+    private http: HttpClient,
+    public _globalVariableService: GlobalVaribles,
+    public _activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.setToken();
   }
 
   setToken() {
-    const windowStorage = JSON.parse(window.localStorage.getItem('user'));
-    if (windowStorage === null) {
-      // redirecction code;
+    const windowStorages = JSON.parse(window.localStorage.getItem('user'));
+    if (windowStorages === null || windowStorages === undefined) {
+      // redirection code;
+      this.router.navigate(['/app/login']);
     } else {
-      this.token = windowStorage.token;
-      console.log(this.windowStorage);
+      // console.log(windowStorages)
+      this.token = windowStorages;
+      console.log(this.token)
     }
   }
   createNewCompany(user: any) {

@@ -28,9 +28,10 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     this._loginService.logOut();
+    this._loginService.checkToken();
     this.fillForm();
 
-    // this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
+    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway';
   }
 
   fillForm() {

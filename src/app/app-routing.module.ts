@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     component: ContentLayoutComponent,
     data: { title: 'App Views' },
     children: OUTER_CONTENT_ROUTES,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: '',
