@@ -18,7 +18,9 @@ export class AddCompanyComponent implements OnInit {
   imageFile: string;
   image_view: Boolean = false;
 
-  constructor(public _gatewayService: GatewayService, public fb: FormBuilder, private router: Router) {}
+  constructor(public _gatewayService: GatewayService, public fb: FormBuilder, private router: Router) {
+    console.log()
+  }
 
   ngOnInit() {
     this.form = this.fb.group({

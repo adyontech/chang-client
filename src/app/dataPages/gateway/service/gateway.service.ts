@@ -24,14 +24,17 @@ export class GatewayService {
   }
 
   setToken() {
-    const windowStorages = JSON.parse(window.localStorage.getItem('user'));
-    if (windowStorages === null || windowStorages === undefined) {
+    this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
+    console.log(this.windowStorage);
+    if (this.windowStorage === null || this.windowStorage === undefined) {
+      console.log('hello')
       // redirection code;
       this.router.navigate(['/app/login']);
     } else {
-      // console.log(windowStorages)
-      this.token = windowStorages;
-      console.log(this.token)
+      console.log('hello2')
+      console.log(this.windowStorage);
+      this.token = this.windowStorage;
+      console.log(this.token);
     }
   }
   createNewCompany(user: any) {

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 import { AccountSettingRoutingModule } from './accountSettings-routing.module';
 import { ChartistModule } from 'ng-chartist';
@@ -11,19 +13,31 @@ import { EditProfileComponent } from './editProfile/editProfile.component';
 import { MeProfileComponent } from './me/me.component';
 import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.component';
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
-import {  ContributorsComponent} from './contributors/contributors.component';
-import {UpgradeProfileComponent} from './upgrade/upgrade.component';
+import { ContributorsComponent } from './contributors/contributors.component';
+import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 
+import { ContributorService } from './contributors/service/contributors.service';
+import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
 @NgModule({
-  imports: [CommonModule, AccountSettingRoutingModule, FormsModule, ChartistModule, AgmCoreModule, NgbModule],
+  imports: [
+    CommonModule,
+    HttpModule,
+    RouterModule,
+    AccountSettingRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ChartistModule,
+    AgmCoreModule,
+    NgbModule,
+  ],
   declarations: [
     EditProfileComponent,
     MeProfileComponent,
     PasswordChangeProfileComponent,
     MailSubsProfileComponent,
     ContributorsComponent,
-    UpgradeProfileComponent
+    UpgradeProfileComponent,
   ],
-  providers: [],
+  providers: [ContributorService, GlobalVaribles],
 })
 export class AccountSettingsModule {}

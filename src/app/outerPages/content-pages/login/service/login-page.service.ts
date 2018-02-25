@@ -24,8 +24,9 @@ export class LoginService {
 
   checkToken() {
     const windowStorages = JSON.parse(window.localStorage.getItem('user'));
-    if (windowStorages != null || windowStorages !== undefined) {
+    if (windowStorages === null || windowStorages === undefined) {
       // redirection code;
+    } else {
       this.router.navigate(['/gateway']);
     }
   }
@@ -37,6 +38,7 @@ export class LoginService {
       if (this.result.success) {
         this.setGlobal(this.result);
         console.log(this._userStateService);
+        this.router.navigate(['/gateway']);
       }
       return user;
     });

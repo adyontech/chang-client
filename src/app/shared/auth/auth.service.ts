@@ -34,10 +34,15 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    if (this.accessAllowed) {
-      return false;
+    if (window.localStorage.length !== 0) {
+      const windowStorages = JSON.parse(window.localStorage.getItem('user'));
+      if (windowStorages.token) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return true;
+      return false
     }
   }
 
