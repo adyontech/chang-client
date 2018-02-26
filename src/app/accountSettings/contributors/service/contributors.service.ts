@@ -30,6 +30,11 @@ export class ContributorService {
     return this.http.get(this._url);
   }
 
+  getCollabList() {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/collabList?token=${this.token}`;
+    return this.http.get(this._url);
+  }
+
   collabAddWrite(user) {
     console.log(user);
     this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddWrite?token=${this.token}`;
@@ -43,5 +48,4 @@ export class ContributorService {
     console.log(this._url);
     return this.http.patch(this._url, user);
   }
-
 }
