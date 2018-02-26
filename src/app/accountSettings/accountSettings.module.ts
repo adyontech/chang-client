@@ -17,6 +17,7 @@ import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 
 import { ContributorService } from './contributors/service/contributors.service';
+import { PasswordChangeService } from './passwordChange/service/passwordChange.service';
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -32,7 +33,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ChartistModule,
     AgmCoreModule,
     NgbModule,
-    NgSelectModule
+    NgSelectModule,
   ],
   declarations: [
     EditProfileComponent,
@@ -42,6 +43,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ContributorsComponent,
     UpgradeProfileComponent,
   ],
-  providers: [ContributorService, GlobalVaribles],
+  providers: [ContributorService, GlobalVaribles, PasswordChangeService],
 })
 export class AccountSettingsModule {}
