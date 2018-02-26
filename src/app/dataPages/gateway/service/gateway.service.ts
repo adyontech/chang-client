@@ -25,16 +25,11 @@ export class GatewayService {
 
   setToken() {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
-    console.log(this.windowStorage);
     if (this.windowStorage === null || this.windowStorage === undefined) {
-      console.log('hello')
-      // redirection code;
       this.router.navigate(['/app/login']);
     } else {
-      console.log('hello2')
-      console.log(this.windowStorage);
-      this.token = this.windowStorage;
-      console.log(this.token);
+      this.token = this.windowStorage.token;
+      // console.log(this.token);
     }
   }
   createNewCompany(user: any) {

@@ -30,7 +30,8 @@ export class PasswordChangeProfileComponent implements OnInit {
     console.log(user);
     if (user.password1 === user.password2) {
     //   console.log('calling api');
-      this._passwordChangeService.changePassword(user).subscribe(data => {});
+      this._passwordChangeService.changePassword(user)
+      .subscribe(res => console.log(res.json()));
     }
   }
 }
