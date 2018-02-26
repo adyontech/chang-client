@@ -6,16 +6,15 @@ import { TaskboardComponent } from './taskboard.component';
 const routes: Routes = [
   {
     path: '',
-     component: TaskboardComponent,
+    component: TaskboardComponent,
     data: {
-      title: 'Taskboard'
+      title: 'Taskboard',
     },
-    
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TaskboardRoutingModule { }
+export class TaskboardRoutingModule {}

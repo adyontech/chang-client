@@ -8,7 +8,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "dev-deploy": "ng build && firebase deploy",
+    "e2e": "ng e2e",
+    "server": "serve dist/"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +26,7 @@
     "@angular/platform-server": "^5.2.1",
     "@angular/router": "^5.2.1",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.9",
+    "@ng-select/ng-select": "^0.21.0",
     "@ngrx/store": "^4.1.1",
     "@ngx-translate/core": "^9.0.2",
     "@ngx-translate/http-loader": "^2.0.1",
@@ -82,6 +85,7 @@
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "^5.2.2",
+    "serve": "^6.4.11",
     "ts-node": "^4.1.0",
     "tslint": "^5.7.0",
     "typescript": "^2.6.2"

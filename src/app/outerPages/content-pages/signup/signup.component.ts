@@ -22,7 +22,10 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit() {
+    // this._signupService.logOut();
+    this._signupService.checkToken();
     this.fillForm();
+
     this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/app/login';
   }
 

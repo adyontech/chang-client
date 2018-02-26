@@ -27,10 +27,11 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._loginService.logOut();
+    // this._loginService.logOut();
+    this._loginService.checkToken();
     this.fillForm();
 
-    // this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway/addcompany';
+    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway';
   }
 
   fillForm() {
@@ -42,19 +43,16 @@ export class LoginPageComponent implements OnInit {
 
   // On submit button click
   onSubmit(user) {
-    this._loginService.validateUser(user).subscribe(res => {
-
-        if (res.success === true) {
-          this.router.navigate([this.returnURL]);
-        }
-      },
+    this._loginService.validateUser(user).subscribe(
+      res => {},
       error => {
         this.loading = false;
-      });
+      }
+    );
   }
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response ${captchaResponse}:`);
-}
+  }
   // On Forgot password link click
   onForgotPassword() {
     this.router.navigate(['forgotpassword'], { relativeTo: this.route.parent });

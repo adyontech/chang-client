@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
-
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
@@ -9,14 +7,14 @@ import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
-export class PasswordChangeService {
+export class GatewayService {
   result: {};
   token: string;
   windowStorage: any;
   _url: string;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     public _globalVariableService: GlobalVaribles,
     public _activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
@@ -31,15 +29,23 @@ export class PasswordChangeService {
       this.router.navigate(['/app/login']);
     } else {
       this.token = this.windowStorage.token;
+      // console.log(this.token);
     }
   }
+  createNewCompany(user: any) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gateway?token=${this.token}`;
+    return this.http.post(this._url, user).map((res: Response) => {
+      this.result = res.json();
+      console.log(this.result);
+    });
+  }
 
-  changePassword(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/changePassword?token=${this.token}`;
-    return this.http.patch(this._url, user);
-    // return  this.http.post(this._url, user).map((res: Response) => {
-    // this.result = res.json();
-    // console.log(this.result);
-    // });
+  getCompanyList() {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewaylist?token=${this.token}`;
+    return this.http.get(this._url);
+  }
+
+  removeCompany(id) {
+    return this.http.delete(this._url + '/' + id).map((res: Response) => res.json());
   }
 }

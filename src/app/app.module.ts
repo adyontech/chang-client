@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RecaptchaModule } from 'ng-recaptcha';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,7 @@ export function createTranslateLoader(http: HttpClient) {
     RecaptchaModule.forRoot(),
     SharedModule,
     HttpClientModule,
+    NgSelectModule,
     ToastModule.forRoot(),
     NgbModule.forRoot(),
     TranslateModule.forRoot({

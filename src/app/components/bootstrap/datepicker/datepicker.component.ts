@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 const now = new Date();
 const I18N_VALUES = {
@@ -9,17 +9,23 @@ const I18N_VALUES = {
   },
 };
 
-// Range datepicker Start 
+// Range datepicker Start
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
 
 const before = (one: NgbDateStruct, two: NgbDateStruct) =>
-  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-    ? false : one.day < two.day : one.month < two.month : one.year < two.year;
+  !one || !two
+    ? false
+    : one.year === two.year
+      ? one.month === two.month ? (one.day === two.day ? false : one.day < two.day) : one.month < two.month
+      : one.year < two.year;
 
 const after = (one: NgbDateStruct, two: NgbDateStruct) =>
-  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-    ? false : one.day > two.day : one.month > two.month : one.year > two.year;
+  !one || !two
+    ? false
+    : one.year === two.year
+      ? one.month === two.month ? (one.day === two.day ? false : one.day > two.day) : one.month > two.month
+      : one.year > two.year;
 // Range datepicker Ends
 
 @Component({
@@ -34,16 +40,15 @@ export class DatepickerComponent implements OnInit {
   d3: any;
   model: NgbDateStruct;
   popupModel;
-  date: {year: number, month: number};
+  date: { year: number; month: number };
   displayMonths = 2;
   navigation = 'select';
-  disabledModel: NgbDateStruct = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+  disabledModel: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
   disabled = true;
   customModel: NgbDateStruct;
 
-  configModal;    // Global configuration of datepickers
-  
-  
+  configModal; // Global configuration of datepickers
+
   // Range datepicker start
   hoveredDate: NgbDateStruct;
 
@@ -62,16 +67,16 @@ export class DatepickerComponent implements OnInit {
     }
   }
 
-  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+  isHovered = date =>
+    this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
   isInside = date => after(date, this.fromDate) && before(date, this.toDate);
   isFrom = date => equals(date, this.fromDate);
   isTo = date => equals(date, this.toDate);
   // Range datepicker ends
 
-
   // Selects today's date
   selectToday() {
-    this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+    this.model = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
   }
 
   // Custom Day View Starts
@@ -80,10 +85,10 @@ export class DatepickerComponent implements OnInit {
     return d.getDay() === 0 || d.getDay() === 6;
   }
 
-  isDisabled(date: NgbDateStruct, current: {month: number}) {
+  isDisabled(date: NgbDateStruct, current: { month: number }) {
     return date.month !== current.month;
   }
-  // Custom Day View Ends  
+  // Custom Day View Ends
 
   ngOnInit() {
     this.selectToday();
