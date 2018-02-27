@@ -19,6 +19,8 @@ import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 import { ContributorService } from './contributors/service/contributors.service';
 import { PasswordChangeService } from './passwordChange/service/passwordChange.service';
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
+import { EditProfileService } from './editProfile/service/editProfile.service';
+// import { States } from './../shared/forms/States';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -43,6 +45,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ContributorsComponent,
     UpgradeProfileComponent,
   ],
-  providers: [ContributorService, GlobalVaribles, PasswordChangeService],
+  providers: [ContributorService, GlobalVaribles, PasswordChangeService, EditProfileService],
 })
 export class AccountSettingsModule {}

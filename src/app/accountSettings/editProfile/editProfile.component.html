@@ -1,1 +1,161 @@
-<p>edit page</p>
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title" id="horz-layout-colored-controls">User Profile</h4>
+        </div>
+        <div class="card-body">
+          <div class="px-3">
+            <form class="form form-horizontal" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+              <div class="form-body">
+                <h4 class="form-section">
+                  <i class="ft-info"></i> About User</h4>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput1">First Name: </label>
+                      <div class="col-md-9">
+                        <!-- pattern="^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$" -->
+                        <input type="text" class="form-control" placeholder="Full name" formControlName="name" />
+                        <small class="form-text text-muted danger" *ngIf="!form.get('name').valid && (form.get('name').dirty || form.get('name').touched)">Please enter a valid Name!</small>
+                        <small class="text-muted">eg.
+                          <i>Aditya Sharma</i>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput1">Phone number: </label>
+                      <div class="col-md-9">
+                        <!-- pattern="^[6789]\d{9}$" -->
+                        <input type="text" class="form-control" placeholder="Full name" formControlName="phoneNo" />
+                        <small class="form-text text-muted danger" *ngIf="!form.get('phoneNo').valid && (form.get('phoneNo').dirty || form.get('phoneNo').touched)">Please enter a valid phoneNo!</small>
+                        <small class="text-muted">eg.
+                          <i>9551302290</i>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <fieldset class="form-group">
+                      <div class="row">
+                        <label class="col-md-3 label-control" for="userinput1">Date of birth: </label>
+                        <div class=" col-md-6">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <!-- required -->
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="dob">
+                              <small class="form-text text-muted danger" *ngIf="!form.get('dob').valid && (form.get('dob').dirty || form.get('dob').touched)">Please enter a valid phoneNo!</small>
+
+                              <div class="input-group-append">
+                                <div class="input-group-text" (click)="ds.toggle()">
+                                  <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput1">Gravator: </label>
+                      <div class="col-md-9">
+                        <ng-select [items]="gravatorArray" bindLabel="name" bindValue="name" placeholder="Gravator" formControlName="gravator">
+                          <ng-template ng-header-tmp>
+                            Select your gravator
+                          </ng-template>
+                          <ng-template ng-label-tmp let-item="item">
+                            <img height="15" width="15" [src]="item.avatar" />
+                            <b>{{item.name}}</b>
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-index="index">
+                            <img height="15" width="15" [src]="item.avatar" />
+                            <b>{{item.name}}</b>
+                          </ng-template>
+                          <!-- <ng-template ng-footer-tmp>
+                            Custom footer
+                          </ng-template> -->
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput6">signature pic: </label>
+                      <div class="col-md-9">
+                        <input class="form-control border-primary" type="url" id="userinput6">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h4 class="form-section">
+                  <i class="ft-mail"></i> Contact Info</h4>
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput5">Country: </label>
+                      <div class="col-md-9">
+                        <ng-select [items]="countryArray" bindValue="value" placeholder="Select country" formControlName="country">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput5">State: </label>
+                      <div class="col-md-9">
+                        <ng-select [items]="countryArray" bindValue="value" placeholder="Select country" formControlName="state">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput1">Address: </label>
+                      <div class="col-md-9">
+                        <!-- pattern="^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$" -->
+                        <input type="text" class="form-control" placeholder="Address" formControlName="address" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput6">City: </label>
+                      <div class="col-md-9">
+                        <input class="form-control border-primary" type="url" id="userinput6" formControlName="state">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-actions right">
+                  <!-- <button type="button" class="btn btn-raised btn-warning mr-1">
+                  <i class="ft-x"></i> Cancel
+                </button> -->
+                  <button type="submit" class="btn btn-raised btn-primary">
+                    <i class="fa fa-check-square-o"></i> Save
+                  </button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
