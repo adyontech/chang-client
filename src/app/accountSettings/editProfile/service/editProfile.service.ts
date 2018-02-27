@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ export class EditProfileService {
   _url: string;
 
   constructor(
-    private http: HttpClient,
+    private http: Http,
     public _globalVariableService: GlobalVaribles,
     public _activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
@@ -33,8 +33,8 @@ export class EditProfileService {
     }
   }
   updateProfile(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/gateway?token=${this.token}`;
-    return this.http.post(this._url, user).map((res: Response) => {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/profileUpdate?token=${this.token}`;
+    return this.http.patch(this._url, user).map((res: Response) => {
       this.result = res.json();
       console.log(this.result);
     });
@@ -45,7 +45,7 @@ export class EditProfileService {
     return this.http.get(this._url);
   }
 
-//   removeCompany(id) {
-//     return this.http.delete(this._url + '/' + id).map((res: Response) => res.json());
-//   }
+  //   removeCompany(id) {
+  //     return this.http.delete(this._url + '/' + id).map((res: Response) => res.json());
+  //   }
 }
