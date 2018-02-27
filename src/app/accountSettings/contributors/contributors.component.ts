@@ -16,11 +16,14 @@ export class ContributorsComponent implements OnInit {
   returnURL: string;
   public dataCopy: any;
   userList = [];
+  userInfo: any;
   collabAddWriteModel: any;
   writeCollabIdLength: number;
   collabAddReadModel: any;
   readCollabIdLength: number;
-  existingHelper = [];
+  // existingHelper = [];
+  writeCollabId: any;
+  readCollabId: any;
 
   constructor(
     public _contributorService: ContributorService,
@@ -48,11 +51,13 @@ export class ContributorsComponent implements OnInit {
 
   getCollabList() {
     this.dataCopy = this._contributorService.getCollabList().subscribe(data => {
-      const datavalue = data.json();
-      this.existingHelper = this.existingHelper.concat(datavalue.user.writeCollabId, datavalue.user.readCollabId);
-      this.writeCollabIdLength = datavalue.user.writeCollabId.length;
-      this.readCollabIdLength = datavalue.user.readCollabId.length;
-      console.log(this.existingHelper);
+      this.userInfo = data.json();
+      console.log(this.userInfo);
+      this.writeCollabId = this.userInfo.user.writeCollabId;
+      this.readCollabId =  this.userInfo.user.readCollabId;
+
+      this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
+      this.readCollabIdLength = this.userInfo.user.readCollabId.length;
     });
   }
 

@@ -9,15 +9,14 @@
       </div>
     </div>
     <div class="row">
-
-      <div class="col-md-12 col-lg-12">
+      <div class="col-md-12 col-lg-12" [hidden]="(writeCollabIdLength > 0 || readCollabIdLength > 0) === true? null: true">
         <div class='parent'>
           <div class='dragdrop-wrapper'>
             <h4 class="ml-2 mt-2 text-bold-500">
               <i class="ft-list mr-1"></i>Existing Helpers</h4>
             <div class="row">
 
-              <div *ngFor='let todo of existingHelper'>
+              <div *ngFor='let todo of writeCollabId'>
                 <div class="col-md-12 col-12">
                   <div class='dragdrop-container'>
                     <div class="card">
@@ -38,7 +37,7 @@
                 </div>
               </div>
 
-              <div *ngFor='let todo of existingHelper'>
+              <div *ngFor='let todo of readCollabId'>
                 <div class="col-md-12 col-12">
                   <div class='dragdrop-container'>
                     <div class="card">
@@ -50,7 +49,7 @@
                             <i class="ft-trash-2 danger"></i>
                           </div>
                         </div>
-                        <h6>sharmaadi104@gmail.com</h6>
+                        <h6>{{todo.rcEmail}}</h6>
                         <p>Read</p>
                       </div>
                     </div>
