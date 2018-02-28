@@ -5,9 +5,6 @@
     </div>
   </div>
   <div class="card">
-    <!-- <div class="card-header">
-      <h4 class="card-title mb-0">Company list page</h4>
-    </div> -->
     <div class="card-body">
       <div class="px-3">
         <div class="row" matchHeight="card">
@@ -16,7 +13,7 @@
               <div class="card-body">
                 <div class="card-img">
                   <img class="card-img-top img-fluid" src="assets/img/photos/14.jpg" alt="Card image cap">
-                  <h4 class="card-title">Add Company</h4>
+                  <h4 class="card-title">Add New Company</h4>
                   <a class="btn btn-floating halfway-fab bg-warning">
                     <i class="ft-plus"></i>
                   </a>
@@ -28,11 +25,54 @@
               </div>
             </div>
           </div>
+
+          <div class="col-lg-4 col-md-12 col-sm-12"  *ngFor="let list of companyList">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-img">
+                  <img class="card-img-top img-fluid" src="assets/img/photos/14.jpg" alt="Card image cap">
+                  <h4 class="card-title">{{list.companyName}}.</h4>
+                  <a class="btn btn-floating halfway-fab bg-warning">
+                    <i class="ft-plus"></i>
+                  </a>
+                </div>
+                <div class="card-block mt-1">
+                  <p class="card-text">Email :- {{list.email}}</p>
+                  <a class="btn btn-raised btn-warning">View Company</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         </div>
-
-
       </div>
     </div>
   </div>
+  <!-- <div class="card"  *ngFor="let list of companyList">
+    <div class="card-body">
+      <div class="px-3">
+        <div class="row" matchHeight="card">
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-img">
+                  <img class="card-img-top img-fluid" src="assets/img/photos/14.jpg" alt="Card image cap">
+                  <h4 class="card-title">{{list.companyName}}.</h4>
+                  <a class="btn btn-floating halfway-fab bg-warning">
+                    <i class="ft-plus"></i>
+                  </a>
+                </div>
+                <div class="card-block mt-1">
+                  <p class="card-text">Email :- {{list.email}}.</p>
+                  <a class="btn btn-raised btn-warning">View Company</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
 </section>
