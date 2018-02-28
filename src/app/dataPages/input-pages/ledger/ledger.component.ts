@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
@@ -46,8 +47,16 @@ export class LedgerComponent implements OnInit {
     ' Bad debt(DR)',
     ' Suspense.',
   ];
-  constructor(private route: ActivatedRoute, public _ledgerService: LedgerService, public fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    public _ledgerService: LedgerService,
+    public fb: FormBuilder,
+    private modalService: NgbModal
+  ) {}
   ngOnInit() {
+    // ''
+    $.getScript('./../../assets/js/jquery.steps.min.js');
+    $.getScript('./../../assets/js/wizard-steps.js');
     this.getUnderGroupList();
     this.form = this.fb.group({
       ledgerName: [''],
@@ -79,6 +88,25 @@ export class LedgerComponent implements OnInit {
         this.items = this.items.concat(data);
         // console.log(this.items);
       });
+  }
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   onSubmit(user) {
