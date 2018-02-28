@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const INPUT_PAGES_ROUTES: Routes = [
   {
-    path: 'form',
+    path: 'form/:id',
     // loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule',
     loadChildren: './dataPages/input-pages/input-pages.module#InputPagesModule',
   },
