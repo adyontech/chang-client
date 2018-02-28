@@ -5,6 +5,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './../ledger/service/ledger.service';
 import { UnderGroupsService } from './service/underGroup.service';
+import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-undergroup',
@@ -14,7 +15,8 @@ import { UnderGroupsService } from './service/underGroup.service';
 export class UnderGroupComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
-
+  underHeadArray = ['revenue (CR)', 'expenses (DR)', 'sales (CR)', ' purchases (DR)', 'asset (DR)', 'liabilities (CR)'];
+  typeArray = ['Dr', 'Cr']
   constructor(
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
@@ -24,8 +26,8 @@ export class UnderGroupComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      groupName: [''],
       underHead: [''],
+      groupName: [''],
       type: [''],
     });
   }

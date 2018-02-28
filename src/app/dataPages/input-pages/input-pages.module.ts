@@ -18,6 +18,9 @@ import { InputFormService } from './service/input-pages.service';
 import { PaymentService } from './payment/service/payment.service';
 import { LedgerService } from './ledger/service/ledger.service';
 import { UnderGroupsService } from './undergroup/service/underGroup.service';
+
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
   imports: [
     HttpModule,
@@ -29,6 +32,7 @@ import { UnderGroupsService } from './undergroup/service/underGroup.service';
     ChartistModule,
     AgmCoreModule,
     NgbModule,
+    NgSelectModule
   ],
   declarations: [PaymentComponent, LedgerComponent, UnderGroupComponent],
   providers: [InputFormService, PaymentService, LedgerService, UnderGroupsService, GlobalVaribles],

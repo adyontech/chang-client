@@ -1,1 +1,65 @@
-<p>undergroup</p>
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!-- <div class="card-header">
+            <h4 class="card-title" id="horz-layout-colored-controls">User Profile</h4>
+          </div> -->
+        <div class="card-body">
+          <div class="px-3">
+            <form class="form form-horizontal" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+              <div class="form-body">
+                <h4 class="form-section">
+                  <i class="ft-info"></i> Under Group (Dr/Cr)</h4>
+                <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput1">NAME OF GROUP: </label>
+                      <div class="col-md-9">
+                        <!-- pattern="^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$" -->
+                        <input type="text" class="form-control" placeholder="Full name" formControlName="groupName" />
+                        <small class="form-text text-muted danger" *ngIf="!form.get('groupName').valid && (form.get('groupName').dirty || form.get('groupName').touched)">Please enter a valid Name!</small>
+                        <small class="text-muted">eg.
+                          <i>Aditya Sharma</i>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput5">UNDER HEAD: </label>
+                      <div class="col-md-9">
+
+                        <ng-select [items]="underHeadArray" placeholder="Select age" formControlName="underHead">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="userinput5">TYPE: </label>
+                      <div class="col-md-9">
+                        <ng-select [items]="typeArray" placeholder="Select country" formControlName="type">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-actions right">
+                  <button type="submit" class="btn btn-raised btn-primary">
+                    <i class="fa fa-check-square-o"></i> Save
+                  </button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
