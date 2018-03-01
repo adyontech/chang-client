@@ -9,7 +9,7 @@ import { Full_ROUTES } from './shared/routes/full-layout.routes';
 import { CONTENT_ROUTES } from './shared/routes/content-layout.routes';
 import { OUTER_CONTENT_ROUTES } from './shared/routes/outerContent-layout.routes';
 import { GATEWAY_ROUTES } from './shared/routes/gateway-layout.routes';
-import { INPUT_PAGES_ROUTES } from './shared/routes/input-pages-layout.routes';
+import { DATA_PAGES_ROUTES } from './shared/routes/input-pages-layout.routes';
 import { SETTINGS_ROUTES } from './shared/routes/setting.route';
 
 import { AuthGuard } from './shared/auth/auth-guard.service';
@@ -43,9 +43,9 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    component: ContentLayoutComponent,
+    component: FullLayoutComponent,
     data: { title: 'form' },
-    children: INPUT_PAGES_ROUTES,
+    children: DATA_PAGES_ROUTES,
     canActivate: [AuthGuard],
   },
   {
