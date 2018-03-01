@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-import { InputFormService } from './../../service/input-pages.service';
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
@@ -20,14 +19,10 @@ export class UnderGroupsService {
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    public _inputFormService: InputFormService,
     public _globalVariableService: GlobalVaribles
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // console.log(this.windowStorage)
-    this.paramCompanyName = this._inputFormService.paramCompanyName;
-    // console.log(this.paramCompanyName)
   }
 
   createNewUnderGroup(user: any) {
