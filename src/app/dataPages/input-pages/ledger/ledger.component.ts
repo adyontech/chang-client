@@ -54,11 +54,7 @@ export class LedgerComponent implements OnInit {
     private modalService: NgbModal
   ) {}
   ngOnInit() {
-     this.route.params.subscribe(params => {
-     console.log(params)
-   });
-    $.getScript('./../../assets/js/jquery.steps.min.js');
-    $.getScript('./../../assets/js/wizard-steps.js');
+    this.getRouteParam();
     this.getUnderGroupList();
     this.form = this.fb.group({
       ledgerName: [''],
@@ -80,15 +76,19 @@ export class LedgerComponent implements OnInit {
       total: [''],
     });
   }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+    });
+  }
   getUnderGroupList() {
     this.dataCopy = this._ledgerService
-      .getUnderGroupList()
+      .getUnderGroupList(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
         data = data.ugData.map(item => item.groupName);
-        // console.log(data);
         this.items = this.items.concat(data);
-        // console.log(this.items);
       });
   }
   open(content) {
@@ -117,7 +117,7 @@ export class LedgerComponent implements OnInit {
     user.country = this.form.get('country').value[0].text;
 
     console.log(user);
-    this._ledgerService.createNewLedger(user).subscribe(data => {
+    this._ledgerService.createNewLedger(user, this.paramId).subscribe(data => {
       // console.log('hello gateway service')
     });
   }

@@ -3,14 +3,13 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-// import { InputFormService } from "./../../../service/inputForms.service";
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class LedgerService {
-  private paramCompanyName: string;
+  // private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
@@ -20,25 +19,22 @@ export class LedgerService {
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    // public _inputFormService: InputFormService,
     public _globalVariableService: GlobalVaribles
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // this.paramCompanyName = this._inputFormService.paramCompanyName;
-    // console.log(this.paramCompanyName)
   }
 
-  getUnderGroupList() {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&&companyName=${
-      this.paramCompanyName
-    }`;
+  getUnderGroupList(companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${
+      this.token
+    }&&companyName=${companyName}`;
     return this.http.get(this._url);
   }
 
-  createNewLedger(user: any) {
+  createNewLedger(user: any, companyName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledger?token=${this.token}&companyName=${
-      this.paramCompanyName
+      companyName
     }`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();

@@ -14,7 +14,6 @@ import { LedgerComponent } from './ledger/ledger.component';
 import { UnderGroupComponent } from './undergroup/undergroup.component';
 
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
-import { InputFormService } from './service/input-pages.service';
 import { PaymentService } from './payment/service/payment.service';
 import { LedgerService } from './ledger/service/ledger.service';
 import { UnderGroupsService } from './undergroup/service/underGroup.service';
@@ -32,9 +31,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ChartistModule,
     AgmCoreModule,
     NgbModule,
-    NgSelectModule
+    NgSelectModule,
   ],
   declarations: [PaymentComponent, LedgerComponent, UnderGroupComponent],
-  providers: [InputFormService, PaymentService, LedgerService, UnderGroupsService, GlobalVaribles],
+  providers: [PaymentService, LedgerService, UnderGroupsService, GlobalVaribles],
 })
 export class InputPagesModule {}
