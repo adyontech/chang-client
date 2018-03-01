@@ -9,7 +9,7 @@ import { GlobalVariableService } from "./../../../../../sharedService/globalVari
 import 'rxjs/add/operator/map';
 import 'rxjs/'
 @Injectable()
-export class PurchaseService {
+export class SalesReturnService {
   private paramCompanyName: string;
   result: {};
   token: string;
@@ -29,9 +29,7 @@ export class PurchaseService {
     console.log(this.paramCompanyName);
   }
   createNewEntry(user: any) {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/purchaseReturn?token=${this.token}&companyName=${this.paramCompanyName}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/salesReturn?token=${this.token}&companyName=${this.paramCompanyName}`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
@@ -45,10 +43,10 @@ export class PurchaseService {
     }`;
     return this.http.get(this._url);
   }
-  getPurchaseUGNames() {
+  getSalesUGNames() {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/purchaseLedgerList?token=${this.token}&&companyName=${
+    }/api/salesLedgerList?token=${this.token}&&companyName=${
       this.paramCompanyName
     }`;
     return this.http.get(this._url);
