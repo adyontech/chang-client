@@ -150,10 +150,38 @@
                       </div>
                     </fieldset>
                   </div>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                      <fieldset class="form-group">
+                        <label for="basicSelect">Logo:</label>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input type="file" id="avatar" (change)="onFileChange($event, 'logo')"  #fileInput>
+                            </div>
+                            <div *ngIf="logoError">errririiriri</div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                      <fieldset class="form-group">
+                        <label for="basicSelect">Signature:</label>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input type="file" id="avatar" (change)="onFileChange($event, 'signature')" #fileInput >
+                            </div>
+                            <div *ngIf="signatureError">errririiriri</div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </div>
                 </div>
               </div>
               <button type="submit" class="btn btn-info btn-fill pull-right">Getting started</button>
-                            <div class="clearfix"></div>
+              <div class="clearfix"></div>
             </form>
           </div>
         </div>
