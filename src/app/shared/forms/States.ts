@@ -40,5 +40,18 @@ export class States {
     { id: 97, value: 'Other Territory' },
   ];
 
+  stateListArray: any = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'American Samoa',
+    'Angola',
+    'Anguilla',
+    'Antartica',
+    'Antigua and Barbuda',
+    'Argentina',
+    'Armenia',
+  ];
+
   constructor(public id: number, public name: string) {}
 }

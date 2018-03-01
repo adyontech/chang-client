@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+// import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
@@ -14,7 +15,7 @@ export class GatewayService {
   _url: string;
 
   constructor(
-    private http: HttpClient,
+    private http: Http,
     public _globalVariableService: GlobalVaribles,
     public _activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
