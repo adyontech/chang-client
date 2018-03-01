@@ -1,23 +1,31 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { PaymentComponent } from './payment/payment.component';
-import { UnderGroupComponent } from './undergroup/undergroup.component';
+import { ContraComponent } from './contra/contra.component';
+import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { LedgerComponent } from './ledger/ledger.component';
+import { PaymentComponent } from './payment/payment.component';
+import { ProductServiceComponent } from './productService/productService.component';
+import { PurchaseComponent } from './purchase/purchase.component';
+import { PurchaseReturnComponent } from './purchaseReturn/purchaseReturn.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { SalesComponent } from './sales/sales.component';
+import { SalesReturnComponent } from './salesReturn/salesReturn.component';
+import { UnderGroupComponent } from './undergroup/undergroup.component';
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'payment',
-        component: PaymentComponent,
+        path: 'contra',
+        component: ContraComponent,
         data: {
-          title: 'payment Page',
+          title: 'under group Page',
         },
       },
       {
-        path: 'undergroup',
-        component: UnderGroupComponent,
+        path: 'journal',
+        component: JournalEntryComponent,
         data: {
           title: 'under group Page',
         },
@@ -27,6 +35,62 @@ const routes: Routes = [
         component: LedgerComponent,
         data: {
           title: 'ledger Page',
+        },
+      },
+      {
+        path: 'payment',
+        component: PaymentComponent,
+        data: {
+          title: 'payment Page',
+        },
+      },
+      {
+        path: 'productservice',
+        component: ProductServiceComponent,
+        data: {
+          title: 'under group Page',
+        },
+      },
+      {
+        path: 'purchase',
+        component: PurchaseComponent,
+        data: {
+          title: 'under group Page',
+        },
+      },
+      {
+        path: 'purchasereturn',
+        component: PurchaseReturnComponent,
+        data: {
+          title: 'under group Page',
+        },
+      },
+      {
+        path: 'receipt',
+        component: ReceiptComponent,
+        data: {
+          title: 'under group Page',
+        },
+      },
+      {
+        path: 'sales',
+        component: SalesComponent,
+        data: {
+          title: 'under group Page',
+        },
+      },
+      {
+        path: 'salesreturn',
+        component: SalesReturnComponent,
+        data: {
+          title: 'under group Page',
+        },
+      },
+      {
+        path: 'undergroup',
+        component: UnderGroupComponent,
+        data: {
+          title: 'under group Page',
         },
       },
     ],

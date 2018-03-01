@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from "@angular/http";
+import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-import { InputFormService } from "./../../../service/inputForms.service";
-import { GlobalVariableService } from "./../../../../../sharedService/globalVariables/globalVariable.service";
+import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/'
+import 'rxjs/';
 @Injectable()
 export class SalesReturnService {
   private paramCompanyName: string;
@@ -20,42 +19,37 @@ export class SalesReturnService {
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    public _inputFormService: InputFormService,
-    public _globalVariableService: GlobalVariableService
+    public _globalVariableService: GlobalVaribles
   ) {
-    this.windowStorage = JSON.parse(window.localStorage.getItem("user"));
+    this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    this.paramCompanyName = this._inputFormService.paramCompanyName;
-    console.log(this.paramCompanyName);
   }
-  createNewEntry(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/salesReturn?token=${this.token}&companyName=${this.paramCompanyName}`;
+  createNewEntry(user: any, compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/salesReturn?token=${this.token}&companyName=${
+      compName
+    }`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
     });
   }
-  getLedgerUGNames() {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/ledgerNameList?token=${this.token}&&companyName=${
-      this.paramCompanyName
+  getLedgerUGNames(compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${this.token}&&companyName=${
+      compName
     }`;
     return this.http.get(this._url);
   }
-  getSalesUGNames() {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/salesLedgerList?token=${this.token}&&companyName=${
-      this.paramCompanyName
+  getSalesUGNames(compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/salesLedgerList?token=${this.token}&&companyName=${
+      compName
     }`;
     return this.http.get(this._url);
   }
 
-  getprsrList() {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/prsrList?token=${this.token}&&companyName=${this.paramCompanyName}`;
+  getprsrList(compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/prsrList?token=${this.token}&&companyName=${
+      compName
+    }`;
     return this.http.get(this._url);
   }
 }

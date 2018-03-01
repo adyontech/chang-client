@@ -89,25 +89,6 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  // file upload code here
-  handleFileUpload(event) {
-    // var file: File = event.target.files[0];
-    // let valid: boolean;
-    // valid = this.fileValidator.isValidLogo(file);
-    // if (valid && file.size < 200000) {
-    //     this.fileValidator.checkPixel(file, (value) => {
-    //         if (value) {
-    //             this.file_size = false;
-    //             this.file_view = true;
-    //             this.file = value;
-    //         }
-    //     });
-    // }
-    // else {
-    //     this.file_size = true;
-    // }
-  }
-
   getLedgerUGNames() {
     this.dataCopy = this._paymentService
       .getLedgerUGNames(this.paramId)
