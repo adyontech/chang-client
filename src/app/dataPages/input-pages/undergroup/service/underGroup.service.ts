@@ -23,8 +23,6 @@ export class UnderGroupsService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // console.log(this.windowStorage)
-    // console.log(this.paramCompanyName)
   }
 
   createNewUnderGroup(user: any) {
