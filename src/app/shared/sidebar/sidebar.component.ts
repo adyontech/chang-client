@@ -12,13 +12,21 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
+  paramId
 
   constructor(private router: Router, private route: ActivatedRoute, public translate: TranslateService) {}
 
   ngOnInit() {
+    this.getRouteParam();
     $.getScript('./assets/js/app-sidebar.js');
     $.getScript('./assets/js/vertical-timeline.js');
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+  }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      console.log(params);
+      this.paramId = params.id;
+    });
   }
 
   // NGX Wizard - skip url change

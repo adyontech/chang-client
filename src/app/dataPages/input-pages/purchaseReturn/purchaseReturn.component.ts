@@ -11,8 +11,8 @@ export class PurchaseReturnComponent implements OnInit {
   paramId: string;
 
   constructor(private route: ActivatedRoute, public _purchaseReturnService: PurchaseReturnService) {
-    this.route.params.subscribe(params => (this.paramId = params.id));
-    console.log(this.paramId);
+    // this.route.params.subscribe(params => (this.paramId = params.id));
+    // console.log(this.paramId);
   }
 
   ngOnInit() {

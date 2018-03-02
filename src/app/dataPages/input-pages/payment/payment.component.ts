@@ -74,6 +74,7 @@ export class PaymentComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+      this._paymentService.setParamId(this.paramId)
     });
   }
 
