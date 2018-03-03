@@ -84,19 +84,21 @@ export class AddCompanyComponent implements OnInit {
   // this.form.controls[fileField].setErrors({ incorrect: true });
   onFileChange(event, fileField) {
     fileField === 'logo' ? (this.logoError = false) : (this.signatureError = false);
-    console.log(event.target.files);
+    // console.log(event.target.files);
     const reader = new FileReader();
     if (event.target.files[0].size < 400000) {
       if (event.target.files && event.target.files.length > 0) {
-        const file = event.target.files[0];
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          this.form.get(fileField).setValue({
-            filename: file.name,
-            filetype: file.type,
-            value: reader.result.split(',')[1],
-          });
-        };
+        // console.log(event.target.files);
+        // const file = event.target.files[0];
+        // reader.readAsDataURL(file);
+        // reader.onload = () => {
+        //   this.form.get(fileField).setValue({
+        //     filename: file.name,
+        //     filetype: file.type,
+        //     value: reader.result.split(',')[1],
+        //   });
+        // };
+        this.form.get(fileField).setValue(event.target.files[0] );
       }
     } else {
       fileField === 'logo' ? (this.logoError = true) : (this.signatureError = true);
