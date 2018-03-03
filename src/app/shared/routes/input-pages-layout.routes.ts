@@ -11,6 +11,6 @@ export const DATA_PAGES_ROUTES: Routes = [
   {
     path: 'report/:id',
     // loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule',
-    loadChildren: './dataPages/input-pages/input-pages.module#InputPagesModule',
+    loadChildren: './dataPages/report-pages/report-pages.module#ReportPagesModule',
   },
 ];
