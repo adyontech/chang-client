@@ -1,6 +1,4 @@
 import { RouteInfo } from './sidebar.metadata';
-import paramId from './../globalVariables/globalVariable';
-// console.log(paramId)
 
 // Sidebar menu Routes and data
 export const ROUTES: RouteInfo[] = [
@@ -25,37 +23,6 @@ export const ROUTES: RouteInfo[] = [
       },
       {
         path: '/gateway/addcompany',
-        title: 'Add Company',
-        icon: '',
-        class: '',
-        badge: '',
-        badgeClass: '',
-        isExternalLink: false,
-        submenu: [],
-      },
-    ],
-  },
-  {
-    path: '/form',
-    title: 'Input Forms',
-    icon: 'ft-home',
-    class: 'has-sub',
-    badge: '2',
-    badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1',
-    isExternalLink: false,
-    submenu: [
-      {
-        path: `/form/${paramId}/payment`,
-        title: 'View Company',
-        icon: '',
-        class: '',
-        badge: '',
-        badgeClass: '',
-        isExternalLink: false,
-        submenu: [],
-      },
-      {
-        path: '/form/:id/receipt',
         title: 'Add Company',
         icon: '',
         class: '',
