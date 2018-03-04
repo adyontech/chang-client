@@ -33,6 +33,8 @@ export class ReceiptComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    $.getScript('./assets/js/jquery.steps.min.js');
+    $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getAccountNames();
     this.getLedgerNames();

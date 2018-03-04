@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
@@ -6,6 +6,11 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 declare var $: any;
+
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37,
+}
 
 @Component({
   selector: 'app-payment',
@@ -29,6 +34,8 @@ export class PaymentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    $.getScript('./assets/js/jquery.steps.min.js');
+    $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getAccountNames();
     this.getLedgerUGNames();
@@ -47,6 +54,20 @@ export class PaymentComponent implements OnInit {
       endtotal: [''],
     });
     this.addParticular();
+  }
+
+  // To open modal we need key event here
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log(event);
+
+    if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+      // this.increment();
+    }
+
+    if (event.keyCode === KEY_CODE.LEFT_ARROW) {
+      // this.decrement();
+    }
   }
 
   initParticular() {
@@ -74,7 +95,7 @@ export class PaymentComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
-      this._paymentService.setParamId(this.paramId)
+      this._paymentService.setParamId(this.paramId);
     });
   }
 
