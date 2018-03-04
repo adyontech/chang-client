@@ -9,12 +9,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class CashAtBankService {
-  private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
   _url: string;
-  contentId: string;
 
   constructor(
     private http: Http,
@@ -24,20 +22,19 @@ export class CashAtBankService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // console.log(this.paramCompanyName)
   }
 
-  getIncomingData(ledgerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/cashAtBank?token=${this.token}&&companyName=${
-      this.paramCompanyName
-    }&&ledgerSelect=${ledgerName}`;
+  getIncomingData(ledgerName, compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/cashAtBank?token=${
+      this.token
+    }&&companyName=${compName}&&ledgerSelect=${ledgerName}`;
     return this.http.get(this._url);
   }
 
-  getLedgerNameData() {
+  getLedgerNameData(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNamecashAtBank?token=${
       this.token
-    }&&companyName=${this.paramCompanyName}`;
+    }&&companyName=${compName}`;
     return this.http.get(this._url);
   }
 }

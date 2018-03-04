@@ -1,22 +1,15 @@
-import { Component, Input, OnInit } from "@angular/core";
-import {
-  FormGroup,
-  FormControl,
-  FormArray,
-  FormBuilder,
-  Validators
-} from "@angular/forms";
-import { DatePipe } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { LedgerService } from "./service/ledger.service";
-import { IMyDpOptions } from "mydatepicker";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { LedgerService } from './service/ledger.service';
 
 declare var $: any;
 
 @Component({
-  selector: "app-ledgerOut",
-  templateUrl: "./ledger.component.html",
-  styleUrls: ["./ledger.component.scss"]
+  selector: 'app-ledger-out',
+  templateUrl: './ledger.component.html',
+  styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
   // Models
@@ -41,21 +34,12 @@ export class LedgerComponent implements OnInit {
   dropdownSettings = {};
   public items: Array<string> = [];
 
-  constructor(
-    private route: ActivatedRoute,
-    public _ledgerService: LedgerService,
-    public fb: FormBuilder
-  ) {}
+  constructor(private route: ActivatedRoute, public _ledgerService: LedgerService, public fb: FormBuilder) {}
 
   ngOnInit() {
     this.getLedgerNames();
   }
 
-  // real date picker active from here
-  public myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: "dd.mm.yyyy"
-  };
   public selected(value: any): void {
     this.showBox = false;
     // console.log("Selected value is: ", value);
@@ -66,7 +50,7 @@ export class LedgerComponent implements OnInit {
       .subscribe(data => {
         this.LedgerData = data.formData;
         this.totalNet = data.amountObj.totalNet;
-        this.newTotalNet = Math.abs(this.totalNet)
+        this.newTotalNet = Math.abs(this.totalNet);
         this.netDebitAmount = data.amountObj.debitAmount;
         this.netCreditAmount = data.amountObj.creditAmount;
         console.log(data.amountObj.totalNet);
