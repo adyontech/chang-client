@@ -1,8 +1,38 @@
+<div class="row" matchHeight="card">
+  <!--Modal with Default options starts-->
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Modal with Default options</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Modal title</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <app-ledger></app-ledger>
+            </div>
+          </ng-template>
+
+          <button class="btn btn-lg btn-outline-primary"  id="openModalButton" [hidden]="true"  (click)="open(content)">Launch demo modal</button>
+
+          <hr>
+          <p>Action : {{closeResult}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Wizard Starts -->
 <div class="row">
-    <div class="col-sm-12">
-        <div class="content-header">Wizard Forms</div>
-    </div>
+  <div class="col-sm-12">
+    <div class="content-header">Wizard Forms</div>
+  </div>
 </div>
 <section id="icon-tabs">
   <div class="row">
@@ -130,7 +160,7 @@
                         <input type='text' class="form-control datetime" id="eventDatetime1" name="eventDatetime1" />
                         <div class="input-group-append">
                           <span class="input-group-text">
-                                    <span class="fa fa-calendar-o"></span>
+                            <span class="fa fa-calendar-o"></span>
                           </span>
                         </div>
                       </div>
@@ -138,24 +168,24 @@
                     <div class="form-group">
                       <label for="eventStatus2">Event Status</label>
                       <select class="custom-select form-control" id="eventStatus2" name="eventStatus2">
-                          <option value="Planning">Planning</option>
-                          <option value="In Progress">In Progress</option>
-                          <option value="Finished">Finished</option>
-                        </select>
+                        <option value="Planning">Planning</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Finished">Finished</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <span>Requirements</span>
                       <div class="checkbox">
-                          <div class="custom-control custom-checkbox m-0">
-                            <input type="checkbox" class="custom-control-input" id="staffing">
-                            <label class="custom-control-label" for="staffing">Staffing</label>
-                          </div>
+                        <div class="custom-control custom-checkbox m-0">
+                          <input type="checkbox" class="custom-control-input" id="staffing">
+                          <label class="custom-control-label" for="staffing">Staffing</label>
+                        </div>
                       </div>
                       <div class="checkbox">
-                          <div class="custom-control custom-checkbox m-0">
-                            <input type="checkbox" class="custom-control-input" id="catering">
-                            <label class="custom-control-label" for="catering">Catering</label>
-                          </div>
+                        <div class="custom-control custom-checkbox m-0">
+                          <input type="checkbox" class="custom-control-input" id="catering">
+                          <label class="custom-control-label" for="catering">Catering</label>
+                        </div>
                       </div>
                     </div>
                   </div>

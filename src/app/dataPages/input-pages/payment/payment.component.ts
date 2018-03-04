@@ -1,16 +1,12 @@
 import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 declare var $: any;
-
-export enum KEY_CODE {
-  RIGHT_ARROW = 39,
-  LEFT_ARROW = 37,
-}
 
 @Component({
   selector: 'app-payment',
@@ -18,6 +14,7 @@ export enum KEY_CODE {
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
+  closeResult: string;
   public form: FormGroup;
   public selectedIndex = 1;
   public dataCopy: any;
@@ -30,7 +27,8 @@ export class PaymentComponent implements OnInit {
     private route: ActivatedRoute,
     public _paymentService: PaymentService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -59,14 +57,38 @@ export class PaymentComponent implements OnInit {
   // To open modal we need key event here
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log(event);
+    // console.log(event);
 
-    if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+    if (event.keyCode === 66 && event.ctrlKey) {
       // this.increment();
+      console.log('dance');
+      document.getElementById('openModalButton').click();
     }
 
-    if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      // this.decrement();
+    // if (event.keyCode === KEY_CODE.LEFT_ARROW) {
+    //   // this.decrement();
+    // }
+  }
+  // Open default modal
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
     }
   }
 
