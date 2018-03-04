@@ -1,6 +1,7 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +14,7 @@ declare var $: any;
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
+  closeResult: string;
   public form: FormGroup;
   public selectedIndex = 1;
   public dataCopy: any;
@@ -25,10 +27,13 @@ export class PaymentComponent implements OnInit {
     private route: ActivatedRoute,
     public _paymentService: PaymentService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
+    $.getScript('./assets/js/jquery.steps.min.js');
+    $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getAccountNames();
     this.getLedgerUGNames();
@@ -47,6 +52,44 @@ export class PaymentComponent implements OnInit {
       endtotal: [''],
     });
     this.addParticular();
+  }
+
+  // To open modal we need key event here
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    // console.log(event);
+
+    if (event.keyCode === 66 && event.ctrlKey) {
+      // this.increment();
+      console.log('dance');
+      document.getElementById('openModalButton').click();
+    }
+
+    // if (event.keyCode === KEY_CODE.LEFT_ARROW) {
+    //   // this.decrement();
+    // }
+  }
+  // Open default modal
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   initParticular() {
@@ -74,7 +117,7 @@ export class PaymentComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
-      this._paymentService.setParamId(this.paramId)
+      this._paymentService.setParamId(this.paramId);
     });
   }
 

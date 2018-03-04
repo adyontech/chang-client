@@ -1,0 +1,251 @@
+<div class="header">
+    <button type="button" name="delete" class="btn btn-danger pull-left "> Delete</button>
+    <div class="pull-right">
+         Copy and new
+        <!-- <ui-switch size="small" [(ngModel)]="action"></ui-switch> -->
+        Edit
+    </div>
+
+    <!-- <button type="button" name="copy" class="btn btn-success pull-right "  [(ngModel)]="action"> Copy /as New</button> -->
+</div>
+<form id="form" [formGroup]="form" novalidate (ngSubmit)="onSubmit(form.value,action)">
+    <div class="main-content" style="scroll-behavior: hidden">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <!-- heading here -->
+
+                        <div class="header">
+                            <h2 class="title text-center">Payment</h2>
+                        </div>
+                        <!-- step indicator starts here -->
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-offset-3">
+
+                                    <div class="col-xs-4 ">
+                                        <h5 class="text-center">Step 1</h5>
+                                        <div href="#step-1" [ngClass]="{'actived': selectedIndex == 1}" class="progress" type="button"></div>
+                                    </div>
+
+                                    <div class="col-xs-4 ">
+                                        <h5 class="text-center">Step 2</h5>
+                                        <div href="#step-2" [ngClass]="{'actived': selectedIndex == 2}" class="progress" type="button"></div>
+
+                                    </div>
+
+                                    <div class="col-xs-4 ">
+                                        <h5 class="text-center">Step 3</h5>
+                                        <div href="#step-3" [ngClass]="{'actived': selectedIndex == 3}" class="progress" type="button"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content tab-content" style="width: 70%; margin-left: 10%;">
+                            <div id="step1" class="tab-pane fade in active">
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <div class="form-group">
+                                            <label>Payment Number</label>
+                                            <input type="text" class="form-control" formControlName="paymentNumber">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <label>Date</label>
+                                        <my-date-picker name="ydate" [options]="myDatePickerOptions" formControlName="date"></my-date-picker>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <div class="form-group">
+                                            <label>account</label>
+                                            <input type="text" class="form-control" formControlName="account">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <div class="form-group">
+                                            <label>Current balance</label>
+                                            <p>123456</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="text-align: center; margin-top: 20px">
+                                    <button type="button" data-toggle="tab" href="#step2" (click)="setSelected(2)" class="btn btn-info btn-fill">Next</button>
+                                    <button type="button" data-toggle="tab" href="#step2" (click)="setSelected(2)" class="btn btn-info btn-fill">Exit</button>
+
+                                </div>
+
+                            </div>
+                            <div id="step2" class="tab-pane fade">
+
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <div class="form-group">
+                                            <label>Payment type</label>
+                                            <select class="form-control" formControlName="paymentType">
+                                                <option value="general" selected>General</option>
+                                                <option value="purchasePayment">Purchase payment</option>
+                                                <option value="advancePayment">Advance payment</option>
+                                                <option value="salesRefund">Sales refund</option>
+                                                <option value="creditNote">Credit Note</option>
+                                                <option value="others">others</option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" [(ngModel)]="chequeNumber" name="company_name" placeholder="Company Name" formControlName="chequeNumber"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <div class="form-group">
+                                            <label>Payment Through</label>
+                                            <select class="form-control" formControlName="paymentThrough">
+                                                <option value="cash" selected>Cash</option>
+                                                <option value="cheque">Cheque</option>
+                                                <option value="Etransfe">E transfe</option>
+                                                <option value="others">others</option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" [(ngModel)]="chequeNumber" name="company_name" placeholder="Company Name" formControlName="chequeNumber"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf=" form.get('paymentThrough').value =='cheque'">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <div class="form-group">
+                                            <label>Cheque no.</label>
+                                            <input type="text" class="form-control" formControlName="chequeNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <label>Drawn on</label>
+                                        <my-date-picker name="drawnOn" [options]="myDatePickerOptions" formControlName="drawnOn"></my-date-picker>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-offset-4">
+                                        <div class="form-group">
+                                            <label>Against</label>
+                                            <select class="form-control" formControlName="against">
+                                                <option value="againstInvoice" selected>Against invoice</option>
+                                                <option value="againstAccount ">Against account</option>
+                                                <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasePayment'">Against advance</option>
+                                                <option value="advanceReceipt">Advance receipt</option>
+                                                <option value="others" *ngIf=" form.get('paymentThrough').value =='cash'"> others</option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" [(ngModel)]="chequeNumber" name="company_name" placeholder="Company Name" formControlName="chequeNumber"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="text-align: center; margin-top: 20px">
+                                    <button type="button" data-toggle="tab" href="#step1" (click)="setSelected(1)" class="btn btn-info btn-fill">Back</button>
+                                    <button type="button" data-toggle="tab" href="#step3" (click)="setSelected(3)" class="btn btn-info btn-fill">Next</button>
+                                    <button type="button" data-toggle="tab" href="#step3" (click)="setSelected(3)" class="btn btn-info btn-fill">Exit</button>
+                                </div>
+                            </div>
+                            <div id="step3" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="col-lg-offset-3">
+                                        <div class="row">
+                                            <div class="col-lg-4 text-center">
+                                                Particulars
+                                            </div>
+                                            <div class="col-lg-offset-2 col-lg-6 text-center">
+                                                Amount
+                                            </div>
+                                        </div>
+
+                                        <div formArrayName="particularsData">
+                                            <div *ngFor="let address of formData.controls; let i=index">
+                                                <!-- <span>{{i + 1}}</span> -->
+                                                <div [formGroupName]="i">
+                                                    <div class="block">
+                                                        <div class="content ">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <!-- <input type="text" class="form-control" formControlName="particulars"> -->
+                                                                    <ng-select [allowClear]="true" [items]="items" formControlName="particulars" (data)="refreshValue($event)" (selected)="showNotification('top','left')"
+                                                                        (removed)="removed($event)" 
+                                                                        placeholder="No city selected">
+                                                                    </ng-select>
+                                                                    <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
+                                                                        <span (click)="showNotification('top','left')"> Particulars is required</span>
+                                                                    </small>
+                                                                </div>
+                                                                <div class="col-lg-offset-2 col-lg-5 ">
+                                                                    <input type="text" required class="form-control" formControlName="amount">
+                                                                    <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
+                                                                        Amount is required
+                                                                    </small>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-offset-3 col-md-3">
+                                        <a (click)="addParticular()" style="cursor: default">
+                                            Add another field +
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-offset-2 col-md-3">
+                                        <p class="p1">Total Amount: Rs. 1325</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Narration</label>
+                                            <textarea rows="5" class="form-control" formControlName="narration" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <label for="upload">Attachment:</label>
+                                            <input type="file" class="" formControlName="file" (change)="handleFileUpload($event)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="text-align: center; margin-top: 20px">
+                                    <button type="button" data-toggle="tab" href="#step1" (click)="setSelected(1)" class="btn btn-info btn-fill ">Back</button>
+                                    <button type="button" data-toggle="tab" href="#step3" (click)="setSelected(3)" class="btn btn-info btn-fill ">Save and exit</button>
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Save and close</button>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
