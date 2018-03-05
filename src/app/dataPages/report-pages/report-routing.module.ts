@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LedgerComponent } from './ledger/ledger.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
-
+import { PaymentComponent } from './payment/payment.component';
 const routes: Routes = [
   {
     path: '',
@@ -23,10 +23,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'horizontaltimeline',
-        // component: HorizontalTimelinePageComponent,
+        path: 'payment',
+        component: PaymentComponent,
         data: {
-          title: 'Horizontal Timeline Page',
+          title: 'Payment Page',
         },
       },
       {
