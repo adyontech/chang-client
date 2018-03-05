@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class LedgerService {
-  private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
@@ -24,18 +23,17 @@ export class LedgerService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    console.log(this.paramCompanyName);
   }
 
-  getLedgerNames() {
+  getLedgerNames(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${this.token}&&companyName=${
-      this.paramCompanyName
+      compName
     }`;
     return this.http.get(this._url);
   }
-  getIncomingData() {
+  getIncomingData(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerformData?token=${this.token}&&companyName=${
-      this.paramCompanyName
+      compName
     }&&ledgerName=${this.ledgerName}`;
     return this.http.get(this._url);
   }

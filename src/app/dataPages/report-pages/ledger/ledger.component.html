@@ -1,104 +1,129 @@
-<div class="main-content" style="scroll-behavior: hidden">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <!-- heading here -->
-                    <div class="header row">
-                        <h2 class="title text-center col-md-6 col-md-offset-5">Ledger</h2>
-                        <div class="col-md-2">
-                            <ng-select [allowClear]="true" [items]="items" (selected)="selected($event)">
-                            </ng-select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 title text-center ">
-                            <p> Select Period:</p>
-                        </div>
-                        <div class="col-lg-6 title text-center">
-                            <p> Select Filter:</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="title text-center">From</label>
-                        </div>
-                        <div class="col-md-2">
-                            <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker>
-                        </div>
-                        <div class="col-md-1">
-                            <label class="title text-center">To</label>
-                        </div>
-                        <div class="col-md-2">
-                            <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker>
-                        </div>
-                        <div class="col-md-6">
-                            <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" [selectedItems]="selectedItems"></angular2-multiselect>
-                        </div>
-                    </div>
-                    <div class="content table-responsive table-full-width" ng-if="showBox">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Date </th>
-
-                                    <th> Particulars</th>
-
-                                    <th> Voucher</th>
-
-                                    <th> Debit Amount</th>
-
-                                    <th> Creit Amount </th>
-                                </tr>
-
-                            </thead>
-                            <tbody [hidden]="showBox">
-                                <tr *ngFor="let list of LedgerData">
-                                    <td>{{list.date|date}}</td>
-                                    <td>{{list.ledgerName}}</td>
-                                    <td>{{list.voucherType}}</td>
-                                    <td>{{list.debitAmount}}</td>
-                                    <td>{{list.creditAmount}}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{{netDebitAmount}}</td>
-                                    <td>{{netCreditAmount}}</td>
-                                </tr>
-                                <tr style="color: rgb(128, 0, 49)">
-                                    <td></td>
-                                    <td></td>
-                                    <td>Closing Balance</td>
-                                    <td [hidden]="totalNet > 0 ">{{netCreditAmount-netDebitAmount}}</td>
-                                    <td [hidden]="totalNet > 0">-</td>
-                                    <td [hidden]="totalNet < 0">-</td>
-                                    <td [hidden]="totalNet < 0 ">{{netDebitAmount-netCreditAmount}}</td>
-                                </tr>
-                                <tr style="color: green">
-                                    <td></td>
-                                    <td></td>
-                                    <td>Total</td>
-                                    <td>{{newTotalNet}}</td>
-                                    <td>{{newTotalNet}}</td>
-                                    <!-- <td>{{netDebitAmount netCreditAmount?netDebitAmount+accountBalance:netCreditAmount+accountBalance }}</td> -->
-                                </tr>
-                                <tr style="color: rebeccapurple">
-                                    <td></td>
-                                    <td></td>
-                                    <td>Account Balance</td>
-                                    <td [hidden]="totalNet < 0 ">{{newTotalNet}}</td>
-                                    <td [hidden]="totalNet < 0">-</td>
-                                    <td [hidden]="totalNet > 0">-</td>
-                                    <td [hidden]="totalNet > 0 ">{{newTotalNet}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Smart Data Table</div>
+    <p class="content-sub-header">Smart data table library with sorting, filtering, pagination & add/edit/delete functions.</p>
+  </div>
 </div>
+<section id="icon-tabs">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+
+          <div class="row mb-2">
+            <div class="col-5">
+              <h4 style="float:left" class="card-title ">Showing results for ledger: </h4>
+            </div>
+            <div class="col-4">
+              <ng-select [items]="items" [markFirst]="true" placeholder="Select ledger"   (add)="onAdd($event)">
+              </ng-select>
+            </div>
+          </div>
+          <br>  
+          <div class="row mt-3">
+            <div class="col-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds2.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-5">
+              <ng-select [items]="selectedItems" [markFirst]="true" placeholder="Select Filter" [multiple]="true" [closeOnSelect]="false"
+                (change)="selected($event)">
+              </ng-select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <p>No data present</p>
+            </div>
+          </div>
+
+          <div class="content table-responsive table-full-width" ng-if="showBox">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Date </th>
+
+                  <th> Particulars</th>
+
+                  <th> Voucher</th>
+
+                  <th> Debit Amount</th>
+
+                  <th> Creit Amount </th>
+                </tr>
+
+              </thead>
+              <tbody [hidden]="showBox">
+                <tr *ngFor="let list of LedgerData">
+                  <td>{{list.date|date}}</td>
+                  <td>{{list.ledgerName}}</td>
+                  <td>{{list.voucherType}}</td>
+                  <td>{{list.debitAmount}}</td>
+                  <td>{{list.creditAmount}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>{{netDebitAmount}}</td>
+                  <td>{{netCreditAmount}}</td>
+                </tr>
+                <tr style="color: rgb(128, 0, 49)">
+                  <td></td>
+                  <td></td>
+                  <td>Closing Balance</td>
+                  <td [hidden]="totalNet > 0 ">{{netCreditAmount-netDebitAmount}}</td>
+                  <td [hidden]="totalNet > 0">-</td>
+                  <td [hidden]="totalNet < 0">-</td>
+                  <td [hidden]="totalNet < 0 ">{{netDebitAmount-netCreditAmount}}</td>
+                </tr>
+                <tr style="color: green">
+                  <td></td>
+                  <td></td>
+                  <td>Total</td>
+                  <td>{{newTotalNet}}</td>
+                  <td>{{newTotalNet}}</td>
+                  <!-- <td>{{netDebitAmount netCreditAmount?netDebitAmount+accountBalance:netCreditAmount+accountBalance }}</td> -->
+                </tr>
+                <tr style="color: rebeccapurple">
+                  <td></td>
+                  <td></td>
+                  <td>Account Balance</td>
+                  <td [hidden]="totalNet < 0 ">{{newTotalNet}}</td>
+                  <td [hidden]="totalNet < 0">-</td>
+                  <td [hidden]="totalNet > 0">-</td>
+                  <td [hidden]="totalNet > 0 ">{{newTotalNet}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Wizard Ends -->

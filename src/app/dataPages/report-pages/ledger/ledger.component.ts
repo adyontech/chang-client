@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
+import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 declare var $: any;
 
@@ -37,17 +38,26 @@ export class LedgerComponent implements OnInit {
   constructor(private route: ActivatedRoute, public _ledgerService: LedgerService, public fb: FormBuilder) {}
 
   ngOnInit() {
+    this.getRouteParam();
     this.getLedgerNames();
   }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+      // this._ledgerService.setParamId(this.paramId);
+    });
+  }
 
-  public selected(value: any): void {
+  public onAdd(value: any): void {
     this.showBox = false;
     // console.log("Selected value is: ", value);
-    this._ledgerService.ledgerName = value.id;
+    this._ledgerService.ledgerName = value;
     this.dataCopy = this._ledgerService
-      .getIncomingData()
+      .getIncomingData(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data)
         this.LedgerData = data.formData;
         this.totalNet = data.amountObj.totalNet;
         this.newTotalNet = Math.abs(this.totalNet);
@@ -59,7 +69,7 @@ export class LedgerComponent implements OnInit {
 
   getLedgerNames() {
     this.dataCopy = this._ledgerService
-      .getLedgerNames()
+      .getLedgerNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data)
