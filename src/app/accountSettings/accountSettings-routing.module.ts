@@ -6,7 +6,7 @@ import { MeProfileComponent } from './me/me.component';
 import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.component';
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
-import {UpgradeProfileComponent} from './upgrade/upgrade.component';
+import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 
 const routes: Routes = [
   {
@@ -59,6 +59,13 @@ const routes: Routes = [
         component: EditProfileComponent,
         data: {
           title: 'Gallery Page',
+        },
+      },
+      {
+        path: 'upgrade',
+        component: UpgradeProfileComponent,
+        data: {
+          title: 'upgrade Page',
         },
       },
     ],
