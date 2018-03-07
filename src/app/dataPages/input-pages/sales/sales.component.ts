@@ -1,8 +1,8 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
 import { ActivatedRoute } from '@angular/router';
+import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
 
 declare var $: any;
@@ -28,7 +28,16 @@ export class SalesComponent implements OnInit {
   public prsrList: Array<string> = [];
 
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
-
+  public transportationModeArray = ['road', 'train', 'air', 'water'];
+  public salesType = [
+    'intraState',
+    'interState',
+    'outsideCountry',
+    'deemedExports',
+    'withinState',
+    'outsideState',
+    'others',
+  ];
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;

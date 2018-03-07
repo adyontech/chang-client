@@ -9,6 +9,8 @@ import { ChartistModule } from 'ng-chartist';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ArchwizardModule } from 'ng2-archwizard';
+
 
 import { ContraComponent } from './contra/contra.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
@@ -33,7 +35,6 @@ import { ReceiptService } from './receipt/service/receipt.service';
 import { SalesService } from './sales/service/sales.service';
 import { SalesReturnService } from './salesReturn/service/salesReturn.service';
 import { UnderGroupsService } from './undergroup/service/underGroup.service';
-
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     ChartistModule,
     AgmCoreModule,
     NgbModule,
+    ArchwizardModule,
     NgSelectModule,
   ],
   declarations: [
