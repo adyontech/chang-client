@@ -42,144 +42,158 @@
           <h4 class="card-title">Form wizard with icon tabs</h4>
         </div>
         <div class="card-body">
-          <div class="card-block">
-            <form class="icons-tab-steps wizard-circle" [formGroup]="form" (ngSubmit)="onSubmit()">
-              <!-- Step 1 -->
-              <h6>Step 1</h6>
-              <fieldset>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="ledgerName">Name of Ledger</label>
-                      <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
+          <form class="icons-tab-steps wizard-circle" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="card-block">
+              <wizard #wizard>
+                <!-- Step 1 -->
+                <wizard-step stepTitle="Step 1">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="ledgerName">Name of Ledger</label>
+                        <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="underGroup">Under Group</label>
-                      <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup"></ng-select>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-              <!-- Step 2 -->
-              <h6>Step 2</h6>
-              <fieldset>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="applicableTax">Applicable Tax</label>
-                      <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax"></ng-select>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="underGroup">Under Group</label>
+                        <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup"></ng-select>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="businessType">Business Type</label>
-                      <ng-select [items]="businessTypeItems" id="businessType" placeholder="Select type" formControlName="businessType"></ng-select>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" nextStep>Next</button>
+                  </div>
+
+                </wizard-step>
+                <!-- Step 2 -->
+                <wizard-step stepTitle="Step 2">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="applicableTax">Applicable Tax</label>
+                        <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax"></ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="businessType">Business Type</label>
+                        <ng-select [items]="businessTypeItems" id="businessType" placeholder="Select type" formControlName="businessType"></ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="gstin">GSTIN</label>
+                        <input type="number" class="form-control" id="gstin" formControlName="gstin">
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="pan">PAN</label>
+                        <input type="number" class="form-control" id="pan" formControlName="pan">
+                      </div>
                     </div>
                   </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="gstin">GSTIN</label>
-                      <input type="text" class="form-control" id="gstin" formControlName="gstin">
-                    </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" previousStep>Back</button>
+                    <button type="button" class="btn btn-secondary" nextStep>Next</button>
                   </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="pan">PAN</label>
-                      <input type="text" class="form-control" id="pan" formControlName="pan">
+                </wizard-step>
+                <!-- Step 3 -->
+                <wizard-step stepTitle="Step 3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" formControlName="name">
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </fieldset>
-              <!-- Step 3 -->
-              <h6>Step 3</h6>
-              <fieldset>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" formControlName="name">
-                    </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="email">E-Mail</label>
-                      <input type="email" class="form-control" id="email" formControlName="email">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" class="form-control" id="email" formControlName="email">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="address">Address</label>
-                      <input type="text" class="form-control" id="address" formControlName="address">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" formControlName="address">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="city">City</label>
-                      <input type="text" class="form-control" id="city" formControlName="city">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" formControlName="city">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="state">State</label>
-                      <input type="text" class="form-control" id="state" formControlName="state">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" formControlName="state">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="pinCode">Pin Code</label>
-                      <input type="number" class="form-control" id="pinCode" formControlName="pinCode">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="pinCode">Pin Code</label>
+                        <input type="number" class="form-control" id="pinCode" formControlName="pinCode">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="country">Country</label>
-                      <input type="text" class="form-control" id="country" formControlName="country">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" id="country" formControlName="country">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="phoneNumber">Phone Number</label>
-                      <input type="number" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="number" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="qty">Quantity</label>
-                      <input type="number" class="form-control" id="qty" formControlName="qty" (input)="updateTotal()">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="qty">Quantity</label>
+                        <input type="number" class="form-control" id="qty" formControlName="qty" (input)="updateTotal()">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="rate">Rate</label>
-                      <input type="number" class="form-control" id="rate" formControlName="rate" (input)="updateTotal()">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="rate">Rate</label>
+                        <input type="number" class="form-control" id="rate" formControlName="rate" (input)="updateTotal()">
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="total">Total</label>
-                      <input type="number" class="form-control" id="total" formControlName="total">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="total">Total</label>
+                        <input type="number" class="form-control" id="total" formControlName="total">
+                      </div>
                     </div>
-                    <button>Button for testing, submits form.</button>
                   </div>
-                </div>
-              </fieldset>
-            </form>
-          </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" previousStep>Back</button>
+                    <button type="button" class="btn btn-secondary" resetWizard>Reset</button>
+                    <button type="submit" class="btn btn-secondary" resetWizard>Submit</button>
+                  </div>
+                </wizard-step>
+              </wizard>
+            </div>
+          </form>
         </div>
       </div>
     </div>
