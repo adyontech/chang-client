@@ -1,29 +1,332 @@
-<!-- <div class="col-sm-12 col-md-12 col-lg-12">
+<div class="row" matchHeight="card">
+  <!--Modal with Default options starts-->
+  <div class="col-sm-12 col-md-6">
     <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Modal with Default options</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Modal title</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <app-undergroup></app-undergroup>
+            </div>
+          </ng-template>
+
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(content)">Launch demo modal</button>
+
+          <hr>
+          <p>Action : {{closeResult}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Wizard -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="content-header">Wizard Forms</div>
+  </div>
+</div>
+<section id="icon-tabs">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Modal with Default options</h4>
+          <h4 class="card-title">Form wizard with icon tabs</h4>
         </div>
         <div class="card-body">
-            <div class="card-block">
-                <ng-template #content let-c="close" let-d="dismiss">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Modal title</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
+          <div class="card-block">
+            <form class="icons-tab-steps wizard-circle" [formGroup]="form" (ngSubmit)="onSubmit()">
+              <!-- Step 1 -->
+              <h6>Step 1</h6>
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ledgerName">Name of Ledger</label>
+                      <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
                     </div>
-                    <div class="modal-body">
-                        <app-undergroup></app-undergroup>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="underGroup">Under Group</label>
+                      <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup"></ng-select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">Close</button>
+                  </div>
+                </div>
+              </fieldset>
+              <!-- Step 2 -->
+              <h6>Step 2</h6>
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="applicableTax">Applicable Tax</label>
+                      <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax"></ng-select>
                     </div>
-                </ng-template>
+                  </div>
 
-                <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="businessType">Business Type</label>
+                      <ng-select [items]="businessTypeItems" id="businessType" placeholder="Select type" formControlName="businessType"></ng-select>
+                    </div>
+                  </div>
 
-                <hr>
-            </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="gstin">GSTIN</label>
+                      <input type="text" class="form-control" id="gstin" formControlName="gstin">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="pan">PAN</label>
+                      <input type="text" class="form-control" id="pan" formControlName="pan">
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <!-- Step 3 -->
+              <h6>Step 3</h6>
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" id="name" formControlName="name">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email">E-Mail</label>
+                      <input type="email" class="form-control" id="email" formControlName="email">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="address">Address</label>
+                      <input type="text" class="form-control" id="address" formControlName="address">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="city">City</label>
+                      <input type="text" class="form-control" id="city" formControlName="city">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <input type="text" class="form-control" id="state" formControlName="state">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="pinCode">Pin Code</label>
+                      <input type="number" class="form-control" id="pinCode" formControlName="pinCode">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="country">Country</label>
+                      <input type="text" class="form-control" id="country" formControlName="country">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phoneNumber">Phone Number</label>
+                      <input type="number" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="qty">Quantity</label>
+                      <input type="number" class="form-control" id="qty" formControlName="qty" (input)="updateTotal()">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="rate">Rate</label>
+                      <input type="number" class="form-control" id="rate" formControlName="rate" (input)="updateTotal()">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="total">Total</label>
+                      <input type="number" class="form-control" id="total" formControlName="total">
+                    </div>
+                    <button>Button for testing, submits form.</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div> -->
+  </div>
+</section>
+<!-- Script-generated inputs -->
+<!-- 
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="ledgerName">Name of Ledger</label>
+        <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="underGroup">Under Group</label>
+        <input type="text" class="form-control" id="underGroup" formControlName="underGroup">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="applicableTax">Applicable Tax</label>
+        <input type="text" class="form-control" id="applicableTax" formControlName="applicableTax">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="businessType">Business Type</label>
+        <input type="text" class="form-control" id="businessType" formControlName="businessType">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="gstin">GSTIN</label>
+        <input type="text" class="form-control" id="gstin" formControlName="gstin">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="pan">PAN</label>
+        <input type="text" class="form-control" id="pan" formControlName="pan">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input type="text" class="form-control" id="email" formControlName="email">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" formControlName="address">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" class="form-control" id="city" formControlName="city">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" class="form-control" id="state" formControlName="state">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="pinCode">Pin Code</label>
+        <input type="text" class="form-control" id="pinCode" formControlName="pinCode">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="country">Country</label>
+        <input type="text" class="form-control" id="country" formControlName="country">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="qty"></label>
+        <input type="text" class="form-control" id="qty" formControlName="qty">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="rate"></label>
+        <input type="text" class="form-control" id="rate" formControlName="rate">
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="total"></label>
+        <input type="text" class="form-control" id="total" formControlName="total">
+    </div>
+</div>
+-->
+<!-- Templated select options -->
+<!-- 
+ <select class="custom-select form-control" id="underGroup" formControlName="underGroup">
+    <ng-container *ngFor="let item of underGroupItems">
+      <option [value]="item">{{ item }}</option>
+    </ng-container>
+  </select> 
+ -->
