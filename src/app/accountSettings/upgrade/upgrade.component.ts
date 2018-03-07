@@ -29,17 +29,11 @@ export class UpgradeProfileComponent implements OnInit {
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.form = this.fb.group({
-      paymentNumber: [''],
-      date: [''],
-      account: [''],
-      paymentType: [''],
-      paymentThrough: [''],
-      chequeNumber: [''],
-      drawnOn: [null, Validators.required],
-      narration: [''],
-      against: [''],
-      file: [''],
-      endtotal: [''],
+      purpose: [''],
+      amount: [''],
+      buyer: [''],
+      phone: [''],
+      email: ['']
     });
   }
   get formData() {

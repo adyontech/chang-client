@@ -29,7 +29,7 @@ export class UpgradeService {
   }
 
   createNewEntry(user: any, compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/pay/instamojo?token=${this.token}&companyName=${compName}`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
