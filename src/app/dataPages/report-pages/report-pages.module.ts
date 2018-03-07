@@ -10,8 +10,14 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { LedgerComponent } from './ledger/ledger.component';
+import { JournalEntryComponent } from './journalEntry/journalEntry.component';
+import { PaymentComponent } from './payment/payment.component';
+
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
+import { LedgerService } from './ledger/service/ledger.service';
+import { PaymentService } from './payment/service/payment.service';
 @NgModule({
   imports: [
     HttpModule,
@@ -25,6 +31,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     NgbModule,
     NgSelectModule,
   ],
-  declarations: [],
+  declarations: [LedgerComponent, JournalEntryComponent, PaymentComponent],
+  providers: [GlobalVaribles, LedgerService, PaymentService],
 })
 export class ReportPagesModule {}

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
+import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 declare var $: any;
 
@@ -13,7 +14,8 @@ declare var $: any;
 })
 export class LedgerComponent implements OnInit {
   // Models
-  showBox: Boolean = true;
+  haveData: Boolean = true;
+  defaultLedgerSelect: String;
   totalNet: number;
   newTotalNet: number;
   accountBalance: number;
@@ -37,17 +39,25 @@ export class LedgerComponent implements OnInit {
   constructor(private route: ActivatedRoute, public _ledgerService: LedgerService, public fb: FormBuilder) {}
 
   ngOnInit() {
+    this.getRouteParam();
     this.getLedgerNames();
   }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+      // this._ledgerService.setParamId(this.paramId);
+    });
+  }
 
-  public selected(value: any): void {
-    this.showBox = false;
+  public onAdd(value: any): void {
     // console.log("Selected value is: ", value);
-    this._ledgerService.ledgerName = value.id;
+    this._ledgerService.ledgerName = value;
     this.dataCopy = this._ledgerService
-      .getIncomingData()
+      .getIncomingData(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
+        data.formData.length === 0 ? (this.haveData = true) : (this.haveData = null);
         this.LedgerData = data.formData;
         this.totalNet = data.amountObj.totalNet;
         this.newTotalNet = Math.abs(this.totalNet);
@@ -59,10 +69,11 @@ export class LedgerComponent implements OnInit {
 
   getLedgerNames() {
     this.dataCopy = this._ledgerService
-      .getLedgerNames()
+      .getLedgerNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data)
+        this.defaultLedgerSelect = data.ledgerData[0];
         this.items = this.items.concat(data.ledgerData);
       });
   }

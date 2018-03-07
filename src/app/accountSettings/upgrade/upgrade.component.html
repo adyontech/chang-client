@@ -1,1 +1,29 @@
-<p>edit page</p>
+<form class="form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="meetingName2">purpose</label>
+        <input type="text" class="form-control" id="meetingName2" name="meetingName2" formControlName="purpose">
+      </div>
+      <div class="form-group">
+        <label for="meetingLocation2">amount </label>
+        <input type="text" class="form-control" id="meetingLocation2" name="meetingLocation2" formControlName="amount">
+      </div>
+      <div class="form-group">
+        <label for="participants2">Buyer</label>
+        <input name="participants" id="participants2" rows="4" class="form-control" formControlName="buyer">
+      </div>
+      <div class="form-group">
+        <label for="decisions2">Phone no</label>
+        <input name="decisions" id="decisions2" rows="4" class="form-control" formControlName="phone">
+      </div>
+      <div class="form-group">
+        <label for="decisions2">Email</label>
+        <input name="decisions" id="decisions2" rows="4" class="form-control" formControlName="email">
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-raised btn-raised btn-primary">
+    <i class="fa fa-check-square-o"></i> Change
+  </button>
+</form>

@@ -1,73 +1,75 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
+import { LedgerComponent } from './ledger/ledger.component';
+import { JournalEntryComponent } from './journalEntry/journalEntry.component';
+import { PaymentComponent } from './payment/payment.component';
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'gallery',
-        // component: GalleryPageComponent,
+        path: 'ledger',
+        component: LedgerComponent,
         data: {
-          title: 'Gallery Page'
-        }
+          title: 'Ledger',
+        },
       },
       {
-        path: 'invoice',
-        // component: InvoicePageComponent,
+        path: 'journal',
+        component: JournalEntryComponent,
         data: {
-          title: 'Invoice Page'
-        }
+          title: 'journal entry',
+        },
       },
       {
-        path: 'horizontaltimeline',
-        // component: HorizontalTimelinePageComponent,
+        path: 'payment',
+        component: PaymentComponent,
         data: {
-          title: 'Horizontal Timeline Page'
-        }
+          title: 'Payment Page',
+        },
       },
       {
         path: 'verticaltimeline',
         // component: VerticalTimelinePageComponent,
         data: {
-          title: 'Vertical Timeline Page'
-        }
+          title: 'Vertical Timeline Page',
+        },
       },
       {
         path: 'profile',
         // component: UserProfilePageComponent,
         data: {
-          title: 'User Profile Page'
-        }
+          title: 'User Profile Page',
+        },
       },
       {
         path: 'search',
         // component: SearchComponent,
         data: {
-          title: 'Search'
-        }
+          title: 'Search',
+        },
       },
       {
         path: 'faq',
         // component: FaqComponent,
         data: {
-          title: 'FAQ'
-        }
+          title: 'FAQ',
+        },
       },
       {
         path: 'kb',
         // component: KnowledgeBaseComponent,
         data: {
-          title: 'Knowledge Base'
-        }
-      }
-    ]
-  }
+          title: 'Knowledge Base',
+        },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ReportPagesRoutingModule { }
+export class ReportPagesRoutingModule {}

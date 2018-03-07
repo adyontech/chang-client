@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 declare var $: any;
@@ -20,18 +20,17 @@ export class PaymentComponent implements OnInit {
 
   // Modal for column hide and show
 
-  VColPaymentType: String = 'ColPaymentType';
-  VColPaymentThrough: String = 'ColPaymentThrough';
-  VColChequeNO: String = 'ColChequeNO';
-  VColAgainst: String = 'ColAgainst';
-
+  VColPaymentType: String = 'Payment Type';
+  VColPaymentThrough: String = 'Payment Through';
+  VColChequeNO: String = 'Cheque Number';
+  VColAgainst: String = 'Against';
 
   @Input() public ColPaymentType: Boolean = false;
   public ColPaymentThrough: Boolean = false;
   public ColChequeNO: Boolean = false;
   public ColAgainst: Boolean = false;
 
-  incomingData: Array<string>;
+  // incomingData: Array<string>;
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
@@ -39,36 +38,21 @@ export class PaymentComponent implements OnInit {
 
   dropdownList = [];
   selectedItems = [];
+  chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
+  chooseItemBox = []
   dropdownSettings = {};
+  public accountType: Array<string> = ['All', 'Cash', 'Bank'];
 
   constructor(private route: ActivatedRoute, public _paymentService: PaymentService, public fb: FormBuilder) {}
   ngOnInit() {
     this.getIncomingData();
-    this.dropdownList = [
-      { id: 'ColPaymentType', itemName: 'Payment Type' },
-      { id: 'ColPaymentThrough', itemName: 'Payment Through' },
-      { id: 'ColChequeNO', itemName: 'Cheque Number' },
-      { id: 'ColAgainst', itemName: 'Against' },
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      text: 'Select filter',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      enableSearchFilter: false,
-      classes: 'myclass custom-class',
-    };
-
   }
 
-//   hotkeys(event) {
-//     if (event.keyCode == 76 && event.ctrlKey) {
-//       this.modal.open();
-//     }
-//   }
-
-  onItemSelect(item: any): void {
-    switch (item.id) {
+  onAdd(item: any): void {
+    // console.log(item)
+    console.log(item === this.VColPaymentType);
+    console.log(this.VColAgainst);
+    switch (item) {
       case this.VColPaymentType:
         this.ColPaymentType = true;
         break;
@@ -82,11 +66,12 @@ export class PaymentComponent implements OnInit {
         this.ColAgainst = true;
         break;
     }
-    console.log(this.selectedItems);
   }
 
-  OnItemDeSelect(item: any) {
-    switch (item.id) {
+  onRemove(item: any) {
+    console.log(item);
+    console.log(item === this.VColPaymentType);
+    switch (item.label) {
       case this.VColPaymentType:
         this.ColPaymentType = false;
         break;
@@ -100,7 +85,6 @@ export class PaymentComponent implements OnInit {
         this.ColAgainst = false;
         break;
     }
-    console.log(this.selectedItems);
   }
   onSelectAll(items: any) {
     // console.log(items);
@@ -108,6 +92,7 @@ export class PaymentComponent implements OnInit {
     this.ColPaymentThrough = true;
     this.ColChequeNO = true;
     this.ColAgainst = true;
+    this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
   onDeSelectAll(items: any) {
     // console.log(items);
@@ -115,13 +100,9 @@ export class PaymentComponent implements OnInit {
     this.ColPaymentThrough = false;
     this.ColChequeNO = false;
     this.ColAgainst = false;
-  }
-  onClose() {
-    console.log('Modal Closed');
-    this.contentId = '';
+    this.chooseItemBox = [];
   }
   // real date picker active from here
-
 
   getIncomingData() {
     this.dataCopy = this._paymentService
@@ -129,7 +110,7 @@ export class PaymentComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data.paymentData);
-        this.incomingData = data.paymentData;
+        // this.accountType = this.accountType.concat(data.ledgerData);
       });
   }
 
