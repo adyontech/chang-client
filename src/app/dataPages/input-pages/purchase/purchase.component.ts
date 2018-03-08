@@ -49,7 +49,7 @@ export class PurchaseComponent implements OnInit {
       vehicleNumber: [''],
       partyName: [''],
       purchaseLedgerName: [''],
-      saleType: [''],
+      purchaseType: [''],
       transportationMode: [''],
       supplyPlace: [''],
       particularsData: this.fb.array([]),
@@ -96,24 +96,8 @@ export class PurchaseComponent implements OnInit {
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
-  public showNotification(from, align) {
-    const type = ['', 'info', 'success', 'warning', 'danger'];
-
-    const color = Math.floor(Math.random() * 4 + 1);
-    $.notify(
-      {
-        icon: 'pe-7s-gift',
-        message: 'Welcome to <b>ProWorkTree </b> - a beautiful freebie for every web developer.',
-      },
-      {
-        type: type[color],
-        timer: 1000,
-        placement: {
-          from: from,
-          align: align,
-        },
-      }
-    );
+  get formData2() {
+    return <FormArray>this.form.get('subParticularsData');
   }
 
   initParticular() {
