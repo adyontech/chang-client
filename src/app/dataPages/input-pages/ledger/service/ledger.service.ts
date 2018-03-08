@@ -33,6 +33,11 @@ export class LedgerService {
   }
 
   createNewLedger(user: any, companyName) {
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      // console.log(key , user[key])
+      form.append(key, user[key]);
+    }
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledger?token=${this.token}&companyName=${
       companyName
     }`;

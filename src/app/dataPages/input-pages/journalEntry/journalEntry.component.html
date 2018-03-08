@@ -156,7 +156,14 @@
                   <div class="form-inline">
                     <div class="form-group">
                       <label for="upload">Attachment:</label>
-                      <input type="file" class="" formControlName="file" (change)="handleFileUpload($event)">
+                      <div class="card-body">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput >
+                          </div>
+                          <div *ngIf="attachmentError">errririiriri</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

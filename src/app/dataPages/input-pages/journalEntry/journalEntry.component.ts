@@ -19,6 +19,7 @@ export class JournalEntryComponent implements OnInit {
   debitSum: number;
   creditSum: number;
   public ledgerList: Array<string> = [];
+  public attachmentError: Boolean = false;
 
   public value: any = {};
   public _disabledV: String = '0';
@@ -106,6 +107,19 @@ export class JournalEntryComponent implements OnInit {
       if (!isNaN(creditAmount) && creditAmount !== '') {
         this.creditSum += parseFloat(creditAmount);
       }
+    }
+  }
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
     }
   }
 

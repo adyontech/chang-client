@@ -293,16 +293,17 @@
                                     <div class="form-inline ">
                                       <div class="form-group ">
                                         <label for="upload ">Attachment:</label>
-                                        <input type="file" class=" " formControlName="file" (change)="handleFileUpload($event) ">
+                                        <div class="card-body">
+                                          <div class="form-group">
+                                            <div class="input-group">
+                                              <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput >
+                                            </div>
+                                            <div *ngIf="attachmentError">errririiriri</div>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-      
-                                </div>
-                                <div class="row" style="text-align: center; margin-top: 20px ">
-                                  <button type="button" data-toggle="tab " href="#step1 " (click)="setSelected(1) " class="btn btn-info btn-fill "> Back</button>
-                                  <button type="button" data-toggle="tab " href="#step3 " (click)="setSelected(2) " class="btn btn-info btn-fill ">Save and exit</button>
-                                  <button type="button" class="btn btn-info btn-fill ">Save and close</button>
       
                                 </div>
                               </div>

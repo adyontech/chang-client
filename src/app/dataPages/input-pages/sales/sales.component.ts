@@ -23,6 +23,7 @@ export class SalesComponent implements OnInit {
   public paramId: string;
   public subTotal: number;
   public totalAmount: number;
+  public attachmentError: Boolean = false;
 
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
@@ -218,6 +219,19 @@ export class SalesComponent implements OnInit {
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });
+  }
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
   }
 
   onSubmit(user) {

@@ -21,6 +21,7 @@ export class PurchaseComponent implements OnInit {
   public subTotal: number;
   public totalAmount: number;
   public selectedString: String;
+  public attachmentError: Boolean = false;
 
   public ledgerList: Array<string> = [];
   public purchaseList: Array<string> = [];
@@ -138,6 +139,20 @@ export class PurchaseComponent implements OnInit {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     cont.removeAt(i);
+  }
+
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
   }
 
   onSubmit(user) {

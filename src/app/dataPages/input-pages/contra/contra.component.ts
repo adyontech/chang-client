@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ContraService } from './service/contra.service';
@@ -21,6 +21,7 @@ export class ContraComponent implements OnInit {
   public totalAmount: number;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
+  public attachmentError: Boolean = false;
 
   public value: any = {};
   public _disabledV: String = '0';
@@ -101,9 +102,26 @@ export class ContraComponent implements OnInit {
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
+  }
 
   onSubmit(user) {
-    console.log(user);
-    this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        console.log(user);
+        this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
+      }
+    });
   }
 }

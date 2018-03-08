@@ -25,6 +25,11 @@ export class PurchaseReturnService {
     this.token = this.windowStorage.token;
   }
   createNewEntry(user: any, compName) {
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      // console.log(key , user[key])
+      form.append(key, user[key]);
+    }
     this._url = `${this._globalVariableService.baseServerUrl}/api/purchaseReturn?token=${
       this.token
     }&companyName=${compName}`;

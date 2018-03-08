@@ -22,6 +22,7 @@ export class PaymentComponent implements OnInit {
   public totalAmount: number;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
+  public attachmentError: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -143,6 +144,20 @@ export class PaymentComponent implements OnInit {
 
   setSelected(id: number) {
     this.selectedIndex = id;
+  }
+
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
   }
 
   onSubmit(user) {
