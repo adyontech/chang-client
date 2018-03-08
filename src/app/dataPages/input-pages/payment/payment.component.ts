@@ -57,19 +57,10 @@ export class PaymentComponent implements OnInit {
   // To open modal we need key event here
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    // console.log(event);
-
     if (event.keyCode === 66 && event.ctrlKey) {
-      // this.increment();
-      console.log('dance');
       document.getElementById('openModalButton').click();
     }
-
-    // if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-    //   // this.decrement();
-    // }
   }
-  // Open default modal
   open(content) {
     this.modalService.open(content).result.then(
       result => {

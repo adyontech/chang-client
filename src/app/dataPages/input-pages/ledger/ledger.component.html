@@ -1,4 +1,4 @@
-<div class="row" matchHeight="card">
+<div class="row" matchHeight="card" [hidden]="true">
   <!--Modal with Default options starts-->
   <div class="col-sm-12 col-md-6">
     <div class="card">
@@ -18,11 +18,6 @@
               <app-undergroup></app-undergroup>
             </div>
           </ng-template>
-
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(content)">Launch demo modal</button>
-
-          <hr>
-          <p>Action : {{closeResult}}</p>
         </div>
       </div>
     </div>
@@ -31,316 +26,185 @@
 <!-- Wizard -->
 <div class="row">
   <div class="col-sm-12">
-    <div class="content-header">Wizard Forms</div>
+    <div class="content-header">ledger Forms</div>
   </div>
 </div>
 <section id="icon-tabs">
   <div class="row">
     <div class="col-12">
-      <div class="card">
+      <div class="card text-center">
         <div class="card-header">
-          <h4 class="card-title">Form wizard with icon tabs</h4>
+          <h4 class="card-title">{{paramId}}</h4>
         </div>
         <div class="card-body">
-          <form class="icons-tab-steps wizard-circle" [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="card-block">
-              <wizard #wizard>
-                <!-- Step 1 -->
-                <wizard-step stepTitle="Step 1">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="ledgerName">Name of Ledger</label>
-                        <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
+          <div class="card-block">
+            <form class="icons-tab-steps wizard-circle" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="mt-3">
+              <wizard #wizard navBarLayout="large-empty-symbols">
+                <div class="centered-content" style="margin-top:6%; width: 100%;">
+                  <wizard-step stepTitle="Step 1" navigationSymbol="1">
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="ledgerName">Name of Ledger</label>
+                          <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="underGroup">Under Group</label>
-                        <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup"></ng-select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" nextStep>Next</button>
-                  </div>
-
-                </wizard-step>
-                <!-- Step 2 -->
-                <wizard-step stepTitle="Step 2">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="applicableTax">Applicable Tax</label>
-                        <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax"></ng-select>
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="underGroup">Under Group</label>
+                          <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup"></ng-select>
+                        </div>
                       </div>
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="businessType">Business Type</label>
-                        <ng-select [items]="businessTypeItems" id="businessType" placeholder="Select type" formControlName="businessType"></ng-select>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary" nextStep>Next</button>
+                    </div>
+
+                  </wizard-step>
+                  <!-- Step 2 -->
+                  <wizard-step stepTitle="Step 2" navigationSymbol="2">
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="applicableTax">Applicable Tax</label>
+                          <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax"></ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="businessType">Business Type</label>
+                          <ng-select [items]="businessTypeItems" id="businessType" placeholder="Select type" formControlName="businessType"></ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="gstin">GSTIN</label>
+                          <input type="text" class="form-control" id="gstin" formControlName="gstin">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="pan">PAN</label>
+                          <input type="text" class="form-control" id="pan" formControlName="pan">
+                        </div>
                       </div>
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="gstin">GSTIN</label>
-                        <input type="number" class="form-control" id="gstin" formControlName="gstin">
-                      </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary" previousStep>Back</button>
+                      <button type="button" class="btn btn-secondary" nextStep>Next</button>
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="pan">PAN</label>
-                        <input type="number" class="form-control" id="pan" formControlName="pan">
+                  </wizard-step>
+                  <!-- Step 3 -->
+                  <wizard-step stepTitle="Step 3" navigationSymbol="3">
+                    <div class="row">
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="name">Name</label>
+                          <input type="text" class="form-control" id="name" formControlName="name">
+                        </div>
+                      </div>
+
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="email">E-Mail</label>
+                          <input type="email" class="form-control" id="email" formControlName="email">
+                        </div>
+                      </div>
+
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="address">Address</label>
+                          <input type="text" class="form-control" id="address" formControlName="address">
+                        </div>
+                      </div>
+
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label for="city">City</label>
+                          <input type="text" class="form-control" id="city" formControlName="city">
+                        </div>
+                      </div>
+
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="state">State</label>
+                          <input type="text" class="form-control" id="state" formControlName="state">
+                        </div>
+                      </div>
+
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="pinCode">Pin Code</label>
+                          <input type="text" class="form-control" id="pinCode" formControlName="pinCode">
+                        </div>
+                      </div>
+
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label for="country">Country</label>
+                          <input type="text" class="form-control" id="country" formControlName="country">
+                        </div>
+                      </div>
+
+                      <div class="col-md-5  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="phoneNumber">Phone Number</label>
+                          <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" previousStep>Back</button>
-                    <button type="button" class="btn btn-secondary" nextStep>Next</button>
-                  </div>
-
-                </wizard-step>
-                <!-- Step 3 -->
-                <wizard-step stepTitle="Step 3">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" formControlName="name">
+                    <div class="row text-center">
+                      <div class="col-md-5">
+                        <h6>Opening Balance:</h6>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-3  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="qty">Quantity</label>
+                          <input type="text" class="form-control" id="qty" formControlName="qty" (input)="updateTotal()">
+                        </div>
+                      </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="email">E-Mail</label>
-                        <input type="email" class="form-control" id="email" formControlName="email">
+                      <div class="col-md-3  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="rate">Rate</label>
+                          <input type="text" class="form-control" id="rate" formControlName="rate" (input)="updateTotal()">
+                        </div>
+                      </div>
+
+                      <div class="col-md-3  offset-md-1">
+                        <div class="form-group">
+                          <label class="text-left" for="total">Total</label>
+                          <input type="text" class="form-control" id="total" formControlName="total">
+                        </div>
                       </div>
                     </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" formControlName="address">
-                      </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary" previousStep>Back</button>
+                      <button type="button" class="btn btn-secondary" resetWizard>Reset</button>
+                      <button type="submit" class="btn btn-secondary">Submit</button>
                     </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" formControlName="city">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="state">State</label>
-                        <input type="text" class="form-control" id="state" formControlName="state">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="pinCode">Pin Code</label>
-                        <input type="number" class="form-control" id="pinCode" formControlName="pinCode">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="country">Country</label>
-                        <input type="text" class="form-control" id="country" formControlName="country">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="number" class="form-control" id="phoneNumber" formControlName="phoneNumber">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="qty">Quantity</label>
-                        <input type="number" class="form-control" id="qty" formControlName="qty" (input)="updateTotal()">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="rate">Rate</label>
-                        <input type="number" class="form-control" id="rate" formControlName="rate" (input)="updateTotal()">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="total">Total</label>
-                        <input type="number" class="form-control" id="total" formControlName="total">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" previousStep>Back</button>
-                    <button type="button" class="btn btn-secondary" resetWizard>Reset</button>
-                    <button type="submit" class="btn btn-secondary" resetWizard>Submit</button>
-                  </div>
-                </wizard-step>
+                  </wizard-step>
+                </div>
               </wizard>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- Script-generated inputs -->
-<!-- 
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="ledgerName">Name of Ledger</label>
-        <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="underGroup">Under Group</label>
-        <input type="text" class="form-control" id="underGroup" formControlName="underGroup">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="applicableTax">Applicable Tax</label>
-        <input type="text" class="form-control" id="applicableTax" formControlName="applicableTax">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="businessType">Business Type</label>
-        <input type="text" class="form-control" id="businessType" formControlName="businessType">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="gstin">GSTIN</label>
-        <input type="text" class="form-control" id="gstin" formControlName="gstin">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="pan">PAN</label>
-        <input type="text" class="form-control" id="pan" formControlName="pan">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" formControlName="name">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="email">E-Mail</label>
-        <input type="text" class="form-control" id="email" formControlName="email">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" formControlName="address">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="city">City</label>
-        <input type="text" class="form-control" id="city" formControlName="city">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="state">State</label>
-        <input type="text" class="form-control" id="state" formControlName="state">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="pinCode">Pin Code</label>
-        <input type="text" class="form-control" id="pinCode" formControlName="pinCode">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="country">Country</label>
-        <input type="text" class="form-control" id="country" formControlName="country">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="phoneNumber">Phone Number</label>
-        <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="qty"></label>
-        <input type="text" class="form-control" id="qty" formControlName="qty">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="rate"></label>
-        <input type="text" class="form-control" id="rate" formControlName="rate">
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="total"></label>
-        <input type="text" class="form-control" id="total" formControlName="total">
-    </div>
-</div>
--->
-<!-- Templated select options -->
-<!-- 
- <select class="custom-select form-control" id="underGroup" formControlName="underGroup">
-    <ng-container *ngFor="let item of underGroupItems">
-      <option [value]="item">{{ item }}</option>
-    </ng-container>
-  </select> 
- -->
