@@ -98,27 +98,26 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-5 offset-md-1">
+                        <div class="col-md-5 offset-md-1" *ngIf=" form.get('receiptThrough').value =='cheque'">
                           <label>Cheque no.</label>
                           <input type="text" class="form-control" formControlName="chequeNumber">
-
                         </div>
                         <div class="col-md-5 offset-md-1">
-                            <div class="form-group">
-                              <label>Drawn on</label>
-                              <div class="card-body">
-                                <div class="form-group">
-                                  <div class="input-group">
-                                    <input class="form-control" placeholder="yyyy-mm-dd" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="drawnOn">
-                                    <div class="input-group-append">
-                                      <div class="input-group-text" (click)="ds.toggle()">
-                                        <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                                      </div>
+                          <div class="form-group">
+                            <label>Drawn on</label>
+                            <div class="card-body">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control" placeholder="yyyy-mm-dd" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="drawnOn">
+                                  <div class="input-group-append">
+                                    <div class="input-group-text" (click)="ds.toggle()">
+                                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
+                          </div>
                         </div>
                       </div>
                       <div class="row">
