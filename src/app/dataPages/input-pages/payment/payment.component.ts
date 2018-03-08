@@ -2,7 +2,7 @@ import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
@@ -155,8 +155,13 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(user) {
-    user.endtotal = this.totalAmount;
-    console.log(user);
-    this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.endtotal = this.totalAmount;
+        this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+      } else {
+        return;
+      }
+    });
   }
 }
