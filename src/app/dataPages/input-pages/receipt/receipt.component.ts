@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
 
@@ -18,6 +18,7 @@ export class ReceiptComponent implements OnInit {
   public dataCopy: any;
   paramId: string;
   totalAmount: number;
+  public attachmentError: Boolean = false;
 
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = ['Cash'];
@@ -111,9 +112,26 @@ export class ReceiptComponent implements OnInit {
         this.accountList = this.accountList.concat(data.accountNameList);
       });
   }
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
+  }
 
   onSubmit(user) {
-    console.log(user);
-    this._receiptService.createNewEntry(user, this.paramId).subscribe(data => {});
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        console.log(user);
+        this._receiptService.createNewEntry(user, this.paramId).subscribe(data => {});
+      }
+    });
   }
 }

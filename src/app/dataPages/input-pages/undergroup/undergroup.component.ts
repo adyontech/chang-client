@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './../ledger/service/ledger.service';
 import { UnderGroupsService } from './service/underGroup.service';
@@ -16,7 +16,7 @@ export class UnderGroupComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   underHeadArray = ['revenue (CR)', 'expenses (DR)', 'sales (CR)', ' purchases (DR)', 'asset (DR)', 'liabilities (CR)'];
-  typeArray = ['Dr', 'Cr']
+  typeArray = ['Dr', 'Cr'];
   constructor(
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
@@ -33,9 +33,13 @@ export class UnderGroupComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log(user);
-    this._underGroupsService.createNewUnderGroup(user).subscribe(data => {
-      // console.log('hello gateway service')
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        console.log(user);
+        this._underGroupsService.createNewUnderGroup(user).subscribe(data => {
+          // console.log('hello gateway service')
+        });
+      }
     });
   }
 }

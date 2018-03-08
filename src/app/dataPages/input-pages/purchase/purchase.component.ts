@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PurchaseService } from './service/purchase.service';
 declare var $: any;
@@ -21,6 +21,7 @@ export class PurchaseComponent implements OnInit {
   public subTotal: number;
   public totalAmount: number;
   public selectedString: String;
+  public attachmentError: Boolean = false;
 
   public ledgerList: Array<string> = [];
   public purchaseList: Array<string> = [];
@@ -49,7 +50,7 @@ export class PurchaseComponent implements OnInit {
       vehicleNumber: [''],
       partyName: [''],
       purchaseLedgerName: [''],
-      saleType: [''],
+      purchaseType: [''],
       transportationMode: [''],
       supplyPlace: [''],
       particularsData: this.fb.array([]),
@@ -96,24 +97,8 @@ export class PurchaseComponent implements OnInit {
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
-  public showNotification(from, align) {
-    const type = ['', 'info', 'success', 'warning', 'danger'];
-
-    const color = Math.floor(Math.random() * 4 + 1);
-    $.notify(
-      {
-        icon: 'pe-7s-gift',
-        message: 'Welcome to <b>ProWorkTree </b> - a beautiful freebie for every web developer.',
-      },
-      {
-        type: type[color],
-        timer: 1000,
-        placement: {
-          from: from,
-          align: align,
-        },
-      }
-    );
+  get formData2() {
+    return <FormArray>this.form.get('subParticularsData');
   }
 
   initParticular() {
@@ -156,19 +141,37 @@ export class PurchaseComponent implements OnInit {
     cont.removeAt(i);
   }
 
-  onSubmit(user) {
-    user.particularsData.map(el => {
-      if ((el.subAmountconst = '')) {
-        el.subAmount = el.qty * el.rate;
-        el.subAmount = el.subAmount.toString();
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
       }
-      if ((el.amountconst = '')) {
-        el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-        el.amount = el.amount.toString();
+    } else {
+      this.attachmentError = true;
+    }
+  }
+
+  onSubmit(user) {
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.particularsData.map(el => {
+          if ((el.subAmountconst = '')) {
+            el.subAmount = el.qty * el.rate;
+            el.subAmount = el.subAmount.toString();
+          }
+          if ((el.amountconst = '')) {
+            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
+            el.amount = el.amount.toString();
+          }
+        });
+        console.log(user);
+        this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
       }
     });
-    console.log(user);
-    this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
   }
 
   getLedgerUGNames() {

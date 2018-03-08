@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
@@ -18,6 +19,7 @@ export class JournalEntryComponent implements OnInit {
   debitSum: number;
   creditSum: number;
   public ledgerList: Array<string> = [];
+  public attachmentError: Boolean = false;
 
   public value: any = {};
   public _disabledV: String = '0';
@@ -107,9 +109,26 @@ export class JournalEntryComponent implements OnInit {
       }
     }
   }
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
+  }
 
   onSubmit(user) {
+
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
     console.log(user);
     this._journalEntryService.createNewEntry(user, this.paramId).subscribe(data => {});
+      }})
   }
 }

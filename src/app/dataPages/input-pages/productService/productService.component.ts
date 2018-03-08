@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from './service/productService.service';
@@ -93,14 +94,14 @@ export class ProductServiceComponent implements OnInit {
   }
 
   onSubmit(user) {
-    // var newValue = this.form.get('underGroup').value[0].text;
-    // this.form.controls['underGroup'].patchValue(newValue);
-    if (user.val === '') {
-      user.val = user.qty * user.rate;
-    }
-    console.log(user);
-    this._productServiceService.createNewPrsr(user, this.paramId).subscribe(data => {
-      // console.log('hello gateway service')
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        if (user.val === '') {
+          user.val = user.qty * user.rate;
+        }
+        console.log(user);
+        this._productServiceService.createNewPrsr(user, this.paramId).subscribe(data => {});
+      }
     });
   }
 }

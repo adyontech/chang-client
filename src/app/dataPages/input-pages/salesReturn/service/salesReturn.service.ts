@@ -25,7 +25,12 @@ export class SalesReturnService {
     this.token = this.windowStorage.token;
   }
   createNewEntry(user: any, compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/salesReturn?token=${this.token}&companyName=${
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      // console.log(key , user[key])
+      form.append(key, user[key]);
+    }
+    this._url = `${this._globalVariableService.baseServerUrl}/api/sales?token=${this.token}&companyName=${
       compName
     }`;
     return this.http.post(this._url, user).map((res: Response) => {

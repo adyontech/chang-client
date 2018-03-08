@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TitleCasePipe } from '@angular/common';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
@@ -48,25 +49,17 @@ export class LedgerComponent implements OnInit {
     'Bad debt(DR)',
     'Suspense.',
   ];
-  public applicableTaxItems = [
-    'GST',
-    'Other',
-    'Not Applicable'
-  ];
-  public businessTypeItems = [
-    'Goods',
-    'Services',
-    'Other'
-  ];
+  public applicableTaxItems = ['GST', 'Other', 'Not Applicable'];
+  public businessTypeItems = ['Goods', 'Services', 'Other'];
   constructor(
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
     public fb: FormBuilder,
     private modalService: NgbModal
-  ) { }
+  ) {}
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
-    // $.getScript('./assets/js/wizard-steps.js');   
+    // $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getUnderGroupList();
     this.form = this.fb.group({
@@ -89,10 +82,10 @@ export class LedgerComponent implements OnInit {
       total: [{ value: '', disabled: true }],
     });
   }
-  updateTotal(){
+  updateTotal() {
     const qty = this.form.get('qty').value || 0,
       rate = this.form.get('rate').value || 0;
-    this.form.controls['total'].setValue(qty*rate);
+    this.form.controls['total'].setValue(qty * rate);
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
@@ -129,14 +122,17 @@ export class LedgerComponent implements OnInit {
     }
   }
 
-  onSubmit(user) {
-    // user.underGroup = this.form.get('underGroup').value[0].text;
-    // user.state = this.form.get('state').value[0].text;
-    // user.country = this.form.get('country').value[0].text;
-
-    console.log(this.form.getRawValue());
-    // this._ledgerService.createNewLedger(user, this.paramId).subscribe(data => {
-    //   // console.log('hello gateway service')
-    // });
+  // onSubmit(user) {
+  onSubmit() {
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        const user = this.form.getRawValue();
+        this._ledgerService.createNewLedger(user, this.paramId).subscribe(data => {
+          // console.log('hello gateway service')
+        });
+      } else {
+        return;
+      }
+    });
   }
 }

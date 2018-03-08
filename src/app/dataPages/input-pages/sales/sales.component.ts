@@ -4,6 +4,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 declare var $: any;
 
@@ -22,6 +23,7 @@ export class SalesComponent implements OnInit {
   public paramId: string;
   public subTotal: number;
   public totalAmount: number;
+  public attachmentError: Boolean = false;
 
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
@@ -116,6 +118,9 @@ export class SalesComponent implements OnInit {
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
+  get formData2() {
+    return <FormArray>this.form.get('subParticularsData');
+  }
   addParticular() {
     this.subSum();
     const control = <FormArray>this.form.controls['particularsData'];
@@ -123,8 +128,10 @@ export class SalesComponent implements OnInit {
     control.push(addCtrl);
   }
   addSubParticular() {
+    console.log('adding sub');
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
+    console.log(cont);
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }
@@ -137,21 +144,6 @@ export class SalesComponent implements OnInit {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     cont.removeAt(i);
-  }
-
-  onSubmit(user) {
-    user.particularsData.map(el => {
-      if (el.subAmount === '') {
-        el.subAmount = el.qty * el.rate;
-        el.subAmount = el.subAmount.toString();
-      }
-      if (el.amount === '') {
-        el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-        el.amount = el.amount.toString();
-      }
-    });
-    console.log(user);
-    this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
   }
 
   getLedgerUGNames() {
@@ -227,5 +219,37 @@ export class SalesComponent implements OnInit {
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });
+  }
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
+  }
+
+  onSubmit(user) {
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.particularsData.map(el => {
+          if (el.subAmount === '') {
+            el.subAmount = el.qty * el.rate;
+            el.subAmount = el.subAmount.toString();
+          }
+          if (el.amount === '') {
+            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
+            el.amount = el.amount.toString();
+          }
+        });
+        console.log(user);
+        this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
+      }
+    })
   }
 }

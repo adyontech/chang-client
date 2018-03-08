@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { SalesReturnService } from './service/salesReturn.service';
 declare var $: any;
@@ -21,16 +21,30 @@ export class SalesReturnComponent implements OnInit {
   public paramId: string;
   public subTotal: number;
   public totalAmount: number;
-  public selectedString: String;
+  public attachmentError: Boolean = false;
 
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
   public prsrList: Array<string> = [];
 
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
+  public transportationModeArray = ['road', 'train', 'air', 'water'];
+  public salesType = [
+    'intraState',
+    'interState',
+    'outsideCountry',
+    'deemedExports',
+    'withinState',
+    'outsideState',
+    'others',
+  ];
+  public value: any = {};
+  public _disabledV: String = '0';
+  public disabled: Boolean = false;
+
   constructor(
     private route: ActivatedRoute,
-    public _salesReturnService: SalesReturnService,
+    public _salesService: SalesReturnService,
     public fb: FormBuilder,
     private router: Router
   ) {}
@@ -65,6 +79,7 @@ export class SalesReturnComponent implements OnInit {
       this.paramId = params.id;
     });
   }
+
   public selectedprsr(value: any, indexValue): void {
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
@@ -79,10 +94,6 @@ export class SalesReturnComponent implements OnInit {
       units: unitsValue,
       gstRate: gstRatevalue,
     });
-  }
-
-  get formData() {
-    return <FormArray>this.form.get('particularsData');
   }
 
   initParticular() {
@@ -102,6 +113,12 @@ export class SalesReturnComponent implements OnInit {
       percent: [''],
     });
   }
+  get formData() {
+    return <FormArray>this.form.get('particularsData');
+  }
+  get formData2() {
+    return <FormArray>this.form.get('subParticularsData');
+  }
   addParticular() {
     this.subSum();
     const control = <FormArray>this.form.controls['particularsData'];
@@ -109,8 +126,10 @@ export class SalesReturnComponent implements OnInit {
     control.push(addCtrl);
   }
   addSubParticular() {
+    console.log('adding sub');
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
+    console.log(cont);
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }
@@ -126,22 +145,26 @@ export class SalesReturnComponent implements OnInit {
   }
 
   onSubmit(user) {
-    user.particularsData.map(el => {
-      if (el.subAmount === '') {
-        el.subAmount = el.qty * el.rate;
-        el.subAmount = el.subAmount.toString();
-      }
-      if (el.amount === '') {
-        el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-        el.amount = el.amount.toString();
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.particularsData.map(el => {
+          if (el.subAmount === '') {
+            el.subAmount = el.qty * el.rate;
+            el.subAmount = el.subAmount.toString();
+          }
+          if (el.amount === '') {
+            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
+            el.amount = el.amount.toString();
+          }
+        });
+        console.log(user);
+        this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
       }
     });
-    console.log(user);
-    this._salesReturnService.createNewEntry(user, this.paramId).subscribe(data => {});
   }
 
   getLedgerUGNames() {
-    this.dataCopy = this._salesReturnService
+    this.dataCopy = this._salesService
       .getLedgerUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
@@ -151,7 +174,7 @@ export class SalesReturnComponent implements OnInit {
   }
 
   getSalesUGNames() {
-    this.dataCopy1 = this._salesReturnService
+    this.dataCopy1 = this._salesService
       .getSalesUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
@@ -161,7 +184,7 @@ export class SalesReturnComponent implements OnInit {
   }
 
   getPrsrList() {
-    this.dataCopy2 = this._salesReturnService
+    this.dataCopy2 = this._salesService
       .getprsrList(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
@@ -213,5 +236,19 @@ export class SalesReturnComponent implements OnInit {
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });
+  }
+
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
   }
 }

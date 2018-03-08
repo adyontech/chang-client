@@ -2,7 +2,7 @@ import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
@@ -22,6 +22,7 @@ export class PaymentComponent implements OnInit {
   public totalAmount: number;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
+  public attachmentError: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,19 +58,10 @@ export class PaymentComponent implements OnInit {
   // To open modal we need key event here
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    // console.log(event);
-
     if (event.keyCode === 66 && event.ctrlKey) {
-      // this.increment();
-      console.log('dance');
       document.getElementById('openModalButton').click();
     }
-
-    // if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-    //   // this.decrement();
-    // }
   }
-  // Open default modal
   open(content) {
     this.modalService.open(content).result.then(
       result => {
@@ -154,9 +146,28 @@ export class PaymentComponent implements OnInit {
     this.selectedIndex = id;
   }
 
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('file').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
+  }
+
   onSubmit(user) {
-    user.endtotal = this.totalAmount;
-    console.log(user);
-    this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.endtotal = this.totalAmount;
+        this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+      } else {
+        return;
+      }
+    });
   }
 }
