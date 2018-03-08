@@ -4,6 +4,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 declare var $: any;
 
@@ -126,10 +127,10 @@ export class SalesComponent implements OnInit {
     control.push(addCtrl);
   }
   addSubParticular() {
-    console.log('adding sub')
+    console.log('adding sub');
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
-    console.log(cont)
+    console.log(cont);
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }
@@ -142,21 +143,6 @@ export class SalesComponent implements OnInit {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     cont.removeAt(i);
-  }
-
-  onSubmit(user) {
-    user.particularsData.map(el => {
-      if (el.subAmount === '') {
-        el.subAmount = el.qty * el.rate;
-        el.subAmount = el.subAmount.toString();
-      }
-      if (el.amount === '') {
-        el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-        el.amount = el.amount.toString();
-      }
-    });
-    console.log(user);
-    this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
   }
 
   getLedgerUGNames() {
@@ -232,5 +218,24 @@ export class SalesComponent implements OnInit {
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });
+  }
+
+  onSubmit(user) {
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.particularsData.map(el => {
+          if (el.subAmount === '') {
+            el.subAmount = el.qty * el.rate;
+            el.subAmount = el.subAmount.toString();
+          }
+          if (el.amount === '') {
+            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
+            el.amount = el.amount.toString();
+          }
+        });
+        console.log(user);
+        this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
+      }
+    })
   }
 }

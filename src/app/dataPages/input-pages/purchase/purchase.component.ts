@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PurchaseService } from './service/purchase.service';
 declare var $: any;
@@ -141,18 +141,22 @@ export class PurchaseComponent implements OnInit {
   }
 
   onSubmit(user) {
-    user.particularsData.map(el => {
-      if ((el.subAmountconst = '')) {
-        el.subAmount = el.qty * el.rate;
-        el.subAmount = el.subAmount.toString();
-      }
-      if ((el.amountconst = '')) {
-        el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-        el.amount = el.amount.toString();
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.particularsData.map(el => {
+          if ((el.subAmountconst = '')) {
+            el.subAmount = el.qty * el.rate;
+            el.subAmount = el.subAmount.toString();
+          }
+          if ((el.amountconst = '')) {
+            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
+            el.amount = el.amount.toString();
+          }
+        });
+        console.log(user);
+        this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
       }
     });
-    console.log(user);
-    this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
   }
 
   getLedgerUGNames() {

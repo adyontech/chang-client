@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
@@ -109,7 +110,11 @@ export class JournalEntryComponent implements OnInit {
   }
 
   onSubmit(user) {
+
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
     console.log(user);
     this._journalEntryService.createNewEntry(user, this.paramId).subscribe(data => {});
+      }})
   }
 }
