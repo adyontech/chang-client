@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TitleCasePipe } from '@angular/common';
@@ -15,7 +15,6 @@ declare var $: any;
   styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
-  @ViewChild('app-breadcrumbs') breadcrumbCom;
   form: FormGroup;
   selectedIndex = 1;
   dataCopy: any;
@@ -83,7 +82,6 @@ export class LedgerComponent implements OnInit {
       rate: [''],
       total: [{ value: '', disabled: true }],
     });
-    this.breadcrumbCom.yo();
   }
   updateTotal() {
     const qty = this.form.get('qty').value || 0,

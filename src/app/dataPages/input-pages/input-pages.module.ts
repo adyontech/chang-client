@@ -24,6 +24,7 @@ import { SalesComponent } from './sales/sales.component';
 import { SalesReturnComponent } from './salesReturn/salesReturn.component';
 import { UnderGroupComponent } from './undergroup/undergroup.component';
 
+import { BreadcrumbsService } from '../../breadcrumbs/breadcrumbs.service'
 import { ContraService } from './contra/service/contra.service';
 import { JournalEntryService } from './journalEntry/service/journalEntry.service';
 import { LedgerService } from './ledger/service/ledger.service';
@@ -77,6 +78,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     SalesReturnService,
     UnderGroupsService,
     GlobalVaribles,
+    BreadcrumbsService
   ]
 })
 export class InputPagesModule {}
