@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 // Route for content layout with sidebar, navbar and footer.
 
 export const Full_ROUTES: Routes = [
-  // { path: 'settings', loadChildren: './accountSettings/accountSettings.module#AccountSettingsModule' },
-  // { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: 'dashboard/:id', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarsModule' },
   { path: 'charts', loadChildren: './charts/charts.module#ChartsNg2Module' },
@@ -14,13 +12,9 @@ export const Full_ROUTES: Routes = [
   { path: 'datatables', loadChildren: './data-tables/data-tables.module#DataTablesModule' },
   { path: 'uikit', loadChildren: './ui-kit/ui-kit.module#UIKitModule' },
   { path: 'components', loadChildren: './components/ui-components.module#UIComponentsModule' },
-
   { path: 'pages', loadChildren: './pages/full-pages/full-pages.module#FullPagesModule' },
-
-  // { path: 'form/:id', loadChildren: './dataPages/input-pages/input-pages.module#InputPagesModule' },
   { path: 'input', loadChildren: './dataPages/input-pages/input-pages.module#InputPagesModule' },
   { path: 'report', loadChildren: './dataPages/report-pages/report-pages.module#ReportPagesModule' },
-
   { path: 'cards', loadChildren: './cards/cards.module#CardsModule' },
   { path: 'colorpalettes', loadChildren: './color-palette/color-palette.module#ColorPaletteModule' },
   { path: 'chat', loadChildren: './chat/chat.module#ChatModule' },

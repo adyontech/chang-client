@@ -16,13 +16,13 @@ const routes: Routes = [
           title: 'Dashboard',
         },
       },
-      {
-        path: '/:id',
-        component: DashboardComponent,
-        data: {
-          title: 'Dashboard',
-        },
-      },
+      // {
+      //   path: '/:id',
+      //   component: DashboardComponent,
+      //   data: {
+      //     title: 'Dashboard',
+      //   },
+      // },
     ],
   },
 ];
