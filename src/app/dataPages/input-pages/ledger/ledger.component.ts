@@ -20,7 +20,6 @@ export class LedgerComponent implements OnInit {
   dataCopy: any;
   paramId: string;
   closeResult: string;
-  breadcrumbs = [{ name: 'Create Ledger' }, { name: 'Forms', link: '/form/' }, { name: 'Dashboard', link: '/' }];
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
     'cash at bank(dr)',
