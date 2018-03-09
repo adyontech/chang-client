@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { Dashboard1Component } from './dashboard1/dashboard1.component';
+import { DashboardSettingsComponent } from './dashboardSettings/dashboardSettings.component';
 // import { Dashboard2Component } from './dashboard2/dashboard2.component';
 
 const routes: Routes = [
@@ -16,13 +16,13 @@ const routes: Routes = [
           title: 'Dashboard',
         },
       },
-      // {
-      //   path: '/:id',
-      //   component: DashboardComponent,
-      //   data: {
-      //     title: 'Dashboard',
-      //   },
-      // },
+      {
+        path: 'settings',
+        component: DashboardSettingsComponent,
+        data: {
+          title: 'Dashboard',
+        },
+      },
     ],
   },
 ];

@@ -10,7 +10,7 @@ import { HttpModule } from '@angular/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardService } from './dashboard/service/dashboard.service';
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
-// import { Dashboard1Component } from './dashboard1/dashboard1.component';
+import { DashboardSettingsComponent } from './dashboardSettings/dashboardSettings.component';
 // import { Dashboard2Component } from './dashboard2/dashboard2.component';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
   exports: [],
   declarations: [
     DashboardComponent,
-    // Dashboard1Component,
+    DashboardSettingsComponent,
     // Dashboard2Component
   ],
   providers: [DashboardService, GlobalVaribles],
