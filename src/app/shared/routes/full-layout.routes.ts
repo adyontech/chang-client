@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 export const Full_ROUTES: Routes = [
   // { path: 'settings', loadChildren: './accountSettings/accountSettings.module#AccountSettingsModule' },
   // { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  { path: 'dashboard/:id', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarsModule' },
   { path: 'charts', loadChildren: './charts/charts.module#ChartsNg2Module' },
   { path: 'forms', loadChildren: './forms/forms.module#FormModule' },
