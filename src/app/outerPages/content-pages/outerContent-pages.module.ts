@@ -9,7 +9,6 @@ import { OuterContentPagesRoutingModule } from './outerContent-pages-routing.mod
 import { ActivationComponent } from './activation/activation.component';
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
 import { LoginPageComponent } from './login/login-page.component';
-import { RegisterPageComponent } from './register/register-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
@@ -36,7 +35,6 @@ import { RecaptchaModule } from 'ng-recaptcha';
     ActivationComponent,
     ForgotPasswordPageComponent,
     LoginPageComponent,
-    RegisterPageComponent,
     SignupComponent,
     UpdatePasswordComponent,
   ],
