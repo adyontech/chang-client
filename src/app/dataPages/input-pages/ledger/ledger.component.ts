@@ -56,7 +56,7 @@ export class LedgerComponent implements OnInit {
     public _ledgerService: LedgerService,
     public fb: FormBuilder,
     private modalService: NgbModal
-  ) {}
+  ) { }
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
     // $.getScript('./assets/js/wizard-steps.js');
