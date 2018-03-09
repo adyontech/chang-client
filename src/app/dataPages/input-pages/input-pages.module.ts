@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ArchwizardModule } from 'ng2-archwizard';
 
+import { BreadcrumbsComponent } from '../../breadcrumbs/breadcrumbs.component';
 import { ContraComponent } from './contra/contra.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { LedgerComponent } from './ledger/ledger.component';
@@ -50,6 +51,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     NgSelectModule,
   ],
   declarations: [
+    BreadcrumbsComponent,
     ContraComponent,
     JournalEntryComponent,
     LedgerComponent,
@@ -75,6 +77,6 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     SalesReturnService,
     UnderGroupsService,
     GlobalVaribles,
-  ],
+  ]
 })
 export class InputPagesModule {}
