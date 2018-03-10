@@ -13,6 +13,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { LedgerComponent } from './ledger/ledger.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { PaymentComponent } from './payment/payment.component';
+import { PopPaymentComponent } from './_popComponent/popPayment.component';
+import { CashAtBankComponent } from './cashAtBank/cashAtBank.component';
+import { CashInHandsComponent } from './cashInHands/cashInHands.component';
+import { ContraComponent } from './contra/contra.component';
 
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
@@ -31,7 +35,15 @@ import { PaymentService } from './payment/service/payment.service';
     NgbModule,
     NgSelectModule,
   ],
-  declarations: [LedgerComponent, JournalEntryComponent, PaymentComponent],
+  declarations: [
+    LedgerComponent,
+    JournalEntryComponent,
+    PaymentComponent,
+    PopPaymentComponent,
+    CashAtBankComponent,
+    CashInHandsComponent,
+    ContraComponent,
+  ],
   providers: [GlobalVaribles, LedgerService, PaymentService],
 })
 export class ReportPagesModule {}

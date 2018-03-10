@@ -8,9 +8,9 @@ export const DATA_PAGES_ROUTES: Routes = [
     // loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule',
     loadChildren: './dataPages/input-pages/input-pages.module#InputPagesModule',
   },
-  {
-    path: 'report/:id',
-    // loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule',
-    loadChildren: './dataPages/report-pages/report-pages.module#ReportPagesModule',
-  },
+  // {
+  //   path: 'report/:id',
+  //   // loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule',
+  //   loadChildren: './dataPages/report-pages/report-pages.module#ReportPagesModule',
+  // },
 ];
