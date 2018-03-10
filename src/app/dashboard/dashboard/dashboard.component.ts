@@ -452,9 +452,8 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute,
     public _dashboardService: DashboardService,
     // public fb: FormBuilder,
-    private router: Router
-  ) // private modalService: NgbModal
-  {}
+    private router: Router // private modalService: NgbModal
+  ) {}
   ngOnInit() {
     this.getRouteParam();
   }
@@ -462,7 +461,7 @@ export class DashboardComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
-      console.log(this.paramId)
+      console.log(this.paramId);
       this._dashboardService.setParamId(this.paramId);
     });
   }

@@ -1,0 +1,105 @@
+<section id="basic-form-layouts">
+    <main role="main" class="container">
+      <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-green rounded box-shadow">
+        <!-- <img class="mr-3" src="https://getbootstrap.com/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48"> -->
+        <i class="ft-users" style="width:48px; height:48px; font-size:48px"></i>
+        <div class="lh-100 ml-3">
+          <h6 class=" text-white lh-100">Add helpers</h6>
+          <small>You can give N write access and M read access</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-lg-12" [hidden]="(writeCollabIdLength > 0 || readCollabIdLength > 0) === true? null: true">
+          <div class='parent'>
+            <div class='dragdrop-wrapper'>
+              <h4 class="ml-2 mt-2 text-bold-500">
+                <i class="ft-list mr-1"></i>Existing Helpers</h4>
+              <div class="row">
+                <div *ngFor='let todo of writeCollabId'>
+                  <div class="col-md-12 col-12">
+                    <div class='dragdrop-container'>
+                      <div class="card">
+                        <div class="card-block pt-4">
+                          <div class="clearfix">
+                            <i class="ft-users rounded-circle width-50 mr-2" style="width:48px; height:48px; font-size:48px"></i>
+                            <div class="actions float-right">
+                              <i class="ft-edit mr-1 info"></i>
+                              <i class="ft-trash-2 danger"></i>
+                            </div>
+                          </div>
+  
+                          <h6>{{todo.wcEmail}}</h6>
+                          <p>Write</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div *ngFor='let todo of readCollabId'>
+                  <div class="col-md-12 col-12">
+                    <div class='dragdrop-container'>
+                      <div class="card">
+                        <div class="card-block pt-4">
+                          <div class="clearfix">
+                            <i class="ft-users rounded-circle width-50 mr-2" style="width:48px; height:48px; font-size:48px"></i>
+                            <div class="actions float-right">
+                              <i class="ft-edit mr-1 info"></i>
+                              <i class="ft-trash-2 danger"></i>
+                            </div>
+                          </div>
+                          <h6>{{todo.rcEmail}}</h6>
+                          <p>Read</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+      <div class="my-3 p-3 bg-white rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Write access.</h6>
+        <div class="media text-muted pt-3">
+          <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
+          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <strong class="d-block text-gray-dark">Search by Email address</strong>
+            You'll only be able to find a user by their email address if they are already on platform. Otherwise, please invite them
+            on platform.
+          </p>
+  
+        </div>
+        <div class="row mt-3">
+          <ng-select class="col-md-6" [items]="userList" bindLabel="name" [(ngModel)]="collabAddWriteModel">
+          </ng-select>
+          <button href="javascript:void(0)" (click)="collabAddWrite()" class="btn btn-raised btn-primary col-md-1">Add</button>
+        </div>
+      </div>
+      <div class="my-3 p-3 bg-white rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Read access.</h6>
+        <div class="media text-muted pt-3">
+          <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
+          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <strong class="d-block text-gray-dark">Search by Email address</strong>
+            You'll only be able to find a user by their email address if they are already on platform. Otherwise, please invite them
+            on platform.
+          </p>
+  
+        </div>
+        <div class="row mt-3">
+          <ng-select class="col-md-6" [items]="userList" bindLabel="name" [(ngModel)]="collabAddReadModel">
+          </ng-select>
+          <button href="javascript:void(0)" (click)="collabAddRead()" class="btn btn-raised btn-primary col-md-1">Add</button>
+        </div>
+      </div>
+  
+  
+    </main>
+  </section>
+  

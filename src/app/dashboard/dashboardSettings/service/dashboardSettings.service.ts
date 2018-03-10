@@ -4,11 +4,11 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
-export class ContributorService {
+export class DashboardSettingService {
   result: {};
   token: string;
   windowStorage: any;
@@ -19,15 +19,15 @@ export class ContributorService {
     public _globalVariableService: GlobalVaribles,
     public _activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
-    private router: Router,
-    public toastr: ToastsManager
+    private router: Router
   ) {
     this.token = JSON.parse(window.localStorage.getItem('user')).token;
     this.getUsers();
   }
 
-  typeSuccess(message) {
-    this.toastr.success(message.message, 'Success!');
+
+  setParamId(value) {
+    this._globalVariableService.paramId = value;
   }
 
   getUsers() {

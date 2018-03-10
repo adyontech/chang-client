@@ -52,10 +52,9 @@ export class ContributorsComponent implements OnInit {
   getCollabList() {
     this.dataCopy = this._contributorService.getCollabList().subscribe(data => {
       this.userInfo = data.json();
-      console.log(this.userInfo);
+      // console.log(this.userInfo);
       this.writeCollabId = this.userInfo.user.writeCollabId;
-      this.readCollabId =  this.userInfo.user.readCollabId;
-
+      this.readCollabId = this.userInfo.user.readCollabId;
       this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
       this.readCollabIdLength = this.userInfo.user.readCollabId.length;
     });
@@ -65,19 +64,32 @@ export class ContributorsComponent implements OnInit {
     if (this.collabAddWriteModel === undefined) {
       return;
     } else {
-      this._contributorService.collabAddWrite(this.collabAddWriteModel).subscribe(res => console.log(res.json()));
+      this._contributorService.collabAddWrite(this.collabAddWriteModel).subscribe(res => {
+        console.log(res.json());
+        res = res.json();
+        this._contributorService.typeSuccess(res);
+        this.getCollabList();
+      });
     }
   }
+
   collabAddRead() {
     if (this.collabAddReadModel === undefined) {
       return;
     } else {
-      this._contributorService.collabAddRead(this.collabAddReadModel).subscribe(res => console.log(res.json()));
+      this._contributorService.collabAddRead(this.collabAddReadModel).subscribe(res => {
+        console.log(res.json());
+        this.getCollabList();
+      });
     }
   }
 }
 
 // interface IUser {
+//   success: string;
+//   message: string;
+// }
+// interface Res {
 //   username: string;
 //   email: string;
 // }

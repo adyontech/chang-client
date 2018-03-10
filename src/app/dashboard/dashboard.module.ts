@@ -1,26 +1,46 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ChartistModule } from 'ng-chartist';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatchHeightModule } from '../shared/directives/match-height.directive';
-import { HttpModule } from '@angular/http';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardService } from './dashboard/service/dashboard.service';
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
-// import { Dashboard1Component } from './dashboard1/dashboard1.component';
+import { DashboardSettingsComponent } from './dashboardSettings/dashboardSettings.component';
+import { DashboardSettingService } from './dashboardSettings/service/dashboardSettings.service';
 // import { Dashboard2Component } from './dashboard2/dashboard2.component';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
-  imports: [CommonModule, HttpModule, DashboardRoutingModule, ChartistModule, NgbModule, MatchHeightModule],
+  imports: [
+    CommonModule,
+    NgSelectModule,
+    HttpModule,
+    DashboardRoutingModule,
+    ChartistModule,
+    NgbModule,
+    MatchHeightModule,
+    CommonModule,
+    HttpModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ChartistModule,
+    NgbModule,
+    NgSelectModule,
+  ],
   exports: [],
   declarations: [
     DashboardComponent,
-    // Dashboard1Component,
+    DashboardSettingsComponent,
     // Dashboard2Component
   ],
-  providers: [DashboardService, GlobalVaribles],
+  providers: [DashboardService, GlobalVaribles, DashboardSettingService],
 })
 export class DashboardModule {}

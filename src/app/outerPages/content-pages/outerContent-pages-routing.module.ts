@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
 import { LoginPageComponent } from './login/login-page.component';
-import { RegisterPageComponent } from './register/register-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { ActivationComponent } from './activation/activation.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
@@ -31,13 +30,6 @@ const routes: Routes = [
         component: LoginPageComponent,
         data: {
           title: 'Login Page',
-        },
-      },
-      {
-        path: 'register',
-        component: RegisterPageComponent,
-        data: {
-          title: 'Register Page',
         },
       },
       {
