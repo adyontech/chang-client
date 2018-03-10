@@ -25,6 +25,11 @@ export class DashboardSettingService {
     this.getUsers();
   }
 
+
+  setParamId(value) {
+    this._globalVariableService.paramId = value;
+  }
+
   getUsers() {
     this._url = `${this._globalVariableService.baseServerUrl}/uapi/userlist?token=${this.token}`;
     return this.http.get(this._url);

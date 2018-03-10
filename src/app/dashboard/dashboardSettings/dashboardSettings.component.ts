@@ -12,6 +12,9 @@ import { any } from 'codelyzer/util/function';
   styleUrls: ['./dashboardSettings.component.scss'],
 })
 export class DashboardSettingsComponent implements OnInit {
+  public paramId: string;
+
+
   form: FormGroup;
   loading = false;
   returnURL: string;
@@ -34,11 +37,20 @@ export class DashboardSettingsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getRouteParam();
     this.getUsers();
     this.getCollabList();
     // this.fillForm();
 
     this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway';
+  }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+      console.log(this.paramId);
+      this._dashboardSettingService.setParamId(this.paramId);
+    });
   }
 
   getUsers() {
@@ -53,10 +65,9 @@ export class DashboardSettingsComponent implements OnInit {
   getCollabList() {
     this.dataCopy = this._dashboardSettingService.getCollabList().subscribe(data => {
       this.userInfo = data.json();
-      console.log(this.userInfo);
+      // console.log(this.userInfo);
       this.writeCollabId = this.userInfo.user.writeCollabId;
       this.readCollabId = this.userInfo.user.readCollabId;
-
       this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
       this.readCollabIdLength = this.userInfo.user.readCollabId.length;
     });
@@ -66,14 +77,22 @@ export class DashboardSettingsComponent implements OnInit {
     if (this.collabAddWriteModel === undefined) {
       return;
     } else {
-      this._dashboardSettingService.collabAddWrite(this.collabAddWriteModel).subscribe(res => console.log(res.json()));
+      this._dashboardSettingService.collabAddWrite(this.collabAddWriteModel).subscribe(res => {
+        console.log(res.json());
+        res = res.json();
+        this.getCollabList();
+      });
     }
   }
+
   collabAddRead() {
     if (this.collabAddReadModel === undefined) {
       return;
     } else {
-      this._dashboardSettingService.collabAddRead(this.collabAddReadModel).subscribe(res => console.log(res.json()));
+      this._dashboardSettingService.collabAddRead(this.collabAddReadModel).subscribe(res => {
+        console.log(res.json());
+        this.getCollabList();
+      });
     }
   }
 }

@@ -85,16 +85,16 @@ export class ContributorsComponent implements OnInit {
   }
 }
 
-interface IUser {
-  success: string;
-  message: string;
-}
-interface Res {
-  username: string;
-  email: string;
-}
+// interface IUser {
+//   success: string;
+//   message: string;
+// }
+// interface Res {
+//   username: string;
+//   email: string;
+// }
 
-interface IData {
-  success: boolean;
-  user: IUser[];
-}
+// interface IData {
+//   success: boolean;
+//   user: IUser[];
+// }

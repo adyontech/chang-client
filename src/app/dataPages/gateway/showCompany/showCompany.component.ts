@@ -14,21 +14,16 @@ export class ShowCompanyComponent implements OnInit {
   constructor(public _gatewayService: GatewayService, private router: Router) {}
 
   ngOnInit() {
-    this.getComanyList();
+    this.getCompanyList();
   }
 
-  getComanyList() {
+  getCompanyList() {
     this.dataCopy = this._gatewayService.getCompanyList().subscribe(data => {
       this.companyList =  data.json().companyData;
       console.log(this.companyList)
       // console.log('hello gateway service')
     });
 
-    // .map(response => response.json())
-    // .subscribe(data => {
-    //   console.log(data.companyData);
-    //   this.companyList = data.companyData;
-    // });
   }
 
   removeCompany(id) {

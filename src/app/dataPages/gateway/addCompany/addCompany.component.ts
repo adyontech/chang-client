@@ -77,7 +77,7 @@ export class AddCompanyComponent implements OnInit {
     user.endDate = new Date(user.endDate.year, user.endDate.month, user.endDate.day);
 
     this._gatewayService.createNewCompany(user).subscribe(data => {
-      // console.log('hello gateway service')
+      // data = data.json();
     });
   }
 
@@ -98,10 +98,15 @@ export class AddCompanyComponent implements OnInit {
         //     value: reader.result.split(',')[1],
         //   });
         // };
-        this.form.get(fileField).setValue(event.target.files[0] );
+        this.form.get(fileField).setValue(event.target.files[0]);
       }
     } else {
       fileField === 'logo' ? (this.logoError = true) : (this.signatureError = true);
     }
   }
+}
+
+interface IData {
+  success: boolean;
+  message: string;
 }
