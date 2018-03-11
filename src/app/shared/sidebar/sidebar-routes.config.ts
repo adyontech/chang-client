@@ -1,7 +1,20 @@
 import { RouteInfo } from './sidebar.metadata';
-
+import { ParseId } from './../../utilities/IdParser';
 // Sidebar menu Routes and data
+
+console.log(ParseId())
+const ParseIdValue = ParseId()
 export const ROUTES: RouteInfo[] = [
+  {
+    path: `/dashboard/${ParseIdValue}`,
+    title: 'Color Palette',
+    icon: 'ft-droplet',
+    class: '',
+    badge: '',
+    badgeClass: '',
+    isExternalLink: false,
+    submenu: [],
+  },
   {
     path: '',
     title: 'Gateway',
