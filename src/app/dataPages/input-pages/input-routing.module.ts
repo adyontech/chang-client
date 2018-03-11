@@ -55,7 +55,7 @@ const routes: Routes = [
         path: 'purchase',
         component: PurchaseComponent,
         data: {
-          title: 'under group Page',
+          title: 'purchase',
         },
       },
       {
