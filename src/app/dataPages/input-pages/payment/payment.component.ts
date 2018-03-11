@@ -161,13 +161,15 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(user) {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        user.endtotal = this.totalAmount;
-        this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
-      } else {
-        return;
-      }
-    });
+    console.log('you clicked it');
+    console.log(user);
+    // alertFunctions.SaveData().then(datsa => {
+    //   if (datsa) {
+    user.endtotal = this.totalAmount;
+    this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+    // } else {
+    //   return;
+    // }
+    // });
   }
 }

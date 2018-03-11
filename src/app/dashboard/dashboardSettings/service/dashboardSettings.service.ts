@@ -35,21 +35,21 @@ export class DashboardSettingService {
     return this.http.get(this._url);
   }
 
-  getCollabList() {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/collabList?token=${this.token}`;
+  getCollabList(compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabList?token=${this.token}&&companyName=${compName}`;
     return this.http.get(this._url);
   }
 
-  collabAddWrite(user) {
+  collabAddWrite(user, compName) {
     console.log(user);
-    this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddWrite?token=${this.token}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${this.token}&&companyName=${compName}`;
     console.log(this._url);
     return this.http.patch(this._url, user);
   }
 
-  collabAddRead(user) {
+  collabAddRead(user, compName) {
     console.log(user);
-    this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddRead?token=${this.token}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddRead?token=${this.token}&&companyName=${compName}`;
     console.log(this._url);
     return this.http.patch(this._url, user);
   }

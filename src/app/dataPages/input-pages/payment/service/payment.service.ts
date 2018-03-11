@@ -19,9 +19,9 @@ export class PaymentService {
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    public _globalVariableService: GlobalVaribles ,
-    // public _paramId = paramIdValue
-  ) {
+    public _globalVariableService: GlobalVaribles
+  ) // public _paramId = paramIdValue
+  {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
@@ -34,7 +34,7 @@ export class PaymentService {
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any, compName) { 
+  createNewEntry(user: any, compName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       // console.log(key , user[key])

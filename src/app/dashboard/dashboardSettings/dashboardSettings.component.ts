@@ -63,13 +63,13 @@ export class DashboardSettingsComponent implements OnInit {
   }
 
   getCollabList() {
-    this.dataCopy = this._dashboardSettingService.getCollabList().subscribe(data => {
+    this.dataCopy = this._dashboardSettingService.getCollabList(this.paramId).subscribe(data => {
       this.userInfo = data.json();
       // console.log(this.userInfo);
-      this.writeCollabId = this.userInfo.user.writeCollabId;
-      this.readCollabId = this.userInfo.user.readCollabId;
-      this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
-      this.readCollabIdLength = this.userInfo.user.readCollabId.length;
+      // this.writeCollabId = this.userInfo.user.writeCollabId;
+      // this.readCollabId = this.userInfo.user.readCollabId;
+      // this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
+      // this.readCollabIdLength = this.userInfo.user.readCollabId.length;
     });
   }
 
@@ -77,7 +77,7 @@ export class DashboardSettingsComponent implements OnInit {
     if (this.collabAddWriteModel === undefined) {
       return;
     } else {
-      this._dashboardSettingService.collabAddWrite(this.collabAddWriteModel).subscribe(res => {
+      this._dashboardSettingService.collabAddWrite(this.collabAddWriteModel, this.paramId).subscribe(res => {
         console.log(res.json());
         res = res.json();
         this.getCollabList();
@@ -89,7 +89,7 @@ export class DashboardSettingsComponent implements OnInit {
     if (this.collabAddReadModel === undefined) {
       return;
     } else {
-      this._dashboardSettingService.collabAddRead(this.collabAddReadModel).subscribe(res => {
+      this._dashboardSettingService.collabAddRead(this.collabAddReadModel, this.paramId).subscribe(res => {
         console.log(res.json());
         this.getCollabList();
       });
