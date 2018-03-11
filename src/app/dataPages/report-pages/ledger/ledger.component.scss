@@ -31,6 +31,12 @@
 }
 
 ::ng-deep .ui-select-container>.dropdown,
-::ng-deep  .ui-select-container>.dropup {
+::ng-deep .ui-select-container>.dropup {
     position: absolute!important;
+}
+
+.totalFigure {
+    position: absolute;
+    right: 0;
+    top: 50%;
 }

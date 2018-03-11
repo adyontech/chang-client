@@ -44,7 +44,8 @@ const routes: Routes = [
         data: {
           title: 'payment Page',
         },
-      },{
+      },
+      {
         path: 'payment1',
         component: Payment1Component,
         data: {

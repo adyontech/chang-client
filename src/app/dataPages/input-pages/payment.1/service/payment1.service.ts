@@ -19,9 +19,8 @@ export class Payment1Service {
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    public _globalVariableService: GlobalVaribles
-  ) // public _paramId = paramIdValue
-  {
+    public _globalVariableService: GlobalVaribles // public _paramId = paramIdValue
+  ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
