@@ -3,7 +3,7 @@ import { ROUTES } from './sidebar-routes.config';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ParseId } from '../../utilities/IdParser';
+import {ParseId} from '../../utilities/IdParser';
 
 declare var $: any;
 
