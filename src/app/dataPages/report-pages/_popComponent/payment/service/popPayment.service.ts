@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from './../../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/';

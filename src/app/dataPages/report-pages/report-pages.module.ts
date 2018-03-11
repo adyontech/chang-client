@@ -13,7 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { LedgerComponent } from './ledger/ledger.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { PaymentComponent } from './payment/payment.component';
-import { PopPaymentComponent } from './_popComponent/popPayment.component';
+import { PopPaymentComponent } from './_popComponent/payment/popPayment.component';
 import { CashAtBankComponent } from './cashAtBank/cashAtBank.component';
 import { CashInHandsComponent } from './cashInHands/cashInHands.component';
 import { ContraComponent } from './contra/contra.component';

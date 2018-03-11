@@ -124,3 +124,4 @@ export class PaymentComponent implements OnInit {
 
   copyData(id) {}
 }
+
