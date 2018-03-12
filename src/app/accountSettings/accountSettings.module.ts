@@ -15,12 +15,14 @@ import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 import { ContributorService } from './contributors/service/contributors.service';
 import { PasswordChangeService } from './passwordChange/service/passwordChange.service';
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
 import { EditProfileService } from './editProfile/service/editProfile.service';
 import { UpgradeService } from './upgrade/service/upgrade.service';
+import { ConfirmService } from './confirm/service/confirm.service';
 // import { States } from './../shared/forms/States';
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -39,6 +41,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule,
   ],
   declarations: [
+    ConfirmComponent,
     EditProfileComponent,
     MeProfileComponent,
     PasswordChangeProfileComponent,
@@ -46,6 +49,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ContributorsComponent,
     UpgradeProfileComponent,
   ],
-  providers: [ContributorService, GlobalVaribles, PasswordChangeService, EditProfileService, UpgradeService],
+  providers: [
+    ConfirmService,
+    ContributorService,
+    GlobalVaribles,
+    PasswordChangeService,
+    EditProfileService,
+    UpgradeService,
+  ],
 })
 export class AccountSettingsModule {}

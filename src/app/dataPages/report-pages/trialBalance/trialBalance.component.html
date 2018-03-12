@@ -1,0 +1,75 @@
+<bs-modal #modal [backdrop]="false" [keyboard]="false">
+    <!-- <bs-modal-header>
+    </bs-modal-header> -->
+    <bs-modal-body>
+        <app-popPayment [contentId]="contentId"></app-popPayment>
+    </bs-modal-body>
+    <bs-modal-footer [showDefaultButtons]="true"></bs-modal-footer>
+</bs-modal>
+<div class="main-content" style="scroll-behavior: hidden">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <!-- heading here -->
+                    <div class="header">
+                        <h2 class="title text-center">trialBalance</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 title text-center ">
+                            <p> Select Period:</p>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="title text-center">From</label>
+                        </div>
+                        <div class="col-md-2">
+                            <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="title text-center">To</label>
+                        </div>
+                        <div class="col-md-2">
+                            <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker>
+                        </div>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th class="text-center">Options</th>
+
+                                    <th class="text-center"> Particular.</th>
+
+                                    <th class="text-center"> Debit Amount</th>
+
+                                    <th class="text-center"> Credit Amount</th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let list of incomingData">
+                                    <td class="opt text-center">
+                                        <button type="button" class="btn btn-simple" (click)="editData(list._id); modal.open();">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center"> {{list.ledgerName}}</td>
+
+                                    <td class="text-center"> {{list.debitAmount}}</td>
+                                    <td class="text-center"> {{list.creditAmount}}</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

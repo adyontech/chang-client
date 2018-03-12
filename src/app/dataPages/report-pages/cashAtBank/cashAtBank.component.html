@@ -1,11 +1,4 @@
-<bs-modal #modal [backdrop]="false" [keyboard]="false">
-    <!-- <bs-modal-header>
-    </bs-modal-header> -->
-    <bs-modal-body>
-        <app-popPayment [contentId]="contentId"></app-popPayment>
-    </bs-modal-body>
-    <bs-modal-footer [showDefaultButtons]="true"></bs-modal-footer>
-</bs-modal>
+
 <div class="main-content" style="scroll-behavior: hidden">
     <div class="container-fluid">
         <div class="row">
@@ -16,8 +9,7 @@
                         <h2 class="title text-center">Cash-At-Bank</h2>
                     </div>
                     <div class="text-center">
-                        <ng-select [allowClear]="true" [items]="ledgerList" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)"
-                            placeholder="No particulars selected">
+                        <ng-select [items]="ledgerList" (data)="refreshValue($event)" placeholder="No particulars selected">
                         </ng-select>
                     </div>
                     <div class="row">
@@ -31,13 +23,13 @@
                             <label class="title text-center">From</label>
                         </div>
                         <div class="col-md-2">
-                            <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker>
+                            <!-- <!-- <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker> --> -->
                         </div>
                         <div class="col-md-1">
                             <label class="title text-center">To</label>
                         </div>
                         <div class="col-md-2">
-                            <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker>
+                            <!-- <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker> -->
                         </div>
                     </div>
                     <div class="content table-responsive table-full-width">

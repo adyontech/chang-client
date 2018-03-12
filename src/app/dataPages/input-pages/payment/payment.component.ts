@@ -49,7 +49,7 @@ export class PaymentComponent implements OnInit {
       particularsData: this.fb.array([]),
       narration: [''],
       against: [''],
-      file: [''],
+      attachment: [''],
       endtotal: [''],
     });
     this.addParticular();
@@ -153,7 +153,7 @@ export class PaymentComponent implements OnInit {
 
     if (event.target.files[0].size < 400000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('file').setValue(event.target.files[0]);
+        this.form.get('attachment').setValue(event.target.files[0]);
       }
     } else {
       this.attachmentError = true;
@@ -161,13 +161,15 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(user) {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        user.endtotal = this.totalAmount;
-        this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
-      } else {
-        return;
-      }
-    });
+    console.log('you clicked it');
+    console.log(user);
+    // alertFunctions.SaveData().then(datsa => {
+    //   if (datsa) {
+    user.endtotal = this.totalAmount;
+    this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+    // } else {
+    //   return;
+    // }
+    // });
   }
 }

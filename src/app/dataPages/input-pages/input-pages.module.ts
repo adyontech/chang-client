@@ -16,6 +16,7 @@ import { ContraComponent } from './contra/contra.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { LedgerComponent } from './ledger/ledger.component';
 import { PaymentComponent } from './payment/payment.component';
+import { Payment1Component } from './payment.1/payment1.component';
 import { ProductServiceComponent } from './productService/productService.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { PurchaseReturnComponent } from './purchaseReturn/purchaseReturn.component';
@@ -29,6 +30,7 @@ import { ContraService } from './contra/service/contra.service';
 import { JournalEntryService } from './journalEntry/service/journalEntry.service';
 import { LedgerService } from './ledger/service/ledger.service';
 import { PaymentService } from './payment/service/payment.service';
+import { Payment1Service } from './payment.1/service/payment1.service';
 import { ProductServiceService } from './productService/service/productService.service';
 import { PurchaseService } from './purchase/service/purchase.service';
 import { PurchaseReturnService } from './purchaseReturn/service/purchaseReturn.service';
@@ -57,6 +59,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     JournalEntryComponent,
     LedgerComponent,
     PaymentComponent,
+    Payment1Component,
     ProductServiceComponent,
     PurchaseComponent,
     PurchaseReturnComponent,
@@ -70,6 +73,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     JournalEntryService,
     LedgerService,
     PaymentService,
+    Payment1Service,
     ProductServiceService,
     PurchaseService,
     PurchaseReturnService,

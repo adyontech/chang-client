@@ -1,4 +1,4 @@
-<form class="form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+<!-- <form class="form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -26,4 +26,60 @@
   <button type="submit" class="btn btn-raised btn-raised btn-primary">
     <i class="fa fa-check-square-o"></i> Change
   </button>
-</form>
+</form> -->
+<section id="overlap-image-examples">
+  <div class="row">
+    <div class="col-12 mt-3 mb-3">
+      <div class="content-header">Choose your package</div>
+      <p class="content-sub-header"><a href="">click here</a> to see our package</p>
+    </div>
+  </div>
+
+  <div class="row" matchHeight="card">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="card card-inverse bg-primary text-center">
+        <div class="card-body">
+          <div class="card-img overlap">
+            <img src="assets/img/elements/11.png" alt="element 06" width="190" class="mb-1">
+          </div>
+          <div class="card-block">
+            <h4 class="card-title">Basic</h4>
+            <p class="card-text">Donut toffee candy brownie soufflé macaroon.</p>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" (click)="requestPayment('basic')" class="btn btn-secondary btn-lg btn-block btn-raised">Block level button</a>
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="card card-inverse bg-danger text-center">
+        <div class="card-body">
+          <div class="card-img overlap">
+            <img src="assets/img/elements/14.png" alt="element 03" width="170">
+          </div>
+          <div class="card-block">
+            <h4 class="card-title">Standard</h4>
+            <p class="card-text">Donut toffee candy brownie soufflé macaroon.</p>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" (click)="requestPayment('standard')" class="btn btn-secondary btn-lg btn-block btn-raised">Block level button</a>
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="card card-inverse bg-warning text-center">
+        <div class="card-body">
+          <div class="card-img overlap">
+            <img src="assets/img/elements/07.png" alt="element 07" width="225">
+          </div>
+          <div class="card-block">
+            <h4 class="card-title">Premium</h4>
+            <p class="card-text">Donut toffee candy brownie soufflé macaroon.</p>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" (click)="requestPayment('premium')" class="btn btn-secondary btn-lg btn-block btn-raised">Block level button</a>
+
+    </div>
+  </div>
+</section>

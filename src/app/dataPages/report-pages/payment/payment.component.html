@@ -24,32 +24,29 @@
             <div class="col-3">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
+                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
                 </div>
               </div>
             </div>
             <div class="col-3">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds2.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
+                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
                 </div>
               </div>
             </div>
             <div class="col-5">
               <div class="row">
-                <ng-select [items]="chooseItem" [markFirst]="true" placeholder="Select Filter" [multiple]="true"  [(ngModel)]="chooseItemBox" [closeOnSelect]="false"
-                  (add)="onAdd($event)" (remove)="onRemove($event)">
-                </ng-select>
                 <div class="input-group-append">
                   <div class="input-group-text" (click)="onSelectAll()">
                     <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -60,6 +57,9 @@
                     <i class="fa fa-calendar" style="cursor: pointer;"></i>
                   </div>
                 </div>
+                <ng-select [items]="chooseItem" [markFirst]="true" placeholder="Select Filter" [multiple]="true"  [(ngModel)]="chooseItemBox" [closeOnSelect]="false"
+                  (add)="onAdd($event)" (remove)="onRemove($event)">
+                </ng-select>
               </div>
             </div>
           </div>
@@ -136,3 +136,4 @@
   </div>
 </section>
 <!-- Wizard Ends -->
+
