@@ -39,8 +39,9 @@ export class Payment1Service {
       // console.log(key , user[key])
       form.append(key, user[key]);
     }
+    console.log(user.attachment);
     this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;
-    return this.http.post(this._url, user).map((res: Response) => {
+    return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
     });
