@@ -105,7 +105,7 @@ export class PaymentComponent implements OnInit {
   // real date picker active from here
 
   getIncomingData() {
-    this.dataCopy = this._paymentService
+        this.dataCopy = this._paymentService
       .getIncomingData()
       .map(response => response.json())
       .subscribe(data => {
