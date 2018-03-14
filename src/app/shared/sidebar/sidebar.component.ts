@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTES } from './sidebar-routes.config';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import {ParseId} from '../../utilities/IdParser';
 
 declare var $: any;
@@ -15,7 +14,7 @@ export class SidebarComponent implements OnInit {
   public menuItems: any[];
   paramId
 
-  constructor(private router: Router, private route: ActivatedRoute, public translate: TranslateService) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.getRouteParam();

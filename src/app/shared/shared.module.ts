@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -24,9 +23,8 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
     SettingSidebarComponent,
     ToggleFullscreenDirective,
     NgbModule,
-    TranslateModule,
   ],
-  imports: [RouterModule, CommonModule, NgbModule, TranslateModule],
+  imports: [RouterModule, CommonModule, NgbModule],
   declarations: [
     FooterComponent,
     NavbarComponent,
