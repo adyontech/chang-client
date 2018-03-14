@@ -45,146 +45,113 @@
           <div class="card-block">
             <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
 
-
               <wizard #wizard navBarLayout="large-empty-symbols">
                 <div class="centered-content" style="margin-top:6%; width: 100%;">
+                  <!-- Actual wizard starts -->
                   <wizard-step stepTitle="Steptitle 1" navigationSymbol="1">
-
-                    <div class="mt-3">
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Payment Number</label>
-                            <input type="text" class="form-control" formControlName="paymentNumber">
-                          </div>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Date</label>
-                            <div class="card-body">
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <input class="form-control" placeholder="yyyy-mm-dd" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="date">
-                                  <div class="input-group-append">
-                                    <div class="input-group-text" (click)="ds.toggle()">
-                                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                                    </div>
-                                  </div>
-                                </div>
+                    <div class="form-row">
+                      <div class="col-md-4 offset-md-2 form-group">
+                        <label>Payment Number</label>
+                        <input type="text" class="form-control" formControlName="paymentNumber">
+                      </div>
+                      <div class="col-md-4 form-group">
+                        <label>Date</label>
+                        <div class="card-body">
+                          <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="date">
+                            <div class="input-group-append">
+                              <div class="input-group-text" (click)="ds.toggle()">
+                                <i class="fa fa-calendar" style="cursor: pointer;"></i>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <label>account</label>
-                          <ng-select [items]="accountList" formControlName="account" placeholder="No particulars selected">
-                          </ng-select>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="col-md-5 col-lg-offset-4">
-                            <div class="form-group">
-                              <label>Current balance</label>
-                              <p>123456</p>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-4 offset-md-2 form-group">
+                        <label>Account</label>
+                        <ng-select [items]="accountList" formControlName="account" placeholder="No particulars selected">
+                        </ng-select>
                       </div>
-
-                      <div class="btn-group mt-3">
-                        <button type="button" class="btn btn-secondary" nextStep>Continue</button>
+                      <div class="col-md-4 form-group">
+                        <label>Current balance</label>
+                        <p>123456</p>
                       </div>
                     </div>
+
+                    <div class="btn-group mt-3">
+                      <button type="button" class="btn btn-secondary" nextStep>Continue</button>
+                    </div>
                   </wizard-step>
+
                   <wizard-step stepTitle="Steptitle 2" navigationSymbol="2" class="mt-3">
-
-
-                    <div class="mt-3">
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Payment type</label>
-                            <select class="form-control" formControlName="paymentType">
-                              <option value="general" selected>General</option>
-                              <option value="purchasePayment">Purchase payment</option>
-                              <option value="advancePayment">Advance payment</option>
-                              <option value="salesRefund">Sales refund</option>
-                              <option value="creditNote">Credit Note</option>
-                              <option value="others">others</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Payment Through</label>
-                            <select class="form-control" formControlName="paymentThrough">
-                              <option value="cash" selected>Cash</option>
-                              <option value="cheque">Cheque</option>
-                              <option value="Etransfe">E transfe</option>
-                              <option value="others">others</option>
-                            </select>
-                          </div>
-                        </div>
+                    <div class="form-row">
+                      <div class="col-md-4 offset-md-2 form-group">
+                        <label>Payment type</label>
+                        <select class="form-control" formControlName="paymentType">
+                          <option value="general" selected>General</option>
+                          <option value="purchasePayment">Purchase payment</option>
+                          <option value="advancePayment">Advance payment</option>
+                          <option value="salesRefund">Sales refund</option>
+                          <option value="creditNote">Credit Note</option>
+                          <option value="others">others</option>
+                        </select>
                       </div>
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1" *ngIf=" form.get('paymentThrough').value =='cheque'">
-                          <label>Cheque no.</label>
-                          <input type="text" class="form-control" formControlName="chequeNumber">
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Drawn on</label>
-                            <div class="card-body">
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <input class="form-control" placeholder="yyyy-mm-dd" name="ds2" ngbDatepicker #ds2="ngbDatepicker" formControlName="drawnOn">
-                                  <div class="input-group-append">
-                                    <div class="input-group-text" (click)="ds2.toggle()">
-                                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                                    </div>
-                                  </div>
-                                </div>
+                      <div class="col-md-4 form-group">
+                        <label>Payment Through</label>
+                        <select class="form-control" formControlName="paymentThrough">
+                          <option value="cash" selected>Cash</option>
+                          <option value="cheque">Cheque</option>
+                          <option value="Etransfe">E transfe</option>
+                          <option value="others">others</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-4 offset-md-2 form-group" *ngIf="form.get('paymentThrough').value === 'cheque'">
+                        <label>Cheque no.</label>
+                        <input type="text" class="form-control" formControlName="chequeNumber">
+                      </div>
+                      <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value !== 'cheque' ? 'offset-md-2' : ''">
+                        <label>Drawn on</label>
+                        <div class="card-body">
+                          <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="ds2" ngbDatepicker #ds2="ngbDatepicker" formControlName="drawnOn">
+                            <div class="input-group-append">
+                              <div class="input-group-text" (click)="ds2.toggle()">
+                                <i class="fa fa-calendar" style="cursor: pointer;"></i>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <label>Against</label>
-                          <select class="form-control" formControlName="against">
-                            <option value="againstInvoice" selected>Against invoice</option>
-                            <option value="againstAccount ">Against account</option>
-                            <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasePayment'">Against advance</option>
-                            <option value="advancePayment">Advance receipt</option>
-                            <option value="others" *ngIf=" form.get('paymentThrough').value =='cash'"> others</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="btn-group  mt-3">
-                        <button type="button" class="btn btn-secondary" previousStep>Back</button>
-                        <button type="button" class="btn btn-secondary" nextStep>Continue</button>
+                      <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value === 'cheque' ? 'offset-md-2' : ''">
+                        <label>Against</label>
+                        <select class="form-control" formControlName="against">
+                          <option value="againstInvoice" selected>Against invoice</option>
+                          <option value="againstAccount ">Against account</option>
+                          <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasePayment'">Against advance</option>
+                          <option value="advancePayment">Advance receipt</option>
+                          <option value="others" *ngIf=" form.get('paymentThrough').value =='cash'"> others</option>
+                        </select>
                       </div>
                     </div>
 
-
-
+                    <div class="btn-group mt-3">
+                      <button type="button" class="btn btn-secondary" previousStep>Back</button>
+                      <button type="button" class="btn btn-secondary" nextStep>Continue</button>
+                    </div>
                   </wizard-step>
+
                   <wizard-step stepTitle="Steptitle 3" navigationSymbol="3">
-                    <div class=" offset-md-1">
-                      <div class="row">
-                        <div class="col-lg-4 text-center">
-                          Particulars
-                        </div>
-                        <div class=" offset-md-2 col-lg-6 text-center">
-                          Amount
-                        </div>
-                      </div>
+                    <div class="col-md-10 offset-md-1">
+                      <h5 class="form-group-header">
+                        Particulars and Amount
+                      </h5>
 
                       <div formArrayName="particularsData">
-                        <div *ngFor="let address of formData.controls; let i=index">
+                        <div *ngFor="let address of formData.controls; let i=index" class="form-group">
                           <!-- <span>{{i + 1}}</span> -->
                           <div [formGroupName]="i">
                             <div class="block">
@@ -193,15 +160,17 @@
                                   <div class="col-lg-4 col-xs-4">
                                     <!-- <input type="text" class="form-control" formControlName="particulars"> -->
                                     <ng-select [items]="ledgerList" formControlName="particulars" (data)="refreshValue($event)" (selected)="selected($event)"
-                                      (removed)="removed($event)" placeholder="No city selected">
+                                      (removed)="removed($event)" placeholder="Particulars">
                                     </ng-select>
-                                    <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
+                                    <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
+                                      class="text-danger">
                                       <span (click)="showNotification('top','left')"> Particulars is required</span>
                                     </small>
                                   </div>
                                   <div class="offset-md-2 col-lg-5 offset-xs-2  col-xs-5 ">
                                     <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
-                                    <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
+                                    <small [hidden]="form.controls.particularsData.controls[i].controls.amount.untouched || form.controls.particularsData.controls[i].controls.amount.valid"
+                                      class="text-danger">
                                       Amount is required
                                     </small>
                                   </div>
@@ -245,7 +214,7 @@
                                 <div class="input-group">
                                   <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                                 </div>
-                                <div *ngIf="attachmentError">errririiriri</div>
+                                <div *ngIf="attachmentError">Error in attachment</div>
                               </div>
                             </div>
                           </div>
@@ -253,26 +222,14 @@
                       </div>
                     </div>
 
-
                     <div class="btn-group  mt-3">
                       <button type="button" class="btn btn-secondary" previousStep>Back</button>
                       <button type="button" class="btn btn-secondary" resetWizard>Reset</button>
                       <button type="submit" class="btn btn-secondary">submit</button>
                     </div>
                   </wizard-step>
-
                 </div>
-
               </wizard>
-
-
-
-
-
-
-
-
-
             </form>
           </div>
         </div>
