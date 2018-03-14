@@ -16,6 +16,13 @@ import { ContraComponent } from './contra/contra.component';
 import { LedgerComponent } from './ledger/ledger.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { PaymentComponent } from './payment/payment.component';
+import { ProductServiceComponent } from './productService/productService.component';
+import { PurchaseComponent } from './purchase/purchase.component';
+import { PurchaseReturnComponent } from './purchaseReturn/purchaseReturn.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { SalesComponent } from './sales/sales.component';
+import { SalesReturnComponent } from './salesReturn/salesReturn.component';
+import { TrialBalanceComponent } from './trialBalance/trialBalance.component';
 
 import { PopPaymentComponent } from './_popComponent/payment/popPayment.component';
 
@@ -27,8 +34,15 @@ import { ContraService } from './contra/service/contra.service';
 import { JournalEntryService } from './journalEntry/service/journalEntry.service';
 import { LedgerService } from './ledger/service/ledger.service';
 import { PaymentService } from './payment/service/payment.service';
-import { PopPaymentService } from './_popComponent/payment/service/popPayment.service';
+import { ProductServiceService } from './productService/service/productService.service';
+import { PurchaseService } from './purchase/service/purchase.service';
+import { PurchaseReturnService } from './purchaseReturn/service/purchaseReturn.service';
+import { ReceiptService } from './receipt/service/receipt.service';
+import { SalesService } from './sales/service/sales.service';
+import { SalesReturnService } from './salesReturn/service/salesReturn.service';
+import { TrialBalanceService } from './trialBalance/service/trialBalance.service';
 
+import { PopPaymentService } from './_popComponent/payment/service/popPayment.service';
 @NgModule({
   imports: [
     HttpModule,
@@ -43,13 +57,23 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     NgSelectModule,
   ],
   declarations: [
-    LedgerComponent,
-    JournalEntryComponent,
-    PaymentComponent,
-    PopPaymentComponent,
     CashAtBankComponent,
     CashInHandsComponent,
     ContraComponent,
+    JournalEntryComponent,
+    LedgerComponent,
+    PaymentComponent,
+    ProductServiceComponent,
+    PurchaseComponent,
+    PurchaseReturnComponent,
+    ReceiptComponent,
+    SalesComponent,
+    SalesReturnComponent,
+    TrialBalanceComponent,
+
+
+
+    PopPaymentComponent,
   ],
   providers: [
     GlobalVaribles,
@@ -60,6 +84,13 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     JournalEntryService,
     LedgerService,
     PaymentService,
+    ProductServiceService,
+    PurchaseService,
+    PurchaseReturnService,
+    ReceiptService,
+    SalesService,
+    SalesReturnService,
+    TrialBalanceService,
 
     PopPaymentService,
   ],

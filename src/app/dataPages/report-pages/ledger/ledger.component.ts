@@ -25,6 +25,8 @@ export class LedgerComponent implements OnInit {
   public dateFrom: Date;
   public dateTo: Date;
   public dropdFilter: string;
+  startingDate;
+  endingDate;
 
   LedgerData: Array<string>;
   form: FormGroup;
@@ -65,7 +67,7 @@ export class LedgerComponent implements OnInit {
         this.newTotalNet = Math.abs(this.totalNet);
         this.netDebitAmount = data.amountObj.debitAmount;
         this.netCreditAmount = data.amountObj.creditAmount;
-        console.log(data.amountObj.totalNet);
+        // console.log(data.amountObj.totalNet);
       });
   }
 
@@ -79,6 +81,15 @@ export class LedgerComponent implements OnInit {
         this.items = this.items.concat(data.ledgerData);
         this.onAdd(this.defaultLedgerSelect);
       });
+  }
+
+  startDate(value) {
+    this.startingDate = value;
+    console.log(value);
+  }
+  endDate(value) {
+    this.endingDate = value;
+    console.log(value);
   }
 
   deleteEntry(entryId) {
