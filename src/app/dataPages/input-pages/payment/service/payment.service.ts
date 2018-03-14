@@ -36,7 +36,7 @@ export class PaymentService {
   createNewEntry(user: any, compName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key , user[key])
+      console.log(key , user['date'])
       form.append(key, user[key]);
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;

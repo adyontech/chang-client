@@ -77,7 +77,11 @@ export class LedgerComponent implements OnInit {
         console.log(data);
         this.defaultLedgerSelect = data.ledgerData[0];
         this.items = this.items.concat(data.ledgerData);
-        this.onAdd(this.defaultLedgerSelect)
+        this.onAdd(this.defaultLedgerSelect);
       });
+  }
+
+  deleteEntry(entryId) {
+    console.log(entryId);
   }
 }

@@ -82,10 +82,11 @@
                     <a class="success p-0" data-original-title="" title="">
                       <i class="ft-edit-2 font-medium-3 mr-2"></i>
                     </a>
-                    <a class="danger p-0" data-original-title="" title="">
+                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list.paymentdocId)">
                       <i class="ft-x font-medium-3 mr-2"></i>
                     </a>
                   </td>
+                  
                   <td>{{list.date|date}}</td>
                   <td>{{list.ledgerName}}</td>
                   <td>{{list.voucherType}}</td>
