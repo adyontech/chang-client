@@ -99,7 +99,7 @@
 
                   <wizard-step stepTitle="Steptitle 2" navigationSymbol="2" class="mt-3">
                     <div class="mt-3">
-                      <div class="row">
+                      <div class="form-row">
                         <div class="col-md-5 offset-md-1">
                           <div class="form-group">
                             <label>Payment type</label>
@@ -125,7 +125,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row">
+                      <div class="form-row">
                         <div class="col-md-5 offset-md-1" *ngIf=" form.get('paymentThrough').value =='cheque'">
                           <label>Cheque no.</label>
                           <input type="text" class="form-control" formControlName="chequeNumber">
@@ -147,8 +147,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-5 offset-md-1">
                           <label>Against</label>
                           <select class="form-control" formControlName="against">
@@ -161,7 +159,7 @@
                         </div>
                       </div>
 
-                      <div class="btn-group  mt-3">
+                      <div class="btn-group mt-3">
                         <button type="button" class="btn btn-secondary" previousStep>Back</button>
                         <button type="button" class="btn btn-secondary" nextStep>Continue</button>
                       </div>
