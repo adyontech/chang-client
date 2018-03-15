@@ -22,11 +22,11 @@ export class SidebarComponent implements OnInit {
     $.getScript('./assets/js/app-sidebar.js');
     $.getScript('./assets/js/vertical-timeline.js');
     this.menuItems = ROUTES.filter(menuItem => menuItem);
-    console.log(ParseId());
+    // console.log(ParseId());
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      console.log(params);
+      // console.log(params);
       this.paramId = params.id;
     });
   }

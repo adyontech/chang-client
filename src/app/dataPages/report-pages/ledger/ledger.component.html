@@ -24,7 +24,8 @@
             <div class="col-3">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
+                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker" [ngModel]="startingDate"
+                    (ngModelChange)="startDate($event)">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -36,7 +37,7 @@
             <div class="col-3">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
+                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker" [ngModel]="endingDate" (ngModelChange)="endDate($event)">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds2.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -44,11 +45,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-5">
-              <ng-select [items]="selectedItems" [markFirst]="true" placeholder="Select Filter" [multiple]="true" [closeOnSelect]="false"
-                (change)="selected($event)">
-              </ng-select>
             </div>
           </div>
 
@@ -63,7 +59,7 @@
               <thead>
                 <tr>
                   <th> Actions </th>
-                  
+
                   <th> Date </th>
 
                   <th> Particulars</th>
@@ -82,10 +78,11 @@
                     <a class="success p-0" data-original-title="" title="">
                       <i class="ft-edit-2 font-medium-3 mr-2"></i>
                     </a>
-                    <a class="danger p-0" data-original-title="" title="">
+                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list.paymentdocId)">
                       <i class="ft-x font-medium-3 mr-2"></i>
                     </a>
                   </td>
+
                   <td>{{list.date|date}}</td>
                   <td>{{list.ledgerName}}</td>
                   <td>{{list.voucherType}}</td>

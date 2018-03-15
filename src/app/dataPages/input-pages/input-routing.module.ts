@@ -5,7 +5,6 @@ import { ContraComponent } from './contra/contra.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { LedgerComponent } from './ledger/ledger.component';
 import { PaymentComponent } from './payment/payment.component';
-import { Payment1Component } from './payment.1/payment1.component';
 import { ProductServiceComponent } from './productService/productService.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { PurchaseReturnComponent } from './purchaseReturn/purchaseReturn.component';
@@ -41,13 +40,6 @@ const routes: Routes = [
       {
         path: 'payment',
         component: PaymentComponent,
-        data: {
-          title: 'payment Page',
-        },
-      },
-      {
-        path: 'payment1',
-        component: Payment1Component,
         data: {
           title: 'payment Page',
         },

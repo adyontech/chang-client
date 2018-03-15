@@ -165,6 +165,9 @@ export class PaymentComponent implements OnInit {
     console.log(user);
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
+    // user.date = new Date(user.date.year, user.date.month, user.date.day);
+    // user.drawnOn = new Date(user.drawnOn.year, user.drawnOn.month, user.drawnOn.day);
+
     user.endtotal = this.totalAmount;
     this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
     // } else {
