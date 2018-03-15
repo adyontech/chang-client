@@ -45,7 +45,15 @@ export class PaymentComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public _paymentService: PaymentService, public fb: FormBuilder) {}
   ngOnInit() {
+    this.getRouteParam();
     this.onAccSelect('All');
+  }
+
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+    });
   }
 
   onAdd(item: any): void {
@@ -71,7 +79,7 @@ export class PaymentComponent implements OnInit {
   onAccSelect(item: any): void {
     // console.log(item)
     if (item === 'All') {
-      this.getAllIncomingData();
+      this.getAllIncomingData(this.paramId);
     } else {
       this.getIncomingData(item);
     }
@@ -124,11 +132,12 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  getAllIncomingData() {
+  getAllIncomingData(compName) {
     this.dataCopy = this._paymentService
-      .getAllIncomingData()
+      .getAllIncomingData(compName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data)
         console.log(data.paymentData);
         this.incomingData = data.paymentData;
         console.log(data.totalSum);

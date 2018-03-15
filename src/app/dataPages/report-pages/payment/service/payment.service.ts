@@ -24,19 +24,21 @@ export class PaymentService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
+    // console.log(this.windowStorage)
     // console.log(this.paramCompanyName)
   }
 
   getIncomingData(selectionValue) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentStored2?token=${this.token}&&companyName=${
+    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentStored?token=${this.token}&&companyName=${
       this.paramCompanyName
     }&&selectionValue${selectionValue}`;
     return this.http.get(this._url);
   }
-  getAllIncomingData() {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentStored?token=${this.token}&&companyName=${
-      this.paramCompanyName
-    }`;
+  getAllIncomingData(companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/allPaymentStored?token=${
+      this.token
+    }&&companyName=${companyName}`;
     return this.http.get(this._url);
+    // return 0;
   }
 }
