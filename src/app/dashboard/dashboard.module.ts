@@ -13,7 +13,7 @@ import { DashboardService } from './dashboard/service/dashboard.service';
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
 import { DashboardSettingsComponent } from './dashboardSettings/dashboardSettings.component';
 import { DashboardSettingService } from './dashboardSettings/service/dashboardSettings.service';
-// import { Dashboard2Component } from './dashboard2/dashboard2.component';
+import { Dashboard2Component } from './dashboard2/dashboard2.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -39,7 +39,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   declarations: [
     DashboardComponent,
     DashboardSettingsComponent,
-    // Dashboard2Component
+    Dashboard2Component
   ],
   providers: [DashboardService, GlobalVaribles, DashboardSettingService],
 })

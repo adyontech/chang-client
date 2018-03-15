@@ -8,8 +8,7 @@ import { GlobalVaribles } from './../../../../shared/globalVariables/globalVaria
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
-export class PopPaymentService {
-  contentId: string;
+export class ProductServiceService {
   private paramCompanyName: string;
   result: {};
   token: string;
@@ -24,29 +23,20 @@ export class PopPaymentService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // console.log(this.paramCompanyName)
   }
 
-  getData(id: string) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentFormData?token=${this.token}&&dataId=${id}`;
+  getprsrList() {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${this.token}&&companyName=${
+      this.paramCompanyName
+    }`;
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${
+  createNewPrsr(user: any) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${this.token}&companyName=${
       this.paramCompanyName
     }`;
     return this.http.post(this._url, user).map((res: Response) => {
-      this.result = res.json();
-      // console.log(this.result)
-    });
-  }
-
-  editEntry(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentEdit?token=${this.token}&companyName=${
-      this.paramCompanyName
-    }`;
-    return this.http.patch(this._url, user).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
     });

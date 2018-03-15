@@ -58,7 +58,7 @@
                                 <div class="row">
                                     <div class="col-md-5 col-lg-offset-4">
                                         <label>Date</label>
-                                        <my-date-picker name="ydate" [options]="myDatePickerOptions" formControlName="date"></my-date-picker>
+                                        <!-- <my-date-picker name="ydate" [options]="myDatePickerOptions" formControlName="date"></my-date-picker> -->
                                     </div>
                                 </div>
 
@@ -130,7 +130,7 @@
                                 <div class="row">
                                     <div class="col-md-5 col-lg-offset-4">
                                         <label>Drawn on</label>
-                                        <my-date-picker name="drawnOn" [options]="myDatePickerOptions" formControlName="drawnOn"></my-date-picker>
+                                        <!-- <my-date-picker name="drawnOn" [options]="myDatePickerOptions" formControlName="drawnOn"></my-date-picker> -->
 
                                     </div>
                                 </div>
@@ -176,9 +176,7 @@
                                                             <div class="row">
                                                                 <div class="col-lg-4">
                                                                     <!-- <input type="text" class="form-control" formControlName="particulars"> -->
-                                                                    <ng-select [allowClear]="true" [items]="items" formControlName="particulars" (data)="refreshValue($event)" (selected)="showNotification('top','left')"
-                                                                        (removed)="removed($event)" 
-                                                                        placeholder="No city selected">
+                                                                    <ng-select  [items]="items" formControlName="particulars" (data)="refreshValue($event)"   (removed)="removed($event)"   placeholder="No city selected">
                                                                     </ng-select>
                                                                     <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
                                                                         <span (click)="showNotification('top','left')"> Particulars is required</span>

@@ -1,18 +1,36 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LedgerComponent } from './ledger/ledger.component';
+import { CashAtBankComponent } from './cashAtBank/cashAtBank.component';
+import { CashInHandsComponent } from './cashInHands/cashInHands.component';
+import { ContraComponent } from './contra/contra.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
+import { LedgerComponent } from './ledger/ledger.component';
 import { PaymentComponent } from './payment/payment.component';
+
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'ledger',
-        component: LedgerComponent,
+        path: 'cashatback',
+        component: CashAtBankComponent,
         data: {
-          title: 'Ledger',
+          title: 'cashatback',
+        },
+      },
+      {
+        path: 'Cashinhands',
+        component: CashInHandsComponent,
+        data: {
+          title: 'Cashinhands',
+        },
+      },
+      {
+        path: 'contra',
+        component: ContraComponent,
+        data: {
+          title: 'contra',
         },
       },
       {
@@ -23,45 +41,17 @@ const routes: Routes = [
         },
       },
       {
+        path: 'ledger',
+        component: LedgerComponent,
+        data: {
+          title: 'Ledger',
+        },
+      },
+      {
         path: 'payment',
         component: PaymentComponent,
         data: {
           title: 'Payment Page',
-        },
-      },
-      {
-        path: 'verticaltimeline',
-        // component: VerticalTimelinePageComponent,
-        data: {
-          title: 'Vertical Timeline Page',
-        },
-      },
-      {
-        path: 'profile',
-        // component: UserProfilePageComponent,
-        data: {
-          title: 'User Profile Page',
-        },
-      },
-      {
-        path: 'search',
-        // component: SearchComponent,
-        data: {
-          title: 'Search',
-        },
-      },
-      {
-        path: 'faq',
-        // component: FaqComponent,
-        data: {
-          title: 'FAQ',
-        },
-      },
-      {
-        path: 'kb',
-        // component: KnowledgeBaseComponent,
-        data: {
-          title: 'Knowledge Base',
         },
       },
     ],

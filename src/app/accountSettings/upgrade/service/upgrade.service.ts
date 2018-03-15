@@ -18,8 +18,7 @@ export class UpgradeService {
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    public _globalVariableService: GlobalVaribles ,
-    // public _paramId = paramIdValue
+    public _globalVariableService: GlobalVaribles // public _paramId = paramIdValue
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
@@ -28,11 +27,13 @@ export class UpgradeService {
     this._globalVariableService.paramId = value;
   }
 
-  createNewEntry(user: any, compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/pay/instamojo?token=${this.token}&companyName=${compName}`;
-    return this.http.post(this._url, user).map((res: Response) => {
+  requestPayment(pack: any) {
+    // console.log('upgrading')
+    // console.log(window.localStorage.user)
+    this._url = `${this._globalVariableService.baseServerUrl}/pay/instamojo?token=${this.token}`;
+    return this.http.post(this._url, { packName: pack }).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
+      console.log(this.result)
     });
   }
 }

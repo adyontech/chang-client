@@ -14,6 +14,7 @@ declare var $: any;
 })
 export class LedgerComponent implements OnInit {
   // Models
+  boxHidden: Boolean = false;
   haveData: Boolean = true;
   defaultLedgerSelect: String;
   totalNet: number;
@@ -51,12 +52,13 @@ export class LedgerComponent implements OnInit {
   }
 
   public onAdd(value: any): void {
-    // console.log("Selected value is: ", value);
+    // console.log('Selected value is: ', value);
     this._ledgerService.ledgerName = value;
     this.dataCopy = this._ledgerService
       .getIncomingData(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
         data.formData.length === 0 ? (this.haveData = true) : (this.haveData = null);
         this.LedgerData = data.formData;
         this.totalNet = data.amountObj.totalNet;
@@ -72,9 +74,10 @@ export class LedgerComponent implements OnInit {
       .getLedgerNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data)
+        console.log(data);
         this.defaultLedgerSelect = data.ledgerData[0];
         this.items = this.items.concat(data.ledgerData);
+        this.onAdd(this.defaultLedgerSelect)
       });
   }
 }
