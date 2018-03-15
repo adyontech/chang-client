@@ -41,4 +41,13 @@ export class PaymentService {
     return this.http.get(this._url);
     // return 0;
   }
+
+  deleteEntry(id, companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteEntry?token=${
+      this.token
+    }&&companyName=${companyName}&&deleteId=${id}`;
+    return this.http.delete(this._url);
+    // return 0;
+  }
+
 }

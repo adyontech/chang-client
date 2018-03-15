@@ -150,7 +150,14 @@ export class PaymentComponent implements OnInit {
     this._paymentService.contentId = id;
   }
 
-  deleteData(id) {}
+  deleteEntry(id) {
+    console.log(id);
+    this._paymentService.deleteEntry(id, this.paramId)
+    .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 
   copyData(id) {}
 }
