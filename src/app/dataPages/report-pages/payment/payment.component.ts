@@ -77,11 +77,11 @@ export class PaymentComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
-    // console.log(item)
+    console.log(item)
     if (item === 'All') {
       this.getAllIncomingData(this.paramId);
     } else {
-      this.getIncomingData(item);
+      this.getIncomingData(item, this.paramId);
     }
   }
 
@@ -121,12 +121,12 @@ export class PaymentComponent implements OnInit {
   }
   // real date picker active from here
 
-  getIncomingData(selectionValue) {
+  getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._paymentService
-      .getIncomingData(selectionValue)
+      .getIncomingData(selectionValue, compaName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.paymentData);
+        console.log(data);
         this.incomingData = data.paymentData;
         console.log(this.incomingData);
       });
