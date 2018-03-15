@@ -1,6 +1,6 @@
 import { RouteInfo } from './sidebar.metadata';
 import { ParseId } from './../../utilities/IdParser';
-// Sidebar menu Routes and data
+// Sidebar menu Routes and dataa
 const IdParser = ParseId();
 export const ROUTES: RouteInfo[] = [
   {

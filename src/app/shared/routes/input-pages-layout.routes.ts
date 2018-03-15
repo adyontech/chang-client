@@ -14,5 +14,4 @@ export const DATA_PAGES_ROUTES: Routes = [
     loadChildren: './dataPages/report-pages/report-pages.module#ReportPagesModule',
   },
 ];
-
 export const routeStructure: string = DATA_PAGES_ROUTES[0].path;
