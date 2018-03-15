@@ -30,7 +30,6 @@ export class PaymentComponent implements OnInit {
   public ColChequeNO: Boolean = false;
   public ColAgainst: Boolean = false;
 
-  // incomingData: Array<string>;
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
@@ -39,13 +38,14 @@ export class PaymentComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
-  chooseItemBox = []
+  chooseItemBox = [];
   dropdownSettings = {};
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
+  public incomingData: Array<string> = [];
 
   constructor(private route: ActivatedRoute, public _paymentService: PaymentService, public fb: FormBuilder) {}
   ngOnInit() {
-    this.getIncomingData();
+    this.onAccSelect('All');
   }
 
   onAdd(item: any): void {
@@ -65,6 +65,15 @@ export class PaymentComponent implements OnInit {
       case this.VColAgainst:
         this.ColAgainst = true;
         break;
+    }
+  }
+
+  onAccSelect(item: any): void {
+    // console.log(item)
+    if (item === 'All') {
+      this.getAllIncomingData();
+    } else {
+      this.getIncomingData(item);
     }
   }
 
@@ -104,13 +113,25 @@ export class PaymentComponent implements OnInit {
   }
   // real date picker active from here
 
-  getIncomingData() {
-        this.dataCopy = this._paymentService
-      .getIncomingData()
+  getIncomingData(selectionValue) {
+    this.dataCopy = this._paymentService
+      .getIncomingData(selectionValue)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data.paymentData);
-        // this.accountType = this.accountType.concat(data.ledgerData);
+        this.incomingData = data.paymentData;
+        console.log(this.incomingData);
+      });
+  }
+
+  getAllIncomingData() {
+    this.dataCopy = this._paymentService
+      .getAllIncomingData()
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data.paymentData);
+        this.incomingData = data.paymentData;
+        console.log(data.totalSum);
       });
   }
 
@@ -124,4 +145,3 @@ export class PaymentComponent implements OnInit {
 
   copyData(id) {}
 }
-

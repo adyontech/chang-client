@@ -27,7 +27,13 @@ export class PaymentService {
     // console.log(this.paramCompanyName)
   }
 
-  getIncomingData() {
+  getIncomingData(selectionValue) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentStored2?token=${this.token}&&companyName=${
+      this.paramCompanyName
+    }&&selectionValue${selectionValue}`;
+    return this.http.get(this._url);
+  }
+  getAllIncomingData() {
     this._url = `${this._globalVariableService.baseServerUrl}/api/paymentStored?token=${this.token}&&companyName=${
       this.paramCompanyName
     }`;

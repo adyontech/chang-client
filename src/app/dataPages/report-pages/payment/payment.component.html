@@ -15,7 +15,7 @@
               <h4 style="float:left" class="card-title ">Account: </h4>
             </div>
             <div class="col-4">
-              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select ledger" (add)="onAdd($event)" [(ngModel)]="defaultLedgerSelect">
+              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)" >
               </ng-select>
             </div>
           </div>
@@ -49,11 +49,6 @@
               <div class="row">
                 <div class="input-group-append">
                   <div class="input-group-text" (click)="onSelectAll()">
-                    <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                  </div>
-                </div>
-                <div class="input-group-append">
-                  <div class="input-group-text" (click)="onDeSelectAll()">
                     <i class="fa fa-calendar" style="cursor: pointer;"></i>
                   </div>
                 </div>
@@ -98,16 +93,19 @@
               </thead>
               <tbody>
                 <tr *ngFor="let list of incomingData">
-                  <td class="opt">
-                    <button type="button" class="btn btn-simple" (click)="editData(list._id); modal.open();">
-                      <i class="fa fa-bars"></i>
-                    </button>
+                  <td>
+                    <a class="success p-0" data-original-title="" title="">
+                      <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                    </a>
+                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list.paymentdocId)">
+                      <i class="ft-x font-medium-3 mr-2"></i>
+                    </a>
                   </td>
                   <td> {{list.date | date}}</td>
                   <td> {{list.paymentNumber}}</td>
                   <td>
                     <tr *ngFor="let parti of list.particularsData">
-                      <td>{{parti.particulars[0].id}}</td>
+                      <td>{{parti.particulars}}</td>
 
                     </tr>
 
