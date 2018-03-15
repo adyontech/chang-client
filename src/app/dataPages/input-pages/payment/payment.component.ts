@@ -138,6 +138,7 @@ export class PaymentComponent implements OnInit {
       .getAccountNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data)
         this.accountList = this.accountList.concat(data.accountNameList);
       });
   }

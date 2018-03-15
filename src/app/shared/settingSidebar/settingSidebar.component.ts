@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTES } from './settingSidebar-routes.config';
 import { RouteInfo } from './settingSidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -13,7 +12,7 @@ declare var $: any;
 export class SettingSidebarComponent implements OnInit {
   public menuItems: any[];
 
-  constructor(private router: Router, private route: ActivatedRoute, public translate: TranslateService) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
     $.getScript('./assets/js/app-sidebar.js');

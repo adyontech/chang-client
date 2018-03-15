@@ -30,7 +30,6 @@ export class PaymentComponent implements OnInit {
   public ColChequeNO: Boolean = false;
   public ColAgainst: Boolean = false;
 
-  // incomingData: Array<string>;
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
@@ -39,13 +38,22 @@ export class PaymentComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
-  chooseItemBox = []
+  chooseItemBox = [];
   dropdownSettings = {};
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
+  public incomingData: Array<string> = [];
 
   constructor(private route: ActivatedRoute, public _paymentService: PaymentService, public fb: FormBuilder) {}
   ngOnInit() {
-    this.getIncomingData();
+    this.getRouteParam();
+    this.onAccSelect('All');
+  }
+
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+    });
   }
 
   onAdd(item: any): void {
@@ -65,6 +73,15 @@ export class PaymentComponent implements OnInit {
       case this.VColAgainst:
         this.ColAgainst = true;
         break;
+    }
+  }
+
+  onAccSelect(item: any): void {
+    console.log(item)
+    if (item === 'All') {
+      this.getAllIncomingData(this.paramId);
+    } else {
+      this.getIncomingData(item, this.paramId);
     }
   }
 
@@ -104,13 +121,26 @@ export class PaymentComponent implements OnInit {
   }
   // real date picker active from here
 
-  getIncomingData() {
+  getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._paymentService
-      .getIncomingData()
+      .getIncomingData(selectionValue, compaName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
+        this.incomingData = data.paymentData;
+        console.log(this.incomingData);
+      });
+  }
+
+  getAllIncomingData(compName) {
+    this.dataCopy = this._paymentService
+      .getAllIncomingData(compName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data)
         console.log(data.paymentData);
-        // this.accountType = this.accountType.concat(data.ledgerData);
+        this.incomingData = data.paymentData;
+        console.log(data.totalSum);
       });
   }
 
@@ -120,8 +150,14 @@ export class PaymentComponent implements OnInit {
     this._paymentService.contentId = id;
   }
 
-  deleteData(id) {}
+  deleteEntry(id) {
+    console.log(id);
+    this._paymentService.deleteEntry(id, this.paramId)
+    .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 
   copyData(id) {}
 }
-
