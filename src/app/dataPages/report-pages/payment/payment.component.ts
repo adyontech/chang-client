@@ -1,6 +1,7 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
@@ -13,6 +14,7 @@ declare var $: any;
 })
 export class PaymentComponent implements OnInit {
   // Models
+  closeResult: string;
   contentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
@@ -33,7 +35,6 @@ export class PaymentComponent implements OnInit {
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
-  public closeResult: string;
 
   dropdownList = [];
   selectedItems = [];
@@ -43,10 +44,44 @@ export class PaymentComponent implements OnInit {
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
   public incomingData: Array<string> = [];
 
-  constructor(private route: ActivatedRoute, public _paymentService: PaymentService, public fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    public _paymentService: PaymentService,
+    public fb: FormBuilder
+  ) {}
   ngOnInit() {
     this.getRouteParam();
     this.onAccSelect('All');
+  }
+
+  // To open modal we need key event here
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === 66 && event.ctrlKey) {
+      document.getElementById('openModalButton').click();
+    }
+  }
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   getRouteParam() {
@@ -77,7 +112,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
-    console.log(item)
+    console.log(item);
     if (item === 'All') {
       this.getAllIncomingData(this.paramId);
     } else {
@@ -137,7 +172,7 @@ export class PaymentComponent implements OnInit {
       .getAllIncomingData(compName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data)
+        console.log(data);
         console.log(data.paymentData);
         this.incomingData = data.paymentData;
         console.log(data.totalSum);
@@ -152,8 +187,9 @@ export class PaymentComponent implements OnInit {
 
   deleteEntry(id) {
     console.log(id);
-    this._paymentService.deleteEntry(id, this.paramId)
-    .map(response => response.json())
+    this._paymentService
+      .deleteEntry(id, this.paramId)
+      .map(response => response.json())
       .subscribe(data => {
         console.log(data);
       });
