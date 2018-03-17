@@ -1,3 +1,24 @@
+<div class="row" matchHeight="card" [hidden]="true">
+  <!--Modal with Default options starts-->
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-body">
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <app-pop-payment [editContentId]="editContentId"></app-pop-payment>
+            </div>
+          </ng-template>
+
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-12">
     <div class="content-header">Payment Page</div>
@@ -94,7 +115,7 @@
               <tbody>
                 <tr *ngFor="let list of incomingData">
                   <td>
-                    <a class="success p-0" data-original-title="" title="">
+                    <a class="success p-0" data-original-title="" title="" (click)="open(content, list._id)">
                       <i class="ft-edit-2 font-medium-3 mr-2"></i>
                     </a>
                     <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list._id)">

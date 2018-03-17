@@ -4,13 +4,12 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalVaribles } from './../../../../../shared/globalVariables/globalVariable';
+// import { paramIdValue } from './../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class PopPaymentService {
-  contentId: string;
-  private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
@@ -20,35 +19,69 @@ export class PopPaymentService {
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    public _globalVariableService: GlobalVaribles
+    public _globalVariableService: GlobalVaribles // public _paramId = paramIdValue
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // console.log(this.paramCompanyName)
   }
 
-  getData(id: string) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentFormData?token=${this.token}&&dataId=${id}`;
+  getData(compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&&companyName=${compName}`;
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${
-      this.paramCompanyName
-    }`;
-    return this.http.post(this._url, user).map((res: Response) => {
+  getPaymentFormData(compName, id: string) {
+    console.log(`compName: ${compName} and compId: ${id}`);
+    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentFormData?token=${
+      this.token
+    }&&compName=${compName}&&dataId=${id}`;
+    return this.http.get(this._url);
+  }
+
+  createNewEntry(user: any, compName) {
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      // console.log(key, user['date']);
+      if (user[key] instanceof Array || user[key] instanceof Object) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
+    }
+    this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;
+    return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
+      console.log(this.result);
+    });
+  }
+  editEntry(user: any, compName) {
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      // console.log(key, user['date']);
+      if (user[key] instanceof Array || user[key] instanceof Object) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
+    }
+    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentEdit?token=${this.token}&companyName=${compName}`;
+    return this.http.post(this._url, form).map((res: Response) => {
+      this.result = res.json();
+      console.log(this.result);
     });
   }
 
-  editEntry(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentEdit?token=${this.token}&companyName=${
-      this.paramCompanyName
-    }`;
-    return this.http.patch(this._url, user).map((res: Response) => {
-      this.result = res.json();
-      // console.log(this.result)
-    });
+
+  getLedgerUGNames(compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
+      this.token
+    }&&companyName=${compName}`;
+    return this.http.get(this._url);
+  }
+  getAccountNames(compName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
+      this.token
+    }&&companyName=${compName}`;
+    return this.http.get(this._url);
   }
 }

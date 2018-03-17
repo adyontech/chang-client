@@ -9,6 +9,8 @@ import { ChartistModule } from 'ng-chartist';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ArchwizardModule } from 'ng2-archwizard';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { CashAtBankComponent } from './cashAtBank/cashAtBank.component';
 import { CashInHandsComponent } from './cashInHands/cashInHands.component';
@@ -55,6 +57,8 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     AgmCoreModule,
     NgbModule,
     NgSelectModule,
+    ArchwizardModule,
+    UiSwitchModule
   ],
   declarations: [
     CashAtBankComponent,

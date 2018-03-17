@@ -14,7 +14,7 @@ export class PaymentService {
   token: string;
   windowStorage: any;
   _url: string;
-  contentId: string;
+  editContentId: string;
 
   constructor(
     private http: Http,
@@ -34,6 +34,7 @@ export class PaymentService {
     }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
     return this.http.get(this._url);
   }
+
   getAllIncomingData(companyName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/allPaymentStored?token=${
       this.token

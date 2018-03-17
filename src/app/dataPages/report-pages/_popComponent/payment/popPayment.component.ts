@@ -1,213 +1,113 @@
-import { element } from 'protractor';
-import { Component, Input, OnInit, DoCheck } from '@angular/core';
+import { Component, Injectable, Input, DoCheck, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-// import { PaymentService } from "./../service/payment.service";
+import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { PopPaymentService } from './service/popPayment.service';
-
 declare var $: any;
+
+@Injectable()
+export class NgbDateNativeAdapter extends NgbDateAdapter<Date> {
+  fromModel(date: Date): NgbDateStruct {
+    return date && date.getFullYear
+      ? { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() }
+      : null;
+  }
+
+  toModel(date: NgbDateStruct): Date {
+    return date ? new Date(date.year, date.month - 1, date.day) : null;
+  }
+}
 
 @Component({
   selector: 'app-pop-payment',
   templateUrl: './popPayment.component.html',
   styleUrls: ['./popPayment.component.scss'],
 })
-export class PopPaymentComponent implements OnInit, DoCheck {
-  // @Input() contentId: string;
-
-  action: Boolean = true;
-  form: FormGroup;
-  selectedIndex = 1;
-  paramId: string;
-  popContnetId: String = '';
-
-  dataContent: Array<string>;
-  dataCopy: any;
-
-  public items: Array<string> = [
-    'Amsterdam',
-    'Antwerp',
-    'Athens',
-    'Barcelona',
-    'Berlin',
-    'Birmingham',
-    'Bradford',
-    'Bremen',
-    'Brussels',
-    'Bucharest',
-    'Budapest',
-    'Cologne',
-    'Copenhagen',
-    'Dortmund',
-    'Dresden',
-    'Dublin',
-    'Düsseldorf',
-    'Essen',
-    'Frankfurt',
-    'Genoa',
-    'Glasgow',
-    'Gothenburg',
-    'Hamburg',
-    'Hannover',
-    'Helsinki',
-    'Kraków',
-    'Leeds',
-    'Leipzig',
-    'Lisbon',
-    'London',
-    'Madrid',
-    'Manchester',
-    'Marseille',
-    'Milan',
-    'Munich',
-    'Málaga',
-    'Naples',
-    'Palermo',
-    'Paris',
-    'Poznań',
-    'Prague',
-    'Riga',
-    'Rome',
-    'Rotterdam',
-    'Seville',
-    'Sheffield',
-    'Sofia',
-    'Stockholm',
-    'Stuttgart',
-    'The Hague',
-    'Turin',
-    'Valencia',
-    'Vienna',
-    'Vilnius',
-    'Warsaw',
-    'Wrocław',
-    'Zagreb',
-    'Zaragoza',
-    'Łódź',
-  ];
+export class PopPaymentComponent implements OnInit {
+  @Input() editContentId: string;
+  // popContentId will be empty string checking only
+  editupdate: Boolean = false;
+  popContnetId = '';
+  closeResult: string;
+  public form: FormGroup;
+  public selectedIndex = 1;
+  public dataCopy: any;
+  public paramId: string;
+  public totalAmount: number;
+  public ledgerList: Array<string> = [];
+  public accountList: Array<string> = [];
+  public attachmentError: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    // public _paymentService: PaymentService,
     public _popPaymentService: PopPaymentService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
-    // this.getIncomingData();
+    // console.log(this.editContentId);
+    $.getScript('./assets/js/jquery.steps.min.js');
+    $.getScript('./assets/js/wizard-steps.js');
+    this.getRouteParam();
+    this.getIncomingData();
+    this.getAccountNames();
+    this.getLedgerUGNames();
     this.form = this.fb.group({
-      paymentNumber: [''],
-      date: [''],
       account: [''],
-      paymentType: [''],
-      paymentThrough: [''],
       chequeNumber: [''],
-      drawnOn: [null, Validators.required],
-      particularsData: this.fb.array([]),
-      narration: [''],
       against: [''],
-      file: [''],
+      attachment: [''],
+      date: [''],
+      drawnOn: [null, Validators.required],
+      endtotal: [''],
+      narration: [''],
+      paymentNumber: [''],
+      paymentThrough: [''],
+      paymentType: [''],
+      particularsData: this.fb.array([]),
     });
     this.addParticular();
   }
-  ngDoCheck() {
-    // if (this.contentId != this.popContnetId) {
-    //   // console.log(`Content Id: ${this.contentId}, Pop Content Id: ${this.popContnetId}`);
-    //   this.popContnetId = this.contentId;
-    //   if (this.popContnetId != '') this.getIncomingData(this.popContnetId);
-    // }
-  }
 
-  initParticular() {
-    return this.fb.group({
-      particulars: ['', Validators.required],
-      amount: [''],
-    });
-  }
   addParticular() {
+    this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
-  removeParticular(i: number) {
-    const control = <FormArray>this.form.controls['particularsData'];
-    control.removeAt(i);
-  }
 
-  get formData() {
-    return <FormArray>this.form.get('particularsData');
-  }
-
-  onSubmit(user, action) {
-    user.contentId = this.popContnetId;
-    console.log(user);
-    if (action === true) {
-      console.log('edit');
-      this._popPaymentService.editEntry(user).subscribe(data => {});
-    } else {
-      // console.log(user)
-      this._popPaymentService.createNewEntry(user).subscribe(data => {
-        // console.log('hello gateway service')
-      });
-    }
-  }
-  getIncomingData(id: string) {
-    this.dataCopy = this._popPaymentService
-      .getData(id)
-      .map(response => response.json())
-      .subscribe(data => {
-        this.dataContent = data.paymentData;
-        // console.log(this.dataContent);
-        this.fillForm(this.dataContent);
-      });
-  }
-
-  setDate(value): void {
-    console.log(value.substring(5, 7));
-    const date = new Date();
-    this.form.patchValue({
-      date: {
-        date: {
-          year: value.substring(0, 4),
-          month: value.substring(5, 7),
-          //   day: parseInt(value.substring(8, 10)) + 1,
-        },
-      },
+  fillForm(data) {
+    console.log(data);
+    data = data[0];
+    data.date = new Date(data.date);
+    data.drawnOn = new Date(data.drawnOn);
+    const now = new Date();
+    this.form.controls['account'].setValue(data.account);
+    this.form.controls['chequeNumber'].setValue(data.chequeNumber);
+    this.form.controls['against'].setValue(data.against);
+    this.form.controls['date'].setValue({
+      year: data.date.getFullYear(),
+      month: data.date.getMonth(),
+      day: data.date.getDate(),
     });
-  }
-
-  setDate2(value): void {
-    const date = new Date();
-    this.form.patchValue({
-      drawnOn: {
-        date: {
-          year: value.substring(0, 4),
-          month: value.substring(5, 7),
-          //   day: parseInt(value.substring(8, 10)) + 1,
-        },
-      },
+    this.form.controls['drawnOn'].setValue({
+      year: data.drawnOn.getFullYear(),
+      month: data.drawnOn.getMonth(),
+      day: data.drawnOn.getDate(),
     });
-  }
-
-  fillForm(value) {
-    console.log(value[0]);
-    this.form.controls['paymentNumber'].patchValue(value[0].paymentNumber);
-    this.form.controls['account'].patchValue(value[0].account);
-    this.form.controls['paymentType'].patchValue(value[0].paymentType);
-    this.form.controls['paymentThrough'].patchValue(value[0].paymentThrough);
-    this.form.controls['chequeNumber'].patchValue(value[0].chequeNumber);
-    this.form.controls['narration'].patchValue(value[0].narration);
-    this.form.controls['against'].patchValue(value[0].against);
-
-    this.setDate(value[0].date);
-    this.setDate2(value[0].drawnOn);
+    this.form.controls['narration'].setValue(data.narration);
+    this.form.controls['paymentNumber'].setValue(data.paymentNumber);
+    this.form.controls['paymentType'].setValue(data.paymentType);
+    this.form.controls['paymentThrough'].setValue(data.paymentThrough);
 
     const particularsData = <FormArray>this.form.controls['particularsData'];
-    const oldArray = value[0].particularsData;
+    const oldArray = data.particularsData;
     oldArray.forEach((element, index) => {
       const array = particularsData.at(index);
       if (!array) {
@@ -224,6 +124,116 @@ export class PopPaymentComponent implements OnInit, DoCheck {
         });
       }
     });
-    console.log(this.form);
+  }
+
+  get formData() {
+    return <FormArray>this.form.get('particularsData');
+  }
+
+  getAccountNames() {
+    this.dataCopy = this._popPaymentService
+      .getAccountNames(this.paramId)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.accountList = this.accountList.concat(data.accountNameList);
+      });
+  }
+
+  // This function is used in open
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return `with: ${reason}`;
+  //   }
+  // }
+
+  getIncomingData() {
+    if (this.editContentId !== this.popContnetId) {
+      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
+      this.popContnetId = this.editContentId;
+      if (this.popContnetId !== '') {
+        this._popPaymentService
+          .getPaymentFormData(this.paramId, this.popContnetId)
+          .map(response => response.json())
+          .subscribe(data => {
+            this.fillForm(data.paymentData);
+          });
+      }
+    }
+  }
+
+  getLedgerUGNames() {
+    this.dataCopy = this._popPaymentService
+      .getLedgerUGNames(this.paramId)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+      });
+  }
+
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+      // this._popPaymentService.setParamId(this.paramId);
+    });
+  }
+
+  initParticular() {
+    return this.fb.group({
+      particulars: ['', Validators.required],
+      amount: [''],
+    });
+  }
+
+  onFileChange(event) {
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
+
+    if (event.target.files[0].size < 400000) {
+      if (event.target.files && event.target.files.length > 0) {
+        this.form.get('attachment').setValue(event.target.files[0]);
+      }
+    } else {
+      this.attachmentError = true;
+    }
+  }
+
+  onSubmit(user, action) {
+    console.log(action)
+    user.contentId = this.popContnetId;
+    user.endtotal = this.totalAmount;
+    console.log(user);
+    if (action === false) {
+      console.log('edit');
+      this._popPaymentService.editEntry(user, this.paramId).subscribe(data => {});
+    } else {
+      this._popPaymentService.createNewEntry(user, this.paramId).subscribe(data => {
+
+      });
+    }
+  }
+
+  removeParticular(i: number) {
+    const control = <FormArray>this.form.controls['particularsData'];
+    control.removeAt(i);
+    this.totalSum();
+  }
+
+  totalSum() {
+    const formControls = this.form.controls.particularsData['controls'];
+    this.totalAmount = 0;
+    for (let i = 0; i < formControls.length; i++) {
+      const amount = formControls[i].controls.amount.value;
+      if (!isNaN(amount) && amount !== '') {
+        this.totalAmount += parseFloat(amount);
+      }
+      // console.log(this.totalAmount);
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
@@ -13,7 +14,8 @@ declare var $: any;
 })
 export class PaymentComponent implements OnInit {
   // Models
-  contentId: String = '';
+  closeResult: string;
+  editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
   public dropdFilter: string;
@@ -33,7 +35,6 @@ export class PaymentComponent implements OnInit {
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
-  public closeResult: string;
 
   dropdownList = [];
   selectedItems = [];
@@ -43,10 +44,38 @@ export class PaymentComponent implements OnInit {
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
   public incomingData: Array<string> = [];
 
-  constructor(private route: ActivatedRoute, public _paymentService: PaymentService, public fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    public _paymentService: PaymentService,
+    public fb: FormBuilder
+  ) {}
   ngOnInit() {
     this.getRouteParam();
     this.onAccSelect('All');
+  }
+
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   getRouteParam() {
@@ -77,7 +106,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
-    console.log(item)
+    console.log(item);
     if (item === 'All') {
       this.getAllIncomingData(this.paramId);
     } else {
@@ -103,6 +132,7 @@ export class PaymentComponent implements OnInit {
         break;
     }
   }
+
   onSelectAll(items: any) {
     // console.log(items);
     this.ColPaymentType = true;
@@ -111,6 +141,7 @@ export class PaymentComponent implements OnInit {
     this.ColAgainst = true;
     this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
+
   onDeSelectAll(items: any) {
     // console.log(items);
     this.ColPaymentType = false;
@@ -119,8 +150,8 @@ export class PaymentComponent implements OnInit {
     this.ColAgainst = false;
     this.chooseItemBox = [];
   }
-  // real date picker active from here
 
+  // real date picker active from here
   getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._paymentService
       .getIncomingData(selectionValue, compaName)
@@ -137,27 +168,21 @@ export class PaymentComponent implements OnInit {
       .getAllIncomingData(compName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data)
+        console.log(data);
         console.log(data.paymentData);
         this.incomingData = data.paymentData;
         console.log(data.totalSum);
       });
   }
 
-  editData(id) {
-    console.log(id);
-    this.contentId = id;
-    this._paymentService.contentId = id;
-  }
-
   deleteEntry(id) {
     console.log(id);
-    this._paymentService.deleteEntry(id, this.paramId)
-    .map(response => response.json())
+    this._paymentService
+      .deleteEntry(id, this.paramId)
+      .map(response => response.json())
       .subscribe(data => {
         console.log(data);
       });
   }
 
-  copyData(id) {}
 }
