@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, HostListener, Input, DoCheck, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,9 @@ declare var $: any;
   styleUrls: ['./popPayment.component.scss'],
 })
 export class PopPaymentComponent implements OnInit {
+  @Input() editContentId: string;
+  // popContentId will be empty string checking only
+  popContnetId: string = '';
   closeResult: string;
   public form: FormGroup;
   public selectedIndex = 1;
@@ -26,13 +29,14 @@ export class PopPaymentComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public _paymentService: PopPaymentService,
+    public _popPaymentService: PopPaymentService,
     public fb: FormBuilder,
     private router: Router,
     private modalService: NgbModal
   ) {}
 
   ngOnInit() {
+    console.log(this.editContentId);
     $.getScript('./assets/js/jquery.steps.min.js');
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
@@ -54,24 +58,34 @@ export class PopPaymentComponent implements OnInit {
     });
     this.addParticular();
   }
-
-  // To open modal we need key event here
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.keyCode === 66 && event.ctrlKey) {
-      document.getElementById('openModalButton').click();
+  ngForCheck() {
+    console.log(this.editContentId)
+    if (this.editContentId !== this.popContnetId) {
+      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
+      this.popContnetId = this.editContentId;
+      if (this.popContnetId !== '') {
+        this.getIncomingData(this.popContnetId);
+      }
     }
   }
-  open(content) {
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
+
+  // To open modal we need key event here
+  // @HostListener('window:keyup', ['$event'])
+  // keyEvent(event: KeyboardEvent) {
+  //   if (event.keyCode === 66 && event.ctrlKey) {
+  //     document.getElementById('openModalButton').click();
+  //   }
+  // }
+  // open(content) {
+  //   this.modalService.open(content).result.then(
+  //     result => {
+  //       this.closeResult = `Closed with: ${result}`;
+  //     },
+  //     reason => {
+  //       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //     }
+  //   );
+  // }
 
   // This function is used in open
   private getDismissReason(reason: any): string {
@@ -109,7 +123,7 @@ export class PopPaymentComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
-      this._paymentService.setParamId(this.paramId);
+      this._popPaymentService.setParamId(this.paramId);
     });
   }
 
@@ -126,7 +140,7 @@ export class PopPaymentComponent implements OnInit {
   }
 
   getLedgerUGNames() {
-    this.dataCopy = this._paymentService
+    this.dataCopy = this._popPaymentService
       .getLedgerUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
@@ -134,18 +148,18 @@ export class PopPaymentComponent implements OnInit {
       });
   }
   getAccountNames() {
-    this.dataCopy = this._paymentService
+    this.dataCopy = this._popPaymentService
       .getAccountNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data)
+        console.log(data);
         this.accountList = this.accountList.concat(data.accountNameList);
       });
   }
 
-  setSelected(id: number) {
-    this.selectedIndex = id;
-  }
+  // setSelected(id: number) {
+  //   this.selectedIndex = id;
+  // }
 
   onFileChange(event) {
     this.attachmentError = false;
@@ -170,10 +184,21 @@ export class PopPaymentComponent implements OnInit {
     // user.drawnOn = new Date(user.drawnOn.year, user.drawnOn.month, user.drawnOn.day);
 
     user.endtotal = this.totalAmount;
-    this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+    this._popPaymentService.createNewEntry(user, this.paramId).subscribe(data => {});
     // } else {
     //   return;
     // }
     // });
+  }
+
+  getIncomingData(id: string) {
+    this.dataCopy = this._popPaymentService
+      .getData(id)
+      .map(response => response.json())
+      .subscribe(data => {
+        // this.dataContent = data.paymentData;
+        console.log(data.paymentData);
+        // this.fillForm(this.dataContent);
+      });
   }
 }

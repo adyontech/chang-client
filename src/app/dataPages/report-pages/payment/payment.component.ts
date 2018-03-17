@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +15,7 @@ declare var $: any;
 export class PaymentComponent implements OnInit {
   // Models
   closeResult: string;
-  contentId: String = '';
+  editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
   public dropdFilter: string;
@@ -55,14 +55,8 @@ export class PaymentComponent implements OnInit {
     this.onAccSelect('All');
   }
 
-  // To open modal we need key event here
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.keyCode === 66 && event.ctrlKey) {
-      document.getElementById('openModalButton').click();
-    }
-  }
-  open(content) {
+  open(content, editId) {
+    this.editContentId = editId;
     this.modalService.open(content).result.then(
       result => {
         this.closeResult = `Closed with: ${result}`;
@@ -138,6 +132,7 @@ export class PaymentComponent implements OnInit {
         break;
     }
   }
+
   onSelectAll(items: any) {
     // console.log(items);
     this.ColPaymentType = true;
@@ -146,6 +141,7 @@ export class PaymentComponent implements OnInit {
     this.ColAgainst = true;
     this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
+
   onDeSelectAll(items: any) {
     // console.log(items);
     this.ColPaymentType = false;
@@ -154,8 +150,8 @@ export class PaymentComponent implements OnInit {
     this.ColAgainst = false;
     this.chooseItemBox = [];
   }
-  // real date picker active from here
 
+  // real date picker active from here
   getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._paymentService
       .getIncomingData(selectionValue, compaName)
@@ -179,12 +175,6 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  editData(id) {
-    console.log(id);
-    this.contentId = id;
-    this._paymentService.contentId = id;
-  }
-
   deleteEntry(id) {
     console.log(id);
     this._paymentService
@@ -195,5 +185,4 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  copyData(id) {}
 }
