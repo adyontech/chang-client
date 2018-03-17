@@ -24,12 +24,17 @@ export class PopPaymentService {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
-  setParamId(value) {
-    this._globalVariableService.paramId = value;
-  }
 
   getData(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&&companyName=${compName}`;
+    return this.http.get(this._url);
+  }
+
+  getPaymentFormData(compName, id: string) {
+    console.log(`compName: ${compName} and compId: ${id}`);
+    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentFormData?token=${
+      this.token
+    }&&compName=${compName}&&dataId=${id}`;
     return this.http.get(this._url);
   }
 
@@ -46,9 +51,26 @@ export class PopPaymentService {
     this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result)
+      console.log(this.result);
     });
   }
+  editEntry(user: any, compName) {
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      // console.log(key, user['date']);
+      if (user[key] instanceof Array || user[key] instanceof Object) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
+    }
+    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentEdit?token=${this.token}&companyName=${compName}`;
+    return this.http.post(this._url, form).map((res: Response) => {
+      this.result = res.json();
+      console.log(this.result);
+    });
+  }
+
 
   getLedgerUGNames(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${

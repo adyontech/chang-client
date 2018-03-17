@@ -1,12 +1,26 @@
-import { Component, HostListener, Input, DoCheck, ViewChild, OnInit } from '@angular/core';
+import { Component, Injectable, Input, DoCheck, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { PopPaymentService } from './service/popPayment.service';
 declare var $: any;
+
+@Injectable()
+export class NgbDateNativeAdapter extends NgbDateAdapter<Date> {
+  fromModel(date: Date): NgbDateStruct {
+    return date && date.getFullYear
+      ? { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() }
+      : null;
+  }
+
+  toModel(date: NgbDateStruct): Date {
+    return date ? new Date(date.year, date.month - 1, date.day) : null;
+  }
+}
 
 @Component({
   selector: 'app-pop-payment',
@@ -16,7 +30,8 @@ declare var $: any;
 export class PopPaymentComponent implements OnInit {
   @Input() editContentId: string;
   // popContentId will be empty string checking only
-  popContnetId: string = '';
+  editupdate: Boolean = false;
+  popContnetId = '';
   closeResult: string;
   public form: FormGroup;
   public selectedIndex = 1;
@@ -36,106 +51,118 @@ export class PopPaymentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.editContentId);
+    // console.log(this.editContentId);
     $.getScript('./assets/js/jquery.steps.min.js');
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
+    this.getIncomingData();
     this.getAccountNames();
     this.getLedgerUGNames();
     this.form = this.fb.group({
-      paymentNumber: [''],
-      date: [''],
       account: [''],
-      paymentType: [''],
-      paymentThrough: [''],
       chequeNumber: [''],
-      drawnOn: [null, Validators.required],
-      particularsData: this.fb.array([]),
-      narration: [''],
       against: [''],
       attachment: [''],
+      date: [''],
+      drawnOn: [null, Validators.required],
       endtotal: [''],
+      narration: [''],
+      paymentNumber: [''],
+      paymentThrough: [''],
+      paymentType: [''],
+      particularsData: this.fb.array([]),
     });
     this.addParticular();
   }
-  ngForCheck() {
-    console.log(this.editContentId)
-    if (this.editContentId !== this.popContnetId) {
-      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
-      this.popContnetId = this.editContentId;
-      if (this.popContnetId !== '') {
-        this.getIncomingData(this.popContnetId);
-      }
-    }
-  }
 
-  // To open modal we need key event here
-  // @HostListener('window:keyup', ['$event'])
-  // keyEvent(event: KeyboardEvent) {
-  //   if (event.keyCode === 66 && event.ctrlKey) {
-  //     document.getElementById('openModalButton').click();
-  //   }
-  // }
-  // open(content) {
-  //   this.modalService.open(content).result.then(
-  //     result => {
-  //       this.closeResult = `Closed with: ${result}`;
-  //     },
-  //     reason => {
-  //       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //     }
-  //   );
-  // }
-
-  // This function is used in open
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  initParticular() {
-    return this.fb.group({
-      particulars: ['', Validators.required],
-      amount: [''],
-    });
-  }
   addParticular() {
     this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
-  removeParticular(i: number) {
-    const control = <FormArray>this.form.controls['particularsData'];
-    control.removeAt(i);
-    this.totalSum();
+
+  fillForm(data) {
+    console.log(data);
+    data = data[0];
+    data.date = new Date(data.date);
+    data.drawnOn = new Date(data.drawnOn);
+    const now = new Date();
+    this.form.controls['account'].setValue(data.account);
+    this.form.controls['chequeNumber'].setValue(data.chequeNumber);
+    this.form.controls['against'].setValue(data.against);
+    this.form.controls['date'].setValue({
+      year: data.date.getFullYear(),
+      month: data.date.getMonth(),
+      day: data.date.getDate(),
+    });
+    this.form.controls['drawnOn'].setValue({
+      year: data.drawnOn.getFullYear(),
+      month: data.drawnOn.getMonth(),
+      day: data.drawnOn.getDate(),
+    });
+    this.form.controls['narration'].setValue(data.narration);
+    this.form.controls['paymentNumber'].setValue(data.paymentNumber);
+    this.form.controls['paymentType'].setValue(data.paymentType);
+    this.form.controls['paymentThrough'].setValue(data.paymentThrough);
+
+    const particularsData = <FormArray>this.form.controls['particularsData'];
+    const oldArray = data.particularsData;
+    oldArray.forEach((element, index) => {
+      const array = particularsData.at(index);
+      if (!array) {
+        particularsData.push(
+          this.fb.group({
+            particulars: [element.particulars],
+            amount: element.amount,
+          })
+        );
+      } else {
+        array.patchValue({
+          particulars: element.particulars,
+          amount: element.amount,
+        });
+      }
+    });
   }
+
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
 
-  getRouteParam() {
-    this.route.params.subscribe(params => {
-      // console.log(params.id);
-      this.paramId = params.id;
-      this._popPaymentService.setParamId(this.paramId);
-    });
+  getAccountNames() {
+    this.dataCopy = this._popPaymentService
+      .getAccountNames(this.paramId)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.accountList = this.accountList.concat(data.accountNameList);
+      });
   }
 
-  totalSum() {
-    const formControls = this.form.controls.particularsData['controls'];
-    this.totalAmount = 0;
-    for (let i = 0; i < formControls.length; i++) {
-      const amount = formControls[i].controls.amount.value;
-      if (!isNaN(amount) && amount !== '') {
-        this.totalAmount += parseFloat(amount);
+  // This function is used in open
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return `with: ${reason}`;
+  //   }
+  // }
+
+  getIncomingData() {
+    if (this.editContentId !== this.popContnetId) {
+      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
+      this.popContnetId = this.editContentId;
+      if (this.popContnetId !== '') {
+        this._popPaymentService
+          .getPaymentFormData(this.paramId, this.popContnetId)
+          .map(response => response.json())
+          .subscribe(data => {
+            this.fillForm(data.paymentData);
+          });
       }
-      // console.log(this.totalAmount);
     }
   }
 
@@ -147,19 +174,21 @@ export class PopPaymentComponent implements OnInit {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
-  getAccountNames() {
-    this.dataCopy = this._popPaymentService
-      .getAccountNames(this.paramId)
-      .map(response => response.json())
-      .subscribe(data => {
-        console.log(data);
-        this.accountList = this.accountList.concat(data.accountNameList);
-      });
+
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+      // this._popPaymentService.setParamId(this.paramId);
+    });
   }
 
-  // setSelected(id: number) {
-  //   this.selectedIndex = id;
-  // }
+  initParticular() {
+    return this.fb.group({
+      particulars: ['', Validators.required],
+      amount: [''],
+    });
+  }
 
   onFileChange(event) {
     this.attachmentError = false;
@@ -175,30 +204,36 @@ export class PopPaymentComponent implements OnInit {
     }
   }
 
-  onSubmit(user) {
-    console.log('you clicked it');
-    console.log(user);
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
-    // user.date = new Date(user.date.year, user.date.month, user.date.day);
-    // user.drawnOn = new Date(user.drawnOn.year, user.drawnOn.month, user.drawnOn.day);
-
+  onSubmit(user, action) {
+    console.log(action)
+    user.contentId = this.popContnetId;
     user.endtotal = this.totalAmount;
-    this._popPaymentService.createNewEntry(user, this.paramId).subscribe(data => {});
-    // } else {
-    //   return;
-    // }
-    // });
+    console.log(user);
+    if (action === false) {
+      console.log('edit');
+      this._popPaymentService.editEntry(user, this.paramId).subscribe(data => {});
+    } else {
+      this._popPaymentService.createNewEntry(user, this.paramId).subscribe(data => {
+
+      });
+    }
   }
 
-  getIncomingData(id: string) {
-    this.dataCopy = this._popPaymentService
-      .getData(id)
-      .map(response => response.json())
-      .subscribe(data => {
-        // this.dataContent = data.paymentData;
-        console.log(data.paymentData);
-        // this.fillForm(this.dataContent);
-      });
+  removeParticular(i: number) {
+    const control = <FormArray>this.form.controls['particularsData'];
+    control.removeAt(i);
+    this.totalSum();
+  }
+
+  totalSum() {
+    const formControls = this.form.controls.particularsData['controls'];
+    this.totalAmount = 0;
+    for (let i = 0; i < formControls.length; i++) {
+      const amount = formControls[i].controls.amount.value;
+      if (!isNaN(amount) && amount !== '') {
+        this.totalAmount += parseFloat(amount);
+      }
+      // console.log(this.totalAmount);
+    }
   }
 }
