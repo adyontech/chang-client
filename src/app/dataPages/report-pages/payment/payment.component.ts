@@ -48,7 +48,6 @@ export class PaymentComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     public _paymentService: PaymentService,
-    public fb: FormBuilder
   ) {}
   ngOnInit() {
     this.getRouteParam();

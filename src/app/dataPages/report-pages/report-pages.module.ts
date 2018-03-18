@@ -27,8 +27,8 @@ import { SalesReturnComponent } from './salesReturn/salesReturn.component';
 import { TrialBalanceComponent } from './trialBalance/trialBalance.component';
 import { UnderGroupComponent } from './underGroup/underGroup.component';
 
+import { PopContraComponent  } from "./_popComponent/contra/popContra.component";
 import { PopPaymentComponent } from './_popComponent/payment/popPayment.component';
-
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
 import { CashAtBankService } from './cashAtBank/service/cashAtBank.service';
@@ -46,7 +46,7 @@ import { SalesReturnService } from './salesReturn/service/salesReturn.service';
 import { TrialBalanceService } from './trialBalance/service/trialBalance.service';
 import { UnderGroupsService } from './underGroup/service/underGroup.service';
 
-
+import { PopContraContraService } from "./_popComponent/contra/service/popContra.service";
 import { PopPaymentService } from './_popComponent/payment/service/popPayment.service';
 @NgModule({
   imports: [
@@ -79,6 +79,7 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     TrialBalanceComponent,
     UnderGroupComponent,
 
+    PopContraComponent,
     PopPaymentComponent,
   ],
   providers: [
@@ -99,6 +100,7 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     TrialBalanceService,
     UnderGroupsService,
 
+    PopContraContraService,
     PopPaymentService,
   ],
 })

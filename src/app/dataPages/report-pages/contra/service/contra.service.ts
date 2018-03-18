@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class ContraService {
-  result: {};
   token: string;
   windowStorage: any;
   _url: string;
@@ -25,10 +24,27 @@ export class ContraService {
     // console.log(this.paramCompanyName)
   }
 
-  getIncomingData(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/contraStored?token=${this.token}&&companyName=${
-        compName
-    }`;
+  getIncomingData(selectionValue, companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/contraStored?token=${
+      this.token
+    }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
     return this.http.get(this._url);
   }
+
+  getAllIncomingData(companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/allPaymentStored?token=${
+      this.token
+    }&&companyName=${companyName}`;
+    return this.http.get(this._url);
+    // return 0;
+  }
+
+  deleteEntry(id, companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteEntry?token=${
+      this.token
+    }&&companyName=${companyName}&&deleteId=${id}`;
+    return this.http.delete(this._url);
+    // return 0;
+  }
+
 }

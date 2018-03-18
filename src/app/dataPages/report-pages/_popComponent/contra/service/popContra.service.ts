@@ -3,11 +3,11 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from './../../../../../shared/globalVariables/globalVariable';
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
-export class ContraService {
+export class PopContraContraService {
   private paramCompanyName: string;
   result: {};
   token: string;
@@ -36,7 +36,7 @@ export class ContraService {
       form.append(key, user[key]);
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/contra?token=${this.token}&companyName=${compName}`;
-    return this.http.post(this._url, form).map((res: Response) => {
+    return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
     });

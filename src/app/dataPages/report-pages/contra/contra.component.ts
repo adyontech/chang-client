@@ -1,7 +1,8 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { ContraService } from './service/contra.service';
 
@@ -11,7 +12,8 @@ import { ContraService } from './service/contra.service';
   styleUrls: ['./contra.component.scss'],
 })
 export class ContraComponent implements OnInit {
-  contentId: String = '';
+  closeResult: string;
+  editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
 
@@ -19,20 +21,15 @@ export class ContraComponent implements OnInit {
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
-  public closeResult: string;
 
-  constructor(private route: ActivatedRoute, public _contraService: ContraService, public fb: FormBuilder) {}
+  public accountType: Array<string> = ['All', 'Cash', 'Bank'];
+
+  constructor(private route: ActivatedRoute, private modalService: NgbModal, public _contraService: ContraService) {}
 
   ngOnInit() {
     this.getRouteParam();
-    this.getIncomingData();
+    this.onAccSelect('All');
   }
-
-  //   hotkeys(event) {
-  //     if (event.keyCode == 76 && event.ctrlKey) {
-  //       this.modal.open();
-  //     }
-  //   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
@@ -41,23 +38,68 @@ export class ContraComponent implements OnInit {
       //   this._cashAtBankService.setParamId(this.paramId)
     });
   }
-  getIncomingData() {
+
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  onAccSelect(item: any): void {
+    console.log(item);
+    if (item === 'All') {
+      this.getAllIncomingData(this.paramId);
+    } else {
+      this.getIncomingData(item, this.paramId);
+    }
+  }
+
+  getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._contraService
-      .getIncomingData(this.paramId)
+      .getIncomingData(selectionValue, compaName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.contraData);
-        this.incomingData = data.contraData;
+        console.log(data);
+        this.incomingData = data.paymentData;
+        console.log(this.incomingData);
       });
   }
 
-  editData(id) {
-    console.log(id);
-    this.contentId = id;
+  getAllIncomingData(compName) {
+    this.dataCopy = this._contraService
+      .getAllIncomingData(compName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        console.log(data.paymentData);
+        this.incomingData = data.paymentData;
+        console.log(data.totalSum);
+      });
   }
 
-  deleteData(id) {}
-
-  copyData(id) {}
+  deleteEntry(id) {
+    console.log(id);
+    this._contraService
+      .deleteEntry(id, this.paramId)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 }
-
