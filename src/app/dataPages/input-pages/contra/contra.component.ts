@@ -35,6 +35,7 @@ export class ContraComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getRouteParam();
     this.getAccountNames();
     this.getLedgerUGNames();
     this.form = this.fb.group({
@@ -51,23 +52,32 @@ export class ContraComponent implements OnInit {
     this.addParticular();
   }
 
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id;
+    });
+  }
+
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
       amount: [''],
     });
   }
+
   addParticular() {
     this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
+
   removeParticular(i: number) {
     this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
   }
+
   totalSum() {
     const formControls = this.form.controls.particularsData['controls'];
     this.totalAmount = 0;
@@ -86,9 +96,12 @@ export class ContraComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        if (data.success !== false) {
+          this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        }
       });
   }
+
   getAccountNames() {
     this.dataCopy = this._contraService
       .getAccountNames(this.paramId)

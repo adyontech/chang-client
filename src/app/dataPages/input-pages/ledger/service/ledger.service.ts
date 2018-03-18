@@ -43,7 +43,7 @@ export class LedgerService {
     }`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
+      console.log(this.result)
     });
   }
 }

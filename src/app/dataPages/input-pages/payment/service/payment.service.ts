@@ -46,7 +46,7 @@ export class PaymentService {
     this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result)
+      console.log(this.result);
     });
   }
 
