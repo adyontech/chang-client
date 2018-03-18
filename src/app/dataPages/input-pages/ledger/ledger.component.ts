@@ -124,15 +124,15 @@ export class LedgerComponent implements OnInit {
 
   // onSubmit(user) {
   onSubmit() {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
+    // alertFunctions.SaveData().then(datsa => {
+    //   if (datsa) {
         const user = this.form.getRawValue();
         this._ledgerService.createNewLedger(user, this.paramId).subscribe(data => {
           // console.log('hello gateway service')
         });
-      } else {
-        return;
-      }
-    });
+    //   } else {
+    //     return;
+    //   }
+    // });
   }
 }

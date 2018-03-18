@@ -19,10 +19,9 @@
             </div>
           </ng-template>
 
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
 
           <hr>
-          <p>Action : {{closeResult}}</p>
         </div>
       </div>
     </div>
@@ -110,16 +109,14 @@
                         <div class="col-md-5 offset-md-1">
                           <div class="form-group">
                             <label>Place supplyPlace</label>
-                            <ng-select [items]="items" formControlName="supplyPlace" (data)="refreshValue($event)" (typed)="showNotification('top','left')"
-                              placeholder="No city selected">
+                            <ng-select [items]="items" formControlName="supplyPlace" placeholder="No city selected">
                             </ng-select>
                           </div>
                         </div>
                         <div class="col-md-5 offset-md-1">
                           <div class="form-group">
                             <label>Type of sales</label>
-                            <ng-select [items]="salesType" formControlName="saleType" (data)="refreshValue($event)" (typed)="showNotification('top','left')"
-                              placeholder="No city selected">
+                            <ng-select [items]="salesType" formControlName="saleType" placeholder="No city selected">
                             </ng-select>
                           </div>
                         </div>
@@ -296,7 +293,7 @@
                                   <div class="card-body">
                                     <div class="form-group">
                                       <div class="input-group">
-                                        <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput >
+                                        <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                                       </div>
                                       <div *ngIf="attachmentError">errririiriri</div>
                                     </div>
@@ -307,8 +304,8 @@
 
                           </div>
                           <div class="row" style="text-align: center; margin-top: 20px ">
-                            <button type="button" data-toggle="tab " href="#step1 " (click)="setSelected(1) " class="btn btn-info btn-fill "> Back</button>
-                            <button type="button" data-toggle="tab " href="#step3 " (click)="setSelected(2) " class="btn btn-info btn-fill ">Save and exit</button>
+                            <button type="button" data-toggle="tab " href="#step1 " class="btn btn-info btn-fill "> Back</button>
+                            <button type="button" data-toggle="tab " href="#step3 "  class="btn btn-info btn-fill ">Save and exit</button>
                             <button type="button" class="btn btn-info btn-fill ">Save and close</button>
 
                           </div>

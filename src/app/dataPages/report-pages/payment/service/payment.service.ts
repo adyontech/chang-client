@@ -9,8 +9,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class PaymentService {
-  public paramCompanyName: string;
-  result: {};
   token: string;
   windowStorage: any;
   _url: string;

@@ -1,18 +1,18 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ContraService } from './service/contra.service';
+import { PopContraContraService } from './service/popContra.service';
 declare var $: any;
 
 @Component({
-  selector: 'app-contra',
-  templateUrl: './contra.component.html',
-  styleUrls: ['./contra.component.scss'],
+  selector: 'app-pop-contra',
+  templateUrl: './popContra.component.html',
+  styleUrls: ['./popContra.component.scss'],
 })
-export class ContraComponent implements OnInit {
+export class PopContraComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   dataCopy: any;
@@ -29,7 +29,7 @@ export class ContraComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public _contraService: ContraService,
+    public _contraService: PopContraContraService,
     public fb: FormBuilder,
     private router: Router
   ) {}
@@ -45,7 +45,7 @@ export class ContraComponent implements OnInit {
       date: [''],
       drawnOn: [null, Validators.required],
       drawnBank: [''],
-      attachment: [''],
+      file: [''],
       narration: [''],
       particularsData: this.fb.array([]),
     });
@@ -124,7 +124,7 @@ export class ContraComponent implements OnInit {
 
     if (event.target.files[0].size < 400000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('attachment').setValue(event.target.files[0]);
+        this.form.get('file').setValue(event.target.files[0]);
       }
     } else {
       this.attachmentError = true;
@@ -132,11 +132,11 @@ export class ContraComponent implements OnInit {
   }
 
   onSubmit(user) {
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
         console.log(user);
         this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
-    //   }
-    // });
+      }
+    });
   }
 }

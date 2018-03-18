@@ -47,9 +47,7 @@ export class LedgerComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
-      // this._ledgerService.setParamId(this.paramId);
     });
   }
 

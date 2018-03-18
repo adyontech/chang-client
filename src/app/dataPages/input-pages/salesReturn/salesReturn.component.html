@@ -19,10 +19,10 @@
                   </div>
                 </ng-template>
       
-                <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
+                <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
       
                 <hr>
-                <p>Action : {{closeResult}}</p>
+                
               </div>
             </div>
           </div>
@@ -110,16 +110,14 @@
                               <div class="col-md-5 offset-md-1">
                                 <div class="form-group">
                                   <label>Place supplyPlace</label>
-                                  <ng-select [items]="items" formControlName="supplyPlace" (data)="refreshValue($event)" (typed)="showNotification('top','left')"
-                                    placeholder="No city selected">
+                                  <ng-select [items]="items" formControlName="supplyPlace"  placeholder="No city selected">
                                   </ng-select>
                                 </div>
                               </div>
                               <div class="col-md-5 offset-md-1">
                                 <div class="form-group">
                                   <label>Type of sales</label>
-                                  <ng-select [items]="salesType" formControlName="saleType" (data)="refreshValue($event)" (typed)="showNotification('top','left')"
-                                    placeholder="No city selected">
+                                  <ng-select [items]="salesType" formControlName="saleType" placeholder="No city selected">
                                   </ng-select>
                                 </div>
                               </div>

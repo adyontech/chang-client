@@ -77,6 +77,9 @@ export class AddCompanyComponent implements OnInit {
     user.endDate = new Date(user.endDate.year, user.endDate.month, user.endDate.day);
 
     this._gatewayService.createNewCompany(user).subscribe(data => {
+      // if (data.success) {
+      //   this.router.navigate(['/app/login']);
+      // }
       // data = data.json();
     });
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { AuthService } from './../auth/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -8,9 +8,7 @@ import { Component } from '@angular/core';
 export class NavbarComponent {
   currentLang = 'en';
   toggleClass = 'ft-maximize';
-  constructor() {
-  }
-
+  constructor(public _authService: AuthService) {}
 
   ToggleClass() {
     if (this.toggleClass === 'ft-maximize') {
@@ -18,5 +16,10 @@ export class NavbarComponent {
     } else {
       this.toggleClass = 'ft-maximize';
     }
+  }
+
+  logout() {
+    console.log('logging out')
+    this._authService.logout();
   }
 }
