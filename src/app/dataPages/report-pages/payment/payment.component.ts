@@ -133,7 +133,7 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  onSelectAll(items: any) {
+  onSelectAll() {
     // console.log(items);
     this.ColPaymentType = true;
     this.ColPaymentThrough = true;

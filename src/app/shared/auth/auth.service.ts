@@ -8,7 +8,7 @@ export class AuthService {
   token: string;
   accessAllowed: Boolean = false;
 
-  constructor() {}
+  constructor( public router: Router) {}
 
   dummySetter() {
     this.userData = {
@@ -26,6 +26,9 @@ export class AuthService {
   }
 
   logout() {
+    console.log('logOut');
+    window.localStorage.removeItem('user');
+    this.router.navigate(['/app/login']);
     this.token = null;
   }
 
@@ -42,7 +45,7 @@ export class AuthService {
         return false;
       }
     } else {
-      return false
+      return false;
     }
   }
 

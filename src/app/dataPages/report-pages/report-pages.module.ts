@@ -25,6 +25,7 @@ import { ReceiptComponent } from './receipt/receipt.component';
 import { SalesComponent } from './sales/sales.component';
 import { SalesReturnComponent } from './salesReturn/salesReturn.component';
 import { TrialBalanceComponent } from './trialBalance/trialBalance.component';
+import { UnderGroupComponent } from './underGroup/underGroup.component';
 
 import { PopPaymentComponent } from './_popComponent/payment/popPayment.component';
 
@@ -43,6 +44,8 @@ import { ReceiptService } from './receipt/service/receipt.service';
 import { SalesService } from './sales/service/sales.service';
 import { SalesReturnService } from './salesReturn/service/salesReturn.service';
 import { TrialBalanceService } from './trialBalance/service/trialBalance.service';
+import { UnderGroupsService } from './underGroup/service/underGroup.service';
+
 
 import { PopPaymentService } from './_popComponent/payment/service/popPayment.service';
 @NgModule({
@@ -58,7 +61,7 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     NgbModule,
     NgSelectModule,
     ArchwizardModule,
-    UiSwitchModule
+    UiSwitchModule,
   ],
   declarations: [
     CashAtBankComponent,
@@ -74,8 +77,7 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     SalesComponent,
     SalesReturnComponent,
     TrialBalanceComponent,
-
-
+    UnderGroupComponent,
 
     PopPaymentComponent,
   ],
@@ -95,6 +97,7 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     SalesService,
     SalesReturnService,
     TrialBalanceService,
+    UnderGroupsService,
 
     PopPaymentService,
   ],

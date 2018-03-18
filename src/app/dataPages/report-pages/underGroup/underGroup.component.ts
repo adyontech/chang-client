@@ -12,7 +12,7 @@ declare var $: any;
   templateUrl: './underGroup.component.html',
   styleUrls: ['./underGroup.component.scss'],
 })
-export class underGroupComponent implements OnInit {
+export class UnderGroupComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
 
