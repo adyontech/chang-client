@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-block">
                   <p class="card-text">Icing powder caramels macaroon. Toffee sugar plum brownie pastry gummies jelly.</p>
-                  <a class="btn btn-raised btn-warning">Create Company</a>
+                  <a [routerLink]="['/gateway/addcompany']" class="btn btn-raised btn-warning">Create Company</a>
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="card-block mt-1">
                   <p class="card-text">Email :- {{list.email}}</p>
-                  <a class="btn btn-raised btn-warning">View Company</a>
+                  <a [routerLink]="['/dashboard/', list.companyName]" class="btn btn-raised btn-warning">View Company</a>
                 </div>
               </div>
             </div>

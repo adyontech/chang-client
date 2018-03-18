@@ -54,7 +54,8 @@ export class PopPaymentService {
       console.log(this.result);
     });
   }
-  editEntry(user: any, compName) {
+
+  editEntry(user: any, compName, paymentId) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       // console.log(key, user['date']);
@@ -64,13 +65,14 @@ export class PopPaymentService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentEdit?token=${this.token}&companyName=${compName}`;
-    return this.http.post(this._url, form).map((res: Response) => {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentEdit?token=${
+      this.token
+    }&&companyName=${compName}&&paymentId=${paymentId}`;
+    return this.http.patch(this._url, form).map((res: Response) => {
       this.result = res.json();
       console.log(this.result);
     });
   }
-
 
   getLedgerUGNames(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
@@ -78,6 +80,7 @@ export class PopPaymentService {
     }&&companyName=${compName}`;
     return this.http.get(this._url);
   }
+
   getAccountNames(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
       this.token

@@ -205,17 +205,14 @@ export class PopPaymentComponent implements OnInit {
   }
 
   onSubmit(user, action) {
-    console.log(action)
     user.contentId = this.popContnetId;
     user.endtotal = this.totalAmount;
     console.log(user);
     if (action === false) {
       console.log('edit');
-      this._popPaymentService.editEntry(user, this.paramId).subscribe(data => {});
+      this._popPaymentService.editEntry(user, this.paramId, this.editContentId).subscribe(data => {});
     } else {
-      this._popPaymentService.createNewEntry(user, this.paramId).subscribe(data => {
-
-      });
+      this._popPaymentService.createNewEntry(user, this.paramId).subscribe(data => {});
     }
   }
 

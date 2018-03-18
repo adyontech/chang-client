@@ -16,6 +16,11 @@ import { AuthGuard } from './shared/auth/auth-guard.service';
 
 const appRoutes: Routes = [
   {
+  path: '',
+  redirectTo: 'gateway',
+  pathMatch: 'full',
+},
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
