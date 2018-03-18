@@ -108,7 +108,9 @@ export class ContraComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
+        if (data.success !== false) {
         this.accountList = this.accountList.concat(data.accountNameList);
+        }
       });
   }
 

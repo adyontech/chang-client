@@ -166,12 +166,11 @@
                                   <div class="col-lg-4 col-xs-4">
                                     <h6>Particulars</h6>
                                     <!-- <input type="text" class="form-control" formControlName="particulars"> -->
-                                    <ng-select [items]="ledgerList" formControlName="particulars" (data)="refreshValue($event)" (selected)="selected($event)"
-                                      (removed)="removed($event)" placeholder="Particulars">
+                                    <ng-select [items]="ledgerList" formControlName="particulars"  placeholder="Particulars">
                                     </ng-select>
                                     <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
                                       class="text-danger">
-                                      <span (click)="showNotification('top','left')"> Particulars is required</span>
+                                      <span > Particulars is required</span>
                                     </small>
                                   </div>
                                   <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">

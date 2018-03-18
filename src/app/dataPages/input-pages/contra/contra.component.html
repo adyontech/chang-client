@@ -144,39 +144,37 @@
                         </wizard-step>
                         <wizard-step stepTitle="Steptitle 3" navigationSymbol="3">
                           <div class=" col-lg-9 offset-md-2">
-                            <div class="row">
-                              <div class="col-lg-4 text-center">
-                                Particulars
-                              </div>
-                              <div class=" offset-md-2 col-lg-6 text-center">
-                                Amount
-                              </div>
-                            </div>
+                            <h5 class="form-group-header">
+                              Particulars and Amount
+                            </h5>
       
                             <div formArrayName="particularsData">
-                              <div *ngFor="let address of formData.controls; let i=index">
+                              <div *ngFor="let address of formData.controls; let i=index" class="form-group">
                                 <!-- <span>{{i + 1}}</span> -->
                                 <div [formGroupName]="i">
                                   <div class="block">
                                     <div class="content ">
                                       <div class="row">
-                                        <div class="col-lg-4">
+                                          <div class="col-md-1 mt-3">
+                                            <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                                          </div>
+                                        <div class="col-lg-4 col-xs-4">
+                                          <h6>Particulars</h6>
                                           <!-- <input type="text" class="form-control" formControlName="particulars"> -->
-                                          <ng-select [items]="ledgerList" formControlName="particulars" (data)="refreshValue($event)" (selected)="selected($event)"
-                                            (removed)="removed($event)" placeholder="No city selected">
+                                          <ng-select [items]="ledgerList" formControlName="particulars"  placeholder="Particulars">
                                           </ng-select>
-                                          <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
-                                            <span (click)="showNotification('top','left')"> Particulars is required</span>
+                                          <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
+                                            class="text-danger">
+                                            <span > Particulars is required</span>
                                           </small>
                                         </div>
-                                        <div class="offset-md-2 col-lg-5 ">
+                                        <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">
+                                            <h6>Amount</h6>
                                           <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
-                                          <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
+                                          <small [hidden]="form.controls.particularsData.controls[i].controls.amount.untouched || form.controls.particularsData.controls[i].controls.amount.valid"
+                                            class="text-danger">
                                             Amount is required
                                           </small>
-                                        </div>
-                                        <div class="col-md-1">
-                                          <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
                                         </div>
                                       </div>
                                     </div>
