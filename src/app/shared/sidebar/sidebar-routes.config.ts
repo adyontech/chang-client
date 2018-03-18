@@ -2,9 +2,10 @@ import { RouteInfo } from './sidebar.metadata';
 import { ParseId } from './../../utilities/IdParser';
 // Sidebar menu Routes and dataa
 const IdParser = ParseId();
+console.log(IdParser)
 export const ROUTES: RouteInfo[] = [
   {
-    path: `dashboard/${IdParser}`,
+    path: `/dashboard/${IdParser}/`,
     title: 'Dashboard',
     icon: 'ft-droplet',
     class: '',
