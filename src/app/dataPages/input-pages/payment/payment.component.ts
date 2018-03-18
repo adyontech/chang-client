@@ -23,6 +23,7 @@ export class PaymentComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
+  breadcrumbs = [{name: 'Payment'}, {name: 'Forms', link: '/form/'}, {name: 'Dasboard', link: '/'}]
 
   constructor(
     private route: ActivatedRoute,
