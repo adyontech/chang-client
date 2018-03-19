@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTES } from './sidebar-routes.config';
+import { GenerateRoutes } from './sidebar-routes.config';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
-import {ParseId} from '../../utilities/IdParser';
+import { ParseId } from '../../utilities/IdParser';
 
 declare var $: any;
 
@@ -20,8 +20,7 @@ export class SidebarComponent implements OnInit {
     this.getRouteParam();
     $.getScript('./assets/js/app-sidebar.js');
     $.getScript('./assets/js/vertical-timeline.js');
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-    // console.log(ParseId());
+    this.menuItems = GenerateRoutes(ParseId()).filter(menuItem => menuItem);
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
