@@ -7,7 +7,7 @@ import { ContraComponent } from './contra/contra.component';
 import { JournalEntryComponent } from './journalEntry/journalEntry.component';
 import { LedgerComponent } from './ledger/ledger.component';
 import { PaymentComponent } from './payment/payment.component';
-
+import { SalesComponent } from "./sales/sales.component";
 const routes: Routes = [
   {
     path: '',
@@ -52,6 +52,13 @@ const routes: Routes = [
         component: PaymentComponent,
         data: {
           title: 'Payment Page',
+        },
+      },
+      {
+        path: 'sales',
+        component: SalesComponent,
+        data: {
+          title: 'Sales Page',
         },
       },
     ],
