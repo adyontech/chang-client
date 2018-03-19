@@ -128,10 +128,8 @@ export class SalesComponent implements OnInit {
     control.push(addCtrl);
   }
   addSubParticular() {
-    console.log('adding sub');
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
-    console.log(cont);
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }

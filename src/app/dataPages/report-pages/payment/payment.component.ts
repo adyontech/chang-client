@@ -18,7 +18,6 @@ export class PaymentComponent implements OnInit {
   editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
-  public dropdFilter: string;
 
   // Modal for column hide and show
 
@@ -40,7 +39,6 @@ export class PaymentComponent implements OnInit {
   selectedItems = [];
   chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   chooseItemBox = [];
-  dropdownSettings = {};
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
   public incomingData: Array<string> = [];
 
@@ -87,7 +85,6 @@ export class PaymentComponent implements OnInit {
   onAdd(item: any): void {
     // console.log(item)
     console.log(item === this.VColPaymentType);
-    console.log(this.VColAgainst);
     switch (item) {
       case this.VColPaymentType:
         this.ColPaymentType = true;
@@ -141,7 +138,7 @@ export class PaymentComponent implements OnInit {
     this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
 
-  onDeSelectAll(items: any) {
+  onDeSelectAll() {
     // console.log(items);
     this.ColPaymentType = false;
     this.ColPaymentThrough = false;

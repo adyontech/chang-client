@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { SalesService } from './service/sales.service';
 
@@ -15,15 +15,14 @@ declare var $: any;
 export class SalesComponent implements OnInit {
   // Models
   contentId: String = '';
+  editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
-  public dropdFilter: String;
 
-
-  VColTransportationMode: String = 'ColTransportationMode';
-  VColSaleType: String = 'ColSaleType';
-  VColSupplyPlace: String = 'ColSupplyPlace';
-  VColVehicleNo: String = 'ColVehicleNo';
+  VColTransportationMode: String = 'Transportation mode';
+  VColSaleType: String = 'Sale type';
+  VColSupplyPlace: String = 'Supply Place';
+  VColVehicleNo: String = 'Vehicle No';
   // VColGstRate: String = "ColGstRate";
 
   @Input() public ColTransportationMode: Boolean = false;
@@ -38,34 +37,39 @@ export class SalesComponent implements OnInit {
   public paramId: String;
   public closeResult: String;
 
-  dropdownList = [];
+  chooseItem = ['Transportation mode', 'Sale type', 'Supply Place', 'Vehicle No'];
+  chooseItemBox = [];
   selectedItems = [];
-  dropdownSettings = {};
 
-  constructor(private route: ActivatedRoute, public _salesService: SalesService, public fb: FormBuilder) {}
+  constructor(private route: ActivatedRoute, private modalService: NgbModal, public _salesService: SalesService) {}
 
   ngOnInit() {
-    this.getIncomingData();
-    this.dropdownList = [
-      { id: 'ColTransportationMode', itemName: 'Transportation mode' },
-      { id: 'ColSaleType', itemName: 'Sale type' },
-      { id: 'ColSupplyPlace', itemName: 'Supply Place' },
-      { id: 'ColVehicleNo', itemName: 'Vehicle No' },
-      // { "id": "ColGstRate", "itemName": "Gst rate" },
-    ];
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      text: 'Select filter',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      enableSearchFilter: false,
-      classes: 'myclass custom-class',
-    };
+    this.getRouteParam();
   }
 
-  onItemSelect(item: any): void {
-    switch (item.id) {
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  onAdd(item: any): void {
+    switch (item) {
       case this.VColTransportationMode:
         this.ColTransportationMode = true;
         break;
@@ -82,11 +86,10 @@ export class SalesComponent implements OnInit {
       //     this.ColGstRate = true;
       //     break;
     }
-    console.log(this.selectedItems);
   }
 
-  OnItemDeSelect(item: any) {
-    switch (item.id) {
+  onRemove(item: any) {
+    switch (item.value) {
       case this.VColTransportationMode:
         this.ColTransportationMode = false;
         break;
@@ -103,9 +106,15 @@ export class SalesComponent implements OnInit {
       //     this.ColGstRate = false;
       //     break;
     }
-    console.log(this.selectedItems);
   }
-  onSelectAll(items: any) {
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+    });
+  }
+
+  onSelectAll() {
     // console.log(items);
     this.ColTransportationMode = true;
     this.ColSaleType = true;
@@ -113,7 +122,8 @@ export class SalesComponent implements OnInit {
     this.ColVehicleNo = true;
     // this.ColGstRate = true;
   }
-  onDeSelectAll(items: any) {
+
+  onDeSelectAll() {
     // console.log(items);
     this.ColTransportationMode = false;
     this.ColSaleType = false;
@@ -136,9 +146,13 @@ export class SalesComponent implements OnInit {
       });
   }
 
-  editData(id) {
-    console.log(id);
-    this.contentId = id;
-    this._salesService.contentId = id;
-  }
+  // deleteEntry(id) {
+  //   console.log(id);
+  //   this._salesService
+  //     .deleteEntry(id, this.paramId)
+  //     .map(response => response.json())
+  //     .subscribe(data => {
+  //       console.log(data);
+  //     });
+  // }
 }
