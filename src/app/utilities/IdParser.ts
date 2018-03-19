@@ -1,4 +1,5 @@
 import { routeStructure } from '../shared/routes/input-pages-layout.routes';
+import { Subject } from 'rxjs/Subject';
 
 const idPosition = routeStructure.split('/').indexOf(':id');
 
