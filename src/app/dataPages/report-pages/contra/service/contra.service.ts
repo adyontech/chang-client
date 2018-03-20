@@ -32,7 +32,7 @@ export class ContraService {
   }
 
   getAllIncomingData(companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/allPaymentStored?token=${
+    this._url = `${this._globalVariableService.baseServerUrl}/api/allContraStored?token=${
       this.token
     }&&companyName=${companyName}`;
     return this.http.get(this._url);
@@ -40,7 +40,7 @@ export class ContraService {
   }
 
   deleteEntry(id, companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteEntry?token=${
+    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteContraEntry?token=${
       this.token
     }&&companyName=${companyName}&&deleteId=${id}`;
     return this.http.delete(this._url);

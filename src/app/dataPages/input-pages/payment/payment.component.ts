@@ -3,7 +3,6 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 declare var $: any;
@@ -23,7 +22,7 @@ export class PaymentComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
-  breadcrumbs = [{name: 'Payment'}, {name: 'Forms', link: '/form/'}, {name: 'Dasboard', link: '/'}]
+  breadcrumbs = [{ name: 'Payment' }, { name: 'Forms', link: '/form/' }, { name: 'Dasboard', link: '/' }];
 
   constructor(
     private route: ActivatedRoute,
@@ -110,7 +109,7 @@ export class PaymentComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
-      this._paymentService.setParamId(this.paramId);
+      // this._paymentService.setParamId(this.paramId);
     });
   }
 
@@ -139,13 +138,9 @@ export class PaymentComponent implements OnInit {
       .getAccountNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data)
+        console.log(data);
         this.accountList = this.accountList.concat(data.accountNameList);
       });
-  }
-
-  setSelected(id: number) {
-    this.selectedIndex = id;
   }
 
   onFileChange(event) {

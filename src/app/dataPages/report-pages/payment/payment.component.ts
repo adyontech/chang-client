@@ -18,7 +18,6 @@ export class PaymentComponent implements OnInit {
   editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
-  public dropdFilter: string;
 
   // Modal for column hide and show
 
@@ -54,17 +53,6 @@ export class PaymentComponent implements OnInit {
     this.onAccSelect('All');
   }
 
-  open(content, editId) {
-    this.editContentId = editId;
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
 
   // This function is used in open
   private getDismissReason(reason: any): string {
@@ -148,6 +136,19 @@ export class PaymentComponent implements OnInit {
     this.ColChequeNO = false;
     this.ColAgainst = false;
     this.chooseItemBox = [];
+  }
+
+
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // real date picker active from here
