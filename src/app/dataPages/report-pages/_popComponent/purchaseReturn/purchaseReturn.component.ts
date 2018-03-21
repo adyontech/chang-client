@@ -2,15 +2,15 @@ import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { PurchaseReturnService } from './service/purchaseReturn.service';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { PopPurchaseReturnService } from './service/purchaseReturn.service';
+import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 
 @Component({
   selector: 'app-purchase-return',
   templateUrl: './purchaseReturn.component.html',
   styleUrls: ['./purchaseReturn.component.scss'],
 })
-export class PurchaseReturnComponent implements OnInit {
+export class PopPurchaseReturnComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   public dataCopy: any;

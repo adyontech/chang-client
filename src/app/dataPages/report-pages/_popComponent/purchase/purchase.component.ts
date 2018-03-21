@@ -1,9 +1,9 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
-import { PurchaseService } from './service/purchase.service';
+import { PopPurchaseService } from './service/purchase.service';
 declare var $: any;
 @Component({
   selector: 'app-purchase',

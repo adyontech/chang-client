@@ -1,9 +1,9 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
-import { SalesReturnService } from './service/salesReturn.service';
+import { PopSalesReturnService } from './service/salesReturn.service';
 declare var $: any;
 
 @Component({
@@ -11,7 +11,7 @@ declare var $: any;
   templateUrl: './salesReturn.component.html',
   styleUrls: ['./salesReturn.component.scss'],
 })
-export class SalesReturnComponent implements OnInit {
+export class PopSalesReturnComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   public dataCopy: any;

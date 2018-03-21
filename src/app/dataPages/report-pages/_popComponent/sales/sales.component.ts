@@ -3,8 +3,8 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { SalesService } from './service/sales.service';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { PopSalesService } from './service/sales.service';
+import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 
 declare var $: any;
 
@@ -13,7 +13,7 @@ declare var $: any;
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.scss'],
 })
-export class SalesComponent implements OnInit {
+export class PopSalesComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   public dataCopy: any;
