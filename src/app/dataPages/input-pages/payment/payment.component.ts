@@ -15,7 +15,6 @@ declare var $: any;
 export class PaymentComponent implements OnInit {
   closeResult: string;
   public form: FormGroup;
-  public selectedIndex = 1;
   public dataCopy: any;
   public paramId: string;
   public totalAmount: number;

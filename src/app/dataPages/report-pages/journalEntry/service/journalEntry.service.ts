@@ -9,12 +9,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class JournalEntryService {
-  private paramCompanyName: string;
-  result: {};
   token: string;
   windowStorage: any;
   _url: string;
-  contentId: string;
 
   constructor(
     private http: Http,
@@ -27,10 +24,20 @@ export class JournalEntryService {
     // console.log(this.paramCompanyName)
   }
 
-  getIncomingData() {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerStored?token=${this.token}&&companyName=${
-      this.paramCompanyName
-    }`;
+  getIncomingData(companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/allContraStored?token=${
+      this.token
+    }&&companyName=${companyName}`;
     return this.http.get(this._url);
+    // return 0;
   }
+
+  deleteEntry(id, companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteContraEntry?token=${
+      this.token
+    }&&companyName=${companyName}&&deleteId=${id}`;
+    return this.http.delete(this._url);
+    // return 0;
+  }
+
 }
