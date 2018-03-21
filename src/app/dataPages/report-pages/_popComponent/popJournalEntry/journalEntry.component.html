@@ -1,34 +1,3 @@
-<div class="row" matchHeight="card" [hidden]="true">
-  <!--Modal with Default options starts-->
-  <div class="col-sm-12 col-md-6 col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Modal with Default options</h4>
-      </div>
-      <div class="card-body">
-        <div class="card-block">
-          <ng-template #content let-c="close" let-d="dismiss">
-            <div class="modal-header">
-              <h4 class="modal-title">Modal title</h4>
-              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <app-pop-journal-entry></app-pop-journal-entry>
-            </div>
-          </ng-template>
-
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
-
-          <hr>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Wizard Starts -->
 <div class="row">
   <div class="col-sm-12">
     <div class="content-header">journal Entry Forms</div>
@@ -40,6 +9,10 @@
       <div class="card text-center">
         <div class="card-header">
           <h4 class="card-title">{{paramId}}</h4>
+        </div>
+        <div class="pull-right">
+          Edit
+          <ui-switch size="small" reverse [(ngModel)]="editupdate"></ui-switch> New
         </div>
         <div class="card-body">
           <div class="card-block">

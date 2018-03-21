@@ -1,26 +1,12 @@
-import { Component, Injectable, Input, DoCheck, ViewChild, OnInit } from '@angular/core';
+import { Component, Injectable, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { PopPaymentService } from './service/popPayment.service';
 declare var $: any;
-
-@Injectable()
-export class NgbDateNativeAdapter extends NgbDateAdapter<Date> {
-  fromModel(date: Date): NgbDateStruct {
-    return date && date.getFullYear
-      ? { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() }
-      : null;
-  }
-
-  toModel(date: NgbDateStruct): Date {
-    return date ? new Date(date.year, date.month - 1, date.day) : null;
-  }
-}
 
 @Component({
   selector: 'app-pop-payment',

@@ -1,17 +1,22 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PopJournalEntryService } from './service/journalEntry.service';
 declare var $: any;
+
 @Component({
-  selector: 'app-pop-journal-entry',
+  selector: 'app-pop-journal',
   templateUrl: './journalEntry.component.html',
   styleUrls: ['./journalEntry.component.scss'],
 })
 export class PopJournalEntryComponent implements OnInit {
+  @Input() editContentId: string;
+
+  editupdate: Boolean = false;
+  popContnetId = '';
   closeResult: string;
   form: FormGroup;
   dataCopy: any;
@@ -34,6 +39,7 @@ export class PopJournalEntryComponent implements OnInit {
 
   ngOnInit() {
     this.getRouteParam();
+    this.getIncomingData();
     this.getLedgerUGNames();
     this.form = this.fb.group({
       journalNumber: [''],
@@ -49,6 +55,49 @@ export class PopJournalEntryComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+    });
+  }
+  fillForm(data) {
+    console.log(data);
+    data = data[0];
+    data.date = new Date(data.date);
+    data.drawnOn = new Date(data.drawnOn);
+    const now = new Date();
+    this.form.controls['account'].setValue(data.account);
+    this.form.controls['chequeNumber'].setValue(data.chequeNumber);
+    this.form.controls['against'].setValue(data.against);
+    this.form.controls['date'].setValue({
+      year: data.date.getFullYear(),
+      month: data.date.getMonth(),
+      day: data.date.getDate(),
+    });
+    this.form.controls['drawnOn'].setValue({
+      year: data.drawnOn.getFullYear(),
+      month: data.drawnOn.getMonth(),
+      day: data.drawnOn.getDate(),
+    });
+    this.form.controls['narration'].setValue(data.narration);
+    this.form.controls['paymentNumber'].setValue(data.paymentNumber);
+    this.form.controls['paymentType'].setValue(data.paymentType);
+    this.form.controls['paymentThrough'].setValue(data.paymentThrough);
+
+    const particularsData = <FormArray>this.form.controls['particularsData'];
+    const oldArray = data.particularsData;
+    oldArray.forEach((element, index) => {
+      const array = particularsData.at(index);
+      if (!array) {
+        particularsData.push(
+          this.fb.group({
+            particulars: [element.particulars],
+            amount: element.amount,
+          })
+        );
+      } else {
+        array.patchValue({
+          particulars: element.particulars,
+          amount: element.amount,
+        });
+      }
     });
   }
 
@@ -88,12 +137,27 @@ export class PopJournalEntryComponent implements OnInit {
   }
 
   public resetDrCr(value: any, indexValue): void {
-    // const particularsData = <FormArray>this.form.controls['particularsData'];
-    // const array = particularsData.at(indexValue);
-    // array.patchValue({
-    //   debitAmount: '',
-    //   creditAmount: '',
-    // });
+    const particularsData = <FormArray>this.form.controls['particularsData'];
+    const array = particularsData.at(indexValue);
+    array.patchValue({
+      debitAmount: '',
+      creditAmount: '',
+    });
+  }
+
+  getIncomingData() {
+    if (this.editContentId !== this.popContnetId) {
+      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
+      this.popContnetId = this.editContentId;
+      if (this.popContnetId !== '') {
+        // this._journalEntryService
+        //   .getPaymentFormData(this.paramId, this.popContnetId)
+        //   .map(response => response.json())
+        //   .subscribe(data => {
+        //     this.fillForm(data.paymentData);
+        //   });
+      }
+    }
   }
 
   totalSum() {
@@ -112,6 +176,7 @@ export class PopJournalEntryComponent implements OnInit {
       }
     }
   }
+
   onFileChange(event) {
     this.attachmentError = false;
     console.log(event.target.files[0].size);
