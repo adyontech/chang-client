@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PopJournalEntryService } from './service/journalEntry.service';
 declare var $: any;
 @Component({
-  selector: 'app-journal-entry',
+  selector: 'app-pop-journal-entry',
   templateUrl: './journalEntry.component.html',
   styleUrls: ['./journalEntry.component.scss'],
 })

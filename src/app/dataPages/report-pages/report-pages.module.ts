@@ -28,13 +28,13 @@ import { TrialBalanceComponent } from './trialBalance/trialBalance.component';
 import { UnderGroupComponent } from './underGroup/underGroup.component';
 
 import { PopContraComponent } from './_popComponent/contra/popContra.component';
-import { PopJournalEntryComponent } from './_popComponent/journalEntry/journalEntry.component';
-import { PopPaymentComponent } from './_popComponent/payment/popPayment.component';
-import { PopPurchaseComponent } from './_popComponent/purchase/purchase.component';
-import { PopPurchaseReturnComponent } from './_popComponent/purchaseReturn/purchaseReturn.component';
-// import { PopReceiptComponent } from './_popComponent/receipt/receipt.component';
-import { PopSalesComponent } from './_popComponent/sales/sales.component';
-import { PopSalesReturnComponent } from './_popComponent/salesReturn/salesReturn.component';
+import { PopJournalEntryComponent } from './_popComponent/popJournalEntry/journalEntry.component';
+import { PopPaymentComponent } from './_popComponent/popPayment/popPayment.component';
+import { PopPurchaseComponent } from './_popComponent/popPurchase/purchase.component';
+import { PopPurchaseReturnComponent } from './_popComponent/popPurchaseReturn/purchaseReturn.component';
+// import { PopReceiptComponent } from './_popComponent/popReceipt/receipt.component';
+import { PopSalesComponent } from './_popComponent/popSales/sales.component';
+import { PopSalesReturnComponent } from './_popComponent/popSalesReturn/salesReturn.component';
 
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
@@ -54,13 +54,13 @@ import { TrialBalanceService } from './trialBalance/service/trialBalance.service
 import { UnderGroupsService } from './underGroup/service/underGroup.service';
 
 import { PopContraContraService } from './_popComponent/contra/service/popContra.service';
-import { PopJournalEntryService } from './_popComponent/journalEntry/service/journalEntry.service';
-import { PopPaymentService } from './_popComponent/payment/service/popPayment.service';
-import { PopPurchaseService } from './_popComponent/purchase/service/purchase.service';
-import { PopPurchaseReturnService } from './_popComponent/purchaseReturn/service/purchaseReturn.service';
-import { PopReceiptService } from './_popComponent/receipt/service/receipt.service';
-import { PopSalesService } from './_popComponent//sales/service/sales.service';
-import { PopSalesReturnService } from './_popComponent//salesReturn/service/salesReturn.service';
+import { PopJournalEntryService } from './_popComponent/popJournalEntry/service/journalEntry.service';
+import { PopPaymentService } from './_popComponent/popPayment/service/popPayment.service';
+import { PopPurchaseService } from './_popComponent/popPurchase/service/purchase.service';
+import { PopPurchaseReturnService } from './_popComponent/popPurchaseReturn/service/purchaseReturn.service';
+import { PopReceiptService } from './_popComponent/popReceipt/service/receipt.service';
+import { PopSalesService } from './_popComponent/popSales/service/sales.service';
+import { PopSalesReturnService } from './_popComponent/popSalesReturn/service/salesReturn.service';
 
 @NgModule({
   imports: [
