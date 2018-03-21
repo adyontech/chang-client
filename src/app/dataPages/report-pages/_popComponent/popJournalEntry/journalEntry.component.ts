@@ -53,10 +53,10 @@ export class PopJournalEntryComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
     });
   }
+
   fillForm(data) {
     console.log(data);
     data = data[0];
@@ -182,12 +182,15 @@ export class PopJournalEntryComponent implements OnInit {
     }
   }
 
-  onSubmit(user) {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        console.log(user);
-        this._journalEntryService.createNewEntry(user, this.paramId).subscribe(data => {});
-      }
-    });
+  onSubmit(user, action) {
+    user.contentId = this.popContnetId;
+    user.endtotal = this.totalAmount;
+    console.log(user);
+    if (action === false) {
+      console.log('edit');
+      this._journalEntryService.editEntry(user, this.paramId, this.editContentId).subscribe(data => {});
+    } else {
+      this._journalEntryService.createNewEntry(user, this.paramId).subscribe(data => {});
+    }
   }
 }

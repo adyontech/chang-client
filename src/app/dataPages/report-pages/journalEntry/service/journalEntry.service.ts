@@ -33,7 +33,7 @@ export class JournalEntryService {
   }
 
   deleteEntry(id, companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteContraEntry?token=${
+    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteJournalEntry?token=${
       this.token
     }&&companyName=${companyName}&&deleteId=${id}`;
     return this.http.delete(this._url);
