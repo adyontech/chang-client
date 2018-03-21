@@ -25,7 +25,7 @@ export class JournalEntryService {
   }
 
   getIncomingData(companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/allContraStored?token=${
+    this._url = `${this._globalVariableService.baseServerUrl}/api/alljournalStored?token=${
       this.token
     }&&companyName=${companyName}`;
     return this.http.get(this._url);

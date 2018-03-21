@@ -19,12 +19,13 @@ export class JournalEntryComponent implements OnInit {
   public dateFrom: Date;
   public dateTo: Date;
 
+  compeleteData: Array<string> = [];
   incomingData: Array<string> = [];
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
 
-  public accountType: Array<string> = ['All', 'Dr', 'Bank'];
+  public accountType: Array<string> = ['All', 'Dr', 'Cr'];
 
   constructor(
     private route: ActivatedRoute,
@@ -57,6 +58,19 @@ export class JournalEntryComponent implements OnInit {
 
   onAccSelect(item: any): void {
     console.log(item);
+    if (item === 'All') {
+      this.incomingData = this.compeleteData;
+      console.log(this.incomingData);
+    } else if (item === 'Dr') {
+      // this.compeleteData.map((el: Object)  => {
+      //     el = el.partticularsData
+      // });
+      //   this.compeleteData.forEach(element => {
+      //     const newData = element.particulatsData
+      //   });
+      // } else {
+      //   //
+    }
   }
   open(content, editId) {
     this.editContentId = editId;
@@ -75,10 +89,8 @@ export class JournalEntryComponent implements OnInit {
       .getIncomingData(compName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
-        console.log(data.contraData);
-        this.incomingData = data.contraData;
-        console.log(data.totalSum);
+        this.compeleteData = data.journalData;
+        this.onAccSelect('All');
       });
   }
 
