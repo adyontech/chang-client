@@ -60,7 +60,7 @@ export class JournalEntryComponent implements OnInit {
     console.log(item);
     if (item === 'All') {
       this.incomingData = this.compeleteData;
-      console.log(this.incomingData);
+      // console.log(this.incomingData);
     } else if (item === 'Dr') {
       // type Activity = typeof Mydata;
     }

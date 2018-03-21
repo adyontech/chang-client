@@ -40,7 +40,7 @@ export class PopJournalEntryComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.getIncomingData();
-    this.getLedgerUGNames();
+    this.getLedgerNames();
     this.form = this.fb.group({
       journalNumber: [''],
       date: [''],
@@ -61,26 +61,14 @@ export class PopJournalEntryComponent implements OnInit {
     console.log(data);
     data = data[0];
     data.date = new Date(data.date);
-    data.drawnOn = new Date(data.drawnOn);
     const now = new Date();
-    this.form.controls['account'].setValue(data.account);
-    this.form.controls['chequeNumber'].setValue(data.chequeNumber);
-    this.form.controls['against'].setValue(data.against);
+    this.form.controls['journalNumber'].setValue(data.journalNumber);
+    this.form.controls['narration'].setValue(data.narration);
     this.form.controls['date'].setValue({
       year: data.date.getFullYear(),
       month: data.date.getMonth(),
       day: data.date.getDate(),
     });
-    this.form.controls['drawnOn'].setValue({
-      year: data.drawnOn.getFullYear(),
-      month: data.drawnOn.getMonth(),
-      day: data.drawnOn.getDate(),
-    });
-    this.form.controls['narration'].setValue(data.narration);
-    this.form.controls['paymentNumber'].setValue(data.paymentNumber);
-    this.form.controls['paymentType'].setValue(data.paymentType);
-    this.form.controls['paymentThrough'].setValue(data.paymentThrough);
-
     const particularsData = <FormArray>this.form.controls['particularsData'];
     const oldArray = data.particularsData;
     oldArray.forEach((element, index) => {
@@ -89,7 +77,9 @@ export class PopJournalEntryComponent implements OnInit {
         particularsData.push(
           this.fb.group({
             particulars: [element.particulars],
-            amount: element.amount,
+            drcr: element.drcr,
+            debitAmount: element.debitAmount,
+            creditAmount: element.creditAmount,
           })
         );
       } else {
@@ -127,9 +117,9 @@ export class PopJournalEntryComponent implements OnInit {
     return <FormArray>this.form.get('particularsData');
   }
 
-  getLedgerUGNames() {
+  getLedgerNames() {
     this.dataCopy = this._journalEntryService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
@@ -150,12 +140,13 @@ export class PopJournalEntryComponent implements OnInit {
       // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
       this.popContnetId = this.editContentId;
       if (this.popContnetId !== '') {
-        // this._journalEntryService
-        //   .getPaymentFormData(this.paramId, this.popContnetId)
-        //   .map(response => response.json())
-        //   .subscribe(data => {
-        //     this.fillForm(data.paymentData);
-        //   });
+        this._journalEntryService
+          .getFormData(this.paramId, this.popContnetId)
+          .map(response => response.json())
+          .subscribe(data => {
+            // console.log(data);
+            this.fillForm(data.journalData);
+          });
       }
     }
   }

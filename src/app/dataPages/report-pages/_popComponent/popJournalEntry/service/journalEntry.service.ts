@@ -25,10 +25,18 @@ export class PopJournalEntryService {
     this.token = this.windowStorage.token;
   }
 
-  getLedgerUGNames(compName) {
+  getLedgerNames(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
       this.token
     }&&companyName=${compName}`;
+    return this.http.get(this._url);
+  }
+
+  getFormData(compName, id: string) {
+    // console.log(`compName: ${compName} and compId: ${id}`);
+    this._url = `${this._globalVariableService.baseServerUrl}/api/journalFormData?token=${
+      this.token
+    }&&compName=${compName}&&dataId=${id}`;
     return this.http.get(this._url);
   }
 

@@ -47,18 +47,18 @@
                     <div formArrayName="particularsData">
                       <div *ngFor="let address of formData.controls; let i=index">
                         <div [formGroupName]="i">
-                          <div class="row col-lg-12">
+                          <div class="form-row mt-3">
                             <div class="col-md-1 mt-3">
                               <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
                             </div>
-                            <div class="col-lg-2 ">
+                            <div class="col-lg-4 offset-md-1">
                               <h6>Dr/Cr</h6>
                               <select class="form-control" formControlName="drcr" (click)="resetDrCr($event, i)">
                                 <option value="dr" selected>DR</option>
                                 <option value="cr">CR</option>
                               </select>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                               <h6>Particulars</h6>
                               <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
                               </ng-select>
@@ -66,7 +66,9 @@
                                 <span> Particulars is required</span>
                               </small> -->
                             </div>
-                            <div class="col-lg-3 ">
+                          </div>
+                          <div class="form-row">
+                            <div class="offset-md-2 col-lg-4 ">
                               <h6>Debit Amount</h6>
                               <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'dr'? null: true" (input)="totalSum(i)"
                                 formControlName="debitAmount">
@@ -74,7 +76,7 @@
                                 Amount is required
                               </small> -->
                             </div>
-                            <div class="col-lg-3 ">
+                            <div class="col-lg-4 ">
                               <h6>Credit Amount</h6>
                               <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'cr'? null: true" (input)="totalSum(i)"
                                 formControlName="creditAmount">
@@ -89,15 +91,15 @@
 
                     <br>
                     <div class="row">
-                      <div class="col-md-3">
-                          <button type="button" href="javascript:void(0)" class="btn btn-raised btn-info" (click)="addParticular()" style="cursor: default">
-                              Add another field +
-                            </button>
+                      <div class="col-md-3 col-sm-3">
+                        <button type="button" href="javascript:void(0)" class="btn btn-raised btn-info" (click)="addParticular()" style="cursor: default">
+                          Add +
+                        </button>
                       </div>
-                      <div class=" offset-md-2 col-md-3">
+                      <div class="offset-md-2 col-md-3  col-sm-3">
                         <p class="p1">Debit Sum: Rs.{{this.debitSum}}</p>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3  col-sm-3">
                         <p class="p1">Credit Sum: Rs {{this.creditSum}}</p>
                       </div>
                     </div>
