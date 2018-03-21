@@ -27,8 +27,15 @@ import { SalesReturnComponent } from './salesReturn/salesReturn.component';
 import { TrialBalanceComponent } from './trialBalance/trialBalance.component';
 import { UnderGroupComponent } from './underGroup/underGroup.component';
 
-import { PopContraComponent  } from "./_popComponent/contra/popContra.component";
+import { PopContraComponent } from './_popComponent/contra/popContra.component';
+import { PopJournalEntryComponent } from './_popComponent/journalEntry/journalEntry.component';
 import { PopPaymentComponent } from './_popComponent/payment/popPayment.component';
+import { PopPurchaseComponent } from './_popComponent/purchase/purchase.component';
+import { PopPurchaseReturnComponent } from './_popComponent/purchaseReturn/purchaseReturn.component';
+// import { PopReceiptComponent } from './_popComponent/receipt/receipt.component';
+import { PopSalesComponent } from './_popComponent/sales/sales.component';
+import { PopSalesReturnComponent } from './_popComponent/salesReturn/salesReturn.component';
+
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
 import { CashAtBankService } from './cashAtBank/service/cashAtBank.service';
@@ -46,8 +53,15 @@ import { SalesReturnService } from './salesReturn/service/salesReturn.service';
 import { TrialBalanceService } from './trialBalance/service/trialBalance.service';
 import { UnderGroupsService } from './underGroup/service/underGroup.service';
 
-import { PopContraContraService } from "./_popComponent/contra/service/popContra.service";
+import { PopContraContraService } from './_popComponent/contra/service/popContra.service';
+import { PopJournalEntryService } from './_popComponent/journalEntry/service/journalEntry.service';
 import { PopPaymentService } from './_popComponent/payment/service/popPayment.service';
+import { PopPurchaseService } from './_popComponent/purchase/service/purchase.service';
+import { PopPurchaseReturnService } from './_popComponent/purchaseReturn/service/purchaseReturn.service';
+import { PopReceiptService } from './_popComponent/receipt/service/receipt.service';
+import { PopSalesService } from './_popComponent//sales/service/sales.service';
+import { PopSalesReturnService } from './_popComponent//salesReturn/service/salesReturn.service';
+
 @NgModule({
   imports: [
     HttpModule,
@@ -80,7 +94,13 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     UnderGroupComponent,
 
     PopContraComponent,
+    PopJournalEntryComponent,
     PopPaymentComponent,
+    PopPurchaseComponent,
+    PopPurchaseReturnComponent,
+    // PopReceiptComponent,
+    PopSalesComponent,
+    PopSalesReturnComponent
   ],
   providers: [
     GlobalVaribles,
@@ -101,7 +121,13 @@ import { PopPaymentService } from './_popComponent/payment/service/popPayment.se
     UnderGroupsService,
 
     PopContraContraService,
+    PopJournalEntryService,
     PopPaymentService,
+    PopPurchaseService,
+    PopPurchaseReturnService,
+    PopReceiptService,
+    PopSalesService,
+    PopSalesReturnService
   ],
 })
 export class ReportPagesModule {}

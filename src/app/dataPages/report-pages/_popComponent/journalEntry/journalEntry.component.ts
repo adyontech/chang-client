@@ -27,7 +27,7 @@ export class PopJournalEntryComponent implements OnInit {
   public disabled: Boolean = false;
   constructor(
     private route: ActivatedRoute,
-    public _journalEntryService: JournalEntryService,
+    public _journalEntryService: PopJournalEntryService,
     public fb: FormBuilder,
     private router: Router
   ) {}

@@ -10,7 +10,7 @@ declare var $: any;
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.scss'],
 })
-export class PurchaseComponent implements OnInit {
+export class PopPurchaseComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   public dataCopy: any;
@@ -35,7 +35,7 @@ export class PurchaseComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public _purchaseService: PurchaseService,
+    public _purchaseService: PopPurchaseService,
     public fb: FormBuilder,
     private router: Router
   ) {}

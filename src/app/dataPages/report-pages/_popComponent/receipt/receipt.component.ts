@@ -30,7 +30,7 @@ export class PopReceiptComponent implements OnInit {
   public disabled: Boolean = false;
   constructor(
     private route: ActivatedRoute,
-    public _receiptService: ReceiptService,
+    public _receiptService: PopReceiptService,
     public fb: FormBuilder,
     private router: Router,
     private modalService: NgbModal

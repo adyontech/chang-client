@@ -35,7 +35,7 @@ export class PopPurchaseReturnComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public _purchaseService: PurchaseReturnService,
+    public _purchaseService: PopPurchaseReturnService,
     public fb: FormBuilder,
     private router: Router
   ) {}

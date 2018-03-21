@@ -44,7 +44,7 @@ export class PopSalesReturnComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public _salesService: SalesReturnService,
+    public _salesService: PopSalesReturnService,
     public fb: FormBuilder,
     private router: Router
   ) {}

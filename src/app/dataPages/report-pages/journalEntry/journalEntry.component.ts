@@ -62,14 +62,7 @@ export class JournalEntryComponent implements OnInit {
       this.incomingData = this.compeleteData;
       console.log(this.incomingData);
     } else if (item === 'Dr') {
-      // this.compeleteData.map((el: Object)  => {
-      //     el = el.partticularsData
-      // });
-      //   this.compeleteData.forEach(element => {
-      //     const newData = element.particulatsData
-      //   });
-      // } else {
-      //   //
+      // type Activity = typeof Mydata;
     }
   }
   open(content, editId) {
@@ -103,4 +96,14 @@ export class JournalEntryComponent implements OnInit {
         console.log(data);
       });
   }
+}
+interface MyData {
+  commonJournalModel: string;
+  date: string;
+  deleteLedgerID: any;
+  file: string;
+  journalNumber: string;
+  narration: string;
+  particularsData: any;
+  voucherModelName: string;
 }
