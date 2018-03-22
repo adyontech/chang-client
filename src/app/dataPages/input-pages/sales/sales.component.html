@@ -172,7 +172,7 @@
                                         <h6>Name of product service
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <ng-select [items]="prsrList" (data)="refreshValue($event)" (change)="selectedprsr($event, i)" (removed)="removed($event)"
+                                        <ng-select [items]="prsrList"  (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
                                           placeholder="No city selected">
                                         </ng-select>
                                       </div>

@@ -1,9 +1,9 @@
 import { RouteInfo } from './sidebar.metadata';
 // Sidebar menu Routes and data
-export function GenerateRoutes(companyId: string) {
+export function GenerateRoutes(companyId: string, ownerId: string) {
   const ROUTES: RouteInfo[] = [
     {
-      path: `/dashboard/${companyId}/`,
+      path: `/${ownerId}/${companyId}/dashboard`,
       title: 'Dashboard',
       icon: 'ft-droplet',
       class: '',
@@ -53,7 +53,7 @@ export function GenerateRoutes(companyId: string) {
       isExternalLink: false,
       submenu: [
         {
-          path: `/form/${companyId}/contra`,
+          path: `/${ownerId}/${companyId}/form/contra`,
           title: 'Contra',
           icon: '',
           class: '',
@@ -63,7 +63,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/journal`,
+          path: `/${ownerId}/${companyId}/form/journal`,
           title: 'Journal Entry',
           icon: '',
           class: '',
@@ -73,7 +73,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/ledger`,
+          path: `/${ownerId}/${companyId}/form/ledger`,
           title: 'Ledger',
           icon: '',
           class: '',
@@ -83,7 +83,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/payment`,
+          path: `/${ownerId}/${companyId}/form/payment`,
           title: 'Payment',
           icon: '',
           class: '',
@@ -93,7 +93,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/productservice`,
+          path: `/${ownerId}/${companyId}/form/productservice`,
           title: 'Product & services',
           icon: '',
           class: '',
@@ -103,7 +103,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/purchase`,
+          path: `/${ownerId}/${companyId}/form/purchase`,
           title: 'Purchase',
           icon: '',
           class: '',
@@ -113,7 +113,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/purchasereturn`,
+          path: `/${ownerId}/${companyId}/form/purchasereturn`,
           title: 'Purchase return',
           icon: '',
           class: '',
@@ -123,7 +123,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/receipt`,
+          path: `/${ownerId}/${companyId}/form/receipt`,
           title: 'Receipt',
           icon: '',
           class: '',
@@ -133,7 +133,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/sales`,
+          path: `/${ownerId}/${companyId}/form/sales`,
           title: 'Sales',
           icon: '',
           class: '',
@@ -143,7 +143,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/salesreturn`,
+          path: `/${ownerId}/${companyId}/form/salesreturn`,
           title: 'Sales Return',
           icon: '',
           class: '',
@@ -153,7 +153,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/form/${companyId}/undergroup`,
+          path: `/${ownerId}/${companyId}/form/undergroup`,
           title: 'Undergoroup',
           icon: '',
           class: '',
@@ -175,7 +175,7 @@ export function GenerateRoutes(companyId: string) {
       isExternalLink: false,
       submenu: [
         {
-          path: `/report/${companyId}/contra`,
+          path: `/${ownerId}/${companyId}/report/contra`,
           title: 'Contra',
           icon: '',
           class: '',
@@ -185,7 +185,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/journal`,
+          path: `/${ownerId}/${companyId}/report/journal`,
           title: 'Journal Entry',
           icon: '',
           class: '',
@@ -195,7 +195,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/ledger`,
+          path: `/${ownerId}/${companyId}/report/ledger`,
           title: 'Ledger',
           icon: '',
           class: '',
@@ -205,7 +205,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/payment`,
+          path: `/${ownerId}/${companyId}/report/payment`,
           title: 'Payment',
           icon: '',
           class: '',
@@ -215,7 +215,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/productservice`,
+          path: `/${ownerId}/${companyId}/report/productservice`,
           title: 'Product & services',
           icon: '',
           class: '',
@@ -225,7 +225,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/purchase`,
+          path: `/${ownerId}/${companyId}/report/purchase`,
           title: 'Purchase',
           icon: '',
           class: '',
@@ -235,7 +235,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/purchasereturn`,
+          path: `/${ownerId}/${companyId}/report/purchasereturn`,
           title: 'Purchase return',
           icon: '',
           class: '',
@@ -245,7 +245,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/receipt`,
+          path: `/${ownerId}/${companyId}/report/receipt`,
           title: 'Receipt',
           icon: '',
           class: '',
@@ -255,7 +255,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/sales`,
+          path: `/${ownerId}/${companyId}/report/sales`,
           title: 'Sales',
           icon: '',
           class: '',
@@ -265,7 +265,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/salesreturn`,
+          path: `/${ownerId}/${companyId}/report/salesreturn`,
           title: 'Sales Return',
           icon: '',
           class: '',
@@ -275,7 +275,7 @@ export function GenerateRoutes(companyId: string) {
           submenu: [],
         },
         {
-          path: `/report/${companyId}/undergroup`,
+          path: `/${ownerId}/${companyId}/report/undergroup`,
           title: 'Undergoroup',
           icon: '',
           class: '',

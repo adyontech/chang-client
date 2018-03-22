@@ -89,24 +89,27 @@ export class PaymentComponent implements OnInit {
       amount: [''],
     });
   }
+
   addParticular() {
     this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
+
   removeParticular(i: number) {
     const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
     this.totalSum();
   }
+
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
+      console.log(params);
       this.paramId = params.id;
       // this._paymentService.setParamId(this.paramId);
     });
