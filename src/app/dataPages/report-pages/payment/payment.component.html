@@ -73,7 +73,7 @@
                   </div>
                 </div>
                 <ng-select [items]="chooseItem" [markFirst]="true" placeholder="Select Filter" [multiple]="true"  [(ngModel)]="chooseItemBox" [closeOnSelect]="false"
-                  (add)="onAdd($event)" (remove)="onRemove($event)">
+                  (add)="onAdd($event)" (remove)="onRemove($event)" (clear)="onDeSelectAll()">
                 </ng-select>
               </div>
             </div>

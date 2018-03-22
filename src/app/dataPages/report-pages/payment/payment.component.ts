@@ -126,7 +126,7 @@ export class PaymentComponent implements OnInit {
     this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
 
-  onDeSelectAll(items: any) {
+  onDeSelectAll() {
     // console.log(items);
     this.ColPaymentType = false;
     this.ColPaymentThrough = false;
