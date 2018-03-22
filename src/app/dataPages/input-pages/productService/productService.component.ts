@@ -94,14 +94,14 @@ export class ProductServiceComponent implements OnInit {
   }
 
   onSubmit(user) {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        if (user.val === '') {
-          user.val = user.qty * user.rate;
-        }
-        console.log(user);
-        this._productServiceService.createNewPrsr(user, this.paramId).subscribe(data => {});
-      }
-    });
+    // alertFunctions.SaveData().then(datsa => {
+    //   if (datsa) {
+    if (user.val === '') {
+      user.val = user.qty * user.rate;
+    }
+    console.log(user);
+    this._productServiceService.createNewPrsr(user, this.paramId).subscribe(data => {});
+    //   }
+    // });
   }
 }
