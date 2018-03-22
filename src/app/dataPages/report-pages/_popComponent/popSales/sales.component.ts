@@ -57,9 +57,11 @@ export class PopSalesComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.getPrsrList();
+    this.getIncomingData();
     this.getLedgerUGNames();
     this.getSalesUGNames();
     this.form = this.fb.group({
+      date: [null, Validators.required],
       invoiceNumber: [''],
       vehicleNumber: [''],
       partyName: [''],
@@ -71,7 +73,6 @@ export class PopSalesComponent implements OnInit {
       subParticularsData: this.fb.array([]),
       narration: [''],
       file: [''],
-      date: [null, Validators.required],
       grandTotal: ['0'],
     });
     this.addParticular();
@@ -101,6 +102,21 @@ export class PopSalesComponent implements OnInit {
     });
   }
 
+  getIncomingData() {
+    if (this.editContentId !== this.popContnetId) {
+      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
+      this.popContnetId = this.editContentId;
+      if (this.popContnetId !== '') {
+        this._salesService
+          .getSalesFormData(this.paramId, this.popContnetId)
+          .map(response => response.json())
+          .subscribe(data => {
+            this.fillForm(data.salesData);
+          });
+      }
+    }
+  }
+
   initParticular() {
     return this.fb.group({
       nameOfProduct: [''],
@@ -112,37 +128,42 @@ export class PopSalesComponent implements OnInit {
       amount: [''],
     });
   }
+
   initSubParticular() {
     return this.fb.group({
       additionalService: [''],
       percent: [''],
     });
   }
+
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
+
   get formData2() {
     return <FormArray>this.form.get('subParticularsData');
   }
+
   addParticular() {
     this.subSum();
     const control = <FormArray>this.form.controls['particularsData'];
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
+
   addSubParticular() {
-    console.log('adding sub');
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
-    console.log(cont);
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }
+
   removeParticular(i: number) {
     this.subSum();
     const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
   }
+
   removeSubParticular(i: number) {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
@@ -203,6 +224,7 @@ export class PopSalesComponent implements OnInit {
       // console.log(this.subAmount);
     }
   }
+
   totalSum() {
     this.form.patchValue({
       grandTotal: 0,
@@ -223,6 +245,7 @@ export class PopSalesComponent implements OnInit {
       grandTotal: this.totalAmount,
     });
   }
+
   onFileChange(event) {
     this.attachmentError = false;
     console.log(event.target.files[0].size);
@@ -235,6 +258,50 @@ export class PopSalesComponent implements OnInit {
     } else {
       this.attachmentError = true;
     }
+  }
+
+  fillForm(data) {
+    data = data[0];
+    console.log(data);
+    data.date = new Date(data.date);
+    this.form.controls['date'].setValue({
+      year: data.date.getFullYear(),
+      month: data.date.getMonth(),
+      day: data.date.getDate(),
+    });
+    this.form.controls['invoiceNumber'].setValue(data.invoiceNumber);
+    this.form.controls['vehicleNumber'].setValue(data.vehicleNumber);
+    this.form.controls['partyName'].setValue(data.partyName);
+    this.form.controls['salesLedgerName'].setValue(data.salesLedgerName);
+    this.form.controls['saleType'].setValue(data.saleType);
+    this.form.controls['transportationMode'].setValue(data.transportationMode);
+    this.form.controls['supplyPlace'].setValue(data.supplyPlace);
+    this.form.controls['transportationMode'].setValue(data.transportationMode);
+    this.form.controls['narration'].setValue(data.narration);
+
+    const particularsData = <FormArray>this.form.controls['particularsData'];
+    const oldArray = data.particularsData;
+    oldArray.forEach((element, index) => {
+      const array = particularsData.at(index);
+      if (!array) {
+        particularsData.push(
+          this.fb.group({
+            nameOfProduct: [element.nameOfProduct],
+            qty: element.qty,
+            units: element.units,
+            rate: element.rate,
+            subAmount: element.subAmount,
+            gstRate: element.gstRate,
+            amount: element.amount,
+          })
+        );
+      } else {
+        array.patchValue({
+          particulars: element.particulars,
+          amount: element.amount,
+        });
+      }
+    });
   }
 
   onSubmit(user, action) {
