@@ -110,6 +110,18 @@ export class SalesComponent implements OnInit {
     // this.ColGstRate = false;
   }
 
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
   onClose() {
     console.log('Modal Closed');
     this.contentId = '';

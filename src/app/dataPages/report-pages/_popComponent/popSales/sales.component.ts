@@ -9,13 +9,16 @@ import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 declare var $: any;
 
 @Component({
-  selector: 'app-sales',
+  selector: 'app-pop-sales',
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.scss'],
 })
 export class PopSalesComponent implements OnInit {
+  @Input() editContentId: string;
+  editupdate: Boolean = false;
+  popContnetId = '';
+  closeResult: string;
   form: FormGroup;
-  selectedIndex = 1;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;
@@ -234,22 +237,27 @@ export class PopSalesComponent implements OnInit {
     }
   }
 
-  onSubmit(user) {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        user.particularsData.map(el => {
-          if (el.subAmount === '') {
-            el.subAmount = el.qty * el.rate;
-            el.subAmount = el.subAmount.toString();
-          }
-          if (el.amount === '') {
-            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-            el.amount = el.amount.toString();
-          }
-        });
-        console.log(user);
-        this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
+  onSubmit(user, action) {
+    // alertFunctions.SaveData().then(datsa => {
+    //   if (datsa) {
+    user.particularsData.map(el => {
+      if (el.subAmount === '') {
+        el.subAmount = el.qty * el.rate;
+        el.subAmount = el.subAmount.toString();
       }
-    })
+      if (el.amount === '') {
+        el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
+        el.amount = el.amount.toString();
+      }
+    });
+    console.log(user);
+    if (action === false) {
+      console.log('edit');
+      this._salesService.editEntry(user, this.paramId, this.editContentId).subscribe(data => {});
+    } else {
+      this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
+    }
+    //   }
+    // })
   }
 }

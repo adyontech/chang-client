@@ -68,7 +68,7 @@ export class SalesComponent implements OnInit {
       subParticularsData: this.fb.array([]),
       narration: [''],
       file: [''],
-      date: [null, Validators.required],
+      date: [''],
       grandTotal: ['0'],
     });
     this.addParticular();
