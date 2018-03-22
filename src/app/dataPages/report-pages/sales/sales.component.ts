@@ -92,7 +92,7 @@ export class SalesComponent implements OnInit {
       //     break;
     }
   }
-  onSelectAll(items: any) {
+  onSelectAll() {
     // console.log(items);
     this.ColTransportationMode = true;
     this.ColSaleType = true;
@@ -101,7 +101,7 @@ export class SalesComponent implements OnInit {
     // this.ColGstRate = true;
     this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
-  onDeSelectAll(items: any) {
+  onDeSelectAll() {
     // console.log(items);
     this.ColTransportationMode = false;
     this.ColSaleType = false;

@@ -32,7 +32,7 @@ import { PopJournalEntryComponent } from './_popComponent/popJournalEntry/journa
 import { PopPaymentComponent } from './_popComponent/popPayment/popPayment.component';
 import { PopPurchaseComponent } from './_popComponent/popPurchase/purchase.component';
 import { PopPurchaseReturnComponent } from './_popComponent/popPurchaseReturn/purchaseReturn.component';
-// import { PopReceiptComponent } from './_popComponent/popReceipt/receipt.component';
+import { PopReceiptComponent } from './_popComponent/popReceipt/receipt.component';
 import { PopSalesComponent } from './_popComponent/popSales/sales.component';
 import { PopSalesReturnComponent } from './_popComponent/popSalesReturn/salesReturn.component';
 
@@ -98,7 +98,7 @@ import { PopSalesReturnService } from './_popComponent/popSalesReturn/service/sa
     PopPaymentComponent,
     PopPurchaseComponent,
     PopPurchaseReturnComponent,
-    // PopReceiptComponent,
+    PopReceiptComponent,
     PopSalesComponent,
     PopSalesReturnComponent
   ],

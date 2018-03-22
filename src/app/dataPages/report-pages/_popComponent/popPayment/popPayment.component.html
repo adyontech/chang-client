@@ -67,10 +67,10 @@
                         <label>Payment type</label>
                         <select class="form-control" formControlName="paymentType">
                           <option value="general" selected>General</option>
-                          <option value="purchasePayment">Purchase payment</option>
-                          <option value="advancePayment">Advance payment</option>
-                          <option value="salesRefund">Sales refund</option>
-                          <option value="creditNote">Credit Note</option>
+                          <option value="purchasepayment">Purchase payment</option>
+                          <option value="advancepayment">Advance payment</option>
+                          <option value="salesrefund">Sales refund</option>
+                          <option value="creditnote">Credit Note</option>
                           <option value="others">others</option>
                         </select>
                       </div>
@@ -79,7 +79,7 @@
                         <select class="form-control" formControlName="paymentThrough">
                           <option value="cash" selected>Cash</option>
                           <option value="cheque">Cheque</option>
-                          <option value="Etransfe">E transfe</option>
+                          <option value="etransfe">E transfe</option>
                           <option value="others">others</option>
                         </select>
                       </div>
@@ -105,10 +105,10 @@
                       <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value === 'cheque' ? 'offset-md-2' : ''">
                         <label>Against</label>
                         <select class="form-control" formControlName="against">
-                          <option value="againstInvoice">Against invoice</option>
-                          <option value="againstAccount">Against account</option>
-                          <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasePayment'">Against advance</option>
-                          <option value="advancePayment">Advance receipt</option>
+                          <option value="againstinvoice">Against invoice</option>
+                          <option value="againstaccount">Against account</option>
+                          <option value="againstadvance" *ngIf=" form.get('paymentType').value =='purchasePayment'">Against advance</option>
+                          <option value="advancepayment">Advance receipt</option>
                           <option value="others" *ngIf=" form.get('paymentThrough').value =='cash'"> others</option>
                         </select>
                       </div>
