@@ -26,10 +26,10 @@ export class SalesService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData() {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/salesStored?token=${this.token}&&companyName=${
-      this.paramCompanyName
-    }`;
+  getIncomingData(companyName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/salesStored?token=${
+      this.token
+    }&&companyName=${companyName}`;
     return this.http.get(this._url);
   }
 }

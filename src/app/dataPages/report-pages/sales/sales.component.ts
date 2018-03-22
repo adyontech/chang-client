@@ -1,10 +1,9 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { SalesService } from './service/sales.service';
-
 declare var $: any;
 
 @Component({
@@ -15,15 +14,15 @@ declare var $: any;
 export class SalesComponent implements OnInit {
   // Models
   contentId: String = '';
+  editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
   public dropdFilter: String;
 
-
-  VColTransportationMode: String = 'ColTransportationMode';
-  VColSaleType: String = 'ColSaleType';
-  VColSupplyPlace: String = 'ColSupplyPlace';
-  VColVehicleNo: String = 'ColVehicleNo';
+  VColTransportationMode: String = 'Transportation Mode';
+  VColSaleType: String = 'Type of sale';
+  VColSupplyPlace: String = 'Place of supply';
+  VColVehicleNo: String = 'Vehicle No';
   // VColGstRate: String = "ColGstRate";
 
   @Input() public ColTransportationMode: Boolean = false;
@@ -32,40 +31,30 @@ export class SalesComponent implements OnInit {
   public ColVehicleNo: Boolean = false;
   // public ColGstRate: Boolean = false;
 
-  incomingData: Array<String>;
   form: FormGroup;
   public dataCopy: any;
   public paramId: String;
   public closeResult: String;
+  incomingData: Array<String>;
+  chooseItem = ['Transportation Mode', 'Type of sale', 'Place of supply', 'Vehicle No'];
+  chooseItemBox = [];
 
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings = {};
-
-  constructor(private route: ActivatedRoute, public _salesService: SalesService, public fb: FormBuilder) {}
+  constructor(private route: ActivatedRoute, public _salesService: SalesService, private modalService: NgbModal) {}
 
   ngOnInit() {
-    this.getIncomingData();
-    this.dropdownList = [
-      { id: 'ColTransportationMode', itemName: 'Transportation mode' },
-      { id: 'ColSaleType', itemName: 'Sale type' },
-      { id: 'ColSupplyPlace', itemName: 'Supply Place' },
-      { id: 'ColVehicleNo', itemName: 'Vehicle No' },
-      // { "id": "ColGstRate", "itemName": "Gst rate" },
-    ];
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      text: 'Select filter',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      enableSearchFilter: false,
-      classes: 'myclass custom-class',
-    };
+    this.getRouteParam();
+    this.getIncomingData(this.paramId);
   }
 
-  onItemSelect(item: any): void {
-    switch (item.id) {
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+    });
+  }
+
+  onAdd(item: any): void {
+    switch (item) {
       case this.VColTransportationMode:
         this.ColTransportationMode = true;
         break;
@@ -82,11 +71,10 @@ export class SalesComponent implements OnInit {
       //     this.ColGstRate = true;
       //     break;
     }
-    console.log(this.selectedItems);
   }
 
-  OnItemDeSelect(item: any) {
-    switch (item.id) {
+  onRemove(item: any) {
+    switch (item.label) {
       case this.VColTransportationMode:
         this.ColTransportationMode = false;
         break;
@@ -103,7 +91,6 @@ export class SalesComponent implements OnInit {
       //     this.ColGstRate = false;
       //     break;
     }
-    console.log(this.selectedItems);
   }
   onSelectAll(items: any) {
     // console.log(items);
@@ -112,6 +99,7 @@ export class SalesComponent implements OnInit {
     this.ColSupplyPlace = true;
     this.ColVehicleNo = true;
     // this.ColGstRate = true;
+    this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
   onDeSelectAll(items: any) {
     // console.log(items);
@@ -121,14 +109,15 @@ export class SalesComponent implements OnInit {
     this.ColVehicleNo = false;
     // this.ColGstRate = false;
   }
+
   onClose() {
     console.log('Modal Closed');
     this.contentId = '';
   }
 
-  getIncomingData() {
+  getIncomingData(compName) {
     this.dataCopy = this._salesService
-      .getIncomingData()
+      .getIncomingData(compName)
       .map(response => response.json())
       .subscribe(data => {
         this.incomingData = data.salesData;
@@ -136,9 +125,13 @@ export class SalesComponent implements OnInit {
       });
   }
 
-  editData(id) {
+  deleteEntry(id) {
     console.log(id);
-    this.contentId = id;
-    this._salesService.contentId = id;
+    // this._salesService
+    //   .deleteEntry(id, this.paramId)
+    //   .map(response => response.json())
+    //   .subscribe(data => {
+    //     console.log(data);
+    //   });
   }
 }

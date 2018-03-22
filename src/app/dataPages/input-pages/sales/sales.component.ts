@@ -83,9 +83,10 @@ export class SalesComponent implements OnInit {
   }
 
   public selectedprsr(value: any, indexValue): void {
+    console.log(value)
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
-      if (element.prsrName === value.id) {
+      if (element.prsrName === value) {
         unitsValue = element.units;
         gstRatevalue = element.gstRate;
       }
@@ -128,10 +129,8 @@ export class SalesComponent implements OnInit {
     control.push(addCtrl);
   }
   addSubParticular() {
-    console.log('adding sub');
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
-    console.log(cont);
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }
@@ -172,7 +171,7 @@ export class SalesComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
+        console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }

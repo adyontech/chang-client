@@ -1,98 +1,122 @@
-
-<div class="main-content" style="scroll-behavior: hidden">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <!-- heading here -->
-                    <div class="header">
-                        <h2 class="title text-center">Sales report</h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 title text-center ">
-                            <p> Select Period:</p>
-                        </div>
-                        <div class="col-lg-6 title text-center">
-                            <p> Select Filter:</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="title text-center">From</label>
-                        </div>
-                        <div class="col-md-2">
-                            <!-- <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker> -->
-                        </div>
-                        <div class="col-md-1">
-                            <label class="title text-center">To</label>
-                        </div>
-                        <div class="col-md-2">
-                            <!-- <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker> -->
-                        </div>
-                        <div class="col-md-6">
-                            <!-- <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" [selectedItems]="selectedItems" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect> -->
-                        </div>
-                    </div>
-                    <div class="content table-responsive table-full-width">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-
-                                    <th class="text-center"> </th>
-                                    <th class="text-center">Date </th>
-
-                                    <th class="text-center"> Invoice No.</th>
-
-                                    <th class="text-center"> Party Name.</th>
-
-                                    <th class="text-center"> Sub Amount</th>
-
-                                    <th class="text-center"> GST Amount</th>
-
-                                    <th class="text-center"> Total Amount</th>
-
-                                    <th class="text-center" [hidden]="!ColTransportationMode">Transportation Mode </th>
-
-                                    <th class="text-center" [hidden]="!ColSaleType"> Type of sale</th>
-
-                                    <th class="text-center" [hidden]="!ColSupplyPlace">Place of supply</th>
-
-                                    <th class="text-center" [hidden]="!ColVehicleNo">Vehicle No </th>
-
-                                    <!-- <th class="text-center" [hidden]="!ColGstRate">Gst Rate </th> -->
-
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let list of incomingData">
-                                    <td class="text-center opt">
-                                        <button type="button" class="btn btn-simple" (click)="editData(list._id); modal.open();">
-                                            <i class="fa fa-bars"></i>
-                                        </button>
-                                    </td>
-                                    <td class="text-center"> {{list.date | date}}</td>
-                                    <td class="text-center"> {{list.invoiceNumber}}</td>
-                                    <td class="text-center"> {{list.partyName}}</td>
-                                    <td class="text-center"> {{list.totalSubAmount}}</td>
-                                    <td class="text-center"> {{list.totalGstAmount}}</td>
-                                    <td class="text-center"> {{list.totalGstAmount + list.totalSubAmount}}</td>
-                                    <td class="text-center" [hidden]="!ColTransportationMode"> {{list.transportationMode}}</td>
-                                    <td class="text-center" [hidden]="!ColSaleType"> {{list.saleType}}</td>
-                                    <td class="text-center" [hidden]="!ColSupplyPlace"> {{list.supplyPlace}}</td>
-                                    <td class="text-center" [hidden]="!ColVehicleNo"> {{list.vehicleNumber}}</td>
-                                    <!-- <td [hidden]="!ColGstRate"> {{list.against}}</td> -->
-
-                                </tr>
-                                <tr>
-
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Payment Page</div>
+    <p class="content-sub-header">Manage the ledger with with sorting, filtering, pagination & add/edit/delete functions.</p>
+  </div>
 </div>
+<section id="icon-tabs">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row mt-3">
+            <div class="col-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds2.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
+                </div>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="row">
+                <div class="input-group-append">
+                  <div class="input-group-text" (click)="onSelectAll()">
+                    <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                  </div>
+                </div>
+                <ng-select [items]="chooseItem" [markFirst]="true" placeholder="Select Filter" [multiple]="true" [(ngModel)]="chooseItemBox"
+                  [closeOnSelect]="false" (add)="onAdd($event)" (remove)="onRemove($event)">
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <!-- [hidden]="haveData === null ? true: null" -->
+          <div class="row">
+            <div class="col-12">
+              <p>No data present</p>
+            </div>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+
+                  <th class="text-center">Options</th>
+
+                  <th class="text-center">Date </th>
+
+                  <th class="text-center"> Invoice No.</th>
+
+                  <th class="text-center"> Party Name.</th>
+
+                  <th class="text-center"> Sub Amount</th>
+
+                  <th class="text-center"> GST Amount</th>
+
+                  <th class="text-center"> Total Amount</th>
+
+                  <th class="text-center" [hidden]="!ColTransportationMode">Transportation Mode </th>
+
+                  <th class="text-center" [hidden]="!ColSaleType"> Type of sale</th>
+
+                  <th class="text-center" [hidden]="!ColSupplyPlace">Place of supply</th>
+
+                  <th class="text-center" [hidden]="!ColVehicleNo">Vehicle No </th>
+
+                  <!-- <th class="text-center" [hidden]="!ColGstRate">Gst Rate </th> -->
+
+                </tr>
+
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of incomingData">
+                  <td>
+                    <a class="success p-0" data-original-title="" title="" (click)="open(content, list._id)">
+                      <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                    </a>
+                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list._id)">
+                      <i class="ft-x font-medium-3 mr-2"></i>
+                    </a>
+                  </td>
+                  <td class="text-center"> {{list.date | date}}</td>
+                  <td class="text-center"> {{list.invoiceNumber}}</td>
+                  <td class="text-center"> {{list.partyName}}</td>
+                  <td class="text-center"> {{list.totalSubAmount}}</td>
+                  <td class="text-center"> {{list.totalGstAmount}}</td>
+                  <td class="text-center"> {{list.totalGstAmount + list.totalSubAmount}}</td>
+                  <td class="text-center" [hidden]="!ColTransportationMode"> {{list.transportationMode}}</td>
+                  <td class="text-center" [hidden]="!ColSaleType"> {{list.saleType}}</td>
+                  <td class="text-center" [hidden]="!ColSupplyPlace"> {{list.supplyPlace}}</td>
+                  <td class="text-center" [hidden]="!ColVehicleNo"> {{list.vehicleNumber}}</td>
+                  <!-- <td [hidden]="!ColGstRate"> {{list.against}}</td> -->
+
+                </tr>
+                <tr>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

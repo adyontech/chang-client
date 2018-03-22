@@ -30,7 +30,7 @@
 <!-- Wizard Starts -->
 <div class="row">
   <div class="col-sm-12">
-    <div class="content-header">Payment Forms</div>
+    <div class="content-header">Sales Forms</div>
   </div>
 </div>
 <section id="icon-tabs">
@@ -172,7 +172,7 @@
                                         <h6>Name of product service
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <ng-select [items]="prsrList" (data)="refreshValue($event)" (selected)="selectedprsr($event, i)" (removed)="removed($event)"
+                                        <ng-select [items]="prsrList" (data)="refreshValue($event)" (change)="selectedprsr($event, i)" (removed)="removed($event)"
                                           placeholder="No city selected">
                                         </ng-select>
                                       </div>

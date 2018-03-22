@@ -35,11 +35,8 @@ export class PaymentComponent implements OnInit {
   public dataCopy: any;
   public paramId: string;
 
-  dropdownList = [];
-  selectedItems = [];
   chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   chooseItemBox = [];
-  dropdownSettings = {};
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
   public incomingData: Array<string> = [];
 
@@ -74,8 +71,8 @@ export class PaymentComponent implements OnInit {
 
   onAdd(item: any): void {
     // console.log(item)
-    console.log(item === this.VColPaymentType);
-    console.log(this.VColAgainst);
+    // console.log(item === this.VColPaymentType);
+    // console.log(this.VColAgainst);
     switch (item) {
       case this.VColPaymentType:
         this.ColPaymentType = true;
