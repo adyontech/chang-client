@@ -38,7 +38,7 @@
                 </div>
                 <div class="card-block mt-1">
                   <p class="card-text">Email :- {{list.email}}</p>
-                  <a [routerLink]="['/dashboard/', list.companyName]" class="btn btn-raised btn-warning">View Company</a>
+                  <a [routerLink]="['/', list.creator, list.companyName, 'dashboard']" class="btn btn-raised btn-warning">View Company</a>
                 </div>
               </div>
             </div>

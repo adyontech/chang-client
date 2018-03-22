@@ -4,7 +4,6 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { SalesService } from './service/sales.service';
-
 declare var $: any;
 
 @Component({
@@ -18,10 +17,11 @@ export class SalesComponent implements OnInit {
   editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
+  public dropdFilter: String;
 
-  VColTransportationMode: String = 'Transportation mode';
-  VColSaleType: String = 'Sale type';
-  VColSupplyPlace: String = 'Supply Place';
+  VColTransportationMode: String = 'Transportation Mode';
+  VColSaleType: String = 'Type of sale';
+  VColSupplyPlace: String = 'Place of supply';
   VColVehicleNo: String = 'Vehicle No';
   // VColGstRate: String = "ColGstRate";
 
@@ -31,43 +31,28 @@ export class SalesComponent implements OnInit {
   public ColVehicleNo: Boolean = false;
   // public ColGstRate: Boolean = false;
 
-  incomingData: Array<String>;
   form: FormGroup;
   public dataCopy: any;
   public paramId: String;
   public closeResult: String;
-
-  chooseItem = ['Transportation mode', 'Sale type', 'Supply Place', 'Vehicle No'];
+  incomingData: Array<String>;
+  chooseItem = ['Transportation Mode', 'Type of sale', 'Place of supply', 'Vehicle No'];
   chooseItemBox = [];
-  selectedItems = [];
 
-  constructor(private route: ActivatedRoute, private modalService: NgbModal, public _salesService: SalesService) {}
+  constructor(private route: ActivatedRoute, public _salesService: SalesService, private modalService: NgbModal) {}
 
   ngOnInit() {
     this.getRouteParam();
+    this.getIncomingData(this.paramId);
   }
 
-  open(content, editId) {
-    this.editContentId = editId;
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+    });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
   onAdd(item: any): void {
     switch (item) {
       case this.VColTransportationMode:
@@ -89,7 +74,7 @@ export class SalesComponent implements OnInit {
   }
 
   onRemove(item: any) {
-    switch (item.value) {
+    switch (item.label) {
       case this.VColTransportationMode:
         this.ColTransportationMode = false;
         break;
@@ -107,13 +92,6 @@ export class SalesComponent implements OnInit {
       //     break;
     }
   }
-  getRouteParam() {
-    this.route.params.subscribe(params => {
-      // console.log(params.id);
-      this.paramId = params.id;
-    });
-  }
-
   onSelectAll() {
     // console.log(items);
     this.ColTransportationMode = true;
@@ -121,8 +99,8 @@ export class SalesComponent implements OnInit {
     this.ColSupplyPlace = true;
     this.ColVehicleNo = true;
     // this.ColGstRate = true;
+    this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
-
   onDeSelectAll() {
     // console.log(items);
     this.ColTransportationMode = false;
@@ -131,14 +109,27 @@ export class SalesComponent implements OnInit {
     this.ColVehicleNo = false;
     // this.ColGstRate = false;
   }
+
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
   onClose() {
     console.log('Modal Closed');
     this.contentId = '';
   }
 
-  getIncomingData() {
+  getIncomingData(compName) {
     this.dataCopy = this._salesService
-      .getIncomingData()
+      .getIncomingData(compName)
       .map(response => response.json())
       .subscribe(data => {
         this.incomingData = data.salesData;
@@ -146,13 +137,13 @@ export class SalesComponent implements OnInit {
       });
   }
 
-  // deleteEntry(id) {
-  //   console.log(id);
-  //   this._salesService
-  //     .deleteEntry(id, this.paramId)
-  //     .map(response => response.json())
-  //     .subscribe(data => {
-  //       console.log(data);
-  //     });
-  // }
+  deleteEntry(id) {
+    console.log(id);
+    // this._salesService
+    //   .deleteEntry(id, this.paramId)
+    //   .map(response => response.json())
+    //   .subscribe(data => {
+    //     console.log(data);
+    //   });
+  }
 }

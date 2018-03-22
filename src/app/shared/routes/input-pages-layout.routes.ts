@@ -4,12 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const DATA_PAGES_ROUTES: Routes = [
   {
-    path: 'form/:id',
+    path: ':owner/:id/form',
     // loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule',
     loadChildren: './dataPages/input-pages/input-pages.module#InputPagesModule',
   },
   {
-    path: 'report/:id',
+    path: ':owner/:id/report',
     // loadChildren: './dataPages/gateway/gateway-pages.module#GatewayPagesModule',
     loadChildren: './dataPages/report-pages/report-pages.module#ReportPagesModule',
   },

@@ -34,7 +34,11 @@ export class ReceiptService {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       // console.log(key , user[key])
-      form.append(key, user[key]);
+      if (user[key] instanceof Array || user[key] instanceof Object) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/receipts?token=${this.token}&companyName=${compName}`;
     return this.http.post(this._url, user).map((res: Response) => {

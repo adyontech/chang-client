@@ -68,7 +68,7 @@ export class SalesComponent implements OnInit {
       subParticularsData: this.fb.array([]),
       narration: [''],
       file: [''],
-      date: [null, Validators.required],
+      date: [''],
       grandTotal: ['0'],
     });
     this.addParticular();
@@ -83,9 +83,10 @@ export class SalesComponent implements OnInit {
   }
 
   public selectedprsr(value: any, indexValue): void {
+    console.log(value)
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
-      if (element.prsrName === value.id) {
+      if (element.prsrName === value) {
         unitsValue = element.units;
         gstRatevalue = element.gstRate;
       }
@@ -170,7 +171,7 @@ export class SalesComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
+        console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }

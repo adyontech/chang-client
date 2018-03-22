@@ -17,7 +17,7 @@ export class ContraComponent implements OnInit {
   public dateFrom: Date;
   public dateTo: Date;
 
-  incomingData: Array<string>;
+  incomingData: Array<string> = [];
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
@@ -39,18 +39,6 @@ export class ContraComponent implements OnInit {
     });
   }
 
-  open(content, editId) {
-    this.editContentId = editId;
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
-
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -69,6 +57,17 @@ export class ContraComponent implements OnInit {
       this.getIncomingData(item, this.paramId);
     }
   }
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
 
   getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._contraService
@@ -76,7 +75,7 @@ export class ContraComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
-        this.incomingData = data.paymentData;
+        this.incomingData = data.contraData;
         console.log(this.incomingData);
       });
   }
@@ -87,8 +86,8 @@ export class ContraComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
-        console.log(data.paymentData);
-        this.incomingData = data.paymentData;
+        console.log(data.contraData);
+        this.incomingData = data.contraData;
         console.log(data.totalSum);
       });
   }
@@ -97,7 +96,7 @@ export class ContraComponent implements OnInit {
     console.log(id);
     this._contraService
       .deleteEntry(id, this.paramId)
-      .map(response => response.json())
+      // .map(response => response.json())
       .subscribe(data => {
         console.log(data);
       });

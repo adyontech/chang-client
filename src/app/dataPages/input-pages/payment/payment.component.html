@@ -2,9 +2,6 @@
   <!--Modal with Default options starts-->
   <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Modal with Default options</h4>
-      </div>
       <div class="card-body">
         <div class="card-block">
           <ng-template #content let-c="close" let-d="dismiss">
@@ -22,7 +19,6 @@
           <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
 
           <hr>
-          <p>Action : {{closeResult}}</p>
         </div>
       </div>
     </div>
@@ -33,7 +29,7 @@
   <div class="col-sm-12">
     <div class="content-header">Payment Forms</div>
     <div>
-        <app-breadcrumbs [steps]="breadcrumbs" ></app-breadcrumbs>
+      <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
     </div>
   </div>
 </div>
@@ -47,7 +43,6 @@
         <div class="card-body">
           <div class="card-block">
             <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
-
               <wizard #wizard navBarLayout="large-empty-symbols">
                 <div class="centered-content" style="margin-top:6%; width: 100%;">
                   <!-- Actual wizard starts -->
@@ -152,7 +147,6 @@
                       <h5 class="form-group-header">
                         Particulars and Amount
                       </h5>
-
                       <div formArrayName="particularsData">
                         <div *ngFor="let address of formData.controls; let i=index" class="form-group">
                           <!-- <span>{{i + 1}}</span> -->
@@ -160,21 +154,21 @@
                             <div class="block">
                               <div class="content ">
                                 <div class="row">
-                                    <div class="col-md-1 mt-3">
-                                      <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
-                                    </div>
+                                  <div class="col-md-1 mt-3">
+                                    <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                                  </div>
                                   <div class="col-lg-4 col-xs-4">
                                     <h6>Particulars</h6>
                                     <!-- <input type="text" class="form-control" formControlName="particulars"> -->
-                                    <ng-select [items]="ledgerList" formControlName="particulars"  placeholder="Particulars">
+                                    <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
                                     </ng-select>
                                     <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
                                       class="text-danger">
-                                      <span > Particulars is required</span>
+                                      <span> Particulars is required</span>
                                     </small>
                                   </div>
                                   <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">
-                                      <h6>Amount</h6>
+                                    <h6>Amount</h6>
                                     <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
                                     <small [hidden]="form.controls.particularsData.controls[i].controls.amount.untouched || form.controls.particularsData.controls[i].controls.amount.valid"
                                       class="text-danger">
@@ -187,7 +181,6 @@
                           </div>
                         </div>
                       </div>
-
                       <br>
                       <div class="row">
                         <div class="offset-md-0 col-md-3">
@@ -199,7 +192,6 @@
                           <p class="p1">Total Amount: Rs.{{totalAmount}}</p>
                         </div>
                       </div>
-
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
@@ -208,7 +200,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="row">
                         <div class="form-inline">
                           <div class="form-group">
@@ -225,7 +216,6 @@
                         </div>
                       </div>
                     </div>
-
                     <div class="btn-group  mt-3">
                       <button type="button" class="btn btn-secondary" previousStep>Back</button>
                       <button type="button" class="btn btn-secondary" resetWizard>Reset</button>

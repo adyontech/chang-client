@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
 
@@ -13,11 +14,12 @@ declare var $: any;
   styleUrls: ['./receipt.component.scss'],
 })
 export class ReceiptComponent implements OnInit {
-  form: FormGroup;
-  selectedIndex = 1;
+  public closeResult: string;
+  public form: FormGroup;
+  public selectedIndex = 1;
   public dataCopy: any;
-  paramId: string;
-  totalAmount: number;
+  public paramId: string;
+  public totalAmount: number;
   public attachmentError: Boolean = false;
 
   public ledgerList: Array<string> = [];
@@ -30,7 +32,8 @@ export class ReceiptComponent implements OnInit {
     private route: ActivatedRoute,
     public _receiptService: ReceiptService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -55,6 +58,34 @@ export class ReceiptComponent implements OnInit {
     this.addParticular();
   }
 
+  // To open modal we need key event here
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === 66 && event.ctrlKey) {
+      document.getElementById('openModalButton').click();
+    }
+  }
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
@@ -127,11 +158,13 @@ export class ReceiptComponent implements OnInit {
   }
 
   onSubmit(user) {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        console.log(user);
-        this._receiptService.createNewEntry(user, this.paramId).subscribe(data => {});
-      }
-    });
+    // alertFunctions.SaveData().then(datsa => {
+    //   if (datsa) {
+    console.log(user);
+
+    user.endtotal = this.totalAmount;
+    this._receiptService.createNewEntry(user, this.paramId).subscribe(data => {});
+    //   }
+    // });
   }
 }

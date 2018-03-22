@@ -1,140 +1,137 @@
 <div class="row" matchHeight="card" [hidden]="true">
-    <div class="col-sm-12 col-md-6 col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-block">
-            <ng-template #content let-c="close" let-d="dismiss">
-              <div class="modal-body">
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <app-pop-payment [editContentId]="editContentId"></app-pop-payment>
-              </div>
-            </ng-template>
-  
-            <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
-          </div>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-body">
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <app-pop-payment [editContentId]="editContentId"></app-pop-payment>
+            </div>
+          </ng-template>
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Contra Page</div>
+    <p class="content-sub-header">Manage the ledger with with sorting, filtering, pagination & add/edit/delete functions.</p>
+  </div>
+</div>
+<section id="icon-tabs">
   <div class="row">
     <div class="col-12">
-      <div class="content-header">Contra Page</div>
-      <p class="content-sub-header">Manage the ledger with with sorting, filtering, pagination & add/edit/delete functions.</p>
-    </div>
-  </div>
-  <section id="icon-tabs">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-  
-            <div class="row mb-2">
-              <div class="col-5">
-                <h4 style="float:left" class="card-title ">Account: </h4>
-              </div>
-              <div class="col-4">
-                <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)" >
-                </ng-select>
-              </div>
-            </div>
-            <br>
-            <div class="row mt-3">
-              <div class="col-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-append">
-                      <div class="input-group-text" (click)="ds.toggle()">
-                        <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                      </div>
-                    </div>
-                    <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
-                  </div>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-append">
-                      <div class="input-group-text" (click)="ds2.toggle()">
-                        <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                      </div>
-                    </div>
-                    <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- [hidden]="haveData === null ? true: null" -->
-            <div class="row">
-              <div class="col-12">
-                <p>No data present</p>
-              </div>
-            </div>
-  
-            <div class="content table-responsive table-full-width">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-  
-                    <th class="text-center">Options</th>
-  
-                    <th class="text-center">Date </th>
-  
-                    <th class="text-center"> Contra No.</th>
-  
-                    <th class="text-center"> Particular.</th>
-  
-                    <th class="text-center"> Total Amount</th>
+      <div class="card">
+        <div class="card-header">
 
-                    <th class="text-center"> Cheque Number</th>
-  
-                  </tr>
-  
-                </thead>
-                <tbody>
-                  <tr *ngFor="let list of incomingData">
-                    <td>
-                      <a class="success p-0" data-original-title="" title="" (click)="open(content, list._id)">
-                        <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                      </a>
-                      <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list._id)">
-                        <i class="ft-x font-medium-3 mr-2"></i>
-                      </a>
-                    </td>
-                    <td> {{list.date | date}}</td>
-                    <td> {{list.contraNumber}}</td>
-                    <td>
-                      <tr *ngFor="let parti of list.particularsData">
-                        <td>{{parti.particulars}}</td>
-  
-                      </tr>
-  
-                    </td>
-                    <td>
-                      <tr *ngFor="let parti of list.particularsData">
-  
-                        <td>{{parti.amount}}</td>
-                      </tr>
-                    </td>
-                    <td [hidden]="!ColPaymentType"> {{list.paymentType}}</td>
-                    <td [hidden]="!ColPaymentThrough"> {{list.paymentThrough}}</td>
-                    <td [hidden]="!ColChequeNO"> {{list.chequeNumber}}</td>
-                    <td [hidden]="!ColAgainst"> {{list.against}}</td>
-                  </tr>
-                  <tr>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="row mb-2">
+            <div class="col-5">
+              <h4 style="float:left" class="card-title ">Account: </h4>
             </div>
-  
-  
+            <div class="col-4">
+              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)">
+              </ng-select>
+            </div>
           </div>
+          <br>
+          <div class="row mt-3">
+            <div class="col-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds2.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- [hidden]="haveData === null ? true: null" -->
+          <div class="row">
+            <div class="col-12">
+              <p>No data present</p>
+            </div>
+          </div>
+
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+
+                  <th class="text-center">Options</th>
+
+                  <th class="text-center">Date </th>
+
+                  <th class="text-center"> Contra No.</th>
+
+                  <th class="text-center"> Particular.</th>
+
+                  <th class="text-center"> Total Amount</th>
+
+                  <th class="text-center"> Cheque Number</th>
+
+                </tr>
+
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of incomingData">
+                  <td>
+                    <a class="success p-0" data-original-title="" title="" (click)="open(content, list._id)">
+                      <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                    </a>
+                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list._id)">
+                      <i class="ft-x font-medium-3 mr-2"></i>
+                    </a>
+                  </td>
+                  <td> {{list.date | date}}</td>
+                  <td> {{list.contraNumber}}</td>
+                  <td>
+                    <tr *ngFor="let parti of list.particularsData">
+                      <td>{{parti.particulars}}</td>
+
+                    </tr>
+
+                  </td>
+                  <td>
+                    <tr *ngFor="let parti of list.particularsData">
+
+                      <td>{{parti.amount}}</td>
+                    </tr>
+                  </td>
+                  <td [hidden]="!ColPaymentType"> {{list.paymentType}}</td>
+                  <td [hidden]="!ColPaymentThrough"> {{list.paymentThrough}}</td>
+                  <td [hidden]="!ColChequeNO"> {{list.chequeNumber}}</td>
+                  <td [hidden]="!ColAgainst"> {{list.against}}</td>
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
         </div>
       </div>
     </div>
-  </section>
-  <!-- Wizard Ends -->
-  
-  
+  </div>
+</section>
+<!-- Wizard Ends -->

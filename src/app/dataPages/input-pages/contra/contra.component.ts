@@ -48,6 +48,7 @@ export class ContraComponent implements OnInit {
       attachment: [''],
       narration: [''],
       particularsData: this.fb.array([]),
+      endtotal: [''],
     });
     this.addParticular();
   }
@@ -117,6 +118,7 @@ export class ContraComponent implements OnInit {
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
+
   onFileChange(event) {
     this.attachmentError = false;
     console.log(event.target.files[0].size);
@@ -135,8 +137,10 @@ export class ContraComponent implements OnInit {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
         console.log(user);
+        user.endtotal = this.totalAmount;
         this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
     //   }
     // });
   }
+
 }

@@ -35,8 +35,6 @@ export class PaymentComponent implements OnInit {
   public dataCopy: any;
   public paramId: string;
 
-  dropdownList = [];
-  selectedItems = [];
   chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   chooseItemBox = [];
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
@@ -52,17 +50,6 @@ export class PaymentComponent implements OnInit {
     this.onAccSelect('All');
   }
 
-  open(content, editId) {
-    this.editContentId = editId;
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
 
   // This function is used in open
   private getDismissReason(reason: any): string {
@@ -84,7 +71,8 @@ export class PaymentComponent implements OnInit {
 
   onAdd(item: any): void {
     // console.log(item)
-    console.log(item === this.VColPaymentType);
+    // console.log(item === this.VColPaymentType);
+    // console.log(this.VColAgainst);
     switch (item) {
       case this.VColPaymentType:
         this.ColPaymentType = true;
@@ -145,6 +133,19 @@ export class PaymentComponent implements OnInit {
     this.ColChequeNO = false;
     this.ColAgainst = false;
     this.chooseItemBox = [];
+  }
+
+
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // real date picker active from here

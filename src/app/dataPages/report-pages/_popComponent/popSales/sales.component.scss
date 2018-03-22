@@ -1,0 +1,8 @@
+.centered-content {
+    margin: auto;
+    text-align: center;
+  }
+
+::ng-deep .modal-content {
+  width: 150%;
+}

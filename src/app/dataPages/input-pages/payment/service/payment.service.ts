@@ -24,9 +24,9 @@ export class PaymentService {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
-  setParamId(value) {
-    this._globalVariableService.paramId = value;
-  }
+  // setParamId(value) {
+  //   this._globalVariableService.paramId = value;
+  // }
 
   getData(compName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&&companyName=${compName}`;
