@@ -30,12 +30,12 @@ export class SalesReturnComponent implements OnInit {
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
   public transportationModeArray = ['road', 'train', 'air', 'water'];
   public salesType = [
-    'intraState',
-    'interState',
-    'outsideCountry',
-    'deemedExports',
-    'withinState',
-    'outsideState',
+    'intrastate',
+    'interstate',
+    'outsidecountry',
+    'deemedexports',
+    'withinstate',
+    'outsidestate',
     'others',
   ];
   public value: any = {};

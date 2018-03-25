@@ -153,7 +153,7 @@
                                         <h6>Name of product service
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <ng-select [items]="prsrList"  (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
+                                        <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
                                           placeholder="No city selected">
                                         </ng-select>
                                       </div>
@@ -248,10 +248,10 @@
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
                                         <select class="form-control" id="business" name="business" formControlName="additionalService" placeholder="Additional">
-                                          <option value=" road " selected> Discount</option>
-                                          <option value="train "> Freight </option>
-                                          <option value="air "> Shipping Charge</option>
-                                          <option value="water "> BY WATER</option>
+                                          <option value="road" selected> Discount</option>
+                                          <option value="train"> Freight </option>
+                                          <option value="air"> Shipping Charge</option>
+                                          <option value="water"> BY WATER</option>
                                         </select>
                                       </div>
                                       <div class="offset-md-1 col-md-2 ">
@@ -299,27 +299,6 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-secondary" previousStep>Back</button>
-                        <button type="button" class="btn btn-secondary" resetWizard>Reset</button>
-                        <button type="submit" class="btn btn-secondary">submit</button>
-                      </div>
-                    </div>
-
-                    <div class="row ">
-                      <div class="form-inline ">
-                        <div class="form-group ">
-                          <label for="upload ">Attachment:</label>
-                          <div class="card-body">
-                            <div class="form-group">
-                              <div class="input-group">
-                                <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
-                              </div>
-                              <div *ngIf="attachmentError">errririiriri</div>
                             </div>
                           </div>
                         </div>
