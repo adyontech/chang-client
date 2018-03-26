@@ -48,18 +48,18 @@
                   <wizard-step stepTitle="Steptitle 1" navigationSymbol="1">
 
                     <div class="form-row">
-                      <div class="col-lg-5 offset-lg-1 form-group">
+                      <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Invoice Number</label>
                         <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="invoiceNumber">
                       </div>
-                      <div class="col-lg-5 form-group">
+                      <div class="col-lg-5 col-sm-5 form-group">
                         <label>Transportation Mode</label>
                         <ng-select [items]="transportationModeArray" placeholder="Select age" formControlName="transportationMode">
                         </ng-select>
                       </div>
                     </div>
                     <div class="form-row">
-                      <div class="col-lg-5 offset-lg-1 form-group">
+                      <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Date</label>
                         <div class="card-body">
                           <div class="form-group">
@@ -74,18 +74,18 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-lg-5 form-group">
+                      <div class="col-lg-5 col-sm-5 form-group">
                         <label>Vehicle Number</label>
                         <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="vehicleNumber">
                       </div>
                     </div>
                     <div class="form-row">
-                      <div class="col-lg-5 offset-lg-1 form-group">
+                      <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
                         <label>Party Name</label>
                         <ng-select [items]="ledgerList" formControlName="partyName" placeholder="No party selected">
                         </ng-select>
                       </div>
-                      <div class="col-lg-5 form-group">
+                      <div class="col-lg-5 col-sm-5 form-group">
                         <label>Sales ledger</label>
                         <ng-select [items]="salesList" formControlName="salesLedgerName" placeholder="No party selected">
                         </ng-select>
@@ -93,12 +93,12 @@
 
                     </div>
                     <div class="form-row">
-                      <div class="col-lg-5 offset-lg-1 form-group">
+                      <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
                         <label>Place supplyPlace</label>
                         <ng-select [items]="items" formControlName="supplyPlace" placeholder="No city selected">
                         </ng-select>
                       </div>
-                      <div class="col-lg-5 form-group">
+                      <div class="col-lg-5 col-sm-5 form-group">
                         <label>Type of sales</label>
                         <ng-select [items]="salesType" formControlName="saleType" placeholder="No city selected">
                         </ng-select>
