@@ -1,329 +1,235 @@
 <div class="row" matchHeight="card" [hidden]="true">
-  <!--Modal with Default options starts-->
-  <div class="col-sm-12 col-md-6 col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Modal with Default options</h4>
-      </div>
-      <div class="card-body">
-        <div class="card-block">
-          <ng-template #content let-c="close" let-d="dismiss">
-            <div class="modal-header">
-              <h4 class="modal-title">Modal title</h4>
-              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <app-ledger></app-ledger>
-            </div>
-          </ng-template>
-
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
-
-          <hr>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Wizard Starts -->
-<div class="row">
-  <div class="col-sm-12">
-    <div class="content-header">Purchase Return Forms</div>
-  </div>
-</div>
-<section id="icon-tabs">
-  <div class="row">
-    <div class="col-12">
-      <div class="card text-center">
-        <div class="card-header">
-          <h4 class="card-title">{{paramId}}</h4>
-        </div>
+    <!--Modal with Default options starts-->
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="card">
         <div class="card-body">
           <div class="card-block">
-            <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
-
-
-              <wizard #wizard navBarLayout="large-empty-symbols">
-                <div class="centered-content" style="margin-top:6%; width: 85%;">
-                  <wizard-step stepTitle="Steptitle 1" navigationSymbol="1">
-
-                    <div class="mt-3">
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Invoice Number</label>
-                            <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="invoiceNumber">
-                          </div>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Transportation Mode</label>
-                            <!-- <ng-select [items]="transportationModeArray" placeholder="Select age" formControlName="transportationMode">
-                            </ng-select> -->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <label>Date</label>
-                          <div class="card-body">
-                            <div class="form-group">
-                              <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" name="de" ngbDatepicker #de="ngbDatepicker" formControlName="date">
-                                <div class="input-group-append">
-                                  <div class="input-group-text" (click)="de.toggle()">
-                                    <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Vehicle Number</label>
-                            <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="vehicleNumber">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Party Name</label>
-                            <ng-select [items]="ledgerList" formControlName="partyName" placeholder="No party selected">
-                            </ng-select>
-                          </div>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Purchase ledger</label>
-                            <!-- <ng-select [items]="salesList" formControlName="purchaseLedgerName" placeholder="No party selected">
-                            </ng-select> -->
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="row">
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Place supplyPlace</label>
-                            <ng-select [items]="items" formControlName="supplyPlace" placeholder="No city selected">
-                            </ng-select>
-                          </div>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                          <div class="form-group">
-                            <label>Type of purchase</label>
-                            <!-- <ng-select [items]="salesType" formControlName="purchaseType" placeholder="No city selected">
-                            </ng-select> -->
-                          </div>
-                        </div>
-
-                      </div>
-
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-secondary" nextStep>Continue</button>
-                      </div>
-                    </div>
-                  </wizard-step>
-                  <wizard-step stepTitle="Steptitle 2" navigationSymbol="2" class="mt-3">
-                    <div class="centered-content">
-                      <div>
-                        <div class="row">
-                          <div class="offset-md-1">
-                            <div class="row">
-                              <div class="col-lg-3 text-center">
-                                Name of product service
-                              </div>
-                              <div class="col-lg-1 text-center">
-                                Qty.
-                              </div>
-                              <div class="col-lg-1 text-center">
-                                Units.
-                              </div>
-                              <div class="col-lg-1 text-center">
-                                Rate.
-                              </div>
-                              <div class="col-lg-1 text-center">
-                                Sub. amt.
-                              </div>
-                              <div class="col-lg-1 text-center">
-                                GST Rate.
-                              </div>
-                              <div class="col-lg-2 text-center">
-                                Amount.
-                              </div>
-                            </div>
-
-                            <div formArrayName="particularsData">
-                              <div *ngFor="let formDum of formData.controls; let i=index">
-                                <!-- <span>{{i + 1}}</span> -->
-                                <div [formGroupName]="i">
-                                  <div class="block">
-                                    <div class="content ">
-                                      <div class="row">
-                                        <div class="col-lg-3 text-center">
-                                          <ng-select [items]="prsrList" (selected)="selectedprsr($event, i)" (removed)="removed($event)" placeholder="No city selected">
-                                          </ng-select>
-                                        </div>
-                                        <div class="col-lg-1 text-center">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" (input)="subSum();  totalSum() " formControlName="qty">
-                                          </div>
-                                        </div>
-
-                                        <div class="col-lg-1 text-center">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" formControlName="units">
-                                          </div>
-                                        </div>
-
-                                        <div class="col-lg-1 text-center">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" (input)="subSum(); totalSum() " formControlName="rate">
-                                          </div>
-                                        </div>
-
-                                        <div class="col-lg-1 text-center">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" (input)="subSum(); totalSum() " formControlName="subAmount" value=" {{(formDum.get('qty').value)*(formDum.get('rate').value) }}">
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-1 text-center">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" (input)="subSum(); totalSum() " formControlName="gstRate">
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-2 text-center">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Amount" (input)="subSum(); totalSum() " formControlName="amount" value=" {{((formDum.get('qty').value)*(formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*formDum.get('gstRate').value) }}">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-1">
-                                          <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class=" col-md-2">
-                                <button type="button" href="javascript:void(0)" class="btn btn-raised btn-info" (click)="addParticular()" style="cursor: default">
-                                  Add another field +
-                                </button>
-                              </div>
-                              <div class="offset-md-6 col-md-3">
-                                <p class="p1">Sub Total Rs. {{subTotal}}</p>
-                              </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                              <div class="offset-md-5 col-md-2">
-                                Additional
-                              </div>
-                              <div class="offset-md-1 col-md-2 ">
-                                Amount
-                              </div>
-                            </div>
-                            <br>
-                            <div formArrayName="subParticularsData">
-                              <div *ngFor="let formDum2 of formData2.controls; let i=index">
-
-                                <div [formGroupName]="i">
-
-                                  <div class="block">
-                                    <div class="content ">
-                                      <div class="row">
-                                        <div class="offset-md-5 col-md-2">
-                                          <select class="form-control" id="business" name="business" formControlName="additionalService" placeholder="Additional">
-                                            <option value=" road " selected> Discount</option>
-                                            <option value="train "> Freight </option>
-                                            <option value="air "> Shipping Charge</option>
-                                            <option value="water "> BY WATER</option>
-                                          </select>
-                                        </div>
-                                        <div class="offset-md-1 col-md-2 ">
-                                          <input type="text " class="form-control " name="company_name " (input)="totalSum()" placeholder="Company Name " formControlName="percent">
-                                        </div>
-                                        <div class="col-md-1">
-                                          <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeSubParticular(i)"></span>
-                                        </div>
-
-
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <br>
-                            </div>
-
-                            <div class="row ">
-                              <div class=" col-md-2 ">
-                                <button type="button" (click)="addSubParticular()" class="btn btn-raised btn-info" style="cursor: default ">
-                                  Add another field +
-                                </button>
-                              </div>
-
-                              <div class="offset-md-6 col-md-3">
-                                <p class="p1"> Total Rs. {{form.get('grandTotal').value}}</p>
-                              </div>
-                            </div>
-
-
-                            <div class="row ">
-                              <div class="col-md-12 ">
-                                <div class="form-group ">
-                                  <label>Narration</label>
-                                  <textarea rows="5 " formControlName="narration" class="form-control " placeholder="Here can be your description " value="Mike ">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row ">
-                              <div class="form-inline ">
-                                <div class="form-group ">
-                                  <label for="upload ">Attachment:</label>
-                                  <div class="card-body">
-                                    <div class="form-group">
-                                      <div class="input-group">
-                                        <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
-                                      </div>
-                                      <div *ngIf="attachmentError">errririiriri</div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                          </div>
-                          <div class="row" style="text-align: center; margin-top: 20px ">
-                            <button type="button" data-toggle="tab " href="#step1" class="btn btn-info btn-fill "> Back</button>
-                            <button type="button" data-toggle="tab " href="#step3" class="btn btn-info btn-fill ">Save and exit</button>
-                            <button type="button" class="btn btn-info btn-fill ">Save and close</button>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-secondary" previousStep>Back</button>
-                        <button type="button" class="btn btn-secondary" resetWizard>Reset</button>
-                        <button type="submit" class="btn btn-secondary" resetWizard>submit</button>
-                      </div>
-                    </div>
-                  </wizard-step>
-                </div>
-              </wizard>
-            </form>
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Modal title</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <app-ledger></app-ledger>
+              </div>
+            </ng-template>
+  
+            <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
+  
+            <hr>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+  <!-- Wizard Starts -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="content-header">Payment Return Forms</div>
+      <div>
+        <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+      </div>
+    </div>
+  </div>
+  <section id="icon-tabs">
+    <div class="row">
+      <div class="col-12">
+        <div class="card text-center">
+          <div class="card-header">
+            <h4 class="card-title">{{paramId}}</h4>
+          </div>
+          <div class="card-body">
+            <div class="card-block">
+              <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
+                <wizard #wizard navBarLayout="large-empty-symbols">
+                  <div class="centered-content" style="margin-top:6%; width: 100%;">
+                    <!-- Actual wizard starts -->
+                    <wizard-step stepTitle="Steptitle 1" navigationSymbol="1">
+                      <div class="form-row">
+                        <div class="col-md-4 offset-md-2 form-group">
+                          <label>Payment Number</label>
+                          <input type="text" class="form-control" formControlName="paymentNumber">
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label>Date</label>
+                          <div class="card-body">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="date">
+                              <div class="input-group-append">
+                                <div class="input-group-text" (click)="ds.toggle()">
+                                  <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-4 offset-md-2 form-group">
+                          <label>Account</label>
+                          <ng-select [items]="accountList" formControlName="account" placeholder="No particulars selected">
+                          </ng-select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label>Current balance</label>
+                          <p>123456</p>
+                        </div>
+                      </div>
+  
+                      <div class="btn-group mt-3">
+                        <button type="button" class="btn btn-secondary" nextStep>Continue</button>
+                      </div>
+                    </wizard-step>
+  
+                    <wizard-step stepTitle="Steptitle 2" navigationSymbol="2" class="mt-3">
+                      <div class="form-row">
+                        <div class="col-md-4 offset-md-2 form-group">
+                          <label>Payment type</label>
+                          <select class="form-control" formControlName="paymentType">
+                            <option value="general" selected>General</option>
+                            <option value="purchasePayment">Purchase payment</option>
+                            <option value="advancePayment">Advance payment</option>
+                            <option value="salesRefund">Sales refund</option>
+                            <option value="creditNote">Credit Note</option>
+                            <option value="others">others</option>
+                          </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label>Payment Through</label>
+                          <select class="form-control" formControlName="paymentThrough">
+                            <option value="cash" selected>Cash</option>
+                            <option value="cheque">Cheque</option>
+                            <option value="Etransfe">E transfe</option>
+                            <option value="others">others</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-4 offset-md-2 form-group" *ngIf="form.get('paymentThrough').value === 'cheque'">
+                          <label>Cheque no.</label>
+                          <input type="text" class="form-control" formControlName="chequeNumber">
+                        </div>
+                        <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value !== 'cheque' ? 'offset-md-2' : ''">
+                          <label>Drawn on</label>
+                          <div class="card-body">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="ds2" ngbDatepicker #ds2="ngbDatepicker" formControlName="drawnOn">
+                              <div class="input-group-append">
+                                <div class="input-group-text" (click)="ds2.toggle()">
+                                  <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value === 'cheque' ? 'offset-md-2' : ''">
+                          <label>Against</label>
+                          <select class="form-control" formControlName="against">
+                            <option value="againstInvoice" selected>Against invoice</option>
+                            <option value="againstAccount ">Against account</option>
+                            <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasePayment'">Against advance</option>
+                            <option value="advancePayment">Advance receipt</option>
+                            <option value="others" *ngIf=" form.get('paymentThrough').value =='cash'"> others</option>
+                          </select>
+                        </div>
+                      </div>
+  
+                      <div class="btn-group mt-3">
+                        <button type="button" class="btn btn-secondary" previousStep>Back</button>
+                        <button type="button" class="btn btn-secondary" nextStep>Continue</button>
+                      </div>
+                    </wizard-step>
+  
+                    <wizard-step stepTitle="Steptitle 3" navigationSymbol="3">
+                      <div class="col-md-10 offset-md-1">
+                        <h5 class="form-group-header">
+                          Particulars and Amount
+                        </h5>
+                        <div formArrayName="particularsData">
+                          <div *ngFor="let address of formData.controls; let i=index" class="form-group">
+                            <!-- <span>{{i + 1}}</span> -->
+                            <div [formGroupName]="i">
+                              <div class="block">
+                                <div class="content ">
+                                  <div class="row">
+                                    <div class="col-md-1 mt-3">
+                                      <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                                    </div>
+                                    <div class="col-lg-4 col-xs-4">
+                                      <h6>Particulars</h6>
+                                      <!-- <input type="text" class="form-control" formControlName="particulars"> -->
+                                      <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
+                                      </ng-select>
+                                      <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
+                                        class="text-danger">
+                                        <span> Particulars is required</span>
+                                      </small>
+                                    </div>
+                                    <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">
+                                      <h6>Amount</h6>
+                                      <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
+                                      <small [hidden]="form.controls.particularsData.controls[i].controls.amount.untouched || form.controls.particularsData.controls[i].controls.amount.valid"
+                                        class="text-danger">
+                                        Amount is required
+                                      </small>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="offset-md-0 col-md-3">
+                            <button type="button" href="javascript:void(0)" class="btn btn-raised btn-info" (click)="addParticular()" style="cursor: default">
+                              Add another field +
+                            </button>
+                          </div>
+                          <div class="offset-md-5 col-md-2">
+                            <p class="p1">Total Amount: Rs.{{totalAmount}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Narration</label>
+                              <textarea rows="5" class="form-control" placeholder="Here can be your description" formControlName="narration" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-inline">
+                            <div class="form-group">
+                              <label for="upload">Attachment:</label>
+                              <div class="card-body">
+                                <div class="form-group">
+                                  <div class="input-group">
+                                    <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+                                  </div>
+                                  <div *ngIf="attachmentError">Error in attachment</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="btn-group  mt-3">
+                        <button type="button" class="btn btn-secondary" previousStep>Back</button>
+                        <button type="button" class="btn btn-secondary" resetWizard>Reset</button>
+                        <button type="submit" class="btn btn-secondary">submit</button>
+                      </div>
+                    </wizard-step>
+                  </div>
+                </wizard>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Wizard Ends -->
+  
