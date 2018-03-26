@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 declare var $: any;
@@ -13,7 +13,8 @@ declare var $: any;
   styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
-  form: FormGroup;
+  closeResult: string;
+  public form: FormGroup;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;
@@ -46,7 +47,8 @@ export class SalesComponent implements OnInit {
     private route: ActivatedRoute,
     public _salesService: SalesService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -78,6 +80,28 @@ export class SalesComponent implements OnInit {
       // console.log(params.id);
       this.paramId = params.id;
     });
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   public selectedprsr(value: any, indexValue): void {
@@ -168,7 +192,7 @@ export class SalesComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        console.log(data.prsr)
+        console.log(data.prsr);
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }
@@ -246,6 +270,6 @@ export class SalesComponent implements OnInit {
         console.log(user);
         this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
       }
-    })
+    });
   }
 }

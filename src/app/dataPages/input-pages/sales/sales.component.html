@@ -2,12 +2,9 @@
   <!--Modal with Default options starts-->
   <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Modal with Default options</h4>
-      </div>
       <div class="card-body">
         <div class="card-block">
-          <ng-template #content let-c="close" let-d="dismiss">
+          <ng-template #ledger let-c="close" let-d="dismiss">
             <div class="modal-header">
               <h4 class="modal-title">Modal title</h4>
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -19,7 +16,7 @@
             </div>
           </ng-template>
 
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(ledger)">Launch demo modal</button>
 
           <hr>
         </div>
@@ -27,6 +24,33 @@
     </div>
   </div>
 </div>
+<!-- Modal for product service start -->
+<div class="row" matchHeight="card" [hidden]="true">
+    <!--Modal with Default options starts-->
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-block">
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Modal title</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <app-product-service></app-product-service>
+              </div>
+            </ng-template>
+  
+            <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
+  
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- Wizard Starts -->
 <div class="row">
   <div class="col-sm-12">
@@ -83,11 +107,17 @@
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
                         <label>Party Name</label>
                         <ng-select [items]="ledgerList" formControlName="partyName" placeholder="No party selected">
+                          <ng-template ng-header-tmp>
+                            <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
+                          </ng-template>
                         </ng-select>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Sales ledger</label>
                         <ng-select [items]="salesList" formControlName="salesLedgerName" placeholder="No party selected">
+                          <ng-template ng-header-tmp>
+                            <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
+                          </ng-template>
                         </ng-select>
                       </div>
 
@@ -132,6 +162,9 @@
                                         </h6>
                                         <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
                                           placeholder="No city selected">
+                                          <ng-template ng-header-tmp>
+                                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(content)">+ PrSr</button>
+                                            </ng-template>
                                         </ng-select>
                                       </div>
                                       <div class="col-lg-2 col-sm-5 offset-md-1 offset-lg-0 text-center">
