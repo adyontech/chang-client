@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
+import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SalesReturnService } from './service/salesReturn.service';
 declare var $: any;
 
@@ -13,7 +14,6 @@ declare var $: any;
 })
 export class SalesReturnComponent implements OnInit {
   form: FormGroup;
-  selectedIndex = 1;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;

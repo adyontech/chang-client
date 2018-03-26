@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-
 declare var $: any;
 
 @Component({
@@ -15,7 +14,6 @@ declare var $: any;
 })
 export class SalesComponent implements OnInit {
   form: FormGroup;
-  selectedIndex = 1;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;
@@ -83,7 +81,6 @@ export class SalesComponent implements OnInit {
   }
 
   public selectedprsr(value: any, indexValue): void {
-    console.log(value)
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
       if (element.prsrName === value) {
