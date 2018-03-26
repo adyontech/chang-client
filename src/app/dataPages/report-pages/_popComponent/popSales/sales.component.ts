@@ -35,12 +35,12 @@ export class PopSalesComponent implements OnInit {
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
   public transportationModeArray = ['road', 'train', 'air', 'water'];
   public salesType = [
-    'intraState',
-    'interState',
-    'outsideCountry',
-    'deemedExports',
-    'withinState',
-    'outsideState',
+    'intrastate',
+    'interstate',
+    'outsidecountry',
+    'deemedexports',
+    'withinstate',
+    'outsidestate',
     'others',
   ];
   public value: any = {};
@@ -196,8 +196,8 @@ export class PopSalesComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
+        console.log(this.prsrList);
       });
   }
 
@@ -262,7 +262,7 @@ export class PopSalesComponent implements OnInit {
 
   fillForm(data) {
     data = data[0];
-    console.log(data);
+    // console.log(data);
     data.date = new Date(data.date);
     this.form.controls['date'].setValue({
       year: data.date.getFullYear(),
@@ -283,6 +283,7 @@ export class PopSalesComponent implements OnInit {
     const oldArray = data.particularsData;
     oldArray.forEach((element, index) => {
       const array = particularsData.at(index);
+      console.log(element.nameOfProduct);
       if (!array) {
         particularsData.push(
           this.fb.group({
@@ -297,7 +298,12 @@ export class PopSalesComponent implements OnInit {
         );
       } else {
         array.patchValue({
-          particulars: element.particulars,
+          nameOfProduct: element.nameOfProduct,
+          qty: element.qty,
+          units: element.units,
+          rate: element.rate,
+          subAmount: element.subAmount,
+          gstRate: element.gstRate,
           amount: element.amount,
         });
       }
