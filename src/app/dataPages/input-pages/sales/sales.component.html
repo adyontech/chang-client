@@ -250,11 +250,11 @@
                                     <div class="row">
 
                                       <div class="col-md-1">
-                                        <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeSubParticular(i)"></span>
+                                        <span class="fa fa-times pull-right" *ngIf="form.controls.subParticularsData.controls.length > 1" (click)="removeSubParticular(i)"></span>
                                       </div>
                                       <div class="offset-md-3 col-md-4">
                                         <h6> Additional.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
+                                          <span *ngIf="form.controls.subParticularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
                                         <select class="form-control" id="business" name="business" formControlName="additionalService" placeholder="Additional">
                                           <option value="road" selected> Discount</option>
@@ -265,7 +265,7 @@
                                       </div>
                                       <div class=" col-md-3 ">
                                         <h6> Amount.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
+                                          <span *ngIf="form.controls.subParticularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
                                         <input type="text " class="form-control " name="company_name " (input)="totalSum()" placeholder="Company Name " formControlName="percent">
                                       </div>

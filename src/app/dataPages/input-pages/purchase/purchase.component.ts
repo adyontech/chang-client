@@ -1,9 +1,10 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './service/purchase.service';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 declare var $: any;
 @Component({
   selector: 'app-purchase',
@@ -11,8 +12,8 @@ declare var $: any;
   styleUrls: ['./purchase.component.scss'],
 })
 export class PurchaseComponent implements OnInit {
-  form: FormGroup;
-  selectedIndex = 1;
+  closeResult: string;
+  public form: FormGroup;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;
@@ -28,7 +29,16 @@ export class PurchaseComponent implements OnInit {
   public prsrList: Array<string> = [];
 
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
-
+  public transportationModeArray = ['road', 'train', 'air', 'water'];
+  public purchaseTypeArray = [
+    'intrastate',
+    'interstate',
+    'outsidecountry',
+    'deemedexports',
+    'withinstate',
+    'outsidestate',
+    'others',
+  ];
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;
@@ -37,7 +47,8 @@ export class PurchaseComponent implements OnInit {
     private route: ActivatedRoute,
     public _purchaseService: PurchaseService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -69,6 +80,29 @@ export class PurchaseComponent implements OnInit {
     this.disabled = this._disabledV === '1';
   }
 
+
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
@@ -91,9 +125,6 @@ export class PurchaseComponent implements OnInit {
     });
   }
 
-  public refreshValue(value: any): void {
-    this.value = value;
-  }
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
