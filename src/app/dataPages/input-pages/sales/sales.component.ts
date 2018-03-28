@@ -20,6 +20,7 @@ export class SalesComponent implements OnInit {
   public dataCopy2: any;
   private prsrData: any;
   public paramId: string;
+  public ownerId: string;
   public subTotal: number;
   public totalAmount: number;
   public attachmentError: Boolean = false;
@@ -79,6 +80,7 @@ export class SalesComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+      this.ownerId = params.owner;
     });
   }
 
@@ -168,7 +170,7 @@ export class SalesComponent implements OnInit {
 
   getLedgerUGNames() {
     this.dataCopy = this._salesService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data);
@@ -178,7 +180,7 @@ export class SalesComponent implements OnInit {
 
   getSalesUGNames() {
     this.dataCopy1 = this._salesService
-      .getSalesUGNames(this.paramId)
+      .getSalesUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data)
@@ -188,7 +190,7 @@ export class SalesComponent implements OnInit {
 
   getPrsrList() {
     this.dataCopy2 = this._salesService
-      .getprsrList(this.paramId)
+      .getprsrList(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
@@ -268,7 +270,7 @@ export class SalesComponent implements OnInit {
           }
         });
         console.log(user);
-        this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
+        this._salesService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});
       }
     });
   }

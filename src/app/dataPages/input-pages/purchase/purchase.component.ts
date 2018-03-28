@@ -19,6 +19,7 @@ export class PurchaseComponent implements OnInit {
   public dataCopy2: any;
   private prsrData: any;
   public paramId: string;
+  public ownerId: string;
   public subTotal: number;
   public totalAmount: number;
   public selectedString: String;
@@ -107,6 +108,7 @@ export class PurchaseComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+      this.ownerId = params.owner;
     });
   }
   public selectedprsr(value: any, indexValue): void {
@@ -200,14 +202,14 @@ export class PurchaseComponent implements OnInit {
           }
         });
         console.log(user);
-        this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
+        this._purchaseService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});
       }
     });
   }
 
   getLedgerUGNames() {
     this.dataCopy = this._purchaseService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data);
@@ -217,7 +219,7 @@ export class PurchaseComponent implements OnInit {
 
   getPurchaseUGNames() {
     this.dataCopy1 = this._purchaseService
-      .getPurchaseUGNames(this.paramId)
+      .getPurchaseUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data)
@@ -227,11 +229,11 @@ export class PurchaseComponent implements OnInit {
 
   getPrsrList() {
     this.dataCopy2 = this._purchaseService
-      .getprsrList(this.paramId)
+      .getprsrList(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
+        console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }
