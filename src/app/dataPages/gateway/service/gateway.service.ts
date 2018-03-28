@@ -42,7 +42,7 @@ export class GatewayService {
     this._url = `${this._globalVariableService.baseServerUrl}/api/gateway?token=${this.token}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result);
+      return this.result;
     });
   }
 

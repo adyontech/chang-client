@@ -19,6 +19,7 @@ export class LedgerComponent implements OnInit {
   selectedIndex = 1;
   dataCopy: any;
   paramId: string;
+  ownerId: string;
   closeResult: string;
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
@@ -82,20 +83,24 @@ export class LedgerComponent implements OnInit {
       total: [{ value: '', disabled: true }],
     });
   }
+
   updateTotal() {
     const qty = this.form.get('qty').value || 0,
       rate = this.form.get('rate').value || 0;
     this.form.controls['total'].setValue(qty * rate);
   }
+
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
+      console.log(params);
       this.paramId = params.id;
+      this.ownerId = params.owner;
     });
   }
+
   getUnderGroupList() {
     this.dataCopy = this._ledgerService
-      .getUnderGroupList(this.paramId)
+      .getUnderGroupList(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         data = data.ugData.map(item => item.groupName);
@@ -127,7 +132,7 @@ export class LedgerComponent implements OnInit {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
         const user = this.form.getRawValue();
-        this._ledgerService.createNewLedger(user, this.paramId).subscribe(data => {
+        this._ledgerService.createNewLedger(user, this.paramId, this.ownerId).subscribe(data => {
           // console.log('hello gateway service')
         });
     //   } else {

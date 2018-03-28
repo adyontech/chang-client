@@ -76,11 +76,11 @@ export class AddCompanyComponent implements OnInit {
     user.startDate = new Date(user.startDate.year, user.startDate.month, user.startDate.day);
     user.endDate = new Date(user.endDate.year, user.endDate.month, user.endDate.day);
 
-    this._gatewayService.createNewCompany(user).subscribe(data => {
-      // if (data.success) {
-      //   this.router.navigate(['/app/login']);
-      // }
-      // data = data.json();
+    this._gatewayService.createNewCompany(user).subscribe((data: IData) => {
+      if (data.success) {
+        this.router.navigate(['/app/login']);
+      }
+      console.log(data);
     });
   }
 
@@ -113,3 +113,4 @@ interface IData {
   success: boolean;
   message: string;
 }
+
