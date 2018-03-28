@@ -197,7 +197,7 @@ export class PopSalesComponent implements OnInit {
       .subscribe(data => {
         this.prsrData = data;
         this.prsrList = data.prsr.map(item => item.prsrName);
-        console.log(this.prsrList);
+        // console.log(this.prsrList);
       });
   }
 
