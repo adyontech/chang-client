@@ -15,12 +15,12 @@ declare var $: any;
   styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
-  form: FormGroup;
-  selectedIndex = 1;
-  dataCopy: any;
-  paramId: string;
-  ownerId: string;
-  closeResult: string;
+  public form: FormGroup;
+  public selectedIndex = 1;
+  public dataCopy: any;
+  public paramId: string;
+  public ownerId: string;
+  public closeResult: string;
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
     'cash at bank(dr)',
@@ -57,7 +57,7 @@ export class LedgerComponent implements OnInit {
     public _ledgerService: LedgerService,
     public fb: FormBuilder,
     private modalService: NgbModal
-  ) { }
+  ) {}
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
     // $.getScript('./assets/js/wizard-steps.js');
@@ -94,7 +94,6 @@ export class LedgerComponent implements OnInit {
     this.route.params.subscribe(params => {
       console.log(params);
       this.paramId = params.id;
-      this.ownerId = params.owner;
     });
   }
 
@@ -131,10 +130,10 @@ export class LedgerComponent implements OnInit {
   onSubmit() {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
-        const user = this.form.getRawValue();
-        this._ledgerService.createNewLedger(user, this.paramId, this.ownerId).subscribe(data => {
-          // console.log('hello gateway service')
-        });
+    const user = this.form.getRawValue();
+    this._ledgerService.createNewLedger(user, this.paramId, this.ownerId).subscribe(data => {
+      // console.log('hello gateway service')
+    });
     //   } else {
     //     return;
     //   }

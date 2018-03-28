@@ -38,12 +38,12 @@ export class LedgerService {
       // console.log(key , user[key])
       form.append(key, user[key]);
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledger?token=${this.token}&companyName=${
-      companyName
-    }&&ownerName=${ownerName}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/ledger?token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result)
+      console.log(this.result);
     });
   }
 }
