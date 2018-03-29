@@ -76,6 +76,7 @@ export class SalesComponent implements OnInit {
   }
 
   onRemove(item: any) {
+    console.log(item)
     switch (item.label) {
       case this.VColTransportationMode:
         this.ColTransportationMode = false;
@@ -139,4 +140,13 @@ export class SalesComponent implements OnInit {
       });
   }
 
+  deleteEntry(id) {
+    console.log(id);
+    this._salesService
+      .deleteEntry(id, this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 }
