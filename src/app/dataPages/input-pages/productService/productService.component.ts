@@ -15,6 +15,7 @@ export class ProductServiceComponent implements OnInit {
   form: FormGroup;
   dataCopy: any;
   paramId: string;
+  ownerId: string;
 
   public items: Array<string> = [
     'BAG-BAGS ',
@@ -90,6 +91,7 @@ export class ProductServiceComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+      this.ownerId = params.owner;
     });
   }
 
@@ -100,7 +102,7 @@ export class ProductServiceComponent implements OnInit {
       user.val = user.qty * user.rate;
     }
     console.log(user);
-    this._productServiceService.createNewPrsr(user, this.paramId).subscribe(data => {});
+    this._productServiceService.createNewPrsr(user, this.paramId, this.ownerId).subscribe(data => {});
     //   }
     // });
   }

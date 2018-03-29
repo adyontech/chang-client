@@ -26,14 +26,14 @@ export class PaymentService {
     // console.log(this.paramCompanyName)
   }
 
-  getIncomingData(selectionValue, companyName) {
+  getIncomingData(selectionValue, companyName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/paymentStored?token=${
       this.token
     }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
     return this.http.get(this._url);
   }
 
-  getAllIncomingData(companyName) {
+  getAllIncomingData(companyName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/allPaymentStored?token=${
       this.token
     }&&companyName=${companyName}`;
@@ -41,10 +41,10 @@ export class PaymentService {
     // return 0;
   }
 
-  deleteEntry(id, companyName) {
+  deleteEntry(id, companyName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/deletePaymentEntry?token=${
       this.token
-    }&&companyName=${companyName}&&deleteId=${id}`;
+    }&&companyName=${companyName}&&deleteId=${id}&&ownerName=${ownerName}`;
     return this.http.delete(this._url);
     // return 0;
   }

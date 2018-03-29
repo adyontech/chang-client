@@ -34,6 +34,7 @@ export class PaymentComponent implements OnInit {
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
+  public ownerId: string;
 
   chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   chooseItemBox = [];
@@ -66,6 +67,7 @@ export class PaymentComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+      this.ownerId = params.owner;
     });
   }
 
@@ -151,7 +153,7 @@ export class PaymentComponent implements OnInit {
   // real date picker active from here
   getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._paymentService
-      .getIncomingData(selectionValue, compaName)
+      .getIncomingData(selectionValue, compaName, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
@@ -162,7 +164,7 @@ export class PaymentComponent implements OnInit {
 
   getAllIncomingData(compName) {
     this.dataCopy = this._paymentService
-      .getAllIncomingData(compName)
+      .getAllIncomingData(compName, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
@@ -175,7 +177,7 @@ export class PaymentComponent implements OnInit {
   deleteEntry(id) {
     console.log(id);
     this._paymentService
-      .deleteEntry(id, this.paramId)
+      .deleteEntry(id, this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);

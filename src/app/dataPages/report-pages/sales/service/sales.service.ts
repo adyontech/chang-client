@@ -26,10 +26,18 @@ export class SalesService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData(companyName) {
+  getIncomingData(companyName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/salesStored?token=${
       this.token
-    }&&companyName=${companyName}`;
+    }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
+  }
+
+  deleteEntry(id, companyName, ownerName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteSalesEntry?token=${
+      this.token
+    }&&companyName=${companyName}&&deleteId=${id}&&ownerName=${ownerName}`;
+    return this.http.delete(this._url);
+    // return 0;
   }
 }

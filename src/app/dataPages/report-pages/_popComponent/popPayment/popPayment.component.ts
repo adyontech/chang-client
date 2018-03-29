@@ -96,6 +96,7 @@ export class PopPaymentComponent implements OnInit {
     const oldArray = data.particularsData;
     oldArray.forEach((element, index) => {
       const array = particularsData.at(index);
+      console.log(element.particulars)
       if (!array) {
         particularsData.push(
           this.fb.group({

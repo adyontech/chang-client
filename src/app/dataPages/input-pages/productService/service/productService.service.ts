@@ -25,17 +25,17 @@ export class ProductServiceService {
     this.token = this.windowStorage.token;
   }
 
-  getprsrList(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${this.token}&&companyName=${
-      compName
-    }`;
+  getprsrList(compName, ownerName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
-  createNewPrsr(user: any, compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${this.token}&companyName=${
-      compName
-    }`;
+  createNewPrsr(user: any, compName, ownerName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)

@@ -24,6 +24,7 @@ export class PopSalesComponent implements OnInit {
   public dataCopy2: any;
   private prsrData: any;
   public paramId: string;
+  public ownerId: string;
   public subTotal: number;
   public totalAmount: number;
   public attachmentError: Boolean = false;
@@ -83,6 +84,7 @@ export class PopSalesComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+      this.ownerId = params.owner;
     });
   }
 
@@ -108,7 +110,7 @@ export class PopSalesComponent implements OnInit {
       this.popContnetId = this.editContentId;
       if (this.popContnetId !== '') {
         this._salesService
-          .getSalesFormData(this.paramId, this.popContnetId)
+          .getSalesFormData(this.paramId, this.popContnetId, this.ownerId)
           .map(response => response.json())
           .subscribe(data => {
             this.fillForm(data.salesData);
@@ -172,7 +174,7 @@ export class PopSalesComponent implements OnInit {
 
   getLedgerUGNames() {
     this.dataCopy = this._salesService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data);
@@ -182,7 +184,7 @@ export class PopSalesComponent implements OnInit {
 
   getSalesUGNames() {
     this.dataCopy1 = this._salesService
-      .getSalesUGNames(this.paramId)
+      .getSalesUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data)
@@ -192,12 +194,12 @@ export class PopSalesComponent implements OnInit {
 
   getPrsrList() {
     this.dataCopy2 = this._salesService
-      .getprsrList(this.paramId)
+      .getprsrList(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
         this.prsrList = data.prsr.map(item => item.prsrName);
-        console.log(this.prsrList);
+        // console.log(this.prsrList);
       });
   }
 
@@ -326,9 +328,9 @@ export class PopSalesComponent implements OnInit {
     console.log(user);
     if (action === false) {
       console.log('edit');
-      this._salesService.editEntry(user, this.paramId, this.editContentId).subscribe(data => {});
+      this._salesService.editEntry(user, this.paramId, this.editContentId, this.ownerId).subscribe(data => {});
     } else {
-      this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
+      this._salesService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});
     }
     //   }
     // })

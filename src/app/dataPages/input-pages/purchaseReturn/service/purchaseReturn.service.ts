@@ -27,8 +27,12 @@ export class PurchaseReturnService {
   createNewEntry(user: any, compName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key , user[key])
-      form.append(key, user[key]);
+      // console.log(key, user['date']);
+      if (user[key] instanceof Array || user[key] instanceof Object) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/purchaseReturn?token=${
       this.token

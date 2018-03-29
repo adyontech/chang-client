@@ -23,10 +23,9 @@ export class PopSalesService {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
-  createNewEntry(user: any, compName) {
+  createNewEntry(user: any, compName, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key , user[key])
       // console.log(key, user['date']);
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
@@ -34,14 +33,16 @@ export class PopSalesService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/sales?token=${this.token}&companyName=${compName}`;
-    return this.http.post(this._url, user).map((res: Response) => {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/sales?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
     });
   }
 
-  editEntry(user: any, compName, docId) {
+  editEntry(user: any, compName, docId, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       // console.log(key, user['date']);
@@ -53,38 +54,38 @@ export class PopSalesService {
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/salesEdit?token=${
       this.token
-    }&&companyName=${compName}&&docId=${docId}`;
+    }&&companyName=${compName}&&docId=${docId}&&ownerName=${ownerName}`;
     return this.http.patch(this._url, form).map((res: Response) => {
       this.result = res.json();
       console.log(this.result);
     });
   }
 
-  getSalesFormData(compName, id: string) {
+  getSalesFormData(compName, id: string, ownerName) {
     console.log(`compName: ${compName} and compId: ${id}`);
     this._url = `${this._globalVariableService.baseServerUrl}/api/salesFormData?token=${
       this.token
-    }&&compName=${compName}&&dataId=${id}`;
+    }&&compName=${compName}&&dataId=${id}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
-  getLedgerUGNames(compName) {
+  getLedgerUGNames(compName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
-  getSalesUGNames(compName) {
+  getSalesUGNames(compName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/salesLedgerList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
-  getprsrList(compName) {
+  getprsrList(compName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/prsrList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 }

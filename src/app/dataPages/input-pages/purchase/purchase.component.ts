@@ -1,9 +1,10 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './service/purchase.service';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 declare var $: any;
 @Component({
   selector: 'app-purchase',
@@ -11,13 +12,14 @@ declare var $: any;
   styleUrls: ['./purchase.component.scss'],
 })
 export class PurchaseComponent implements OnInit {
-  form: FormGroup;
-  selectedIndex = 1;
+  closeResult: string;
+  public form: FormGroup;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;
   private prsrData: any;
   public paramId: string;
+  public ownerId: string;
   public subTotal: number;
   public totalAmount: number;
   public selectedString: String;
@@ -28,7 +30,16 @@ export class PurchaseComponent implements OnInit {
   public prsrList: Array<string> = [];
 
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
-
+  public transportationModeArray = ['road', 'train', 'air', 'water'];
+  public purchaseTypeArray = [
+    'intrastate',
+    'interstate',
+    'outsidecountry',
+    'deemedexports',
+    'withinstate',
+    'outsidestate',
+    'others',
+  ];
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;
@@ -37,7 +48,8 @@ export class PurchaseComponent implements OnInit {
     private route: ActivatedRoute,
     public _purchaseService: PurchaseService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -69,10 +81,34 @@ export class PurchaseComponent implements OnInit {
     this.disabled = this._disabledV === '1';
   }
 
+
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
+      this.ownerId = params.owner;
     });
   }
   public selectedprsr(value: any, indexValue): void {
@@ -91,9 +127,6 @@ export class PurchaseComponent implements OnInit {
     });
   }
 
-  public refreshValue(value: any): void {
-    this.value = value;
-  }
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
@@ -169,14 +202,14 @@ export class PurchaseComponent implements OnInit {
           }
         });
         console.log(user);
-        this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
+        this._purchaseService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});
       }
     });
   }
 
   getLedgerUGNames() {
     this.dataCopy = this._purchaseService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data);
@@ -186,7 +219,7 @@ export class PurchaseComponent implements OnInit {
 
   getPurchaseUGNames() {
     this.dataCopy1 = this._purchaseService
-      .getPurchaseUGNames(this.paramId)
+      .getPurchaseUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data)
@@ -196,11 +229,11 @@ export class PurchaseComponent implements OnInit {
 
   getPrsrList() {
     this.dataCopy2 = this._purchaseService
-      .getprsrList(this.paramId)
+      .getprsrList(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
+        console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }

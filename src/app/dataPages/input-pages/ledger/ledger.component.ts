@@ -15,11 +15,12 @@ declare var $: any;
   styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
-  form: FormGroup;
-  selectedIndex = 1;
-  dataCopy: any;
-  paramId: string;
-  closeResult: string;
+  public form: FormGroup;
+  public selectedIndex = 1;
+  public dataCopy: any;
+  public paramId: string;
+  public ownerId: string;
+  public closeResult: string;
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
     'cash at bank(dr)',
@@ -56,7 +57,7 @@ export class LedgerComponent implements OnInit {
     public _ledgerService: LedgerService,
     public fb: FormBuilder,
     private modalService: NgbModal
-  ) { }
+  ) {}
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
     // $.getScript('./assets/js/wizard-steps.js');
@@ -82,20 +83,23 @@ export class LedgerComponent implements OnInit {
       total: [{ value: '', disabled: true }],
     });
   }
+
   updateTotal() {
     const qty = this.form.get('qty').value || 0,
       rate = this.form.get('rate').value || 0;
     this.form.controls['total'].setValue(qty * rate);
   }
+
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
+      console.log(params);
       this.paramId = params.id;
     });
   }
+
   getUnderGroupList() {
     this.dataCopy = this._ledgerService
-      .getUnderGroupList(this.paramId)
+      .getUnderGroupList(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         data = data.ugData.map(item => item.groupName);
@@ -126,10 +130,10 @@ export class LedgerComponent implements OnInit {
   onSubmit() {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
-        const user = this.form.getRawValue();
-        this._ledgerService.createNewLedger(user, this.paramId).subscribe(data => {
-          // console.log('hello gateway service')
-        });
+    const user = this.form.getRawValue();
+    this._ledgerService.createNewLedger(user, this.paramId, this.ownerId).subscribe(data => {
+      // console.log('hello gateway service')
+    });
     //   } else {
     //     return;
     //   }
