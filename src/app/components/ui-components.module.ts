@@ -15,11 +15,12 @@ import { TagInputModule } from 'ngx-chips';
 import { HttpModule } from '@angular/http';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
+import { ToastrComponent } from './toastr/toastr.component';
+
 import { ButtonsComponent } from './bootstrap/buttons/buttons.component';
 import { ListsComponent } from './bootstrap/lists/lists.component';
 import { AlertsComponent } from './bootstrap/alerts/alerts.component';
 import { SweetAlertsComponent } from './extra/sweet-alerts/sweet-alerts.component';
-import { ToastrComponent } from './extra/toastr/toastr.component';
 import { NouiSliderComponent } from './extra/nouislider/nouislider.component';
 import { BadgesComponent } from './bootstrap/badges/badges.component';
 import { DropdownsComponent } from './bootstrap/dropdowns/dropdowns.component';

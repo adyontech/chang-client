@@ -22,7 +22,7 @@ import { CustomOption } from './shared/toastr/custom-option';
 
 import { AuthService } from './shared/auth/auth.service';
 import { AuthGuard } from './shared/auth/auth-guard.service';
-
+import {ToastrService} from './utilities/toastr.service';
 import * as $ from 'jquery';
 
 
@@ -48,6 +48,7 @@ import * as $ from 'jquery';
     { provide: ToastOptions, useClass: CustomOption },
     AuthService,
     AuthGuard,
+    ToastrService
   ],
   bootstrap: [AppComponent],
 })
