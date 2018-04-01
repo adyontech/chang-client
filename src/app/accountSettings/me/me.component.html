@@ -45,9 +45,9 @@
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
                       <a>
-                        <i class="ft-map-pin font-small-3"></i> Birthplace:</a>
+                        <i class="ft-map-pin font-small-3"></i> Package updated on:</a>
                     </span>
-                    <span class="display-block overflow-hidden">New Jersey, USA</span>
+                    <span class="display-block overflow-hidden">{{updatedAt | date}}</span>
                   </li>
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
@@ -65,21 +65,21 @@
                       <a>
                         <i class="ft-user font-small-3"></i> Gender:</a>
                     </span>
-                    <span class="display-block overflow-hidden">Male</span>
+                    <span class="display-block overflow-hidden">{{gender}}</span>
                   </li>
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
                       <a>
                         <i class="ft-mail font-small-3"></i> Email:</a>
                     </span>
-                    <a class="display-block overflow-hidden">email</a>
+                    <a class="display-block overflow-hidden">{{email}}</a>
                   </li>
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
                       <a>
                         <i class="ft-monitor font-small-3"></i> Website:</a>
                     </span>
-                    <a class="display-block overflow-hidden">pixinvent.com</a>
+                    <a class="display-block overflow-hidden">{{website}}</a>
                   </li>
                 </ul>
               </div>
@@ -97,14 +97,14 @@
                       <a>
                         <i class="ft-briefcase font-small-3"></i> Occupation:</a>
                     </span>
-                    <span class="display-block overflow-hidden">Ninja Developer</span>
+                    <span class="display-block overflow-hidden">{{occupation}}</span>
                   </li>
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
                       <a>
                         <i class="ft-book font-small-3"></i> Joined:</a>
                     </span>
-                    <span class="display-block overflow-hidden">April 1st, 2012</span>
+                    <span class="display-block overflow-hidden">{{joinedOn | date}}</span>
                   </li>
                 </ul>
               </div>
