@@ -6,23 +6,23 @@ export class ToastrService {
   constructor(public toastr: ToastsManager) {}
 
   // Success Type
-  typeSuccess() {
-    this.toastr.success('You are awesome!', 'Success!');
+  typeSuccess(first, second) {
+    this.toastr.success(second , first);
   }
 
   // Success Type
-  typeInfo() {
-    this.toastr.info('We do have the Kapua suite available.', 'Turtle Bay Resort');
+  typeInfo(first, second) {
+    this.toastr.info(first, second);
   }
 
   // Success Type
-  typeWarning() {
-    this.toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
+  typeWarning(first) {
+    this.toastr.warning(first);
   }
 
   // Success Type
-  typeError() {
-    this.toastr.error('I do not think that word means what you think it means.', 'Inconceivable!');
+  typeError(first, second) {
+    this.toastr.error(first, second);
   }
 
   // Custom Type
