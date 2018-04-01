@@ -460,7 +460,7 @@ export class DashboardComponent implements OnInit {
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
-      this.paramId = params.id;
+      this.paramId = params.id.split('%20').join(' ');
       console.log(this.paramId);
       this._dashboardService.setParamId(this.paramId);
     });
