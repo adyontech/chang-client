@@ -23,6 +23,7 @@ import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
 import { EditProfileService } from './editProfile/service/editProfile.service';
 import { UpgradeService } from './upgrade/service/upgrade.service';
 import { ConfirmService } from './confirm/service/confirm.service';
+import { MeService } from './me/service/me.service';
 // import { States } from './../shared/forms/States';
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -56,6 +57,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PasswordChangeService,
     EditProfileService,
     UpgradeService,
+    MeService
   ],
 })
 export class AccountSettingsModule {}

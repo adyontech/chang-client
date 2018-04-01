@@ -1,3 +1,20 @@
+<section id="about" *ngIf="!profileUpdated">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-header text-center mt-3">
+          <h5>Please update your profile <a [routerLink]="['/settings/edit']"> here.</a></h5>
+        </div>
+        <div class="card-body">
+          <div class="card-block">
+            <div class="mb-3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <!--About section starts-->
 <section id="about">
   <div class="row">
@@ -10,11 +27,8 @@
           <div class="card-block">
             <div class="mb-3">
               <span class="text-bold-500 primary">About Me:</span>
-              <span class="display-block overflow-hidden">Hi, I’m Jose, I’m 29 and I work as a Ninja Developer for the “PIXINVENT” Creative Studio. In my research, I
-                follow the flow of early medieval slavery from viking raids in the west, through the booming ports of the
-                Scandinavian north, and out into the Islamic world. Reading texts against the grain and seeing artifacts
-                as traces of the past can make their lives once again visible to us today. This website documents my efforts
-                to do just that, and I hope it will prove a resource and an inspiration for others in similar pursuits.
+              <span class="display-block overflow-hidden">
+                {{bio}}
               </span>
             </div>
             <hr>
@@ -24,9 +38,9 @@
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
                       <a>
-                        <i class="icon-present font-small-3"></i> Birthday:</a>
+                        <i class="icon-present font-small-3"></i> User Name:</a>
                     </span>
-                    <span class="display-block overflow-hidden">June 10th, 1988</span>
+                    <span class="display-block overflow-hidden">{{userName}}</span>
                   </li>
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
@@ -58,7 +72,7 @@
                       <a>
                         <i class="ft-mail font-small-3"></i> Email:</a>
                     </span>
-                    <a class="display-block overflow-hidden">jose@yourmail.com</a>
+                    <a class="display-block overflow-hidden">email</a>
                   </li>
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
@@ -71,12 +85,12 @@
               </div>
               <div class="col-12 col-md-6 col-lg-4">
                 <ul class="no-list-style">
-                  <li class="mb-2">
+                  <li class="mb-2"> 
                     <span class="text-bold-500 primary">
                       <a>
                         <i class="ft-smartphone font-small-3"></i> Phone Number:</a>
                     </span>
-                    <span class="display-block overflow-hidden">(012) 345 - 678 - 9910</span>
+                    <span class="display-block overflow-hidden">{{phoneNo}}</span>
                   </li>
                   <li class="mb-2">
                     <span class="text-bold-500 primary">
@@ -103,13 +117,14 @@
 
       <div class="card">
 
-        <div class="card-header">
+        <div class="card-header text-center">
           <h5>Proworktree Packages</h5>
+          <h3>{{plan}}</h3>
         </div>
-        <div class="card-body">
-            <img style="margin-left:30px; height:250px; width:250px" src="./../../../assets/pwt/profile.PNG" alt="">
-            
-            <a href="javascript:void(0)" class="btn btn-raised shadow-z-2 btn-primary">Packages</a>
+        <div class="card-body text-center">
+          <img *ngIf="plan == 'gold'" style="margin-left:30px; height:250px; width:250px" src="./../../../assets/pwt/profile.PNG" alt="">
+
+          <a href="javascript:void(0)" class="mt-3 btn btn-raised shadow-z-2 btn-primary">Packages</a>
         </div>
       </div>
     </div>

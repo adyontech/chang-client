@@ -24,6 +24,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.fetchDetails();
     this.form = this.fb.group({
+      bio: [''],
       gravator: [''],
       name: [''],
       address: [''],
