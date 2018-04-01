@@ -8,6 +8,7 @@ import { AccountSettingRoutingModule } from './accountSettings-routing.module';
 import { ChartistModule } from 'ng-chartist';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { EditProfileComponent } from './editProfile/editProfile.component';
 import { MeProfileComponent } from './me/me.component';
@@ -40,6 +41,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AgmCoreModule,
     NgbModule,
     NgSelectModule,
+    UiSwitchModule
   ],
   declarations: [
     ConfirmComponent,

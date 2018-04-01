@@ -1,1 +1,65 @@
-<p>mailSubs</p>
+<section id="basic-form-layouts">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="px-3">
+            <form class="form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+              <div class="form-body">
+                <h4 class="form-section">
+                  <i class="icon-shield"></i> Email Settings.</h4>
+
+                <div class="form-actions">
+                  <div class="form-row">
+                    <div class="col-8 offset-1">
+                      <p>Weekly subscrition</p>
+                    </div>
+                    <div class="col-2">
+                      <ui-switch checked></ui-switch>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-8 offset-1">
+                      <p>Weekly subscrition</p>
+                    </div>
+                    <div class="col-2">
+                      <ui-switch checked></ui-switch>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-8 offset-1">
+                      <p>Weekly subscrition</p>
+                    </div>
+                    <div class="col-2">
+                      <ui-switch checked></ui-switch>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-8 offset-1">
+                      <p>Weekly subscrition</p>
+                    </div>
+                    <div class="col-2">
+                      <ui-switch checked></ui-switch>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-8 offset-1">
+                      <p>Weekly subscrition</p>
+                    </div>
+                    <div class="col-2">
+                      <ui-switch checked></ui-switch>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="mt-3 btn btn-raised btn-raised btn-primary pull-right">
+                    <i class="fa fa-check-square-o"></i> Update
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
