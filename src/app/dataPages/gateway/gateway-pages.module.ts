@@ -13,6 +13,7 @@ import { AddCompanyComponent } from './addCompany/addCompany.component';
 
 import { GatewayService } from './service/gateway.service';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
+import { ToastrService } from './../../utilities/toastr.service';
 
 @NgModule({
   imports: [
@@ -27,6 +28,6 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     NgbModule,
   ],
   declarations: [ShowCompanyComponent, AddCompanyComponent],
-  providers: [ GatewayService, GlobalVaribles],
+  providers: [GatewayService, GlobalVaribles, ToastrService],
 })
 export class GatewayPagesModule {}

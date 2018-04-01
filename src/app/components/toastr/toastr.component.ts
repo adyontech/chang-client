@@ -47,12 +47,12 @@ export class ToastrComponent {
         this.service.showCloseButton();
     }
 
-    //Dismiss toastr on Click
+    // Dismiss toastr on Click
     dismissToastOnClick() {
         this.service.dismissToastOnClick();
     }
 
-    //Dismiss toastr Controlled
+    // Dismiss toastr Controlled
     dismissToastControlled() {
         this.service.dismissToastControlled();
     }

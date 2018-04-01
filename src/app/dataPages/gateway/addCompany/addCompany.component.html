@@ -30,7 +30,7 @@
                       <label for="helpInputTop">Company Pan</label>
                       <input type="text" class="form-control" id="helpInputTop" placeholder="pan" formControlName="pan">
                       <small class="text-muted">eg.
-                        <i>someone@example.com</i>
+                        <i>XXXXX0000X</i>
                       </small>
                       <!-- <small class="form-text text-muted danger" *ngIf="!regularForm.get('password').valid && (regularForm.get('password').dirty || regularForm.get('password').touched)">Password characters length must be between 4 and 24 !</small> -->
 
@@ -135,7 +135,7 @@
 
                   <div class="col-xl-4 col-lg-6 col-md-12">
                     <fieldset class="form-group">
-                      <label for="basicSelect">Starting Date:</label>
+                      <label for="basicSelect">End Date:</label>
                       <div class="card-body">
                         <div class="form-group">
                           <div class="input-group">
@@ -150,37 +150,44 @@
                       </div>
                     </fieldset>
                   </div>
-                  <div class="row">
-                    <div class="col-xl-4 col-lg-6 col-md-12">
-                      <fieldset class="form-group">
-                        <label for="basicSelect">Logo:</label>
-                        <div class="card-body">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input type="file" id="avatar" (change)="onFileChange($event, 'logo')"  #fileInput>
-                            </div>
-                            <div *ngIf="logoError">errririiriri</div>
+                  <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                    <fieldset class="form-group">
+                      <small class="text-muted">
+                        <i>Please select file having size below 200kb.</i>
+                      </small>
+                    </fieldset>
+                  </div>
+                  <div class="col-xl-4 col-lg-6 col-md-12">
+                    <fieldset class="form-group">
+                      <label for="basicSelect">Logo:</label>
+                      <div class="card-body">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="file" id="avatar" (change)="onFileChange($event, 'logo')" #fileInput>
                           </div>
+                          <div *ngIf="logoError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
                         </div>
-                      </fieldset>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-12">
-                      <fieldset class="form-group">
-                        <label for="basicSelect">Signature:</label>
-                        <div class="card-body">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input type="file" id="avatar" (change)="onFileChange($event, 'signature')" #fileInput >
-                            </div>
-                            <div *ngIf="signatureError">errririiriri</div>
+                      </div>
+
+                    </fieldset>
+                  </div>
+                  <div class="col-xl-4 col-lg-6 col-md-12">
+                    <fieldset class="form-group">
+                      <label for="basicSelect">Signature:</label>
+                      <div class="card-body">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="file" id="avatar" (change)="onFileChange($event, 'signature')" #fileInput>
                           </div>
+                          <div *ngIf="signatureError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
                         </div>
-                      </fieldset>
-                    </div>
+                      </div>
+
+                    </fieldset>
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-info btn-fill pull-right">Getting started</button>
+              <button type="submit" class="btn btn-raised btn-primary pull-right" style="color: white">Get started</button>
               <div class="clearfix"></div>
             </form>
           </div>
