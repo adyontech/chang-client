@@ -32,18 +32,18 @@
                             <p class="d-none">User Settings</p>
                         </a>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic3">                           
-                            <a class="dropdown-item py-1" routerLink="/pages/profile">
+                            <a class="dropdown-item py-1" [routerLink]="['/settings/me']">
                                 <i class="ft-edit mr-2"></i>
                                 <span>My Profile</span>
                             </a>
-                            <a class="dropdown-item py-1" routerLink="/inbox">
+                            <a class="dropdown-item py-1" [routerLink]="['/settings/contributors']">
                                 <i class="ft-mail mr-2"></i>
-                                <span>My Inbox</span>
+                                <span>My Helpers</span>
                             </a>
-                            <a class="dropdown-item py-1" href="javascript:;">
+                            <!-- <a class="dropdown-item py-1" [routerLink]="['/settings/upgrade']">
                                 <i class="ft-settings mr-2"></i>
-                                <span>Settings</span>
-                            </a>
+                                <span></span>
+                            </a> -->
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="javascript:;">
                                 <i class="ft-power mr-2"></i>

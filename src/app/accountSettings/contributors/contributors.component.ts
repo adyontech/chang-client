@@ -5,6 +5,7 @@ import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angul
 import { Routes, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { any } from 'codelyzer/util/function';
+import { parse } from 'url';
 @Component({
   selector: 'app-contributors-profile',
   templateUrl: './contributors.component.html',
@@ -18,9 +19,9 @@ export class ContributorsComponent implements OnInit {
   userList = [];
   userInfo: any;
   collabAddWriteModel: any;
-  writeCollabIdLength: number;
+  writeCollabIdLength = 0;
   collabAddReadModel: any;
-  readCollabIdLength: number;
+  readCollabIdLength = 0;
   // existingHelper = [];
   writeCollabId: any;
   readCollabId: any;
@@ -52,21 +53,25 @@ export class ContributorsComponent implements OnInit {
   getCollabList() {
     this.dataCopy = this._contributorService.getCollabList().subscribe(data => {
       this.userInfo = data.json();
-      // console.log(this.userInfo);
+      console.log(this.userInfo);
       this.writeCollabId = this.userInfo.user.writeCollabId;
       this.readCollabId = this.userInfo.user.readCollabId;
-      this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
-      this.readCollabIdLength = this.userInfo.user.readCollabId.length;
+      if (this.writeCollabId !== undefined) {
+        this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
+      }
+      if (this.readCollabId !== undefined) {
+        this.readCollabIdLength = this.userInfo.user.readCollabId.length;
+      }
     });
   }
 
   collabAddWrite() {
-    if (this.collabAddWriteModel === undefined) {
+    if (this.collabAddWriteModel === undefined || this.collabAddWriteModel === null) {
       return;
     } else {
-      this._contributorService.collabAddWrite(this.collabAddWriteModel).subscribe(res => {
-        console.log(res.json());
-        res = res.json();
+      this._contributorService.collabAddWrite(this.collabAddWriteModel).subscribe((res: IData) => {
+        // console.log(JSON.parse(res._body).success);
+        console.log(res);
         this._contributorService.typeSuccess(res);
         this.getCollabList();
       });
@@ -74,7 +79,7 @@ export class ContributorsComponent implements OnInit {
   }
 
   collabAddRead() {
-    if (this.collabAddReadModel === undefined) {
+    if (this.collabAddReadModel === undefined || this.collabAddReadModel === null) {
       return;
     } else {
       this._contributorService.collabAddRead(this.collabAddReadModel).subscribe(res => {
@@ -83,18 +88,24 @@ export class ContributorsComponent implements OnInit {
       });
     }
   }
+
+  removeHelper(id, role) {
+    console.log(id, role);
+    if (role === 'write') {
+      this._contributorService.removeWriteHelper(id, role).subscribe(res => {
+        console.log(res.json());
+      });
+    } else {
+      this._contributorService.removeReadHelper(id, role).subscribe(res => {
+        console.log(res.json());
+      });
+    }
+  }
 }
 
-// interface IUser {
-//   success: string;
-//   message: string;
-// }
-// interface Res {
-//   username: string;
-//   email: string;
-// }
-
-// interface IData {
-//   success: boolean;
-//   user: IUser[];
-// }
+interface IData {
+  _body: string;
+  status: number;
+  success: boolean;
+  message: string;
+}

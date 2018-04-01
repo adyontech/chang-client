@@ -1,8 +1,8 @@
 import swal from 'sweetalert2';
 
 // Simple Alert
-export function basicAlert() {
-  swal("Here's a message!");
+export function basicAlert(message) {
+  swal(message);
 }
 
 // Alert with Title

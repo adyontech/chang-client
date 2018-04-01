@@ -286,13 +286,27 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
         },
       ],
     },
-
-
-
-
-
-
-
+    {
+      path: '',
+      title: 'Company Settings',
+      icon: 'ft-home',
+      class: 'has-sub',
+      badge: '2',
+      badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1',
+      isExternalLink: false,
+      submenu: [
+        {
+          path: `/${ownerId}/${companyId}/dashboard/settings`,
+          title: 'Collaborators',
+          icon: '',
+          class: '',
+          badge: '',
+          badgeClass: '',
+          isExternalLink: false,
+          submenu: [],
+        },
+      ],
+    },
 
     {
       path: '/colorpalettes',

@@ -86,7 +86,7 @@ export class AddCompanyComponent implements OnInit {
       this.allowClick = false;
       if (data.success) {
         this._toastrService.typeSuccess('success', 'Data successfully added');
-        this._toastrService.typeInfo('Info', 'Redirecting to Gateway page');
+        this._toastrService.typeInfo('Redirecting to Gateway page', 'Info');
         this.router.navigate(['/gateway']);
       } else {
         this._toastrService.typeError('Error', data.message);

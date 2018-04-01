@@ -12,7 +12,7 @@ export class SweetAlertsComponent  {
     
     // Simple Alert
     basicAlert(){
-      alertFunctions.basicAlert();
+      alertFunctions.basicAlert('lol');
     }
     // Alert with Title
     withTitle(){

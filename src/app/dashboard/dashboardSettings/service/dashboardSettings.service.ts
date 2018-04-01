@@ -25,7 +25,6 @@ export class DashboardSettingService {
     this.getUsers();
   }
 
-
   setParamId(value) {
     this._globalVariableService.paramId = value;
   }
@@ -36,20 +35,26 @@ export class DashboardSettingService {
   }
 
   getCollabList(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabList?token=${this.token}&&companyName=${compName}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabList?token=${
+      this.token
+    }&&companyName=${compName}`;
     return this.http.get(this._url);
   }
 
-  collabAddWrite(user, compName) {
-    console.log(user);
-    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${this.token}&&companyName=${compName}`;
-    console.log(this._url);
-    return this.http.patch(this._url, user);
-  }
+  // collabAddWrite(user, compName, owner) {
+  //   console.log(user);
+  //   this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${
+  //     this.token
+  //   }&&companyName=${compName}&&ownerName=${owner}`;
+  //   console.log(this._url);
+  //   return this.http.patch(this._url, user);
+  // }
 
-  collabAddRead(user, compName) {
+  collabAddRead(user, compName, owner) {
     console.log(user);
-    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddRead?token=${this.token}&&companyName=${compName}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddRead?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
     console.log(this._url);
     return this.http.patch(this._url, user);
   }

@@ -55,7 +55,8 @@ export class ContraComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id;
+      this.paramId = params.id.split('%20').join(' ');
+      console.log(this.paramId)
     });
   }
 

@@ -13,7 +13,7 @@ import { any } from 'codelyzer/util/function';
 })
 export class DashboardSettingsComponent implements OnInit {
   public paramId: string;
-
+  public ownerName: string;
 
   form: FormGroup;
   loading = false;
@@ -47,8 +47,8 @@ export class DashboardSettingsComponent implements OnInit {
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
-      this.paramId = params.id;
-      console.log(this.paramId);
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
       this._dashboardSettingService.setParamId(this.paramId);
     });
   }
@@ -73,23 +73,13 @@ export class DashboardSettingsComponent implements OnInit {
     });
   }
 
-  collabAddWrite() {
-    if (this.collabAddWriteModel === undefined) {
-      return;
-    } else {
-      this._dashboardSettingService.collabAddWrite(this.collabAddWriteModel, this.paramId).subscribe(res => {
-        console.log(res.json());
-        res = res.json();
-        this.getCollabList();
-      });
-    }
-  }
+  collabAddWrite() {}
 
   collabAddRead() {
-    if (this.collabAddReadModel === undefined) {
+    if (this.collabAddReadModel === undefined || this.collabAddReadModel === null) {
       return;
     } else {
-      this._dashboardSettingService.collabAddRead(this.collabAddReadModel, this.paramId).subscribe(res => {
+      this._dashboardSettingService.collabAddRead(this.collabAddReadModel, this.paramId, this.ownerName).subscribe(res => {
         console.log(res.json());
         this.getCollabList();
       });

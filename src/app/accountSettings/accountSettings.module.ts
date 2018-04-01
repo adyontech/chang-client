@@ -8,6 +8,7 @@ import { AccountSettingRoutingModule } from './accountSettings-routing.module';
 import { ChartistModule } from 'ng-chartist';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { EditProfileComponent } from './editProfile/editProfile.component';
 import { MeProfileComponent } from './me/me.component';
@@ -23,6 +24,7 @@ import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
 import { EditProfileService } from './editProfile/service/editProfile.service';
 import { UpgradeService } from './upgrade/service/upgrade.service';
 import { ConfirmService } from './confirm/service/confirm.service';
+import { MeService } from './me/service/me.service';
 // import { States } from './../shared/forms/States';
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -39,6 +41,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AgmCoreModule,
     NgbModule,
     NgSelectModule,
+    UiSwitchModule
   ],
   declarations: [
     ConfirmComponent,
@@ -56,6 +59,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PasswordChangeService,
     EditProfileService,
     UpgradeService,
+    MeService
   ],
 })
 export class AccountSettingsModule {}
