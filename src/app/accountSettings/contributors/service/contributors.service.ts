@@ -60,9 +60,15 @@ export class ContributorService {
     console.log(this._url);
     return this.http.patch(this._url, user);
   }
-  removeHelper(id, role) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddRead?token=${this.token}`;
+
+  removeReadHelper(id, role) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/removeReadHelper?token=${this.token}`;
     console.log(this._url);
-    return this.http.patch(this._url, {id: id, role: role});
+    return this.http.post(this._url, {id: id, role: role});
+  }
+  removeWriteHelper(id, role) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/removeWriteHelper?token=${this.token}`;
+    console.log(this._url);
+    return this.http.post(this._url, {id: id, role: role});
   }
 }

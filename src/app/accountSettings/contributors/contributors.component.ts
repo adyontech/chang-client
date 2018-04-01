@@ -91,9 +91,15 @@ export class ContributorsComponent implements OnInit {
 
   removeHelper(id, role) {
     console.log(id, role);
-    this._contributorService.removeHelper(id, role).subscribe(res => {
-      console.log(res.json());
-    });
+    if (role === 'write') {
+      this._contributorService.removeWriteHelper(id, role).subscribe(res => {
+        console.log(res.json());
+      });
+    } else {
+      this._contributorService.removeReadHelper(id, role).subscribe(res => {
+        console.log(res.json());
+      });
+    }
   }
 }
 

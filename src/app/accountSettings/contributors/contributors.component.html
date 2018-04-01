@@ -30,7 +30,7 @@
         <div class="col-12" *ngIf="writeCollabIdLength>0">
           <div class="clearfix">
             <h6>{{writeId}}
-              <i class="ml-3 ft-trash-2 danger" (click)="removeHelper(writeId, 'write')"></i>
+              <i class="ml-3 ft-trash-2 danger" style="cursor: pointer" (click)="removeHelper(writeId, 'write')"></i>
             </h6>
           </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="col-12"  *ngIf="readCollabIdLength>0">
           <div class="clearfix">
             <h6>{{readId}}
-              <i class="ml-3 ft-trash-2 danger" (click)="removeHelper(readId, 'write')"></i>
+              <i class="ml-3 ft-trash-2 danger" style="cursor: pointer" (click)="removeHelper(readId, 'read')"></i>
             </h6>
           </div>
         </div>
