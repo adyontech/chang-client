@@ -41,14 +41,14 @@ export class DashboardSettingService {
     return this.http.get(this._url);
   }
 
-  // collabAddWrite(user, compName, owner) {
-  //   console.log(user);
-  //   this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${
-  //     this.token
-  //   }&&companyName=${compName}&&ownerName=${owner}`;
-  //   console.log(this._url);
-  //   return this.http.patch(this._url, user);
-  // }
+  collabAddWrite(user, compName, owner) {
+    console.log(user);
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    console.log(this._url);
+    return this.http.patch(this._url, user);
+  }
 
   collabAddRead(user, compName, owner) {
     console.log(user);

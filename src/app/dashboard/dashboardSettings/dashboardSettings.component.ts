@@ -73,7 +73,16 @@ export class DashboardSettingsComponent implements OnInit {
     });
   }
 
-  collabAddWrite() {}
+  collabAddWrite() {
+    if (this.collabAddWriteModel === undefined || this.collabAddWriteModel === null) {
+      return;
+    } else {
+      this._dashboardSettingService.collabAddWrite(this.collabAddWriteModel, this.paramId, this.ownerName).subscribe(res => {
+        console.log(res.json());
+        this.getCollabList();
+      });
+    }
+  }
 
   collabAddRead() {
     if (this.collabAddReadModel === undefined || this.collabAddReadModel === null) {
