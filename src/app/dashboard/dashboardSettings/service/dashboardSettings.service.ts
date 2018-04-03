@@ -72,6 +72,6 @@ export class DashboardSettingService {
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     console.log(this._url);
-    return this.http.post(this._url, { id: id, role: role });
+    return this.http.post(this._url, { removeId: id });
   }
 }
