@@ -1,41 +1,30 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { DeleteCompanyService } from './service/deleteCompany.service';
 import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 import * as alertFunctions from './../../shared/data/sweet-alerts';
 import { Routes, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-dashboard-settings',
-  templateUrl: './dashboardSettings.component.html',
-  styleUrls: ['./dashboardSettings.component.scss'],
+  templateUrl: './deleteCompany.component.html',
+  styleUrls: ['./deleteCompany.component.scss'],
 })
-export class DashboardSettingsComponent implements OnInit {
+export class DeleteCompanyComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
 
   loading = false;
   returnURL: string;
-  public dataCopy: any;
-  userList = [];
-  userInfo: any;
-  collabAddWriteModel: any;
-  readManagersLength: number;
-  collabAddReadModel: any;
-  writeManagersLength: number;
-  // existingHelper = [];
-  readManagers: any;
-  writeManagers: any;
+  confirmCompanyName;
+  understand: boolean;
 
   constructor(
     public _dashboardSettingService: DeleteCompanyService,
-    public fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.getRouteParam();
-    // this.fillForm();
 
     this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/gateway';
   }

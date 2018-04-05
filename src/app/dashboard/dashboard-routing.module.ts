@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardSettingsComponent } from './dashboardSettings/dashboardSettings.component';
-// import { Dashboard2Component } from './dashboard2/dashboard2.component';
+import { DeleteCompanyComponent } from './deleteCompany/deleteCompany.component';
 
 const routes: Routes = [
   {
@@ -21,6 +21,13 @@ const routes: Routes = [
         component: DashboardSettingsComponent,
         data: {
           title: 'Dashboard',
+        },
+      },
+      {
+        path: 'delete',
+        component: DeleteCompanyComponent,
+        data: {
+          title: 'delete',
         },
       },
     ],
