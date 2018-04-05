@@ -38,6 +38,7 @@ export class DeleteCompanyComponent implements OnInit {
   }
 
   deleteCompany() {
+    console.log('deleting')
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._dashboardSettingService.deleteCompany(this.paramId, this.ownerName).subscribe(res => {
