@@ -94,10 +94,12 @@ export class ContributorsComponent implements OnInit {
     if (role === 'write') {
       this._contributorService.removeWriteHelper(id, role).subscribe(res => {
         console.log(res.json());
+        this.getCollabList();
       });
     } else {
       this._contributorService.removeReadHelper(id, role).subscribe(res => {
         console.log(res.json());
+        this.getCollabList();
       });
     }
   }

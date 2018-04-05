@@ -34,21 +34,21 @@ export class DashboardSettingService {
     return this.http.get(this._url);
   }
 
-  getCollabList(compName) {
+  getCollabList(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 
-  // collabAddWrite(user, compName, owner) {
-  //   console.log(user);
-  //   this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${
-  //     this.token
-  //   }&&companyName=${compName}&&ownerName=${owner}`;
-  //   console.log(this._url);
-  //   return this.http.patch(this._url, user);
-  // }
+  collabAddWrite(user, compName, owner) {
+    console.log(user);
+    this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    console.log(this._url);
+    return this.http.patch(this._url, user);
+  }
 
   collabAddRead(user, compName, owner) {
     console.log(user);
@@ -57,5 +57,21 @@ export class DashboardSettingService {
     }&&companyName=${compName}&&ownerName=${owner}`;
     console.log(this._url);
     return this.http.patch(this._url, user);
+  }
+
+  removeReadHelper(id, role, compName, owner) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/removeReadHelper?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    console.log(this._url);
+    return this.http.post(this._url, { removeId: id });
+  }
+
+  removeWriteHelper(id, role, compName, owner) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/removeWriteHelper?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    console.log(this._url);
+    return this.http.post(this._url, { removeId: id });
   }
 }

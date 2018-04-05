@@ -22,12 +22,12 @@ export class DashboardSettingsComponent implements OnInit {
   userList = [];
   userInfo: any;
   collabAddWriteModel: any;
-  writeCollabIdLength: number;
+  readManagersLength: number;
   collabAddReadModel: any;
-  readCollabIdLength: number;
+  writeManagersLength: number;
   // existingHelper = [];
-  writeCollabId: any;
-  readCollabId: any;
+  readManagers: any;
+  writeManagers: any;
 
   constructor(
     public _dashboardSettingService: DashboardSettingService,
@@ -63,26 +63,60 @@ export class DashboardSettingsComponent implements OnInit {
   }
 
   getCollabList() {
-    this.dataCopy = this._dashboardSettingService.getCollabList(this.paramId).subscribe(data => {
+    this.dataCopy = this._dashboardSettingService.getCollabList(this.paramId, this.ownerName).subscribe(data => {
       this.userInfo = data.json();
-      // console.log(this.userInfo);
-      // this.writeCollabId = this.userInfo.user.writeCollabId;
-      // this.readCollabId = this.userInfo.user.readCollabId;
-      // this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
-      // this.readCollabIdLength = this.userInfo.user.readCollabId.length;
+      console.log(this.userInfo);
+      this.readManagers = this.userInfo.user.readManagers;
+      this.writeManagers = this.userInfo.user.writeManagers;
+      // console.log(this.writeManagers)
+      if (this.readManagers !== undefined) {
+        this.readManagersLength = this.userInfo.user.readManagers.length;
+      }
+      if (this.writeManagers !== undefined) {
+        this.writeManagersLength = this.userInfo.user.writeManagers.length;
+      }
     });
   }
 
-  collabAddWrite() {}
+  collabAddWrite() {
+    if (this.collabAddWriteModel === undefined || this.collabAddWriteModel === null) {
+      return;
+    } else {
+      this._dashboardSettingService
+        .collabAddWrite(this.collabAddWriteModel, this.paramId, this.ownerName)
+        .subscribe(res => {
+          console.log(res.json());
+          this.getCollabList();
+        });
+    }
+  }
 
   collabAddRead() {
     if (this.collabAddReadModel === undefined || this.collabAddReadModel === null) {
       return;
     } else {
-      this._dashboardSettingService.collabAddRead(this.collabAddReadModel, this.paramId, this.ownerName).subscribe(res => {
+      this._dashboardSettingService
+        .collabAddRead(this.collabAddReadModel, this.paramId, this.ownerName)
+        .subscribe(res => {
+          console.log(res.json());
+          this.getCollabList();
+        });
+    }
+  }
+
+  removeHelper(id, role) {
+    console.log(id, role);
+    if (role === 'write') {
+      this._dashboardSettingService.removeWriteHelper(id, role,  this.paramId , this.ownerName).subscribe(res => {
+        console.log(res.json());
+        this.getCollabList();
+      });
+    } else {
+      this._dashboardSettingService.removeReadHelper(id, role, this.paramId , this.ownerName).subscribe(res => {
         console.log(res.json());
         this.getCollabList();
       });
     }
   }
+
 }

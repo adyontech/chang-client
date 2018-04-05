@@ -305,6 +305,16 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           isExternalLink: false,
           submenu: [],
         },
+        {
+          path: `/${ownerId}/${companyId}/dashboard/delete`,
+          title: 'Delete',
+          icon: '',
+          class: '',
+          badge: '',
+          badgeClass: '',
+          isExternalLink: false,
+          submenu: [],
+        },
       ],
     },
 
