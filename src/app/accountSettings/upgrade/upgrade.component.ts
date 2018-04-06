@@ -40,14 +40,4 @@ export class UpgradeProfileComponent implements OnInit {
     //   }
     });
   }
-  requestPayment(packName) {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        console.log(packName);
-        this._upgradeService.requestPayment(packName).subscribe(data => {});
-      } else {
-        return;
-      }
-    });
-  }
 }

@@ -23,22 +23,9 @@ export class UpgradeService {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
-  setParamId(value) {
-    this._globalVariableService.paramId = value;
-  }
 
   fetchDetails() {
     this._url = `${this._globalVariableService.baseServerUrl}/api/whoami?token=${this.token}`;
     return this.http.get(this._url);
-  }
-
-  requestPayment(pack: any) {
-    // console.log('upgrading')
-    // console.log(window.localStorage.user)
-    this._url = `${this._globalVariableService.baseServerUrl}/pay/instamojo?token=${this.token}`;
-    return this.http.post(this._url, { packName: pack }).map((res: Response) => {
-      this.result = res.json();
-      console.log(this.result);
-    });
   }
 }

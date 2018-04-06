@@ -15,9 +15,9 @@ declare var $: any;
 })
 export class CheckoutComponent implements OnInit {
   // public form: FormGroup;
-  profileUpdated;
-  user: any;
-  public paramId: string;
+  public profileUpdated;
+  public user: any;
+  public packName: string;
   constructor(
     private route: ActivatedRoute,
     public _checkoutService: CheckoutService,
@@ -27,24 +27,33 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getRouteParam();
     this.fetchDetails();
   }
+
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      console.log(params.pack);
+      this.packName = params.pack;
+    });
+  }
+
   fetchDetails() {
     this._checkoutService.fetchDetails().subscribe(res => {
       this.profileUpdated = res.json().user.profileUpdated;
       // if (!this.profileUpdated) {
       //   alertFunctions.basicAlert('First complete your profile :)');
       //   setTimeout(() => {
-    //       this.router.navigate(['/settings/edit']);
-    //     }, 3000);
-    //   }
+      //       this.router.navigate(['/settings/edit']);
+      //     }, 3000);
+      //   }
     });
   }
-  requestPayment(packName) {
+  requestPayment() {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        console.log(packName);
-        this._checkoutService.requestPayment(packName).subscribe(data => {});
+        console.log(this.packName);
+        this._checkoutService.requestPayment(this.packName).subscribe(data => {});
       } else {
         return;
       }

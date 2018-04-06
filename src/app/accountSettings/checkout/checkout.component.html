@@ -1,56 +1,42 @@
 <section id="overlap-image-examples">
   <div class="row">
     <div class="col-12 mt-3 mb-3">
-      <div class="content-header">Choose your package</div>
-      <p class="content-sub-header">See our package</p>
+      <div class="content-header">Checkout.</div>
+      <p class="content-sub-header">Please read through the instructions.</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-block">
+      <div class="row" style="background-color: white; ">
+        <div class="col-lg-5" style="padding-left:0">
+          <div class="list-group">
+            <button type="button" class="list-group-item">
+              <h2> Growth</h2>
+            </button>
+          </div>
+
+          <div class="list-group">
+            <button type="button" class="list-group-item">Cras justo odio</button>
+            <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
+            <button type="button" class="list-group-item">Morbi leo risus</button>
+            <button type="button" class="list-group-item">Porta ac consectetur ac</button>
+            <button type="button" class="list-group-item">Vestibulum at eros</button>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <h2 class="mt-2 mb-3">Instructions for payment.</h2>
+          <div>
+            <li>We are not handling payment.</li>
+            <li>A more reliabe solution is behind us.</li>
+            <li>After clicking you will get a mail.</li>
+            <li>Proceed with mail.</li>
+            <li>Do not close the tabs.</li>
+          </div>
+          <a href="javascript:void(0);" (click)="requestPayment" class="mt-3 btn btn-primary btn-lg btn-block btn-raised">Proceed</a>
+
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="row" matchHeight="card">
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <div class="card card-inverse bg-primary text-center">
-        <div class="card-body">
-          <div class="card-img overlap">
-            <img src="assets/img/elements/14.png" alt="element 06" width="170" class="mb-1">
-          </div>
-          <div class="card-block">
-            <h4 class="card-title">Growth</h4>
-            <p class="card-text">For growing companies.</p>
-          </div>
-        </div>
-      </div>
-      <a href="javascript:void(0)" (click)="requestPayment('basic')" class="btn btn-secondary btn-lg btn-block btn-raised">proceed</a>
-
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <div class="card card-inverse bg-danger text-center">
-        <div class="card-body">
-          <div class="card-img overlap">
-            <img src="assets/img/elements/14.png" alt="element 03" width="170">
-          </div>
-          <div class="card-block">
-            <h4 class="card-title">Booster</h4>
-            <p class="card-text">For soooooooo.</p>
-          </div>
-        </div>
-      </div>
-      <a href="javascript:void(0)" (click)="requestPayment('standard')" class="btn btn-secondary btn-lg btn-block btn-raised">Proceed</a>
-
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <div class="card card-inverse bg-warning text-center">
-        <div class="card-body">
-          <div class="card-img overlap">
-            <img src="assets/img/elements/14.png" alt="element 03" width="172">
-          </div>
-          <div class="card-block">
-            <h4 class="card-title">Custom</h4>
-            <p class="card-text">Explore our custom packages.</p>
-          </div>
-        </div>
-      </div>
-      <a href="javascript:void(0)" (click)="requestPayment('premium')" class="btn btn-secondary btn-lg btn-block btn-raised">Know more</a>
-
-    </div>
-  </div>
 </section>
