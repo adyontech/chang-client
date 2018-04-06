@@ -16,6 +16,7 @@ import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 
 import { ContributorService } from './contributors/service/contributors.service';
@@ -25,6 +26,7 @@ import { EditProfileService } from './editProfile/service/editProfile.service';
 import { UpgradeService } from './upgrade/service/upgrade.service';
 import { ConfirmService } from './confirm/service/confirm.service';
 import { MeService } from './me/service/me.service';
+import { CheckoutService } from './checkout/service/checkout.service';
 // import { States } from './../shared/forms/States';
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -41,10 +43,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AgmCoreModule,
     NgbModule,
     NgSelectModule,
-    UiSwitchModule
+    UiSwitchModule,
   ],
   declarations: [
     ConfirmComponent,
+    CheckoutComponent,
     EditProfileComponent,
     MeProfileComponent,
     PasswordChangeProfileComponent,
@@ -59,7 +62,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PasswordChangeService,
     EditProfileService,
     UpgradeService,
-    MeService
+    MeService,
+    CheckoutService,
   ],
 })
 export class AccountSettingsModule {}

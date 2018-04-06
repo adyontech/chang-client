@@ -8,6 +8,7 @@ import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 const routes: Routes = [
   {
     path: '',
@@ -73,6 +74,13 @@ const routes: Routes = [
         component: ConfirmComponent,
         data: {
           title: 'upgrade Page',
+        },
+      },
+      {
+        path: 'checkout/:pack',
+        component: CheckoutComponent,
+        data: {
+          title: 'checkout Page',
         },
       },
     ],
