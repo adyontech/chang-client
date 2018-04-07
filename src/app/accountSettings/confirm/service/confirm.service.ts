@@ -25,7 +25,7 @@ export class ConfirmService {
     this.token = this.windowStorage.token;
   }
   confirmPayment(paymentId, paymentReqId) {
-    this._url = `${this._globalVariableService.baseServerUrl}/pay/confirmPayment?token=${this.token}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/pays/confirmPayment`;
     return this.http.post(this._url, { paymentId: paymentId, paymentReqId: paymentReqId }).map((res: Response) => {
       this.result = res.json();
       console.log(this.result);
