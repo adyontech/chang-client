@@ -13,6 +13,7 @@ export class TransactionsComponent implements OnInit {
   // public user: any;
   // public packName: string;
   public transData;
+  public transDataLength;
   constructor(public _transactionsService: TransactionsService) {}
 
   ngOnInit() {
@@ -22,7 +23,8 @@ export class TransactionsComponent implements OnInit {
   requestPaymentDetails() {
     this._transactionsService.requestPaymentDetails().subscribe(data => {
       console.log(data.json())
-      this.transData = data.json();
+      this.transData = data.json().transactions;
+      this.transDataLength = this.transData.length;
     });
   }
 }
