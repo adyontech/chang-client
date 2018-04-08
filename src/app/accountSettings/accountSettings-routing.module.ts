@@ -9,6 +9,8 @@ import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -53,6 +55,13 @@ const routes: Routes = [
         component: ContributorsComponent,
         data: {
           title: 'Contributors Page',
+        },
+      },
+      {
+        path: 'transactions',
+        component: TransactionsComponent,
+        data: {
+          title: 'Transactions Page',
         },
       },
       {

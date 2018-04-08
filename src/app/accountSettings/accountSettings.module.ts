@@ -18,6 +18,7 @@ import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 import { ContributorService } from './contributors/service/contributors.service';
 import { PasswordChangeService } from './passwordChange/service/passwordChange.service';
@@ -27,6 +28,7 @@ import { UpgradeService } from './upgrade/service/upgrade.service';
 import { ConfirmService } from './confirm/service/confirm.service';
 import { MeService } from './me/service/me.service';
 import { CheckoutService } from './checkout/service/checkout.service';
+import { TransactionsService } from './transactions/service/transactions.service';
 // import { States } from './../shared/forms/States';
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -54,6 +56,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MailSubsProfileComponent,
     ContributorsComponent,
     UpgradeProfileComponent,
+    TransactionsComponent,
   ],
   providers: [
     ConfirmService,
@@ -64,6 +67,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     UpgradeService,
     MeService,
     CheckoutService,
+    TransactionsService,
   ],
 })
 export class AccountSettingsModule {}
