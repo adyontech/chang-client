@@ -1,6 +1,6 @@
 export class GlobalVaribles {
   paramId: String;
-  // baseServerUrl: String = 'http://ss1.proworktree.com';
+  // baseServerUrl: String = 'https://ss1.proworktree.com';
   baseServerUrl: String = 'http://localhost:3000';
   constructor() {}
 }
