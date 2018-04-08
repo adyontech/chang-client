@@ -4,13 +4,18 @@
   "description": "Awesome GST tooling",
   "icons": [
     {
-      "src": "assets/pwt/tick2.png",
+      "src": "assets/pwt/logo.jpg",
       "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/pwt/logo.jpg",
+      "sizes": "144x144",
       "type": "image/png"
     }
   ],
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "green"
+  "background_color": "#282828",
+  "theme_color": "#282828"
 }
