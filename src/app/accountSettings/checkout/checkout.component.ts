@@ -29,6 +29,12 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.fetchDetails();
+    this.vaidPack();
+  }
+  vaidPack() {
+    if (this.packName !== 'growth' && this.packName !== 'booster') {
+      this.router.navigate(['/settings/upgrade']);
+    }
   }
 
   getRouteParam() {
@@ -50,13 +56,15 @@ export class CheckoutComponent implements OnInit {
     });
   }
   requestPayment() {
-    alertFunctions.SaveData().then(datsa => {
-      if (datsa) {
-        console.log(this.packName);
-        this._checkoutService.requestPayment(this.packName).subscribe(data => {});
-      } else {
-        return;
-      }
-    });
+    if (this.packName === 'growth' || this.packName === 'booster') {
+      alertFunctions.SaveData().then(datsa => {
+        if (datsa) {
+          console.log(this.packName);
+          this._checkoutService.requestPayment(this.packName).subscribe(data => {});
+        } else {
+          return;
+        }
+      });
+    }
   }
 }
