@@ -5,6 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 export const Common_Outer_ROUTES: Routes = [
     {
         path: 'do',
-        loadChildren: './outerPages/common-pages/outerContent-pages.module#OuterContentPagesModule'
+        loadChildren: './outerPages/common-pages/outerContent-pages.module#CommonContentPagesModule'
     }
 ];

@@ -48,7 +48,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     UiSwitchModule,
   ],
   declarations: [
-    ConfirmComponent,
+    // ConfirmComponent,
     CheckoutComponent,
     EditProfileComponent,
     MeProfileComponent,
@@ -59,7 +59,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TransactionsComponent,
   ],
   providers: [
-    ConfirmService,
+    // ConfirmService,
     ContributorService,
     GlobalVaribles,
     PasswordChangeService,
