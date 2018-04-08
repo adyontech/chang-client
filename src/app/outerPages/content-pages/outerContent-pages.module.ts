@@ -11,6 +11,7 @@ import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-p
 import { LoginPageComponent } from './login/login-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { ConfirmComponent } from './mojoConfirm/confirm.component';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
 import { SignupService } from './signup/service/signup.service';
@@ -18,7 +19,7 @@ import { LoginService } from './login/service/login-page.service';
 import { ActivationService } from './activation/service/activation.service';
 import { PassForgotService } from './forgot-password/service/forgot-password-page.service';
 import { UpdatePasswordService } from './update-password/service/update-password.service';
-
+import { ConfirmService } from './mojoConfirm/service/confirm.service';
 import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
@@ -33,11 +34,20 @@ import { RecaptchaModule } from 'ng-recaptcha';
   ],
   declarations: [
     ActivationComponent,
+    ConfirmComponent,
     ForgotPasswordPageComponent,
     LoginPageComponent,
     SignupComponent,
     UpdatePasswordComponent,
   ],
-  providers: [SignupService, GlobalVaribles, LoginService, ActivationService, PassForgotService, UpdatePasswordService],
+  providers: [
+    ConfirmService,
+    SignupService,
+    GlobalVaribles,
+    LoginService,
+    ActivationService,
+    PassForgotService,
+    UpdatePasswordService,
+  ],
 })
 export class OuterContentPagesModule {}

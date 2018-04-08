@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ConfirmComponent } from './confirm/confirm.component';
+// import { ConfirmComponent } from './confirm/confirm.component';
 const routes: Routes = [
   {
     path: '',
     children: [
       {
         path: 'mojo',
-        component: ConfirmComponent,
+        // component: ConfirmComponent,
         data: {
           title: 'Mojo',
         },

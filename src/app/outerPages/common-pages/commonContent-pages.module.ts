@@ -12,13 +12,13 @@ import { CommonContentPagesRoutingModule } from './commonContent-pages-routing.m
 // import { SignupComponent } from './signup/signup.component';
 // import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
-import { ConfirmComponent } from './confirm/confirm.component';
+// import { ConfirmComponent } from './confirm/confirm.component';
 
-import { ConfirmService } from './confirm/service/confirm.service';
+// import { ConfirmService } from './confirm/service/confirm.service';
 
 @NgModule({
   imports: [CommonModule, CommonContentPagesRoutingModule, FormsModule, ReactiveFormsModule, HttpModule, RouterModule],
-  declarations: [ConfirmComponent],
-  providers: [ConfirmService, GlobalVaribles],
+  declarations: [],
+  providers: [ GlobalVaribles],
 })
 export class CommonContentPagesModule {}

@@ -6,7 +6,7 @@ import { LoginPageComponent } from './login/login-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { ActivationComponent } from './activation/activation.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
-
+import { ConfirmComponent } from './mojoConfirm/confirm.component';
 const routes: Routes = [
   {
     path: '',
@@ -44,6 +44,13 @@ const routes: Routes = [
         component: ActivationComponent,
         data: {
           title: 'activation Page',
+        },
+      },
+      {
+        path: 'mojo',
+        component: ConfirmComponent,
+        data: {
+          title: 'Confirm Page',
         },
       },
     ],
