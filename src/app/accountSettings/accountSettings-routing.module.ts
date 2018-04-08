@@ -7,7 +7,7 @@ import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
-import { ConfirmComponent } from './confirm/confirm.component';
+// import { ConfirmComponent } from './confirm/confirm.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 
@@ -74,13 +74,6 @@ const routes: Routes = [
       {
         path: 'upgrade',
         component: UpgradeProfileComponent,
-        data: {
-          title: 'upgrade Page',
-        },
-      },
-      {
-        path: 'confirm',
-        component: ConfirmComponent,
         data: {
           title: 'upgrade Page',
         },

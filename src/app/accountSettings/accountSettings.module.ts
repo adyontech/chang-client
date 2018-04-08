@@ -17,7 +17,7 @@ import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { ConfirmComponent } from './confirm/confirm.component';
+// import { ConfirmComponent } from './confirm/confirm.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 
 import { ContributorService } from './contributors/service/contributors.service';
@@ -25,7 +25,7 @@ import { PasswordChangeService } from './passwordChange/service/passwordChange.s
 import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
 import { EditProfileService } from './editProfile/service/editProfile.service';
 import { UpgradeService } from './upgrade/service/upgrade.service';
-import { ConfirmService } from './confirm/service/confirm.service';
+// import { ConfirmService } from './confirm/service/confirm.service';
 import { MeService } from './me/service/me.service';
 import { CheckoutService } from './checkout/service/checkout.service';
 import { TransactionsService } from './transactions/service/transactions.service';

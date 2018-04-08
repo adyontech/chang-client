@@ -20,10 +20,7 @@ export class ConfirmService {
     private router: Router,
     private route: ActivatedRoute,
     public _globalVariableService: GlobalVaribles // public _paramId = paramIdValue
-  ) {
-    this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
-    this.token = this.windowStorage.token;
-  }
+  ) {}
   confirmPayment(paymentId, paymentReqId) {
     this._url = `${this._globalVariableService.baseServerUrl}/pays/confirmPayment`;
     return this.http.post(this._url, { paymentId: paymentId, paymentReqId: paymentReqId }).map((res: Response) => {
