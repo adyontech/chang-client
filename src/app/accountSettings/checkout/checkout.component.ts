@@ -3,6 +3,7 @@ import * as alertFunctions from './../../shared/data/sweet-alerts';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from './../../utilities/toastr.service';
 
 // import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -18,20 +19,21 @@ export class CheckoutComponent implements OnInit {
   public profileUpdated;
   public user: any;
   public packName: string;
+  public disableClick: Boolean = false;
   constructor(
     private route: ActivatedRoute,
     public _checkoutService: CheckoutService,
     public fb: FormBuilder,
     private router: Router,
-    private modalService: NgbModal
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
     this.getRouteParam();
     this.fetchDetails();
-    this.vaidPack();
+    this.validPack();
   }
-  vaidPack() {
+  validPack() {
     if (this.packName !== 'growth' && this.packName !== 'booster') {
       this.router.navigate(['/settings/upgrade']);
     }
@@ -56,11 +58,22 @@ export class CheckoutComponent implements OnInit {
     });
   }
   requestPayment() {
+    this.disableClick = true;
     if (this.packName === 'growth' || this.packName === 'booster') {
       alertFunctions.SaveData().then(datsa => {
         if (datsa) {
-          console.log(this.packName);
-          this._checkoutService.requestPayment(this.packName).subscribe(data => {});
+          this._checkoutService.requestPayment(this.packName).subscribe(data => {
+            // console.log(data);
+            if (data.success) {
+              this._toastrService.typeSuccess('success', 'Please chek your mail.');
+              setTimeout(() => {
+                      this.router.navigate(['/gateway']);
+                    }, 5000);
+            } else {
+              this._toastrService.typeError('Error', data.message);
+              this.disableClick = true;
+            }
+          });
         } else {
           return;
         }

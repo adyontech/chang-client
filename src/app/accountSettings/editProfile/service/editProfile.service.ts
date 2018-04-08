@@ -35,8 +35,7 @@ export class EditProfileService {
   updateProfile(user: any) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/profileUpdate?token=${this.token}`;
     return this.http.patch(this._url, user).map((res: Response) => {
-      this.result = res.json();
-      console.log(this.result);
+     return  this.result = res.json();
     });
   }
 

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from './../../utilities/toastr.service';
+
 // import { States } from './../../shared/forms/States';
 @Component({
   selector: 'app-edit-profile',
@@ -19,7 +21,12 @@ export class EditProfileComponent implements OnInit {
     { id: 3, name: 'jerry', avatar: '//www.gravatar.com/avatar/6acb7abf486516ab7fb0a6efa372042b?d=retro&r=g&s=15' },
   ];
   email: string;
-  constructor(public _profileEditService: EditProfileService, public fb: FormBuilder, private router: Router) {}
+  constructor(
+    public _profileEditService: EditProfileService,
+    public fb: FormBuilder,
+    private router: Router,
+    public _toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.fetchDetails();
@@ -57,7 +64,12 @@ export class EditProfileComponent implements OnInit {
     console.log(user);
 
     this._profileEditService.updateProfile(user).subscribe(data => {
-      // console.log('hello gateway service')
+      console.log(data);
+      if (data.success) {
+        this._toastrService.typeSuccess('success', 'Profile updated successfully.');
+      } else {
+        this._toastrService.typeError('Error', data.message);
+      }
     });
   }
 }
