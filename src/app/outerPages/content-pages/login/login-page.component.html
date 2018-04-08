@@ -84,8 +84,8 @@
             <button type="submit" class="btn btn-success" [disabled]="!form.valid">LOG IN</button>
           </form>
 
-          <a id="signup-now" href="/signup">or SIGN UP NOW</a>
-          <a id="forgot-psw">Forgot Password?</a>
+          <a id="signup-now"  [routerLink]="['/app/signup']">or SIGN UP NOW</a>
+          <a id="forgot-psw"  [routerLink]="['/app/forgotpassword']">Forgot Password?</a>
 
         </div>
       </div>

@@ -40,7 +40,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'activation',
+        path: 'activation/:id',
         component: ActivationComponent,
         data: {
           title: 'activation Page',

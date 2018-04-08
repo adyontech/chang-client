@@ -84,6 +84,16 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
+    path: '/settings/transactions',
+    title: 'Transactions',
+    icon: 'ft-message-square',
+    class: '',
+    badge: '',
+    badgeClass: '',
+    isExternalLink: false,
+    submenu: [],
+  },
+  {
     path: '/settings/upgrade',
     title: 'Upgrade',
     icon: 'ft-file-text',
