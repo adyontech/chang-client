@@ -1,0 +1,61 @@
+<section id="overlap-image-examples">
+  <div class="row">
+    <div class="col-12 mt-3 mb-3">
+      <div class="content-header">Checkout.</div>
+      <p class="content-sub-header">Please read through the instructions.</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-block">
+      <div class="row" style="background-color: white; ">
+        <!-- for growth plan -->
+        <div class="col-lg-5" style="padding-left:0" *ngIf="packName==='growth'">
+          <div class="list-group">
+            <button type="button" class="list-group-item">
+              <h2> Growth</h2>
+            </button>
+          </div>
+
+          <div class="list-group">
+            <button type="button" class="list-group-item">Cras justo odio</button>
+            <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
+            <button type="button" class="list-group-item">Morbi leo risus</button>
+            <button type="button" class="list-group-item">Porta ac consectetur ac</button>
+            <button type="button" class="list-group-item">Vestibulum at eros</button>
+          </div>
+        </div>
+        <!-- for booster plan -->
+        <div class="col-lg-5" style="padding-left:0" *ngIf="packName==='booster'">
+          <div class="list-group">
+            <button type="button" class="list-group-item">
+              <h2> Booster</h2>
+            </button>
+          </div>
+
+          <div class="list-group">
+            <button type="button" class="list-group-item">Cras justo odio</button>
+            <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
+            <button type="button" class="list-group-item">Morbi leo risus</button>
+            <button type="button" class="list-group-item">Porta ac consectetur ac</button>
+            <button type="button" class="list-group-item">Vestibulum at eros</button>
+          </div>
+        </div>
+
+
+        <div class="col-lg-6 text-center">
+          <h2 class="mt-2 mb-3">Instructions for payment.</h2>
+          <div>
+            <li>We are not handling payment.</li>
+            <li>A more reliabe solution is behind us.</li>
+            <li>After clicking you will get a mail.</li>
+            <li>Proceed with mail.</li>
+            <li>Do not close the tabs.</li>
+          </div>
+          <button type="button" [disabled]="disableClick" (click)="requestPayment()" class="mt-3 btn btn-primary btn-lg btn-block btn-raised">Proceed</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

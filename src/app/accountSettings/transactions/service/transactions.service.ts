@@ -8,7 +8,7 @@ import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
-export class UpgradeService {
+export class TransactionsService {
   result: {};
   token: string;
   windowStorage: any;
@@ -23,9 +23,12 @@ export class UpgradeService {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
+  setParamId(value) {
+    this._globalVariableService.paramId = value;
+  }
 
-  fetchDetails() {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/whoami?token=${this.token}`;
+  requestPaymentDetails() {
+    this._url = `${this._globalVariableService.baseServerUrl}/pay/alltransactions?token=${this.token}`;
     return this.http.get(this._url);
   }
 }

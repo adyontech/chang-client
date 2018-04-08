@@ -23,7 +23,6 @@ export class ShowCompanyComponent implements OnInit {
       console.log(this.companyList)
       // console.log('hello gateway service')
     });
-
   }
 
   removeCompany(id) {

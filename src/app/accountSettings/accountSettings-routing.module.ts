@@ -7,7 +7,10 @@ import { PasswordChangeProfileComponent } from './passwordChange/passwordChange.
 import { MailSubsProfileComponent } from './mailSubs/mailSubs.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { UpgradeProfileComponent } from './upgrade/upgrade.component';
-import { ConfirmComponent } from './confirm/confirm.component';
+// import { ConfirmComponent } from './confirm/confirm.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -55,6 +58,13 @@ const routes: Routes = [
         },
       },
       {
+        path: 'transactions',
+        component: TransactionsComponent,
+        data: {
+          title: 'Transactions Page',
+        },
+      },
+      {
         path: 'edit',
         component: EditProfileComponent,
         data: {
@@ -69,10 +79,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'confirm',
-        component: ConfirmComponent,
+        path: 'checkout/:pack',
+        component: CheckoutComponent,
         data: {
-          title: 'upgrade Page',
+          title: 'checkout Page',
         },
       },
     ],

@@ -13,7 +13,9 @@ import { Params } from '@angular/router/src/shared';
 export class ActivationComponent implements OnInit {
   somevar: any;
   returnURL: string;
-
+  startChecking: Boolean = true;
+  redirectingLogin: Boolean = false;
+  redirectingSignup: Boolean = false;
   constructor(
     public _activationService: ActivationService,
     public _activatedRoute: ActivatedRoute,
@@ -28,9 +30,19 @@ export class ActivationComponent implements OnInit {
       const token = params['id'];
       this._activationService.authentication(token).subscribe(res => {
         this.somevar = res.message;
-        console.log(this.somevar);
+        console.log(res);
         if (res.success === true) {
-          this.router.navigate([this.returnURL]);
+          this.startChecking = false;
+          this.redirectingLogin = true;
+          setTimeout(() => {
+            this.router.navigate(['/app/login']);
+          }, 10000);
+        } else {
+          this.startChecking = false;
+          this.redirectingSignup = true;
+          setTimeout(() => {
+            this.router.navigate(['/app/signup']);
+          }, 10000);
         }
       });
     });

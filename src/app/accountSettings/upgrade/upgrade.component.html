@@ -1,84 +1,55 @@
-<!-- <form class="form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="meetingName2">purpose</label>
-        <input type="text" class="form-control" id="meetingName2" name="meetingName2" formControlName="purpose">
-      </div>
-      <div class="form-group">
-        <label for="meetingLocation2">amount </label>
-        <input type="text" class="form-control" id="meetingLocation2" name="meetingLocation2" formControlName="amount">
-      </div>
-      <div class="form-group">
-        <label for="participants2">Buyer</label>
-        <input name="participants" id="participants2" rows="4" class="form-control" formControlName="buyer">
-      </div>
-      <div class="form-group">
-        <label for="decisions2">Phone no</label>
-        <input name="decisions" id="decisions2" rows="4" class="form-control" formControlName="phone">
-      </div>
-      <div class="form-group">
-        <label for="decisions2">Email</label>
-        <input name="decisions" id="decisions2" rows="4" class="form-control" formControlName="email">
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-raised btn-raised btn-primary">
-    <i class="fa fa-check-square-o"></i> Change
-  </button>
-</form> -->
 <section id="overlap-image-examples">
   <div class="row">
     <div class="col-12 mt-3 mb-3">
       <div class="content-header">Choose your package</div>
-      <p class="content-sub-header"><a href="">click here</a> to see our package</p>
+      <p class="content-sub-header">See our package</p>
     </div>
   </div>
 
   <div class="row" matchHeight="card">
-    <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
       <div class="card card-inverse bg-primary text-center">
         <div class="card-body">
           <div class="card-img overlap">
-            <img src="assets/img/elements/11.png" alt="element 06" width="190" class="mb-1">
+            <img src="assets/img/elements/14.png" alt="element 06" width="170" class="mb-1">
           </div>
           <div class="card-block">
-            <h4 class="card-title">Basic</h4>
-            <p class="card-text">Donut toffee candy brownie soufflé macaroon.</p>
+            <h4 class="card-title">Growth</h4>
+            <p class="card-text">For growing companies.</p>
           </div>
         </div>
       </div>
-      <a href="javascript:void(0)" (click)="requestPayment('basic')" class="btn btn-secondary btn-lg btn-block btn-raised">Block level button</a>
+      <a [routerLink]="['../checkout/growth']" class="btn btn-secondary btn-lg btn-block btn-raised">Select Pack</a>
 
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
       <div class="card card-inverse bg-danger text-center">
         <div class="card-body">
           <div class="card-img overlap">
             <img src="assets/img/elements/14.png" alt="element 03" width="170">
           </div>
           <div class="card-block">
-            <h4 class="card-title">Standard</h4>
-            <p class="card-text">Donut toffee candy brownie soufflé macaroon.</p>
+            <h4 class="card-title">Booster</h4>
+            <p class="card-text">For soooooooo.</p>
           </div>
         </div>
       </div>
-      <a href="javascript:void(0)" (click)="requestPayment('standard')" class="btn btn-secondary btn-lg btn-block btn-raised">Block level button</a>
+      <a [routerLink]="['../checkout/booster']" class="btn btn-secondary btn-lg btn-block btn-raised">Select Pack</a>
 
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
       <div class="card card-inverse bg-warning text-center">
         <div class="card-body">
           <div class="card-img overlap">
-            <img src="assets/img/elements/07.png" alt="element 07" width="225">
+            <img src="assets/img/elements/14.png" alt="element 03" width="172">
           </div>
           <div class="card-block">
-            <h4 class="card-title">Premium</h4>
-            <p class="card-text">Donut toffee candy brownie soufflé macaroon.</p>
+            <h4 class="card-title">Custom</h4>
+            <p class="card-text">Explore our custom packages.</p>
           </div>
         </div>
       </div>
-      <a href="javascript:void(0)" (click)="requestPayment('premium')" class="btn btn-secondary btn-lg btn-block btn-raised">Block level button</a>
+      <a class="btn btn-secondary btn-lg btn-block btn-raised">Know more</a>
 
     </div>
   </div>

@@ -1,0 +1,38 @@
+<section id="overlap-image-examples">
+  <div class="row">
+    <div class="col-12 mt-3 mb-3">
+      <div class="content-header">Transactions.</div>
+      <p class="content-sub-header">Please contact us if not updated.</p>
+    </div>
+  </div>
+  <div class="card-body" style="background-color: white">
+    <div class="card-block">
+      <div class="row mb-3" *ngIf="transDataLength==0">
+        <div class="col-12 mt-3 text-center">
+          <h1>No transactions available.</h1>
+        </div>
+      </div>
+      <table class="table" *ngIf="transDataLength>0">
+        <thead class="thead-default">
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Package</th>
+            <th>Request Id</th>
+            <th>Payment Id</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of transData;let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{data.paymenetSuccessDate | date}}</td>
+            <td>{{data.updatedPack}}</td>
+            <td>{{data.paymentReqId}}</td>
+            <td>{{data.paymentId}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
