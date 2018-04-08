@@ -22,9 +22,9 @@
 
       </div>
       <div class="row mt-3">
-        <ng-select class="col-md-6" [items]="userList" bindLabel="name" [(ngModel)]="collabAddWriteModel">
+        <ng-select class="col-md-6 col-sm-8" [items]="userList" bindLabel="name" [(ngModel)]="collabAddWriteModel">
         </ng-select>
-        <button href="javascript:void(0)" (click)="collabAddWrite()" class="btn btn-raised btn-primary col-md-1">Add</button>
+        <button href="javascript:void(0)" (click)="collabAddWrite()" class="btn btn-raised btn-primary col-md-1 col-sm-2">Add</button>
       </div>
       <div *ngFor='let writeId of writeCollabId'>
         <div class="col-12" *ngIf="writeCollabIdLength>0">
@@ -49,9 +49,9 @@
 
       </div>
       <div class="row mt-3">
-        <ng-select class="col-md-6" [items]="userList" bindLabel="name" [(ngModel)]="collabAddReadModel">
+        <ng-select class="col-md-6 col-sm-8" [items]="userList" bindLabel="name" [(ngModel)]="collabAddReadModel">
         </ng-select>
-        <button href="javascript:void(0)" (click)="collabAddRead()" class="btn btn-raised btn-primary col-md-1">Add</button>
+        <button href="javascript:void(0)" (click)="collabAddRead()" class="btn btn-raised btn-primary col-md-1 col-sm-2">Add</button>
       </div>
       <div *ngFor='let readId of readCollabId'>
         <div class="col-12"  *ngIf="readCollabIdLength>0">
