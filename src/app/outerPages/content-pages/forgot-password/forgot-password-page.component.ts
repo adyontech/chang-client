@@ -73,4 +73,8 @@ export class ForgotPasswordPageComponent implements OnInit {
   closeNetErrorAlert() {
     this.netErrorShow = false;
   }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
+  }
 }

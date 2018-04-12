@@ -74,16 +74,6 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: '/settings/contributors',
-    title: 'Contributers',
-    icon: 'ft-message-square',
-    class: '',
-    badge: '',
-    badgeClass: '',
-    isExternalLink: false,
-    submenu: [],
-  },
-  {
     path: '/settings/transactions',
     title: 'Transactions',
     icon: 'ft-message-square',
