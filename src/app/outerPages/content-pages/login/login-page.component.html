@@ -2,7 +2,7 @@
 <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="errorShow" (close)="closeErrorAlert(errorShow)">{{successMessage}}</ngb-alert>
 <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="netErrorShow" (close)="closeNetErrorAlert()">Error occured, please try in sometime.</ngb-alert>
 <div class="row mb-3" style="width: 100%">
-  <div class="offset-4 col-4 mt-3 mb-3 text-center" style="background-color: #ffffff; width: 100%">
+  <div class="offset-lg-4 col-lg-4 col-12  mt-3 mb-3 text-center" style="background-color: #ffffff; width: 100%">
     <h3 class="mt-3">Log In</h3>
     <div style="margin: 10%">
       <form id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
@@ -12,9 +12,9 @@
         <div class="form-group">
           <input type="password" class="form-control input-style" id="psw" required placeholder="Create password" name="password" formControlName="password">
         </div>
-        <div class="captcha ml-2">
+        <!-- <div class="captcha ml-2">
           <re-captcha (resolved)="resolved($event)" siteKey="6LfF-UYUAAAAAHRugifjgfPkgKCeSVY1SlViKLRF"></re-captcha>
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-raised btn-primary mt-3" value="submit" [disabled]="!form.valid">Log In</button>
       </form>
       <a [routerLink]="['/app/signup']" class="pull-left">Sign Up?</a>
