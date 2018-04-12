@@ -35,13 +35,13 @@ export class ActivationComponent implements OnInit {
           this.startChecking = false;
           this.redirectingLogin = true;
           setTimeout(() => {
-            this.router.navigate(['/app/login']);
+            // this.router.navigate(['/app/login']);
           }, 10000);
         } else {
           this.startChecking = false;
           this.redirectingSignup = true;
           setTimeout(() => {
-            this.router.navigate(['/app/signup']);
+            // this.router.navigate(['/app/signup']);
           }, 10000);
         }
       });
