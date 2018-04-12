@@ -7,38 +7,29 @@ import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angul
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/'
+import 'rxjs/';
 @Injectable()
-
 export class PassForgotService {
   result: any;
   loggedIn: Boolean;
   _URL = `${this._globalVariableService.baseServerUrl}/auth/forgotPassword`;
 
-
-
-  constructor(private http: Http,
+  constructor(
+    private http: Http,
     private _userStateService: AuthService,
     public _globalVariableService: GlobalVaribles,
     private route: ActivatedRoute,
-    private router: Router) {
-  }
-
+    private router: Router
+  ) {}
 
   validateUser(user: any) {
-    return this.http.patch(this._URL, user)
-      .map((res: Response) => {
-        this.result = res.json();
-        console.log(this.result);
-        if (this.result.success) {
-          this.router.navigate(['/newpassword']);
-        }
-        return user;
-      });
+    return this.http.patch(this._URL, user).map((res: Response) => {
+      return res.json();
+    });
   }
 }
 
 interface LoginUser {
-  email: String,
-  password: String
+  email: String;
+  password: String;
 }
