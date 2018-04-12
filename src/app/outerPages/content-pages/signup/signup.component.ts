@@ -15,6 +15,11 @@ export class SignupComponent implements OnInit {
   somevar: any;
   message: String;
   returnURL: string;
+  sucessShow: Boolean = false;
+  errorShow: Boolean = false;
+  netErrorShow: Boolean = false;
+  successMessage: String;
+  errorMessage: String;
   constructor(
     public _signupService: SignupService,
     public fb: FormBuilder,
@@ -39,15 +44,35 @@ export class SignupComponent implements OnInit {
     });
   }
   onSubmit(user) {
-    this._signupService.createNewUser(user).subscribe(res => {
-      this.somevar = res.message;
-      console.log(this.somevar);
-      if (res.success === true) {
-        this.router.navigate([this.returnURL]);
+    this._signupService.createNewUser(user).subscribe(
+      res => {
+        if (res.success === true) {
+          this.sucessShow = true;
+          this.errorShow = false;
+          this.netErrorShow = false;
+          this.successMessage = res.message;
+        } else {
+          this.errorShow = true;
+          this.sucessShow = false;
+          this.netErrorShow = false;
+          this.successMessage = res.message;
+        }
+      },
+      error => {
+        this.sucessShow = false;
+        this.errorShow = false;
+        this.netErrorShow = true;
       }
-    },
-    error => {
-      this.loading = false;
-    });
+    );
+  }
+
+  closeSuccessAlert() {
+    this.sucessShow = false;
+  }
+  closeErrorAlert() {
+    this.errorShow = false;
+  }
+  closeNetErrorAlert() {
+    this.netErrorShow = false;
   }
 }

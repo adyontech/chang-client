@@ -36,10 +36,13 @@ export class LoginService {
       console.log(this.result);
       if (this.result.success) {
         this.setGlobal(this.result);
-        console.log(this._userStateService);
+        // console.log(this._userStateService);
         this.router.navigate(['/gateway']);
+        return this.result;
+      } else {
+        return this.result;
       }
-      return user;
+      // return user;
     });
   }
 

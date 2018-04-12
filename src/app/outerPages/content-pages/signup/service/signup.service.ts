@@ -24,17 +24,21 @@ export class SignupService {
   createNewUser(user: any) {
     // let headers = new Headers({ 'Content-Type': 'application/json' });
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(this._URL, user).map((res: Response) => res.json());
+    return this.http.post(this._URL, user).map((res: Response) => {
+      return res.json();
+    });
   }
+
   checkToken() {
     const windowStorages = JSON.parse(window.localStorage.getItem('user'));
-    console.log(windowStorages)
+    console.log(windowStorages);
     if (windowStorages === null || windowStorages === undefined) {
       // redirection code;
     } else {
       this.router.navigate(['/gateway']);
     }
   }
+
   logOut() {
     // remove user from local storage to log user out
     window.localStorage.removeItem('user');

@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { any } from 'codelyzer/util/function';
 import { emailValidator, passwordValidator } from '../signup/signup.validators';
-
+import { NgClass } from '@angular/common';
+import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -18,6 +19,11 @@ export class LoginPageComponent implements OnInit {
   form: FormGroup;
   loading = false;
   returnURL: string;
+  sucessShow: Boolean = false;
+  errorShow: Boolean = false;
+  netErrorShow: Boolean = false;
+  successMessage: String;
+  errorMessage: String;
 
   constructor(
     public _loginService: LoginService,
@@ -40,25 +46,44 @@ export class LoginPageComponent implements OnInit {
       email: ['', emailValidator],
     });
   }
-
+  // this._gatewayService.createNewCompany(user).subscribe((data: IData) => {
+  //   this.allowClick = false;
+  //   if (data.success) {
   // On submit button click
   onSubmit(user) {
     this._loginService.validateUser(user).subscribe(
-      res => {},
+      data => {
+        console.log(data);
+        if (data.success === true) {
+          this.sucessShow = true;
+          this.errorShow = false;
+          this.netErrorShow = false;
+          this.successMessage = data.message;
+        } else {
+          this.errorShow = true;
+          this.sucessShow = false;
+          this.netErrorShow = false;
+          this.successMessage = data.message;
+        }
+      },
       error => {
-        this.loading = false;
+        this.sucessShow = false;
+        this.errorShow = false;
+        this.netErrorShow = true;
       }
     );
   }
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
-  // On Forgot password link click
-  onForgotPassword() {
-    this.router.navigate(['forgotpassword'], { relativeTo: this.route.parent });
+
+  closeSuccessAlert() {
+    this.sucessShow = false;
   }
-  // On registration link click
-  onRegister() {
-    this.router.navigate(['signup'], { relativeTo: this.route.parent });
+  closeErrorAlert() {
+    this.errorShow = false;
+  }
+  closeNetErrorAlert() {
+    this.netErrorShow = false;
   }
 }
