@@ -16,6 +16,11 @@ export class ForgotPasswordPageComponent implements OnInit {
   form: FormGroup;
   loading = false;
   returnURL: string;
+  sucessShow: Boolean = false;
+  errorShow: Boolean = false;
+  netErrorShow: Boolean = false;
+  successMessage: String;
+  errorMessage: String;
 
   constructor(
     public _passForgotService: PassForgotService,
@@ -39,12 +44,37 @@ export class ForgotPasswordPageComponent implements OnInit {
     this._passForgotService.validateUser(user).subscribe(
       res => {
         if (res.success === true) {
-          this.router.navigate(['/login']);
+          this.sucessShow = true;
+          this.errorShow = false;
+          this.netErrorShow = false;
+          console.log(res.message)
+          this.successMessage = res.message;
+        } else {
+          this.errorShow = true;
+          this.sucessShow = false;
+          this.netErrorShow = false;
+          this.successMessage = res.message;
         }
       },
       error => {
-        this.loading = false;
+        this.sucessShow = false;
+        this.errorShow = false;
+        this.netErrorShow = true;
       }
     );
+  }
+
+  closeSuccessAlert() {
+    this.sucessShow = false;
+  }
+  closeErrorAlert() {
+    this.errorShow = false;
+  }
+  closeNetErrorAlert() {
+    this.netErrorShow = false;
+  }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
 }

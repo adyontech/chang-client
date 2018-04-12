@@ -11,7 +11,7 @@ export const ParseId = () => {
 };
 
 const ownerPosition = routeStructure.split('/').indexOf(':owner');
-console.log(ownerPosition);
+// console.log(ownerPosition);
 export const ParseOwner = () => {
   const splitPath = window.location.pathname.split('/');
   // Some browsers (including chrome) return the path with a leading /, remove it if exists.

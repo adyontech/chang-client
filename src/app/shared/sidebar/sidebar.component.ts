@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { GenerateRoutes } from './sidebar-routes.config';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParseId, ParseOwner } from '../../utilities/IdParser';
+import { AuthService } from './../auth/auth.service';
 
 declare var $: any;
 
@@ -12,11 +13,14 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
-  paramId
+  public paramId;
+  public innerWidth: any;
+  public showIconBar: Boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, public _authService: AuthService) {}
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.getRouteParam();
     $.getScript('./assets/js/app-sidebar.js');
     $.getScript('./assets/js/vertical-timeline.js');
@@ -28,7 +32,21 @@ export class SidebarComponent implements OnInit {
       this.paramId = params.id;
     });
   }
-
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.iconShow(window.innerWidth);
+  }
+  iconShow(width) {
+    if (width < 993) {
+      this.showIconBar = true;
+    } else {
+      this.showIconBar = false;
+    }
+  }
+  logout() {
+    console.log('logging out');
+    this._authService.logout();
+  }
   // NGX Wizard - skip url change
   ngxWizardFunction(path: string) {
     if (path.indexOf('forms/ngx') !== -1) {

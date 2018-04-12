@@ -20,7 +20,7 @@ export class ShowCompanyComponent implements OnInit {
   getCompanyList() {
     this.dataCopy = this._gatewayService.getCompanyList().subscribe(data => {
       this.companyList =  data.json().companyData;
-      console.log(this.companyList)
+      // console.log(this.companyList)
       // console.log('hello gateway service')
     });
   }
@@ -28,7 +28,7 @@ export class ShowCompanyComponent implements OnInit {
   removeCompany(id) {
     console.log('deleting id : ' + id);
     this._gatewayService.removeCompany(id).subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
   }
 

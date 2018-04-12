@@ -17,7 +17,29 @@
     </div>
 </div>
 <!-- Sidebar Header Ends -->
-
+<div class="sidebar-header" *ngIf="showIconBar">
+        <div class="logo clearfix">
+          <div class="row text-center">
+            <div class="col-4">
+              <a [routerLink]="['/settings/me']">
+                <i style="color:white; font-size: 25px;" class="ft-book"></i>
+              </a>
+            </div>
+            <div class="col-4">
+              <a [routerLink]="['/settings/me']">
+                <i style="color:white; font-size: 25px;" class="ft-user"></i>
+              </a>
+            </div>
+            <div class="col-4">
+              <span (click)="logout()">
+                <a href="javascript:void(0);">
+                  <i style="color:white; font-size: 25px;" class="ft-log-out"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
 <!-- Sidebar Content starts -->
 <div class="sidebar-content">
     <div class="nav-container">
