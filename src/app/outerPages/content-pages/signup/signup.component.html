@@ -9,24 +9,27 @@
       <ngb-alert [ngClass]="'text-center'" [type]="'success'" ngDefaultControl *ngIf="sucessShow" (close)="closeSuccessAlert(sucessShow)">{{successMessage}}</ngb-alert>
       <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="errorShow" (close)="closeErrorAlert(errorShow)">{{successMessage}}</ngb-alert>
       <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="netErrorShow" (close)="closeNetErrorAlert()">Error occured, please try in sometime.</ngb-alert>
-  
+
       <form id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
         <div class="form-group">
-          <input type="text" class="form-control input-style" style="height: 10%;" id="username" placeholder="Choose a username" name="userName" formControlName="userName"
-            required minlength="4" maxlength="24">
+          <input type="text" class="form-control input-style" style="height: 10%;" id="username" placeholder="Choose a username" name="userName"
+            formControlName="userName" required minlength="4" maxlength="24">
         </div>
         <div class="form-group">
-          <input type="email" class="form-control input-style" style="height: 10%;" id="email" required placeholder="Email Address" name="email" formControlName="email">
+          <input type="email" class="form-control input-style" style="height: 10%;" id="email" required placeholder="Email Address"
+            name="email" formControlName="email">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control input-style" style="height: 10%;" id="phone" required placeholder="Phone number" name="phoneNo" formControlName="phoneNo">
+          <input type="text" class="form-control input-style" style="height: 10%;" id="phone" required placeholder="Phone number" name="phoneNo"
+            formControlName="phoneNo">
         </div>
         <div class="form-group">
-          <input type="password" class="form-control input-style" style="height: 10%;" id="psw" required placeholder="Create password" name="password" formControlName="password">
+          <input type="password" class="form-control input-style" style="height: 10%;" id="psw" required placeholder="Create password"
+            name="password" formControlName="password">
         </div>
         <div class="form-group">
-          <input type="password" class="form-control input-style" style="height: 10%;" id="psw2" required placeholder="Confirm Password" name="password2"
-            formControlName="password2">
+          <input type="password" class="form-control input-style" style="height: 10%;" id="psw2" required placeholder="Confirm Password"
+            name="password2" formControlName="password2">
         </div>
 
         <div class="captcha">
@@ -34,8 +37,8 @@
         </div>
         <button type="submit" class="btn btn-raised btn-primary mt-3" value="submit" [disabled]="!form.valid">CREATE ACCOUNT</button>
       </form>
-      <a [routerLink]="['/app/login']" class="pull-left">Log In ?</a>
-      <a [routerLink]="['/app/forgotpassword']" class="pull-right"> Forgot Password?</a>
+        <a [routerLink]="['/app/login']" class="pull-left mb-2">Log In ?</a>
+        <a [routerLink]="['/app/forgotpassword']" class="pull-right mb-2"> Forgot Password?</a>
     </div>
   </div>
 </div>
