@@ -11,29 +11,30 @@
           <div class="col-lg-4 col-md-12 col-sm-12">
             <div class="card">
               <div class="card-body">
-                <div class="card-img">
-                  <img class="card-img-top img-fluid" src="assets/img/photos/14.jpg" alt="Card image cap">
-                  <h4 class="card-title">Add New Company</h4>
+                <div class="card-img" style="background-color: blue; height: 175px;">
+                  <!-- <img class="card-  img-top img-fluid" src="assets/img/photos/14.jpg" alt="Card image cap"> -->
+                  <h4 class="card-title" style="margin-top: -20px">Add New Company</h4>
                 </div>
                 <div class="card-block">
-                  <p class="card-text">Get started with your blah blah blah.</p>
-                  <a [routerLink]="['/gateway/addcompany']" class="btn btn-raised btn-successs">Create Company</a>
+                  <h4 class="card-title">Get your book keeping started.</h4>
+                  <a [routerLink]="['/gateway/addcompany']" class="btn btn-raised" style="background-color:#ff3159; color: white">Create Company</a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-12 col-sm-12"  *ngFor="let list of companyList">
+          <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let list of companyList">
             <div class="card">
               <div class="card-body">
                 <div class="card-img">
                   <img class="card-img-top img-fluid" src="assets/img/photos/14.jpg" alt="Card image cap">
-                  <h4 class="card-title">{{list.companyName}}.</h4>
-                  
+
+
                 </div>
-                <div class="card-block mt-1">
-                  <p class="card-text">Email :- {{list.email}}</p>
-                  <a [routerLink]="['/', list.creator, list.companyName, 'dashboard']" class="btn btn-raised btn-warning">View Company</a>
+                <div class="card-block mt-1 text-center">
+                  <h4 class="card-title">{{list.companyName}}.</h4>
+                  <p class="card-text">Email : {{list.email}}</p>
+                  <a [routerLink]="['/', list.creator, list.companyName, 'dashboard']" class="btn btn-raised " style="background-color:#ff3159; color: white">View Company</a>
                 </div>
               </div>
             </div>

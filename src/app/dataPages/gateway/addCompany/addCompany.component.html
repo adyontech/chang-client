@@ -9,7 +9,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title mb-0">Enter Compnay details</h4>
+          <h4 class="card-title mb-0">Enter Company details</h4>
         </div>
         <div class="card-body">
           <div class="px-3">
@@ -30,7 +30,7 @@
                       <label for="helpInputTop">Company Pan</label>
                       <input type="text" class="form-control" id="helpInputTop" placeholder="pan" formControlName="pan">
                       <small class="text-muted">eg.
-                        <i>XXXXX0000X</i>
+                        <i>DXPDC2184T</i>
                       </small>
                       <!-- <small class="form-text text-muted danger" *ngIf="!regularForm.get('password').valid && (regularForm.get('password').dirty || regularForm.get('password').touched)">Password characters length must be between 4 and 24 !</small> -->
 
@@ -69,7 +69,7 @@
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
                       <label for="disabledInput">Phone Number</label>
-                      <input type="number" class="form-control" id="basicInput" placeholder="phoneNo" formControlName="phoneNo">
+                      <input type="text" class="form-control" id="basicInput" placeholder="phoneNo" formControlName="phoneNo">
                       <!-- <small class="form-text text-muted danger" *ngIf="!regularForm.get('password').valid && (regularForm.get('password').dirty || regularForm.get('password').touched)">Password characters length must be between 4 and 24 !</small> -->
 
                     </fieldset>
@@ -88,11 +88,7 @@
                   <div class="col-xl-4 col-lg-6 col-md-12">
                     <fieldset class="form-group">
                       <label for="basicSelect">Nature of business:</label>
-                      <select class="form-control" id="basicSelect" name="business" formControlName="natureOfBuisness">
-                        <option value="freight" selected selected>Freight</option>
-                        <option value="option2">Option2</option>
-                        <option value="option3">Option3</option>
-                      </select>
+                      <input type="text" class="form-control" id="helpInputTop" placeholder="gstin" formControlName="natureOfBuisness">
                     </fieldset>
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12">
@@ -161,12 +157,14 @@
                     <fieldset class="form-group">
                       <label for="basicSelect">Logo:</label>
                       <div class="card-body">
-                        <div class="form-group">
-                          <div class="input-group">
+                        <div class="input-group">
+                          <div class="upload-btnF-wrapper">
+                            <button class="btnF">Upload Logo</button>
                             <input type="file" id="avatar" (change)="onFileChange($event, 'logo')" #fileInput>
                           </div>
-                          <div *ngIf="logoError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
                         </div>
+                        <div *ngIf="logoError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
+
                       </div>
 
                     </fieldset>
@@ -175,20 +173,24 @@
                     <fieldset class="form-group">
                       <label for="basicSelect">Signature:</label>
                       <div class="card-body">
-                        <div class="form-group">
-                          <div class="input-group">
+                        <div class="input-group">
+                          <div class="upload-btnF-wrapper">
+                            <button class="btnF">Upload signature</button>
+
                             <input type="file" id="avatar" (change)="onFileChange($event, 'signature')" #fileInput>
                           </div>
-                          <div *ngIf="signatureError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
                         </div>
+                        <div *ngIf="signatureError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
+
                       </div>
 
                     </fieldset>
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-raised btn-primary pull-right" style="color: white">Get started</button>
-              <div class="clearfix"></div>
+              <div class="row text-center">
+                <button type="submit" class="btn btn-raised btn-lg pull-center btn-success" style="color: white; margin: 35px 40%">Get started</button>
+              </div>
             </form>
           </div>
         </div>
