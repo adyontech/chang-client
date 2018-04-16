@@ -24,8 +24,7 @@ export class ConfirmService {
   confirmPayment(paymentId, paymentReqId) {
     this._url = `${this._globalVariableService.baseServerUrl}/pays/confirmPayment`;
     return this.http.post(this._url, { paymentId: paymentId, paymentReqId: paymentReqId }).map((res: Response) => {
-      this.result = res.json();
-      console.log(this.result);
+     return  this.result = res.json();
     });
   }
 }

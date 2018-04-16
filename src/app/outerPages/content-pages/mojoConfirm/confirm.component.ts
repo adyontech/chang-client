@@ -15,6 +15,7 @@ declare var $: any;
 export class ConfirmComponent implements OnInit {
   paymentId: String;
   paymentRequest: String;
+  disableClick: Boolean = true;
   // closeResult: string;
   // public form: FormGroup;
   // public selectedIndex = 1;
@@ -49,7 +50,9 @@ export class ConfirmComponent implements OnInit {
   confirmPayment() {
     this._paymentService.confirmPayment(this.paymentId, this.paymentRequest).subscribe(data => {
       // data = data.json();
+      if (data.success) {
+        this.disableClick = false;
+      }
     });
   }
-
 }

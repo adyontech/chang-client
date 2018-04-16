@@ -58,17 +58,18 @@ export class CheckoutComponent implements OnInit {
     });
   }
   requestPayment() {
-    this.disableClick = true;
+    // this.disableClick = true;
     if (this.packName === 'growth' || this.packName === 'booster') {
       alertFunctions.SaveData().then(datsa => {
         if (datsa) {
           this._checkoutService.requestPayment(this.packName).subscribe(data => {
             // console.log(data);
             if (data.success) {
-              this._toastrService.typeSuccess('success', 'Please chek your mail.');
+              this._toastrService.typeSuccess('success', 'Request successful redirecting to payment gateway.');
+              window.open(data.longUrl, '_blank');
               setTimeout(() => {
-                      this.router.navigate(['/gateway']);
-                    }, 5000);
+                // this.router.navigate(['/gateway']);
+              }, 5000);
             } else {
               this._toastrService.typeError('Error', data.message);
               this.disableClick = true;
