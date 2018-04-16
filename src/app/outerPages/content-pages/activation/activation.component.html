@@ -1,16 +1,18 @@
-<div class="jumbotron text-center">
-    <h1 class="display-3">Thank You!</h1>
-    <p class="lead">
-      <strong>We are verifying your details.</strong> Have patience.</p>
-    <hr>
-    <p class="mt-3 mb-3 " *ngIf="startChecking"> Checking validity of email.</p>
-          <p class="mt-3 mb-3 " *ngIf="redirectingLogin">Verification successful, redirecting to login page.</p>
-          <p class="mt-3 mb-3 " style="color: red" *ngIf="redirectingSignup">Invalid token redirecting to Signup page.</p>
-    <p>
-      Having trouble?
-      <a href="">Contact us</a>
-    </p>
-    <p class="lead">
-      <a class="btn btn-primary btn-sm" href="https://proworktree.com/" role="button">Contact us</a>
-    </p>
-  </div>
+<div class="jumbotron text-center" style="background-color: #dbffd9">
+  <h1 class="display-3">Thank You!</h1>
+  <p class="lead">
+    <strong>We are verifying your details.</strong>
+  </p>
+  <hr>
+  <p class="mt-3 mb-3 " *ngIf="startChecking"> Checking validity of email.</p>
+  <p class="mt-3 mb-3 " *ngIf="redirectingLogin">Verification successful, redirecting to login page.</p>
+  <p class="mt-3 mb-3 " style="color: red" *ngIf="redirectingSignup">Invalid token redirecting to Signup page.</p>
+  <p>
+    Having trouble?
+    <a href="">Contact us</a>
+  </p>
+  <p class="lead">
+    <button href="javascript:void(0)" [disabled]="disableClick" class="btn btn-raised btn-primary btn-lg">Home.</button>
+    <br>
+  </p>
+</div>

@@ -16,6 +16,7 @@ export class ActivationComponent implements OnInit {
   startChecking: Boolean = true;
   redirectingLogin: Boolean = false;
   redirectingSignup: Boolean = false;
+  disableClick: Boolean  = true;
   constructor(
     public _activationService: ActivationService,
     public _activatedRoute: ActivatedRoute,
@@ -26,7 +27,7 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/app/login';
     this._activatedRoute.params.subscribe((params: Params) => {
-      console.log(params);
+      // console.log(params);
       const token = params['id'];
       this._activationService.authentication(token).subscribe(res => {
         this.somevar = res.message;
@@ -36,13 +37,13 @@ export class ActivationComponent implements OnInit {
           this.redirectingLogin = true;
           setTimeout(() => {
             this.router.navigate(['/app/login']);
-          }, 10000);
+          }, 3000);
         } else {
           this.startChecking = false;
           this.redirectingSignup = true;
           setTimeout(() => {
             this.router.navigate(['/app/signup']);
-          }, 10000);
+          }, 3000);
         }
       });
     });
