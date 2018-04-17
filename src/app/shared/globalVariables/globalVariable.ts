@@ -4,5 +4,3 @@ export class GlobalVaribles {
   baseServerUrl: String = 'http://localhost:3000';
   constructor() {}
 }
-// let paramIdValue;
-// export default (paramIdValue = 'hello');
