@@ -1,4 +1,5 @@
-<div>
+<!-- 5200FF -->
+<div style="background-color: #0069ff">
   <nav style="background-color: #ffffff" class="navbar navbar-default d-none d-md-block">
     <div class="container-fluid">
       <div class="navbar-header" style="padding: 0">
@@ -8,32 +9,33 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Contact us</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Contact us</button>
         </li>
       </ul>
     </div>
   </nav>
-
-  <nav class="navbar navbar-default fixed-top d-block d-md-none">
-    <div class="container-fluid">
-      <div class="navbar-header" style="padding: 0">
-        <a class="navbar-brand" href="#">
-          <img alt="Brand" style="width: 50%" src="./../../../assets/pwt/signup/logo-trans.png">
-        </a>
+  <div class=" d-block d-md-none" style="height: 50px;background-color: #ffffff">
+    <nav class="navbar navbar-default fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header" style="padding: 0">
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" style="width: 50%" src="./../../../assets/pwt/signup/logo-trans.png">
+          </a>
+        </div>
+        <button class="navbar-toggler" (click)="toggleNavbar()" type="button" aria-controls="theNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="ft-align-justify"></i>
+        </button>
+        <div [ngbCollapse]="isNavbarCollapsed" style="background-color: white;z-index: 999;" id="theNavbar" [@collapse]="isNavbarCollapsedAnim"
+          class="navbar-collapse collapse navbar-toggleable vertical-menu text-center">
+          <a href="#" class="active">Home</a>
+          <a href="#">Contact</a>
+          <a href="#">aadii104</a>
+          <a href="#">aadii104</a>
+          <a href="#">aadii104</a>
+        </div>
       </div>
-      <button class="navbar-toggler" (click)="toggleNavbar()" type="button" aria-controls="theNavbar" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="ft-align-justify"></i>
-      </button>
-      <div [ngbCollapse]="isNavbarCollapsed" style="background-color: white;z-index: 999;" id="theNavbar" [@collapse]="isNavbarCollapsedAnim"
-        class="navbar-collapse collapse navbar-toggleable vertical-menu text-center" >
-        <a href="#" class="active">Home</a>
-        <a href="#">Contact</a>
-        <a href="#">aadii104</a>
-        <a href="#">aadii104</a>
-        <a href="#">aadii104</a>
-      </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
   <div style="min-height: 497px;">
     <router-outlet></router-outlet>
   </div>
@@ -41,7 +43,9 @@
 
     <div class="col-12 py-3 text-center">
       © 2018 Copyright:
-      <strong> <span> Proworktree professional services private limited </span></strong>
+      <strong>
+        <span> Proworktree professional services private limited </span>
+      </strong>
     </div>
   </div>
 
