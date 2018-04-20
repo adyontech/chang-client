@@ -14,17 +14,18 @@
       </ul>
     </div>
   </nav>
-  <div class=" d-block d-md-none" style="height: 50px;background-color: #ffffff">
+  <div class=" d-block d-md-none" style="height: 50px;background-color: #ffffff; border-bottom: 1px dotted #bca1a1">
     <nav class="navbar navbar-default fixed-top">
       <div class="container-fluid">
         <div class="navbar-header" style="padding: 0">
-          <a class="navbar-brand" href="#">
-            <img alt="Brand" style="width: 50%" src="./../../../assets/pwt/signup/logo-trans.png">
+          <a class="navbar-brand" style=" width: 70%" href="#">
+            <img alt="Brand" style="width: 100%" src="./../../../assets/pwt/signup/logo-trans.png">
           </a>
+          <button style="margin:2% 0" class="navbar-toggler pull-right" (click)="toggleNavbar()" type="button" aria-controls="theNavbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <i class="ft-align-justify"></i>
+          </button>
         </div>
-        <button class="navbar-toggler" (click)="toggleNavbar()" type="button" aria-controls="theNavbar" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="ft-align-justify"></i>
-        </button>
         <div [ngbCollapse]="isNavbarCollapsed" style="background-color: white;z-index: 999;" id="theNavbar" [@collapse]="isNavbarCollapsedAnim"
           class="navbar-collapse collapse navbar-toggleable vertical-menu text-center">
           <a href="#" class="active">Home</a>

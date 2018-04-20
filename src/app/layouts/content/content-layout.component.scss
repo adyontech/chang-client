@@ -1,41 +1,27 @@
-// .vertical-menu {
-//     width: 200px; /* Set a width if you like */
-// }
 .vertical-menu a {
     background-color: white;
-    /* Grey background color */
     color: black;
-    /* Black text color */
     display: block;
-    /* Make the links appear below each other */
     padding: 12px;
-    /* Add some padding */
     text-decoration: none;
-    /* Remove underline from links */
 }
 
 .vertical-menu a:hover {
-    background-color: #5200FF/* Dark grey background on mouse-over */
+    background-color: #0069ff;
 }
 
 .vertical-menu a.active {
-    background-color: #5200FF;
-    /* Add a green color to the "active/current" link */
+    background-color: #0069ff;
     color: black;
 }
 
 .bodycol {
-    background-color: #0069ff
+    background-color: white
 }
 
 .footer-ser {
     width: 103%
 }
-
-// .footer-ser2 {
-//     width: 103%
-// }
-
 @media (min-width:961px) {
     .bodycol {
         background-color: #0069ff !important
