@@ -23,3 +23,13 @@
     /* Add a green color to the "active/current" link */
     color: black;
 }
+
+.bodycol {
+    background-color: #0069ff
+}
+
+@media (min-width:961px) {
+    .bodycol {
+        background-color: #0069ff !important
+    }
+}
