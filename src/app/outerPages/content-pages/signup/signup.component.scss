@@ -1,38 +1,27 @@
 .input-style {
-  height: 50px;
-  border: 1px solid #aab2ac;
-}
-// h3{
-//   color: blue
-// }
-@media (min-width: 320px) {
-
-  /* smartphones, iPhone, portrait 480x320 phones */
+    height: 50px;
+    border: 1px solid #aab2ac;
 }
 
-@media (min-width: 481px) {
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+.main-head {
+    width: 103%;
 }
 
 @media (max-width: 450) {
-  .mobile-view {
-    padding: 0 10%
-  }
-  .captcha{
-    margin-left: -4%
-  }
+    .mobile-view {
+        padding: 0 10%
+    }
+    .captcha {
+        margin-left: -4%
+    }
 }
+
 @media (min-width: 961px) {
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  .captcha {
-    margin-left: -10%
-  }
-}
-
-@media (min-width: 1025px) {
-  /* big landscape tablets, laptops, and desktops */
-}
-
-@media (min-width: 1281px) {
-  /* hi-res laptops and desktops */
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .captcha {
+        margin-left: -10%
+    }
+    .main-head {
+        width: 100%
+    }
 }

@@ -28,8 +28,19 @@
     background-color: #0069ff
 }
 
+.footer-ser {
+    width: 103%
+}
+
+// .footer-ser2 {
+//     width: 103%
+// }
+
 @media (min-width:961px) {
     .bodycol {
         background-color: #0069ff !important
+    }
+    .footer-ser {
+        width: 101% !important
     }
 }
