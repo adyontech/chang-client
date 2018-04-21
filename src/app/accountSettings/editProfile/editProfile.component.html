@@ -44,13 +44,10 @@
                     <fieldset class="form-group">
                       <div class="row">
                         <label class="col-md-3 label-control" for="userinput1">Date of birth: </label>
-                        <div class=" col-md-6">
+                        <div class="col-md-6">
                           <div class="form-group">
                             <div class="input-group">
-                              <!-- required -->
-                              <input class="form-control" placeholder="yyyy-mm-dd" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="dob">
-                              <small class="form-text text-muted danger" *ngIf="!form.get('dob').valid && (form.get('dob').dirty || form.get('dob').touched)">Please enter a valid phoneNo!</small>
-
+                              <input class="form-control" placeholder="dd-mm-yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="dob">
                               <div class="input-group-append">
                                 <div class="input-group-text" (click)="ds.toggle()">
                                   <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -59,7 +56,9 @@
                             </div>
                           </div>
                         </div>
+                        <small class="form-text text-muted danger" *ngIf="!form.get('dob').valid && (form.get('dob').dirty || form.get('dob').touched)">Please enter a valid date.</small>
                       </div>
+
                     </fieldset>
                   </div>
                   <div class="col-md-6">
