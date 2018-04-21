@@ -26,13 +26,11 @@
           <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let list of companyList">
             <div class="card">
               <div class="card-body">
-                <div class="card-img">
-                  <img class="card-img-top img-fluid" src="assets/img/photos/14.jpg" alt="Card image cap">
-
-
+                <div class="card-img" style="width: 300px; height: 170px">
+                  <img class="card-img-top img-fluid" src="https://pwtapp.nyc3.digitaloceanspaces.com/{{list.logo}}" alt="Card image cap">
                 </div>
                 <div class="card-block mt-1 text-center">
-                  <h4 class="card-title">{{list.companyName}}.</h4>
+                  <h4 class="card-title">{{list.companyName}}</h4>
                   <p class="card-text">Email : {{list.email}}</p>
                   <a [routerLink]="['/', list.creator, list.companyName, 'dashboard']" class="btn btn-raised " style="background-color:#ff3159; color: white">View Company</a>
                 </div>
