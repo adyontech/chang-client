@@ -20,6 +20,9 @@ export class AddCompanyComponent implements OnInit {
   logoError: Boolean = false;
   signatureError: Boolean = false;
 
+  sigFileName: String = 'No File Choosen.';
+  logoFileName: String = 'No File Choosen.';
+
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(
@@ -102,20 +105,20 @@ export class AddCompanyComponent implements OnInit {
     const reader = new FileReader();
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
-        // console.log(event.target.files);
-        // const file = event.target.files[0];
-        // reader.readAsDataURL(file);
-        // reader.onload = () => {
-        //   this.form.get(fileField).setValue({
-        //     filename: file.name,
-        //     filetype: file.type,
-        //     value: reader.result.split(',')[1],
-        //   });
-        // };
         this.form.get(fileField).setValue(event.target.files[0]);
+        // console.log(event.target.files[0].name);
+        fileField === 'logo'
+          ? (this.logoFileName = event.target.files[0].name)
+          : (this.sigFileName = event.target.files[0].name);
       }
     } else {
-      fileField === 'logo' ? (this.logoError = true) : (this.signatureError = true);
+      if (fileField === 'logo') {
+        this.logoError = true;
+        this.sigFileName = 'No File choosen'
+      } else {
+        this.signatureError = true;
+        this.logoFileName = 'No File choosen'
+      }
     }
   }
 }

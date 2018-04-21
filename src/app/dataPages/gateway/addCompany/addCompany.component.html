@@ -159,11 +159,12 @@
                       <div class="card-body">
                         <div class="input-group">
                           <div class="upload-btnF-wrapper">
-                            <button class="btnF">Upload Logo</button>
+                            <button  type="button" class="btnF">Upload Logo</button>
                             <input type="file" id="avatar" (change)="onFileChange($event, 'logo')" #fileInput>
                           </div>
                         </div>
-                        <div *ngIf="logoError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
+                        <div>{{logoFileName}}</div>
+                        <div *ngIf="logoError" style="color: red">Max file size exceeded.</div>
 
                       </div>
 
@@ -175,12 +176,15 @@
                       <div class="card-body">
                         <div class="input-group">
                           <div class="upload-btnF-wrapper">
-                            <button class="btnF">Upload signature</button>
+                            <button type="button" class="btnF">Upload signature</button>
 
                             <input type="file" id="avatar" (change)="onFileChange($event, 'signature')" #fileInput>
                           </div>
                         </div>
-                        <div *ngIf="signatureError" style="color: red">Error in file uploading, please choose appropriate file type and size.</div>
+                        <div>{{sigFileName}}</div>
+                        <!-- <div *ngIf="signatureError" >No file choosen.</div>-->
+
+                        <div *ngIf="signatureError" style="color: red">Max file size exceeded.</div>
 
                       </div>
 
