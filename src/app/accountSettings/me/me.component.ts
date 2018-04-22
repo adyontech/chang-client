@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MeService } from './service/me.service';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { NgbDateCustomParserFormatter } from './../../shared/globalVariables/datePipe';
 @Component({
   selector: 'app-me-profile',
   templateUrl: './me.component.html',
@@ -22,7 +23,11 @@ export class MeProfileComponent implements OnInit {
   updatedAt;
   joinedOn;
   website;
-  constructor(public _meService: MeService, private router: Router) {}
+  constructor(
+    public _meService: MeService,
+    private router: Router,
+    public _dareFormatter: NgbDateCustomParserFormatter
+  ) {}
 
   ngOnInit() {
     this.fetchDetails();
@@ -42,7 +47,7 @@ export class MeProfileComponent implements OnInit {
       this.readCollabId = this.user.readCollabId;
       this.writeCollabId = this.user.writeCollabId;
       this.userName = this.user.userName;
-      this.joinedOn = this.user.accountType.createdAt
+      this.joinedOn = this.user.accountType.createdAt;
       this.gender = this.user.gender;
     });
   }

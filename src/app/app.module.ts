@@ -18,13 +18,14 @@ import { ContentLayoutComponent } from './layouts/content/content-layout.compone
 import { SettingsLayoutComponent } from './layouts/settings-layout/settings-layout.component';
 import { FullLayoutComponent } from './layouts/full/full-layout.component';
 
+import {  NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CustomOption } from './shared/toastr/custom-option';
 
 import { AuthService } from './shared/auth/auth.service';
 import { AuthGuard } from './shared/auth/auth-guard.service';
-import {ToastrService} from './utilities/toastr.service';
+import { ToastrService } from './utilities/toastr.service';
+import { NgbDateCustomParserFormatter } from './shared/globalVariables/datePipe';
 import * as $ from 'jquery';
-
 
 @NgModule({
   declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent, SettingsLayoutComponent],
@@ -46,9 +47,11 @@ import * as $ from 'jquery';
   providers: [
     // Toastr and auth providers
     { provide: ToastOptions, useClass: CustomOption },
+    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter},
     AuthService,
     AuthGuard,
-    ToastrService
+    ToastrService,
+    NgbDateCustomParserFormatter,
   ],
   bootstrap: [AppComponent],
 })

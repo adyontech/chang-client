@@ -13,7 +13,8 @@ export class AppComponent {
     // console.log(
     //   '%c%s',
     //   'color: green; background: cyan; font-size: 32px;',
-    //   'Well aadii104 is trying to make things better here, let him know him you are looking for something ( try not to start somehthing your own)'
+    //   'Well aadii104 is trying to make things better here,
+    // let him know him you are looking for something ( try not to start somehthing your own)'
     // );
   }
 }

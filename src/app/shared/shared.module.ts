@@ -11,6 +11,7 @@ import { SettingSidebarComponent } from './settingSidebar/settingSidebar.compone
 import { CustomizerComponent } from './customizer/customizer.component';
 import { NotificationSidebarComponent } from './notification-sidebar/notification-sidebar.component';
 import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.directive';
+// import { NgbDateCustomParserFormatter } from './globalVariables/datePipe';
 
 @NgModule({
   exports: [
@@ -23,6 +24,7 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
     SettingSidebarComponent,
     ToggleFullscreenDirective,
     NgbModule,
+    // NgbDateCustomParserFormatter,
   ],
   imports: [RouterModule, CommonModule, NgbModule],
   declarations: [
