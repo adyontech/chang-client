@@ -33,7 +33,7 @@ export class DeleteCompanyComponent implements OnInit {
       // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
-      this._dashboardSettingService.setParamId(this.paramId);
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 

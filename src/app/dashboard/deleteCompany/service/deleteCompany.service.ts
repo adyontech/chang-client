@@ -25,9 +25,6 @@ export class DeleteCompanyService {
 
   }
 
-  setParamId(value) {
-    this._globalVariableService.paramId = value;
-  }
   deleteCompany(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/deleteCompany?token=${
       this.token

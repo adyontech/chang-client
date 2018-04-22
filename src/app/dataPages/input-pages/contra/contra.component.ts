@@ -16,8 +16,8 @@ export class ContraComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   dataCopy: any;
-  paramId: string;
-  closeResult: string;
+  public paramId: string;
+  public ownerName: string;
   public totalAmount: number;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
@@ -55,8 +55,10 @@ export class ContraComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
+      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
-      console.log(this.paramId)
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 
@@ -94,7 +96,7 @@ export class ContraComponent implements OnInit {
 
   getLedgerUGNames() {
     this.dataCopy = this._contraService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
@@ -106,12 +108,12 @@ export class ContraComponent implements OnInit {
 
   getAccountNames() {
     this.dataCopy = this._contraService
-      .getAccountNames(this.paramId)
+      .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
         if (data.success !== false) {
-        this.accountList = this.accountList.concat(data.accountNameList);
+          this.accountList = this.accountList.concat(data.accountNameList);
         }
       });
   }
@@ -137,11 +139,10 @@ export class ContraComponent implements OnInit {
   onSubmit(user) {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
-        console.log(user);
-        user.endtotal = this.totalAmount;
-        this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
+    console.log(user);
+    user.endtotal = this.totalAmount;
+    this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
     //   }
     // });
   }
-
 }

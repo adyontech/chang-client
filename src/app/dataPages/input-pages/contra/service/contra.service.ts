@@ -45,16 +45,16 @@ export class ContraService {
       console.log(this.result)
     });
   }
-  getLedgerUGNames(compName) {
+  getLedgerUGNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
-  getAccountNames(compName) {
+  getAccountNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 }
