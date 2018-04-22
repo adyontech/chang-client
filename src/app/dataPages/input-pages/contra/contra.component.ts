@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +14,7 @@ declare var $: any;
   styleUrls: ['./contra.component.scss'],
 })
 export class ContraComponent implements OnInit {
+  closeResult: string;
   form: FormGroup;
   selectedIndex = 1;
   dataCopy: any;
@@ -22,6 +24,7 @@ export class ContraComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
+  public fileName: String = 'No File Choosen.';
 
   public value: any = {};
   public _disabledV: String = '0';
@@ -31,7 +34,8 @@ export class ContraComponent implements OnInit {
     private route: ActivatedRoute,
     public _contraService: ContraService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -60,6 +64,17 @@ export class ContraComponent implements OnInit {
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
     });
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed `;
+      }
+    );
   }
 
   initParticular() {
@@ -124,15 +139,16 @@ export class ContraComponent implements OnInit {
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
-    if (event.target.files[0].size < 400000) {
+    if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('attachment').setValue(event.target.files[0]);
+        this.fileName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
+      this.fileName = 'No File choosen';
     }
   }
 
