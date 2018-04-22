@@ -75,7 +75,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/settings/transactions',
-    title: 'Transactions',
+    title: 'Payment History',
     icon: 'ft-message-square',
     class: '',
     badge: '',

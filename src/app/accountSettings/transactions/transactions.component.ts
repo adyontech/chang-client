@@ -14,6 +14,7 @@ export class TransactionsComponent implements OnInit {
   // public packName: string;
   public transData;
   public transDataLength;
+  public validTIll;
   constructor(public _transactionsService: TransactionsService) {}
 
   ngOnInit() {
@@ -22,9 +23,17 @@ export class TransactionsComponent implements OnInit {
 
   requestPaymentDetails() {
     this._transactionsService.requestPaymentDetails().subscribe(data => {
-      console.log(data.json())
+      console.log(data.json());
       this.transData = data.json().transactions;
       this.transDataLength = this.transData.length;
+      console.log(this.transData.paymenetSuccessDate);
+      // this.transData.map(el => {
+      //   console.log(typeof el.paymenetSuccessDate)
+      //   const year = el.paymenetSuccessDate.getFullYear();
+      //   const month = el.paymenetSuccessDate.getMonth();
+      //   const day = el.paymenetSuccessDate.getDate();
+      //   el.paymenetSuccessDate = new Date(year + 1, month, day);
+      // });
     });
   }
 }
