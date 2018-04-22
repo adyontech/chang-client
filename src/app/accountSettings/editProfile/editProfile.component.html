@@ -47,16 +47,16 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <div class="input-group">
-                              <input class="form-control" placeholder="dd-mm-yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="dob">
+                              <input class="form-control" placeholder="dd.mm.yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="dob">
                               <div class="input-group-append">
                                 <div class="input-group-text" (click)="ds.toggle()">
                                   <i class="fa fa-calendar" style="cursor: pointer;"></i>
                                 </div>
                               </div>
                             </div>
+                            <small class="form-text text-muted danger" *ngIf="!form.get('dob').valid && (form.get('dob').dirty || form.get('dob').touched)">Please enter a valid date.</small>
                           </div>
                         </div>
-                        <small class="form-text text-muted danger" *ngIf="!form.get('dob').valid && (form.get('dob').dirty || form.get('dob').touched)">Please enter a valid date.</small>
                       </div>
 
                     </fieldset>
@@ -81,17 +81,6 @@
                             Custom footer
                           </ng-template> -->
                         </ng-select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-md-3 label-control" for="userinput6">signature pic: </label>
-                      <div class="col-md-9">
-                        <input class="form-control border-primary" type="url" id="userinput6">
                       </div>
                     </div>
                   </div>
