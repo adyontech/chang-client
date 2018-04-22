@@ -162,7 +162,30 @@ export function SaveData() {
     showCancelButton: true,
     confirmButtonColor: '#0CC27E',
     cancelButtonColor: '#FF586B',
-    confirmButtonText: 'Text Changed',
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No, cancel',
+  })
+    .then(value => {
+      if (value.value === true) {
+        proceed = true;
+      }
+      return proceed;
+    })
+    .catch(swal.noop);
+}
+
+
+
+export function ConfirmStep() {
+  let proceed: Boolean = false;
+  return swal({
+    title: 'Are you sure?',
+    text: 'You want to proceed!',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#0CC27E',
+    cancelButtonColor: '#FF586B',
+    confirmButtonText: 'Yes',
     cancelButtonText: 'No, cancel',
   })
     .then(value => {

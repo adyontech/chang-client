@@ -41,8 +41,7 @@ export class ContraService {
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/contra?token=${this.token}&companyName=${compName}`;
     return this.http.post(this._url, form).map((res: Response) => {
-      this.result = res.json();
-      console.log(this.result)
+      return res.json();
     });
   }
   getLedgerUGNames(compName, owner) {

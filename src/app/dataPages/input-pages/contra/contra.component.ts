@@ -153,12 +153,17 @@ export class ContraComponent implements OnInit {
   }
 
   onSubmit(user) {
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
-    console.log(user);
-    user.endtotal = this.totalAmount;
-    this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
-    //   }
-    // });
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        console.log(user);
+        user.endtotal = this.totalAmount;
+        this._contraService.createNewEntry(user, this.paramId).subscribe(data => {
+          this.form.reset();
+        });
+      }
+    });
+  }
+  resetForm() {
+    this.form.reset();
   }
 }
