@@ -15,11 +15,10 @@ declare var $: any;
   styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
-  public form: FormGroup;
-  public selectedIndex = 1;
-  public dataCopy: any;
   public paramId: string;
-  public ownerId: string;
+  public ownerName: string;
+  public form: FormGroup;
+  public dataCopy: any;
   public closeResult: string;
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
@@ -92,14 +91,15 @@ export class LedgerComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      console.log(params);
-      this.paramId = params.id;
+      // console.log(params.id);
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
-
   getUnderGroupList() {
     this.dataCopy = this._ledgerService
-      .getUnderGroupList(this.paramId, this.ownerId)
+      .getUnderGroupList(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         data = data.ugData.map(item => item.groupName);
@@ -131,7 +131,7 @@ export class LedgerComponent implements OnInit {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
     const user = this.form.getRawValue();
-    this._ledgerService.createNewLedger(user, this.paramId, this.ownerId).subscribe(data => {
+    this._ledgerService.createNewLedger(user, this.paramId, this.ownerName).subscribe(data => {
       // console.log('hello gateway service')
     });
     //   } else {

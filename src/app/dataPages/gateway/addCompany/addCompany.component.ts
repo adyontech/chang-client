@@ -31,7 +31,6 @@ export class AddCompanyComponent implements OnInit {
     private router: Router,
     public _toastrService: ToastrService
   ) {
-    console.log();
   }
 
   ngOnInit() {

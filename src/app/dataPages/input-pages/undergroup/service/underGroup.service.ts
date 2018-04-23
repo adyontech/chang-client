@@ -25,12 +25,12 @@ export class UnderGroupsService {
     this.token = this.windowStorage.token;
   }
 
-  createNewUnderGroup(user: any) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&companyName=${
-      this.paramCompanyName
-    }`;
+  createNewUnderGroup(user: any, compName, owner) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, user).map((res: Response) => {
-      this.result = res.json();
+      return res.json();
       // console.log(this.result)
     });
   }
