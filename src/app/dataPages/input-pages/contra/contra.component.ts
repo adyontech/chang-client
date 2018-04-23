@@ -136,6 +136,9 @@ export class ContraComponent implements OnInit {
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
+  dateFill(date) {
+    console.log(date);
+  }
 
   onFileChange(event) {
     this.attachmentError = false;

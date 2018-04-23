@@ -54,7 +54,8 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <div class="input-group">
-                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" ngbDatepicker #ds1="ngbDatepicker" formControlName="date">
+                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" ngbDatepicker #ds1="ngbDatepicker" (change)="dateFill($event)"
+                                    formControlName="date">
                                   <div class="input-group-append">
                                     <div class="input-group-text" (click)="ds1.toggle()">
                                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -240,7 +241,7 @@
                       <button type="button" class="btn btn-secondary" resetWizard (click)="resetForm()">Reset</button>
                       <button type="submit" class="btn btn-secondary" resetWizard>submit</button>
                     </div>
-                    
+
                   </wizard-step>
 
                 </div>
