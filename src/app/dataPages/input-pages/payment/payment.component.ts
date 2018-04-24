@@ -163,21 +163,20 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log('you clicked it');
     console.log(user);
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
-    user.endtotal = this.totalAmount;
-    this._paymentService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
-      if (data.success) {
-        this._toastrService.typeSuccess('success', 'Data successfully added');
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.endtotal = this.totalAmount;
+        this._paymentService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
+          if (data.success) {
+            this._toastrService.typeSuccess('success', 'Data successfully added');
+          } else {
+            this._toastrService.typeError('Error', data.message);
+          }
+        });
       } else {
-        this._toastrService.typeError('Error', data.message);
+        return;
       }
     });
-    // } else {
-    //   return;
-    // }
-    // });
   }
 }

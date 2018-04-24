@@ -62,7 +62,7 @@
             <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="popupModel" ngbDatepicker #d2="ngbDatepicker">
+                  <input class="form-control" placeholder="dd.mm.yyyy" name="dp" [(ngModel)]="popupModel" ngbDatepicker #d2="ngbDatepicker">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="d2.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -90,7 +90,7 @@
             <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="customDay"
+                  <input class="form-control" placeholder="dd.mm.yyyy" name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="customDay"
                     [markDisabled]="isDisabled" #d3="ngbDatepicker">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="d3.toggle()">
@@ -129,7 +129,7 @@
             <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [displayMonths]="displayMonths" [navigation]="navigation"
+                  <input class="form-control" placeholder="dd.mm.yyyy" name="dp" [displayMonths]="displayMonths" [navigation]="navigation"
                     ngbDatepicker #d="ngbDatepicker">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="d.toggle()">
