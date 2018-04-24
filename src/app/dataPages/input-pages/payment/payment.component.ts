@@ -5,6 +5,8 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
+import { ToastrService } from './../../../utilities/toastr.service';
+
 declare var $: any;
 
 @Component({
@@ -17,6 +19,7 @@ export class PaymentComponent implements OnInit {
   public form: FormGroup;
   public dataCopy: any;
   public paramId: string;
+  public ownerName: string;
   public totalAmount: number;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
@@ -28,7 +31,8 @@ export class PaymentComponent implements OnInit {
     public _paymentService: PaymentService,
     public fb: FormBuilder,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -53,7 +57,14 @@ export class PaymentComponent implements OnInit {
     });
     this.addParticular();
   }
-
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
+    });
+  }
   // To open modal we need key event here
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -107,14 +118,6 @@ export class PaymentComponent implements OnInit {
     return <FormArray>this.form.get('particularsData');
   }
 
-  getRouteParam() {
-    this.route.params.subscribe(params => {
-      console.log(params);
-      this.paramId = params.id;
-      // this._paymentService.setParamId(this.paramId);
-    });
-  }
-
   totalSum() {
     const formControls = this.form.controls.particularsData['controls'];
     this.totalAmount = 0;
@@ -129,7 +132,7 @@ export class PaymentComponent implements OnInit {
 
   getLedgerUGNames() {
     this.dataCopy = this._paymentService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
@@ -137,7 +140,7 @@ export class PaymentComponent implements OnInit {
   }
   getAccountNames() {
     this.dataCopy = this._paymentService
-      .getAccountNames(this.paramId)
+      .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
@@ -164,11 +167,14 @@ export class PaymentComponent implements OnInit {
     console.log(user);
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
-    // user.date = new Date(user.date.year, user.date.month, user.date.day);
-    // user.drawnOn = new Date(user.drawnOn.year, user.drawnOn.month, user.drawnOn.day);
-
     user.endtotal = this.totalAmount;
-    this._paymentService.createNewEntry(user, this.paramId).subscribe(data => {});
+    this._paymentService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
+      if (data.success) {
+        this._toastrService.typeSuccess('success', 'Data successfully added');
+      } else {
+        this._toastrService.typeError('Error', data.message);
+      }
+    });
     // } else {
     //   return;
     // }

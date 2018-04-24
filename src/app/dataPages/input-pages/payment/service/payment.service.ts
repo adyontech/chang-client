@@ -33,7 +33,7 @@ export class PaymentService {
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any, compName) {
+  createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       // console.log(key, user['date']);
@@ -43,23 +43,24 @@ export class PaymentService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, form).map((res: Response) => {
-      this.result = res.json();
-      console.log(this.result);
+      return res.json();
     });
   }
 
-  getLedgerUGNames(compName) {
+  getLedgerUGNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
-  getAccountNames(compName) {
+  getAccountNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 }

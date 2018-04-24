@@ -6,6 +6,8 @@ import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ContraService } from './service/contra.service';
+import { ToastrService } from './../../../utilities/toastr.service';
+
 declare var $: any;
 
 @Component({
@@ -35,7 +37,8 @@ export class ContraComponent implements OnInit {
     public _contraService: ContraService,
     public fb: FormBuilder,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -162,6 +165,11 @@ export class ContraComponent implements OnInit {
         user.endtotal = this.totalAmount;
         this._contraService.createNewEntry(user, this.paramId).subscribe(data => {
           this.form.reset();
+          if (data.success) {
+            this._toastrService.typeSuccess('success', 'Data successfully added');
+          } else {
+            this._toastrService.typeError('Error', data.message);
+          }
         });
       }
     });
