@@ -139,9 +139,6 @@ export class ContraComponent implements OnInit {
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
-  dateFill(date) {
-    console.log(date);
-  }
 
   onFileChange(event) {
     this.attachmentError = false;
@@ -163,7 +160,7 @@ export class ContraComponent implements OnInit {
       if (datsa) {
         console.log(user);
         user.endtotal = this.totalAmount;
-        this._contraService.createNewEntry(user, this.paramId).subscribe(data => {
+        this._contraService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
           this.form.reset();
           if (data.success) {
             this._toastrService.typeSuccess('success', 'Data successfully added');

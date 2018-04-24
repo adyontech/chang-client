@@ -16,6 +16,7 @@ export class JournalEntryComponent implements OnInit {
   form: FormGroup;
   dataCopy: any;
   paramId: string;
+  public ownerName: string;
   totalAmount: number;
   debitSum: number;
   creditSum: number;
@@ -25,6 +26,7 @@ export class JournalEntryComponent implements OnInit {
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;
+  public fileName: String = 'No File Choosen.';
   constructor(
     private route: ActivatedRoute,
     public _journalEntryService: JournalEntryService,
@@ -48,7 +50,9 @@ export class JournalEntryComponent implements OnInit {
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
-      this.paramId = params.id;
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 
@@ -80,7 +84,7 @@ export class JournalEntryComponent implements OnInit {
 
   getLedgerUGNames() {
     this.dataCopy = this._journalEntryService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
@@ -120,9 +124,11 @@ export class JournalEntryComponent implements OnInit {
     if (event.target.files[0].size < 400000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('file').setValue(event.target.files[0]);
+        this.fileName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
+      this.fileName = 'No File choosen';
     }
   }
 
@@ -130,7 +136,7 @@ export class JournalEntryComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         console.log(user);
-        this._journalEntryService.createNewEntry(user, this.paramId).subscribe(data => {});
+        this._journalEntryService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {});
       }
     });
   }

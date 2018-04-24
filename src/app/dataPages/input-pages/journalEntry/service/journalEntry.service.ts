@@ -25,14 +25,14 @@ export class JournalEntryService {
     this.token = this.windowStorage.token;
   }
 
-  getLedgerUGNames(compName) {
+  getLedgerUGNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any, compName) {
+  createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
        // console.log(key, user['date']);
@@ -44,7 +44,7 @@ export class JournalEntryService {
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/journalEntry?token=${
       this.token
-    }&companyName=${compName}`;
+    }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)

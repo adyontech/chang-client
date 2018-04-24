@@ -29,7 +29,7 @@ export class ContraService {
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any, compName) {
+  createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       // console.log(key, user['date']);
@@ -39,7 +39,9 @@ export class ContraService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/contra?token=${this.token}&companyName=${compName}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/contra?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, form).map((res: Response) => {
       return res.json();
     });
