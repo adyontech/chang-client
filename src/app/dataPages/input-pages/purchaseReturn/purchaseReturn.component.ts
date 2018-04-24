@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PurchaseReturnService } from './service/purchaseReturn.service';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { ToastrService } from './../../../utilities/toastr.service';
+
 declare var $: any;
 
 @Component({
@@ -20,6 +22,7 @@ export class PurchaseReturnComponent implements OnInit {
   public dataCopy2: any;
   private prsrData: any;
   public paramId: string;
+  public ownerName: string;
   public subTotal: number;
   public totalAmount: number;
   public selectedString: String;
@@ -50,7 +53,8 @@ export class PurchaseReturnComponent implements OnInit {
     public _purchaseService: PurchaseReturnService,
     public fb: FormBuilder,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -108,7 +112,9 @@ export class PurchaseReturnComponent implements OnInit {
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
-      this.paramId = params.id;
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
   public selectedprsr(value: any, indexValue): void {
@@ -191,14 +197,14 @@ export class PurchaseReturnComponent implements OnInit {
           }
         });
         console.log(user);
-        this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
+        this._purchaseService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {});
       }
     });
   }
 
   getLedgerUGNames() {
     this.dataCopy = this._purchaseService
-      .getLedgerUGNames(this.paramId)
+      .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data);
@@ -208,7 +214,7 @@ export class PurchaseReturnComponent implements OnInit {
 
   getPurchaseUGNames() {
     this.dataCopy1 = this._purchaseService
-      .getPurchaseUGNames(this.paramId)
+      .getPurchaseUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         // console.log(data)
@@ -218,7 +224,7 @@ export class PurchaseReturnComponent implements OnInit {
 
   getPrsrList() {
     this.dataCopy2 = this._purchaseService
-      .getprsrList(this.paramId)
+      .getprsrList(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;

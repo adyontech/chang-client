@@ -5,6 +5,8 @@ import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
+import { ToastrService } from './../../../utilities/toastr.service';
+
 declare var $: any;
 @Component({
   selector: 'app-journal-entry',
@@ -31,7 +33,8 @@ export class JournalEntryComponent implements OnInit {
     private route: ActivatedRoute,
     public _journalEntryService: JournalEntryService,
     public fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -136,7 +139,13 @@ export class JournalEntryComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         console.log(user);
-        this._journalEntryService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {});
+        this._journalEntryService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
+          if (data.success) {
+            this._toastrService.typeSuccess('success', 'Data successfully added');
+          } else {
+            this._toastrService.typeError('Error', data.message);
+          }
+        });
       }
     });
   }

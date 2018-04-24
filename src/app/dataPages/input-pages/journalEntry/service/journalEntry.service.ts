@@ -46,8 +46,7 @@ export class JournalEntryService {
       this.token
     }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, form).map((res: Response) => {
-      this.result = res.json();
-      // console.log(this.result)
+     return res.json();
     });
   }
 }

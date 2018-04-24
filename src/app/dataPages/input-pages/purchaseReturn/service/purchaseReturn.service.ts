@@ -24,7 +24,7 @@ export class PurchaseReturnService {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
-  createNewEntry(user: any, compName) {
+  createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       // console.log(key, user['date']);
@@ -36,29 +36,29 @@ export class PurchaseReturnService {
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/purchaseReturn?token=${
       this.token
-    }&companyName=${compName}`;
+    }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
       // console.log(this.result)
     });
   }
-  getLedgerUGNames(compName) {
+  getLedgerUGNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
-  getPurchaseUGNames(compName) {
+  getPurchaseUGNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/purchaseLedgerList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 
-  getprsrList(compName) {
+  getprsrList(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/prsrList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 }
