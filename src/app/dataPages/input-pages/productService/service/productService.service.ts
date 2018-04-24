@@ -37,7 +37,7 @@ export class ProductServiceService {
       this.token
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
-      this.result = res.json();
+     return res.json();
       // console.log(this.result)
     });
   }

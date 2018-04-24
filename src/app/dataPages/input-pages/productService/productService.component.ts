@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { ToastrService } from './../../../utilities/toastr.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from './service/productService.service';
@@ -67,7 +68,8 @@ export class ProductServiceComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public _productServiceService: ProductServiceService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public _toastrService: ToastrService
   ) {
     // console.log(this._productServiceService);
   }
@@ -96,14 +98,20 @@ export class ProductServiceComponent implements OnInit {
   }
 
   onSubmit(user) {
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
     if (user.val === '') {
       user.val = user.qty * user.rate;
     }
     console.log(user);
-    this._productServiceService.createNewPrsr(user, this.paramId, this.ownerId).subscribe(data => {});
-    //   }
-    // });
+    this._productServiceService.createNewPrsr(user, this.paramId, this.ownerId).subscribe(data => {
+      if (data.success) {
+        this._toastrService.typeSuccess('success', 'Data successfully added');
+      } else {
+        this._toastrService.typeError('Error', data.message);
+      }
+    });
+      }
+    });
   }
 }
