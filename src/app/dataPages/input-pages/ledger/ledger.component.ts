@@ -6,6 +6,7 @@ import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
+import { ToastrService } from './../../../utilities/toastr.service';
 
 declare var $: any;
 
@@ -55,7 +56,8 @@ export class LedgerComponent implements OnInit {
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
     public fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public _toastrService: ToastrService
   ) {}
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
@@ -102,6 +104,7 @@ export class LedgerComponent implements OnInit {
       .getUnderGroupList(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data)
         data = data.ugData.map(item => item.groupName);
         this.underGroupItems = this.underGroupItems.concat(data);
       });
@@ -128,15 +131,19 @@ export class LedgerComponent implements OnInit {
 
   // onSubmit(user) {
   onSubmit() {
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
     const user = this.form.getRawValue();
     this._ledgerService.createNewLedger(user, this.paramId, this.ownerName).subscribe(data => {
-      // console.log('hello gateway service')
+      if (data.success) {
+        this._toastrService.typeSuccess('success', 'Data successfully added');
+      } else {
+        this._toastrService.typeError('Error', data.message);
+      }
     });
-    //   } else {
-    //     return;
-    //   }
-    // });
+      } else {
+        return;
+      }
+    });
   }
 }
