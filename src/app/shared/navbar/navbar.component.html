@@ -1,5 +1,5 @@
 <!-- Navbar (Header) Starts -->
-<nav class="navbar navbar-expand-lg navbar-light bg-faded">
+<nav class="navbar navbar-expand-lg navbar-light bg-faded" style="background-color: #1999e3">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle d-lg-none float-left" data-toggle="collapse">
@@ -21,17 +21,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item mr-2">
-                        <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen (click)="ToggleClass()">                            
+                        <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen (click)="ToggleClass()">
                             <i class="{{toggleClass}} font-medium-3 blue-grey darken-4"></i>
                             <p class="d-none">fullscreen</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative notification-sidebar-toggle">
+                            <i class="ft-align-left font-medium-3 blue-grey darken-4"></i>
+                            <p class="d-none">Notifications Sidebar</p>
+                        </a>
+                    </li>
                     <li class="nav-item" ngbDropdown placement="bottom-right">
-                        <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
+                        <a class="listCol nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
                             <i class="ft-user font-medium-3 blue-grey darken-4"></i>
                             <p class="d-none">User Settings</p>
                         </a>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic3">                           
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
                             <a class="dropdown-item py-1" [routerLink]="['/settings/me']">
                                 <i class="ft-edit mr-2"></i>
                                 <span>My Profile</span>
@@ -41,21 +47,15 @@
                                 <span>My Helpers</span>
                             </a>
                             <!-- <a class="dropdown-item py-1" [routerLink]="['/settings/upgrade']">
-                                <i class="ft-settings mr-2"></i>
-                                <span></span>
-                            </a> -->
+                                                    <i class="ft-settings mr-2"></i>
+                                                    <span></span>
+                                                </a> -->
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="javascript:void(0);">
                                 <i class="ft-power mr-2"></i>
                                 <span (click)="logout()">Logout</span>
                             </a>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link position-relative notification-sidebar-toggle">
-                            <i class="ft-align-left font-medium-3 blue-grey darken-4"></i>
-                            <p class="d-none">Notifications Sidebar</p>
-                        </a>
                     </li>
                 </ul>
             </div>
