@@ -13,7 +13,8 @@
         <div class='dragdrop-wrapper'>
           <div class="row">
             <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500"><i class="ft-list mr-1"></i> To Dos</h4>
+              <h4 class="ml-2 mt-2 text-bold-500">
+                <i class="ft-list mr-1"></i> To Dos</h4>
               <div class='dragdrop-container' [dragula]='"task-group"' [dragulaModel]='todo'>
                 <div *ngFor='let todo of todo'>
                   <div class="card">
@@ -26,14 +27,18 @@
                         </div>
                       </div>
                       <p>{{todo.taskMessage}}</p>
-                      <img [src]="[todo.assignedTo]" class="rounded-circle width-50 mr-2"> <span class="primary">{{todo.createdOn | date}}</span>
+                      <div style="float: left;">
+                        <ngx-avatar name='creator' value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+                      </div>
+                      <span class="primary">{{todo.createdOn | date}}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500"><i class="ft-trending-up mr-1"></i> In Progress</h4>
+              <h4 class="ml-2 mt-2 text-bold-500">
+                <i class="ft-trending-up mr-1"></i> In Progress</h4>
               <div class='dragdrop-container' [dragula]='"task-group"' [dragulaModel]='inProcess'>
                 <div *ngFor='let inProcess of inProcess'>
                   <div class="card">
@@ -46,7 +51,8 @@
                         </div>
                       </div>
                       <p>{{inProcess.taskMessage}}</p>
-                      <img [src]="[inProcess.assignedTo]" class="rounded-circle width-50 mr-2"> <span class="info">{{inProcess.createdOn}}</span>
+                      <img [src]="[inProcess.assignedTo]" class="rounded-circle width-50 mr-2">
+                      <span class="info">{{inProcess.createdOn}}</span>
                     </div>
                   </div>
                 </div>
@@ -54,7 +60,8 @@
             </div>
 
             <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500"><i class="ft-thumbs-up mr-1"></i>Completed</h4>
+              <h4 class="ml-2 mt-2 text-bold-500">
+                <i class="ft-thumbs-up mr-1"></i>Completed</h4>
               <div class='dragdrop-container' [dragula]='"task-group"' [dragulaModel]='completed'>
                 <div *ngFor='let completed of completed'>
                   <div class="card">
@@ -67,7 +74,8 @@
                         </div>
                       </div>
                       <p>{{completed.taskMessage}}</p>
-                      <img [src]="[completed.assignedTo]" class="rounded-circle width-50 mr-2"> <span class="success">{{completed.createdOn}}</span>
+                      <img [src]="[completed.assignedTo]" class="rounded-circle width-50 mr-2">
+                      <span class="success">{{completed.createdOn}}</span>
                     </div>
                   </div>
                 </div>
@@ -75,7 +83,8 @@
             </div>
 
             <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500"><i class="ft-alert-octagon mr-1"></i>On Hold</h4>
+              <h4 class="ml-2 mt-2 text-bold-500">
+                <i class="ft-alert-octagon mr-1"></i>On Hold</h4>
               <div class='dragdrop-container' [dragula]='"task-group"' [dragulaModel]='backLog'>
                 <div *ngFor='let backLog of backLog'>
                   <div class="card">
@@ -88,7 +97,8 @@
                         </div>
                       </div>
                       <p>{{backLog.taskMessage}}</p>
-                      <img [src]="[backLog.assignedTo]" class="rounded-circle width-50 mr-2"> <span class="warning">{{backLog.createdOn}}</span>
+                      <img [src]="[backLog.assignedTo]" class="rounded-circle width-50 mr-2">
+                      <span class="warning">{{backLog.createdOn}}</span>
                     </div>
                   </div>
                 </div>
@@ -109,8 +119,7 @@
             <div class="form-control-position">
               <i class="icon-emoticon-smile"></i>
             </div>
-            <input type="text" class="form-control" id="todoTitle" placeholder="Title" (keydown.enter)="$event.preventDefault()"
-              #todoTitle>
+            <input type="text" class="form-control" id="todoTitle" placeholder="Title" (keydown.enter)="$event.preventDefault()" #todoTitle>
             <div class="form-control-position control-position-right">
               <i class="ft-image"></i>
             </div>
@@ -125,7 +134,7 @@
               <i class="ft-image"></i>
             </div>
           </fieldset>
-         
+
           <fieldset class="form-group position-relative has-icon-left col-md-2 col-12 mb-1">
             <button type="button" class="btn btn-raised btn-primary" (click)="onAddTask()">
               <i class="fa fa-paper-plane-o hidden-lg-up"></i> Create</button>
@@ -137,4 +146,3 @@
 
 </section>
 <!-- Taskboard Ends -->
-

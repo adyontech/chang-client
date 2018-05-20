@@ -1,11 +1,31 @@
 import { Injectable } from "@angular/core";
 import { Task } from "./taskboard.model";
+import { Http, Response, RequestOptions, Headers } from "@angular/http";
+import { GlobalVaribles } from "./../../../app/shared/globalVariables/globalVariable";
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from "@angular/router";
+import { Routes, RouterModule, ActivatedRoute } from "@angular/router";
 
 @Injectable()
 export class TaskBoardService {
+  result: {};
+  windowStorage: any;
+  _url: string;
+  token: string;
   public creator: string;
-  constructor() {
+  constructor(
+    private http: Http,
+    public _globalVariableService: GlobalVaribles,
+    public _activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.creator = JSON.parse(window.localStorage.getItem("user")).userName;
+    this.setToken();
   }
 
   public todo: Task[] = [
@@ -116,17 +136,36 @@ export class TaskBoardService {
     )
   ];
 
+  setToken() {
+    this.windowStorage = JSON.parse(window.localStorage.getItem("user"));
+    if (this.windowStorage === null || this.windowStorage === undefined) {
+      this.router.navigate(["/app/login"]);
+    } else {
+      this.token = this.windowStorage.token;
+      // console.log(this.token);
+    }
+  }
+
   addNewTask(title: string, message: string) {
-    this.todo.push(
-      new Task(
-        title,
-        message,
-        Date.now(),
-        this.creator,
-        "assets/img/portrait/small/avatar-s-3.png",
-        "New"
-      )
-    );
+    let todoObj = new Object();
+    todoObj = {
+      title: title,
+      message: message,
+      date: Date.now(),
+      creator: this.creator,
+      assignedto: "aadii",
+      status: "status"
+    };
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/addTask?token=${this.token}`;
+    console.log(todoObj);
+    this.http.post(this._url, todoObj)
+    .map((res: Response) => {
+      console.log("jjjjj");
+      this.result = res.json();
+      return this.result;
+    });
   }
   gettodo() {
     return this.todo;

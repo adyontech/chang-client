@@ -4,6 +4,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { GatewayService } from './../service/gateway.service';
 import { ToastrService } from './../../../utilities/toastr.service';
+
 @Component({
   selector: 'app-add-company',
   templateUrl: './addCompany.component.html',
