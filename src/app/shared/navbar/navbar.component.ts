@@ -7,8 +7,12 @@ import { AuthService } from './../auth/auth.service';
 })
 export class NavbarComponent {
   currentLang = 'en';
+  public creator: string;
+
   toggleClass = 'ft-maximize';
-  constructor(public _authService: AuthService) {}
+  constructor(public _authService: AuthService) {
+    this.creator = JSON.parse(window.localStorage.getItem("user")).userName;
+  }
 
   ToggleClass() {
     if (this.toggleClass === 'ft-maximize') {

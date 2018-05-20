@@ -20,13 +20,13 @@
         <div class="navbar-container">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item mr-2 ml-2">
+                    <li class="nav-item mr-2 ml-2 mt-1">
                         <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen (click)="ToggleClass()">
                             <i class="{{toggleClass}} font-medium-3 blue-grey headerFont darken-4"></i>
                             <p class="d-none">fullscreen</p>
                         </a>
                     </li>
-                    <li class="nav-item mr-2 ml-2">
+                    <li class="nav-item mr-2 ml-2 mt-1">
                         <a class="nav-link position-relative notification-sidebar-toggle">
                             <i class="ft-align-left headerFont font-medium-3 blue-grey darken-4"></i>
                             <p class="d-none">Notifications Sidebar</p>
@@ -34,7 +34,8 @@
                     </li>
                     <li class="nav-item mr-2 ml-2" ngbDropdown placement="bottom-right">
                         <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
-                            <i class="ft-user font-medium-3 headerFont blue-grey darken-4"></i>
+                            <ngx-avatar name={{creator}} value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+
                             <p class="d-none">User Settings</p>
                         </a>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic3">

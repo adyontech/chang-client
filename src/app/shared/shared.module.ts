@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AvatarModule } from "ngx-avatar";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -26,7 +27,7 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
     NgbModule,
     // NgbDateCustomParserFormatter,
   ],
-  imports: [RouterModule, CommonModule, NgbModule],
+  imports: [RouterModule, CommonModule, NgbModule, AvatarModule],
   declarations: [
     FooterComponent,
     NavbarComponent,

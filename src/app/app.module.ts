@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RecaptchaModule } from 'ng-recaptcha';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AvatarModule } from 'ngx-avatar';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +31,7 @@ import * as $ from 'jquery';
 @NgModule({
   declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent, SettingsLayoutComponent],
   imports: [
+    AvatarModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
     AppRoutingModule,
