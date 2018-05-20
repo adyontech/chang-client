@@ -57,6 +57,7 @@
     "ng2-smart-table": "^1.2.2",
     "ng2-toastr": "^4.1.2",
     "ng2-validation": "^4.2.0",
+    "ngx-avatar": "^2.9.0",
     "ngx-chips": "^1.6.3",
     "ngx-quill": "^2.0.4",
     "ngx-ui-switch": "^1.4.9",

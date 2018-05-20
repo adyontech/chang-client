@@ -26,7 +26,7 @@
                         </div>
                       </div>
                       <p>{{todo.taskMessage}}</p>
-                      <img [src]="[todo.assignedTo]" class="rounded-circle width-50 mr-2"> <span class="primary">{{todo.createdOn}}</span>
+                      <img [src]="[todo.assignedTo]" class="rounded-circle width-50 mr-2"> <span class="primary">{{todo.createdOn | date}}</span>
                     </div>
                   </div>
                 </div>
