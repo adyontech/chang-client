@@ -9,32 +9,33 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class NavbarService {
-    result: {};
-    token: string;
-    windowStorage: any;
-    _url: string;
+  result: {};
+  token: string;
+  windowStorage: any;
+  _url: string;
 
-    constructor(
-        private http: Http,
-        public _globalVariableService: GlobalVaribles,
-        public _activatedRoute: ActivatedRoute,
-        private route: ActivatedRoute,
-        private router: Router
-    ) {
-        this.setToken();
-    }
+  constructor(
+    private http: Http,
+    public _globalVariableService: GlobalVaribles,
+    public _activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.setToken();
+  }
 
-    setToken() {
-        this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
-        if (this.windowStorage === null || this.windowStorage === undefined) {
-            this.router.navigate(['/app/login']);
-        } else {
-            this.token = this.windowStorage.token;
-        }
+  setToken() {
+    this.windowStorage = JSON.parse(window.localStorage.getItem("user"));
+    if (this.windowStorage === null || this.windowStorage === undefined) {
+      this.router.navigate(["/app/login"]);
+    } else {
+      this.token = this.windowStorage.token;
     }
-    getCompanyList() {
-        this._url = `${this._globalVariableService.baseServerUrl}/api/companyNameList?token=${this.token}`;
-        return this.http.get(this._url);
-    }
-
+  }
+  getCompanyNameList() {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/companyNameList?token=${this.token}`;
+    return this.http.get(this._url);
+  }
 }

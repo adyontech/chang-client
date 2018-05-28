@@ -22,9 +22,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 mt-1 mb-1 d-block d-lg-none" role="search">
+                <!-- //for mobile -->
+                <div class="col-12 mt-1 mb-2 d-block d-lg-none" role="search">
                     <div class="position-relative has-icon-right">
-                        <ng-select [items]="accountList" placeholder="No company mob selected">
+                        <ng-select [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
                         </ng-select>
                     </div>
                 </div>
@@ -40,7 +41,7 @@
             <div class="d-none d-xl-block">
                 <div class="navbar-form navbar-right mt-1" role="search">
                     <div class="position-relative has-icon-right">
-                        <ng-select [items]="accountList" placeholder="No company des selected">
+                        <ng-select [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
                         </ng-select>
                     </div>
                 </div>

@@ -62,7 +62,6 @@ export class ContraComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -108,7 +107,6 @@ export class ContraComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.totalAmount += parseFloat(amount);
       }
-      // console.log(this.totalAmount);
     }
   }
 
@@ -117,7 +115,6 @@ export class ContraComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         if (data.success !== false) {
           this.ledgerList = this.ledgerList.concat(data.ledgerData);
         }
@@ -129,7 +126,6 @@ export class ContraComponent implements OnInit {
       .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         if (data.success !== false) {
           this.accountList = this.accountList.concat(data.accountNameList);
         }
@@ -158,7 +154,6 @@ export class ContraComponent implements OnInit {
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        console.log(user);
         user.endtotal = this.totalAmount;
         this._contraService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
           this.form.reset();
