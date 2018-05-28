@@ -5,3 +5,13 @@
 .headerFont {
     color: white !important;
 }
+
+.nav-icon {
+    margin: 10px 0 0 0;
+}
+
+@media screen and (max-width: 980px) {
+    .navsmall-device {
+        width: 100%;
+    }
+}

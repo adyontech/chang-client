@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AvatarModule } from "ngx-avatar";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -24,10 +25,10 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
     NotificationSidebarComponent,
     SettingSidebarComponent,
     ToggleFullscreenDirective,
-    NgbModule,
+    NgbModule
     // NgbDateCustomParserFormatter,
   ],
-  imports: [RouterModule, CommonModule, NgbModule, AvatarModule],
+  imports: [RouterModule, CommonModule, NgbModule, AvatarModule,NgSelectModule],
   declarations: [
     FooterComponent,
     NavbarComponent,
@@ -35,7 +36,7 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
     SettingSidebarComponent,
     CustomizerComponent,
     NotificationSidebarComponent,
-    ToggleFullscreenDirective,
-  ],
+    ToggleFullscreenDirective
+  ]
 })
 export class SharedModule {}
