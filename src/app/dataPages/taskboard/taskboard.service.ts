@@ -159,9 +159,10 @@ export class TaskBoardService {
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/task/addTask?token=${this.token}`;
+
     console.log(todoObj);
     this.http.post(this._url, todoObj)
-    .map((res: Response) => {
+    .subscribe((res: Response) => {
       console.log("jjjjj");
       this.result = res.json();
       return this.result;
