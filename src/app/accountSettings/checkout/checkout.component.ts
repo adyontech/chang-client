@@ -41,7 +41,6 @@ export class CheckoutComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      console.log(params.pack);
       this.packName = params.pack;
     });
   }
@@ -63,7 +62,6 @@ export class CheckoutComponent implements OnInit {
       alertFunctions.SaveData().then(datsa => {
         if (datsa) {
           this._checkoutService.requestPayment(this.packName).subscribe(data => {
-            // console.log(data);
             if (data.success) {
               this._toastrService.typeSuccess('success', 'Request successful redirecting to payment gateway.');
               window.open(data.longUrl, '_blank');

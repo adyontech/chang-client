@@ -47,7 +47,6 @@ export class ForgotPasswordPageComponent implements OnInit {
           this.sucessShow = true;
           this.errorShow = false;
           this.netErrorShow = false;
-          console.log(res.message)
           this.successMessage = res.message;
         } else {
           this.errorShow = true;

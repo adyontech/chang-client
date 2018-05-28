@@ -49,7 +49,6 @@ export class SalesComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       this.ownerId = params.owner;
     });
@@ -76,7 +75,6 @@ export class SalesComponent implements OnInit {
   }
 
   onRemove(item: any) {
-    console.log(item)
     switch (item.label) {
       case this.VColTransportationMode:
         this.ColTransportationMode = false;
@@ -96,7 +94,6 @@ export class SalesComponent implements OnInit {
     }
   }
   onSelectAll() {
-    // console.log(items);
     this.ColTransportationMode = true;
     this.ColSaleType = true;
     this.ColSupplyPlace = true;
@@ -105,7 +102,6 @@ export class SalesComponent implements OnInit {
     this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
   }
   onDeSelectAll() {
-    // console.log(items);
     this.ColTransportationMode = false;
     this.ColSaleType = false;
     this.ColSupplyPlace = false;
@@ -126,7 +122,6 @@ export class SalesComponent implements OnInit {
   }
 
   onClose() {
-    console.log('Modal Closed');
     this.contentId = '';
   }
 
@@ -136,17 +131,14 @@ export class SalesComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.incomingData = data.salesData;
-        console.log(this.incomingData);
       });
   }
 
   deleteEntry(id) {
-    console.log(id);
     this._salesService
       .deleteEntry(id, this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
       });
   }
 }

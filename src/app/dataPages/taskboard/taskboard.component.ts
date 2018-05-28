@@ -34,23 +34,19 @@ export class TaskboardComponent {
     this.completed = taskBoardService.completed;
 
     this._dragulaService.dropModel.subscribe(value => {
-      console.log(value);
       this.onDropModel(value.slice(1));
     });
     this._dragulaService.removeModel.subscribe(value => {
-      console.log(value);
       this.onRemoveModel(value.slice(1));
     });
   }
   private onDropModel(args) {
     let [el, target, source] = args;
-    console.log(args);
     // do something else
   }
 
   private onRemoveModel(args) {
     let [el, source] = args;
-    console.log(args);
 
     // do something else
   }

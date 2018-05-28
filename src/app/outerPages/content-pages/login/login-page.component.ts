@@ -53,7 +53,6 @@ export class LoginPageComponent implements OnInit {
   onSubmit(user) {
     this._loginService.validateUser(user).subscribe(
       data => {
-        console.log(data);
         if (data.success === true) {
           this.sucessShow = true;
           this.errorShow = false;
@@ -76,7 +75,6 @@ export class LoginPageComponent implements OnInit {
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
-
   closeSuccessAlert() {
     this.sucessShow = false;
   }

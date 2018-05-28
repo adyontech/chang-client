@@ -1,20 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { forwardRef, NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 import { AvatarModule } from "ngx-avatar";
 import { NgSelectModule } from "@ng-select/ng-select";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { FooterComponent } from './footer/footer.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { SettingSidebarComponent } from './settingSidebar/settingSidebar.component';
-import { CustomizerComponent } from './customizer/customizer.component';
-import { NotificationSidebarComponent } from './notification-sidebar/notification-sidebar.component';
-import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.directive';
+import { FooterComponent } from "./footer/footer.component";
+import { NavbarComponent } from "./navbar/navbar.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
+import { SettingSidebarComponent } from "./settingSidebar/settingSidebar.component";
+import { CustomizerComponent } from "./customizer/customizer.component";
+import { NotificationSidebarComponent } from "./notification-sidebar/notification-sidebar.component";
+import { ToggleFullscreenDirective } from "./directives/toggle-fullscreen.directive";
 // import { NgbDateCustomParserFormatter } from './globalVariables/datePipe';
 
+import { GlobalVaribles } from "./globalVariables/globalVariable";
+import { NavbarService } from "./navbar/navbar.service";
 @NgModule({
   exports: [
     CommonModule,
@@ -28,7 +30,13 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
     NgbModule
     // NgbDateCustomParserFormatter,
   ],
-  imports: [RouterModule, CommonModule, NgbModule, AvatarModule,NgSelectModule],
+  imports: [
+    RouterModule,
+    CommonModule,
+    NgbModule,
+    AvatarModule,
+    NgSelectModule
+  ],
   declarations: [
     FooterComponent,
     NavbarComponent,
@@ -37,6 +45,7 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
     CustomizerComponent,
     NotificationSidebarComponent,
     ToggleFullscreenDirective
-  ]
+  ],
+  providers: [NavbarService, GlobalVaribles]
 })
 export class SharedModule {}

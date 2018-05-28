@@ -39,8 +39,6 @@ export class ConfirmComponent implements OnInit {
   }
   getRouteParam() {
     this.route.queryParams.subscribe(params => {
-      // console.log(params.id);
-      console.log(params);
       this.paymentId = params.payment_id;
       this.paymentRequest = params.payment_request_id;
       this.confirmPayment();

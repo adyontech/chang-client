@@ -28,7 +28,6 @@ export class SidebarComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params);
       this.paramId = params.id;
     });
   }
@@ -44,7 +43,6 @@ export class SidebarComponent implements OnInit {
     }
   }
   logout() {
-    console.log('logging out');
     this._authService.logout();
   }
   // NGX Wizard - skip url change

@@ -47,7 +47,6 @@ export class ContributorService {
   collabAddWrite(user) {
     // console.log(user);
     this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddWrite?token=${this.token}`;
-    console.log(this._url);
     return this.http.patch(this._url, user).map((res: Response) => {
       this.result = res.json();
       return this.result;
@@ -55,20 +54,16 @@ export class ContributorService {
   }
 
   collabAddRead(user) {
-    // console.log(user);
     this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddRead?token=${this.token}`;
-    console.log(this._url);
     return this.http.patch(this._url, user);
   }
 
   removeReadHelper(id, role) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/removeReadHelper?token=${this.token}`;
-    console.log(this._url);
     return this.http.post(this._url, {id: id, role: role});
   }
   removeWriteHelper(id, role) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/removeWriteHelper?token=${this.token}`;
-    console.log(this._url);
     return this.http.post(this._url, {id: id, role: role});
   }
 }

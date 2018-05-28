@@ -23,7 +23,6 @@ export class UnderGroupsService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    console.log(this.windowStorage);
   }
 
   createNewUnderGroup(user: any) {
@@ -32,7 +31,6 @@ export class UnderGroupsService {
     }`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
     });
   }
 }
