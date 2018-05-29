@@ -5,9 +5,9 @@ import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angul
 import { emailValidator, passwordValidator, userNameValidator, phoneValidator } from './signup.validators';
 
 @Component({
-  selector: 'app-signup-page',
-  templateUrl: './signup.component.html',
-  styleUrls: ['signup.component.scss'],
+  selector: "app-signup-page",
+  templateUrl: "./signup.component.html",
+  styleUrls: ["signup.component.scss"]
 })
 export class SignupComponent implements OnInit {
   form: FormGroup;
@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
   netErrorShow: Boolean = false;
   successMessage: String;
   errorMessage: String;
+  beforeConfirm: Boolean = true;
   constructor(
     public _signupService: SignupService,
     public fb: FormBuilder,
@@ -31,16 +32,17 @@ export class SignupComponent implements OnInit {
     this._signupService.checkToken();
     this.fillForm();
 
-    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/app/login';
+    this.returnURL =
+      this.route.snapshot.queryParams["returnURL"] || "/app/login";
   }
 
   fillForm() {
     this.form = this.fb.group({
-      userName: ['', userNameValidator],
-      password: ['', passwordValidator],
-      password2: ['', passwordValidator],
-      email: ['', emailValidator],
-      phoneNo: ['', phoneValidator],
+      userName: ["", userNameValidator],
+      password: ["", passwordValidator],
+      password2: ["", passwordValidator],
+      email: ["", emailValidator],
+      phoneNo: ["", phoneValidator]
     });
   }
   onSubmit(user) {
@@ -51,6 +53,7 @@ export class SignupComponent implements OnInit {
           this.errorShow = false;
           this.netErrorShow = false;
           this.successMessage = res.message;
+          this.beforeConfirm= false;
         } else {
           this.errorShow = true;
           this.sucessShow = false;
@@ -75,5 +78,4 @@ export class SignupComponent implements OnInit {
   closeNetErrorAlert() {
     this.netErrorShow = false;
   }
-
 }

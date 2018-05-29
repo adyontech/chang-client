@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 login-sec">
+      <div class="col-md-4 login-sec" *ngIf="beforeConfirm">
         <h5 class="text-center">Signup Now</h5>
         <ngb-alert [ngClass]="'text-center'" [type]="'success'" ngDefaultControl *ngIf="sucessShow" (close)="closeSuccessAlert(sucessShow)">{{successMessage}}</ngb-alert>
         <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="errorShow" (close)="closeErrorAlert(errorShow)">{{successMessage}}</ngb-alert>
@@ -60,6 +60,12 @@
             <a [routerLink]="['/app/login']" class="pull-left mb-2 link">Log In ?</a>
           </div>
         </form>
+      </div>
+      <div class="col-md-4 login-sec" *ngIf="!beforeConfirm">
+        <h5 class="text-center">Verify Email</h5>
+        <p>Please check your mail for the verification link.</p>
+        <button type="submit" [routerLink]="['/app/login']" class="mt-1 btn btn-login">Login</button>
+
       </div>
     </div>
   </div>
