@@ -11,7 +11,7 @@ import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
+  styleUrls: ['./../signup/signup.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
   // @ViewChild('f') loginForm: NgForm;

@@ -24,27 +24,27 @@
         <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="netErrorShow" (close)="closeNetErrorAlert()">Error occured, please try in sometime.</ngb-alert>
 
         <form class="login-form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-          <div class="form-group">
+          <div class="form-group form-group-sign">
             <label for="userName" class="text-uppercase">Username</label>
             <input type="text" class="form-control input-style" id="username" name="userName" formControlName="userName" required minlength="4"
               maxlength="24">
           </div>
-          <div class="form-group">
+          <div class="form-group form-group-sign">
             <label for="exampleInputPassword1" class="text-uppercase">Email</label>
             <input type="email" class="form-control input-style" id="email" required name="email" formControlName="email">
           </div>
 
-          <div class="form-group">
+          <div class="form-group form-group-sign">
             <label for="exampleInputPassword1" class="text-uppercase">Phone Number</label>
             <input type="text" class="form-control input-style" id="phone" required name="phoneNo" formControlName="phoneNo">
           </div>
 
-          <div class="form-group">
+          <div class="form-group form-group-sign">
             <label for="exampleInputPassword1" class="text-uppercase">Password</label>
             <input type="password" class="form-control input-style" id="psw" required name="password" formControlName="password">
           </div>
 
-          <div class="form-group">
+          <div class="form-group form-group-sign">
             <label for="exampleInputPassword1" class="text-uppercase">Password</label>
             <input type="password" class="form-control input-style" style="height: 10%;" id="psw2" required name="password2" formControlName="password2">
           </div>
