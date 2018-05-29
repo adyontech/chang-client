@@ -116,3 +116,9 @@
 .link {
     color: #DE6262;
 }
+
+@media (max-width:576) {
+    .login-block {
+        padding: 0;
+    }
+}

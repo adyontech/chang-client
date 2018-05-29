@@ -7,11 +7,11 @@
 }
 
 .vertical-menu a:hover {
-    background-color: #0069ff;
+    background-color: #1999e3;
 }
 
 .vertical-menu a.active {
-    background-color: #0069ff;
+    background-color: #1999e3;
     color: black;
 }
 
@@ -22,9 +22,10 @@
 .footer-ser {
     width: 103%
 }
+
 @media (min-width:961px) {
     .bodycol {
-        background-color: #0069ff !important
+        background-color: #1999e3 !important
     }
     .footer-ser {
         width: 101% !important
