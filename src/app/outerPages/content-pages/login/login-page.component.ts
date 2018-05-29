@@ -72,9 +72,6 @@ export class LoginPageComponent implements OnInit {
       }
     );
   }
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response ${captchaResponse}:`);
-  }
   closeSuccessAlert() {
     this.sucessShow = false;
   }

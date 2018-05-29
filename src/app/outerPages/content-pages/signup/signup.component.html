@@ -31,10 +31,6 @@
           <input type="password" class="form-control input-style" style="height: 10%;" id="psw2" required placeholder="Confirm Password"
             name="password2" formControlName="password2">
         </div>
-
-        <div class="captcha">
-          <re-captcha (resolved)="resolved($event)" siteKey="6LfF-UYUAAAAAHRugifjgfPkgKCeSVY1SlViKLRF"></re-captcha>
-        </div>
         <button type="submit" class="btn btn-raised btn-primary mt-3" value="submit" [disabled]="!form.valid">CREATE ACCOUNT</button>
       </form>
       <a [routerLink]="['/app/login']" class="pull-left mb-2">Log In ?</a>

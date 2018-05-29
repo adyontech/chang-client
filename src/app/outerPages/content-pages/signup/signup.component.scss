@@ -11,16 +11,11 @@
     .mobile-view {
         padding: 0 10%
     }
-    .captcha {
-        margin-left: -4%
-    }
 }
 
 @media (min-width: 961px) {
     /* tablet, landscape iPad, lo-res laptops ands desktops */
-    .captcha {
-        margin-left: -10%
-    }
+   
     .main-head {
         width: 100%
     }
