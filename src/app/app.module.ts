@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { RecaptchaModule } from 'ng-recaptcha';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AvatarModule } from 'ngx-avatar';
 
@@ -35,7 +34,6 @@ import * as $ from 'jquery';
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
     AppRoutingModule,
-    RecaptchaModule.forRoot(),
     SharedModule,
     HttpClientModule,
     NgSelectModule,

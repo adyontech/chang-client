@@ -14,6 +14,12 @@ function passwordValidator(control) {
     }
 }
 
+function password2Validator(control) {
+  if (control.value.length < 3 || control.value.required) {
+    return { 'password2': true };
+  }
+}
+
 function userNameValidator(control) {
      if (control.value.length < 3 || control.value.required) {
         return { 'userName': true }
@@ -21,8 +27,8 @@ function userNameValidator(control) {
 }
 
 function phoneValidator(control) {
-     if (control.value.length === 10 || control.value.required) {
-        return { 'userName': true }
+     if (control.value.length === 9 || control.value.required) {
+         return { 'phoneNo': true }
     }
 }
 

@@ -1,21 +1,51 @@
 <!-- Navbar (Header) Starts -->
 <nav class="navbar navbar-expand-lg navbar-light bg-faded" style="background-color: #1999e3;">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle d-lg-none float-left" data-toggle="collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <form class="navbar-form navbar-right mt-1" role="search">
-                <!-- <div class="position-relative has-icon-right">
+        <div class="navbar-header navsmall-device">
+            <div class="row">
+                <div class=" col-12">
+                    <div class="d-block d-lg-none nav-icon">
+                        <a [routerLink]="['/']" class="logo-text float-left">
+                            <div class="logo-img" style="padding-top: 10px">
+                                <img src="./../../../assets/pwt/logo.jpg" style="height: 40px;" alt="logo">
+                            </div>
+                            <span class="text align-middle" style="font-size:15px">ProWorkTree</span>
+                        </a>
+                    </div>
+
+                    <button type="button" class="navbar-toggle d-lg-none pull-right" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <!-- //for mobile -->
+                <div class="col-12 mt-1 mb-2 d-block d-lg-none" role="search">
+                    <div class="position-relative has-icon-right">
+                        <ng-select [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <!-- <form class="navbar-form navbar-right mt-1" role="search">
+                <div class="position-relative has-icon-right">
                     <input type="text" class="form-control round" placeholder="Search">
                     <div class="form-control-position">
                         <i class="ft-search"></i>
                     </div>
-                </div> -->
-            </form>
+                </div>
+            </form> -->
+            <div class="d-none d-xl-block">
+                <div class="navbar-form navbar-right mt-1" role="search">
+                    <div class="position-relative has-icon-right">
+                        <ng-select [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="navbar-container">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

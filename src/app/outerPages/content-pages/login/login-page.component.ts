@@ -11,7 +11,7 @@ import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
+  styleUrls: ['./../signup/signup.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
   // @ViewChild('f') loginForm: NgForm;
@@ -53,7 +53,6 @@ export class LoginPageComponent implements OnInit {
   onSubmit(user) {
     this._loginService.validateUser(user).subscribe(
       data => {
-        console.log(data);
         if (data.success === true) {
           this.sucessShow = true;
           this.errorShow = false;
@@ -73,10 +72,6 @@ export class LoginPageComponent implements OnInit {
       }
     );
   }
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response ${captchaResponse}:`);
-  }
-
   closeSuccessAlert() {
     this.sucessShow = false;
   }

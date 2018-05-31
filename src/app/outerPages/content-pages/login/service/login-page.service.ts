@@ -33,10 +33,8 @@ export class LoginService {
   validateUser(user: any) {
     return this.http.post(this._URL, user).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result);
       if (this.result.success) {
         this.setGlobal(this.result);
-        // console.log(this._userStateService);
         this.router.navigate(['/gateway']);
         return this.result;
       } else {

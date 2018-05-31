@@ -35,7 +35,6 @@ export class SettingSidebarComponent implements OnInit {
     }
   }
   logout() {
-    console.log('logging out');
     this._authService.logout();
   }
   // NGX Wizard - skip url change

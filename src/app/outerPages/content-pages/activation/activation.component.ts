@@ -27,11 +27,9 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/app/login';
     this._activatedRoute.params.subscribe((params: Params) => {
-      // console.log(params);
       const token = params['id'];
       this._activationService.authentication(token).subscribe(res => {
         this.somevar = res.message;
-        console.log(res);
         if (res.success === true) {
           this.startChecking = false;
           this.redirectingLogin = true;

@@ -1,44 +1,72 @@
-<div class="row  mobile-view mb-3 main-head">
-  <div class="offset-lg-1 d-none d-lg-flex col-lg-6 mt-3 mb-3 text-center" style="background-color: #ffffff;  border-radius:2%">
-    <h4 class="mt-3">Benefits of PWT Account</h4>
-  </div>
-  <div class="offset-lg-1 col-lg-3 col-12  mt-3 mb-3 text-center" style="background-color: #ffffff;  border-radius:2%">
-    <h4 class="mt-3">Sign UP</h4>
+<section class="login-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 banner-sec">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>This is Best tool ever</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 login-sec" *ngIf="beforeConfirm">
+        <h5 class="text-center">Signup Now</h5>
+        <ngb-alert [ngClass]="'text-center'" [type]="'success'" ngDefaultControl *ngIf="sucessShow" (close)="closeSuccessAlert(sucessShow)">{{successMessage}}</ngb-alert>
+        <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="errorShow" (close)="closeErrorAlert(errorShow)">{{successMessage}}</ngb-alert>
+        <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="netErrorShow" (close)="closeNetErrorAlert()">Error occured, please try in sometime.</ngb-alert>
 
-    <div style="margin: 0 10%">
-      <ngb-alert [ngClass]="'text-center'" [type]="'success'" ngDefaultControl *ngIf="sucessShow" (close)="closeSuccessAlert(sucessShow)">{{successMessage}}</ngb-alert>
-      <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="errorShow" (close)="closeErrorAlert(errorShow)">{{successMessage}}</ngb-alert>
-      <ngb-alert [ngClass]="'text-center'" [type]="'danger'" ngDefaultControl *ngIf="netErrorShow" (close)="closeNetErrorAlert()">Error occured, please try in sometime.</ngb-alert>
+        <form class="login-form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+          <div class="form-group form-group-sign">
+            <label for="userName" class="text-uppercase">Username</label>
+            <input type="text" class="form-control input-style" id="username" name="userName" formControlName="userName" required minlength="4"
+              maxlength="24">
+          </div>
+          <div class="form-group form-group-sign">
+            <label for="exampleInputPassword1" class="text-uppercase">Email</label>
+            <input type="email" class="form-control input-style" id="email" required name="email" formControlName="email">
+          </div>
 
-      <form id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-        <div class="form-group">
-          <input type="text" class="form-control input-style" style="height: 10%;" id="username" placeholder="Choose a username" name="userName"
-            formControlName="userName" required minlength="4" maxlength="24">
-        </div>
-        <div class="form-group">
-          <input type="email" class="form-control input-style" style="height: 10%;" id="email" required placeholder="Email Address"
-            name="email" formControlName="email">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control input-style" style="height: 10%;" id="phone" required placeholder="Phone number" name="phoneNo"
-            formControlName="phoneNo">
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control input-style" style="height: 10%;" id="psw" required placeholder="Create password"
-            name="password" formControlName="password">
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control input-style" style="height: 10%;" id="psw2" required placeholder="Confirm Password"
-            name="password2" formControlName="password2">
-        </div>
+          <div class="form-group form-group-sign">
+            <label for="exampleInputPassword1" class="text-uppercase">Phone Number</label>
+            <input type="text" class="form-control input-style" id="phone" required name="phoneNo" formControlName="phoneNo">
+          </div>
 
-        <div class="captcha">
-          <re-captcha (resolved)="resolved($event)" siteKey="6LfF-UYUAAAAAHRugifjgfPkgKCeSVY1SlViKLRF"></re-captcha>
-        </div>
-        <button type="submit" class="btn btn-raised btn-primary mt-3" value="submit" [disabled]="!form.valid">CREATE ACCOUNT</button>
-      </form>
-      <a [routerLink]="['/app/login']" class="pull-left mb-2">Log In ?</a>
-      <a [routerLink]="['/app/forgotpassword']" class="pull-right mb-2"> Forgot Password?</a>
+          <div class="form-group form-group-sign">
+            <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+            <input type="password" class="form-control input-style" id="psw" required name="password" formControlName="password">
+          </div>
+
+          <div class="form-group form-group-sign">
+            <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+            <input type="password" class="form-control input-style" style="height: 10%;" id="psw2" required name="password2" formControlName="password2">
+          </div>
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input">
+              <small>Remember Me</small>
+            </label>
+            <button type="submit" class="mt-1 btn btn-login float-right" [disabled]="!form.valid">Submit</button>
+          </div>
+          <div class="ml-1">
+            <a [routerLink]="['/app/login']" class="pull-left mb-2 link">Log In ?</a>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4 login-sec" *ngIf="!beforeConfirm">
+        <h5 class="text-center">Verify Email</h5>
+        <p>Please check your mail for the verification link.</p>
+        <button type="submit" [routerLink]="['/app/login']" class="mt-1 btn btn-login">Login</button>
+
+      </div>
     </div>
   </div>
-</div>
+</section>

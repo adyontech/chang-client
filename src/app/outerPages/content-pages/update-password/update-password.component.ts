@@ -27,7 +27,6 @@ export class UpdatePasswordComponent implements OnInit {
   ngOnInit() {
     this.fillForm();
     this._activatedRoute.params.subscribe((params: Params) => {
-      console.log(params);
       this.token = params['id'];
     });
   }
@@ -39,12 +38,10 @@ export class UpdatePasswordComponent implements OnInit {
     });
   }
   onSubmit(user) {
-    console.log(user);
     if (user.password === user.password2) {
       this._updatePasswordService.createNewUser(user, this.token).subscribe(
         res => {
           this.somevar = res.message;
-          console.log(this.somevar);
           if (res.success === true) {
             this.router.navigate([this.returnURL]);
           }

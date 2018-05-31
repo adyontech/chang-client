@@ -142,7 +142,6 @@ export class TaskBoardService {
       this.router.navigate(["/app/login"]);
     } else {
       this.token = this.windowStorage.token;
-      // console.log(this.token);
     }
   }
 
@@ -160,10 +159,8 @@ export class TaskBoardService {
       this._globalVariableService.baseServerUrl
     }/task/addTask?token=${this.token}`;
 
-    console.log(todoObj);
     this.http.post(this._url, todoObj)
     .subscribe((res: Response) => {
-      console.log("jjjjj");
       this.result = res.json();
       return this.result;
     });

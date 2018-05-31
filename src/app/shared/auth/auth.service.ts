@@ -26,7 +26,6 @@ export class AuthService {
   }
 
   logout() {
-    console.log('logOut');
     window.localStorage.removeItem('user');
     this.router.navigate(['/app/login']);
     this.token = null;
@@ -54,7 +53,6 @@ export class AuthService {
     this.userData.token = token;
     window.localStorage.setItem('user', JSON.stringify(this.userData));
     this.accessAllowed = true;
-    console.log(window.localStorage);
   }
 
   removeUserData() {
@@ -62,7 +60,6 @@ export class AuthService {
     this.userData.token = '';
     window.localStorage.setItem('user', JSON.stringify(this.userData));
     this.accessAllowed = false;
-    console.log(window.localStorage);
   }
 }
 

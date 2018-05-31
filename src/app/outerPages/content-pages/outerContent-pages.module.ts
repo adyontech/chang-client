@@ -21,7 +21,6 @@ import { ActivationService } from './activation/service/activation.service';
 import { PassForgotService } from './forgot-password/service/forgot-password-page.service';
 import { UpdatePasswordService } from './update-password/service/update-password.service';
 import { ConfirmService } from './mojoConfirm/service/confirm.service';
-import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   imports: [
@@ -32,7 +31,6 @@ import { RecaptchaModule } from 'ng-recaptcha';
     ReactiveFormsModule,
     HttpModule,
     RouterModule,
-    RecaptchaModule,
   ],
   declarations: [
     ActivationComponent,

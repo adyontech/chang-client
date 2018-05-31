@@ -53,8 +53,6 @@ export class ContributorsComponent implements OnInit {
   getCollabList() {
     this.dataCopy = this._contributorService.getCollabList().subscribe(data => {
       this.userInfo = data.json();
-      console.log(this.userInfo);
-      this.writeCollabId = this.userInfo.user.writeCollabId;
       this.readCollabId = this.userInfo.user.readCollabId;
       if (this.writeCollabId !== undefined) {
         this.writeCollabIdLength = this.userInfo.user.writeCollabId.length;
@@ -70,8 +68,6 @@ export class ContributorsComponent implements OnInit {
       return;
     } else {
       this._contributorService.collabAddWrite(this.collabAddWriteModel).subscribe((res: IData) => {
-        // console.log(JSON.parse(res._body).success);
-        console.log(res);
         this._contributorService.typeSuccess(res);
         this.getCollabList();
       });
@@ -83,22 +79,18 @@ export class ContributorsComponent implements OnInit {
       return;
     } else {
       this._contributorService.collabAddRead(this.collabAddReadModel).subscribe(res => {
-        console.log(res.json());
         this.getCollabList();
       });
     }
   }
 
   removeHelper(id, role) {
-    console.log(id, role);
     if (role === 'write') {
       this._contributorService.removeWriteHelper(id, role).subscribe(res => {
-        console.log(res.json());
         this.getCollabList();
       });
     } else {
       this._contributorService.removeReadHelper(id, role).subscribe(res => {
-        console.log(res.json());
         this.getCollabList();
       });
     }

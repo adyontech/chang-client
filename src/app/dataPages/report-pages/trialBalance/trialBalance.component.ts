@@ -39,7 +39,6 @@ export class TrialBalanceComponent implements OnInit {
   }
 
   onClose() {
-    console.log('Modal Closed');
     this.contentId = '';
   }
   getIncomingData() {
@@ -49,7 +48,6 @@ export class TrialBalanceComponent implements OnInit {
       .getIncomingData()
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.incomingData = data.formData;
 
         data.formData.map(el => {
@@ -60,7 +58,6 @@ export class TrialBalanceComponent implements OnInit {
   }
 
   editData(id) {
-    console.log(id);
     this.contentId = id;
     this._trialBalanceService.contentId = id;
   }

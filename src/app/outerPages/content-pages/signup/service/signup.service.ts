@@ -31,7 +31,6 @@ export class SignupService {
 
   checkToken() {
     const windowStorages = JSON.parse(window.localStorage.getItem('user'));
-    console.log(windowStorages);
     if (windowStorages === null || windowStorages === undefined) {
       // redirection code;
     } else {
