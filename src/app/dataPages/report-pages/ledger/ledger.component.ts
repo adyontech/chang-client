@@ -1,16 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { LedgerService } from './service/ledger.service';
-import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators
+} from "@angular/forms";
+import { DatePipe } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { LedgerService } from "./service/ledger.service";
+import {
+  NgbDateStruct,
+  NgbDatepickerI18n,
+  NgbCalendar
+} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $: any;
 
 @Component({
-  selector: 'app-ledger-out',
-  templateUrl: './ledger.component.html',
-  styleUrls: ['./ledger.component.scss'],
+  selector: "app-ledger-out",
+  templateUrl: "./ledger.component.html",
+  styleUrls: ["./ledger.component.scss"]
 })
 export class LedgerComponent implements OnInit {
   // Models
@@ -32,6 +42,7 @@ export class LedgerComponent implements OnInit {
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
+  public ownerName: string;
   public closeResult: string;
 
   dropdownList = [];
@@ -39,7 +50,11 @@ export class LedgerComponent implements OnInit {
   dropdownSettings = {};
   public items: Array<string> = [];
 
-  constructor(private route: ActivatedRoute, public _ledgerService: LedgerService, public fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    public _ledgerService: LedgerService,
+    public fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.getRouteParam();
@@ -47,7 +62,10 @@ export class LedgerComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id;
+      // console.log(params.id);
+      this.paramId = params.id.split("%20").join(" ");
+      this.ownerName = params.owner.split("%20").join(" ");
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 
@@ -55,11 +73,13 @@ export class LedgerComponent implements OnInit {
     // console.log('Selected value is: ', value);
     this._ledgerService.ledgerName = value;
     this.dataCopy = this._ledgerService
-      .getIncomingData(this.paramId)
+      .getIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
-        data.formData.length === 0 ? (this.haveData = true) : (this.haveData = null);
+        data.formData.length === 0
+          ? (this.haveData = true)
+          : (this.haveData = null);
         this.LedgerData = data.formData;
         this.totalNet = data.amountObj.totalNet;
         this.newTotalNet = Math.abs(this.totalNet);
@@ -71,7 +91,7 @@ export class LedgerComponent implements OnInit {
 
   getLedgerNames() {
     this.dataCopy = this._ledgerService
-      .getLedgerNames(this.paramId)
+      .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
