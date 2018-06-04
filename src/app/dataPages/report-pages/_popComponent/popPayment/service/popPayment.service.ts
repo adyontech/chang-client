@@ -31,7 +31,6 @@ export class PopPaymentService {
   }
 
   getPaymentFormData(compName, id: string) {
-    console.log(`compName: ${compName} and compId: ${id}`);
     this._url = `${this._globalVariableService.baseServerUrl}/api/paymentFormData?token=${
       this.token
     }&&compName=${compName}&&dataId=${id}`;
@@ -41,7 +40,6 @@ export class PopPaymentService {
   createNewEntry(user: any, compName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key, user['date']);
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -51,14 +49,12 @@ export class PopPaymentService {
     this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${this.token}&companyName=${compName}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result);
     });
   }
 
   editEntry(user: any, compName, paymentId) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key, user['date']);
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -70,7 +66,6 @@ export class PopPaymentService {
     }&&companyName=${compName}&&paymentId=${paymentId}`;
     return this.http.patch(this._url, form).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result);
     });
   }
 

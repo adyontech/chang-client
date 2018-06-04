@@ -42,20 +42,16 @@ export class DashboardSettingService {
   }
 
   collabAddWrite(user, compName, owner) {
-    console.log(user);
     this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddWrite?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
-    console.log(this._url);
     return this.http.patch(this._url, user);
   }
 
   collabAddRead(user, compName, owner) {
-    console.log(user);
     this._url = `${this._globalVariableService.baseServerUrl}/api/gatewayCollabAddRead?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
-    console.log(this._url);
     return this.http.patch(this._url, user);
   }
 
@@ -63,7 +59,6 @@ export class DashboardSettingService {
     this._url = `${this._globalVariableService.baseServerUrl}/api/removeReadHelper?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
-    console.log(this._url);
     return this.http.post(this._url, { removeId: id });
   }
 
@@ -71,7 +66,6 @@ export class DashboardSettingService {
     this._url = `${this._globalVariableService.baseServerUrl}/api/removeWriteHelper?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
-    console.log(this._url);
     return this.http.post(this._url, { removeId: id });
   }
 }

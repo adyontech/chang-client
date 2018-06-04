@@ -71,7 +71,6 @@ export class ProductServiceComponent implements OnInit {
     public fb: FormBuilder,
     public _toastrService: ToastrService
   ) {
-    // console.log(this._productServiceService);
   }
 
   ngOnInit() {
@@ -91,7 +90,6 @@ export class ProductServiceComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       this.ownerId = params.owner;
     });
@@ -103,7 +101,6 @@ export class ProductServiceComponent implements OnInit {
     if (user.val === '') {
       user.val = user.qty * user.rate;
     }
-    console.log(user);
     this._productServiceService.createNewPrsr(user, this.paramId, this.ownerId).subscribe(data => {
       if (data.success) {
         this._toastrService.typeSuccess('success', 'Data successfully added');

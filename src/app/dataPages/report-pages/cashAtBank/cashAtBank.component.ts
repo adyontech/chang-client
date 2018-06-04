@@ -40,7 +40,6 @@ export class CashAtBankComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       //   this._cashAtBankService.setParamId(this.paramId)
     });
@@ -61,20 +60,16 @@ export class CashAtBankComponent implements OnInit {
       .getIncomingData(value, this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data);
         this.caseThrough(data.formData);
       });
   }
 
   caseThrough(arg) {
-    // console.log(arg);
     this.debSum = 0;
     this.credSum = 0;
-    // console.log(arg);
     arg.map(el => {
       switch (el.source.toLowerCase()) {
         case 'payment': {
-          //   console.log(el.data)
           el.data.map(elm =>
             elm.particularsData.map(ele => {
               if (elm.account.toLowerCase() === 'cash') {
@@ -123,7 +118,6 @@ export class CashAtBankComponent implements OnInit {
           break;
         }
         case 'journal': {
-          console.log(el);
           for (let i = 0; i < el.data.particularsData.length; i++) {
             const check = this.ledgerList.includes(el.data.particularsData[i].particulars[0].id);
             if (!check) {
@@ -138,17 +132,13 @@ export class CashAtBankComponent implements OnInit {
       }
     });
 
-    // console.log(arg);
     this.sumTotal = Math.abs(this.debSum - this.credSum);
     // this.incomingData = arg.map(el => el.data)[0];
-    // console.log(arg.map(el => el.data));
     this.incomingData = [];
     arg.map(el => (this.incomingData = this.incomingData.concat(el.data)));
-    console.log(this.incomingData);
   }
 
   editData(id) {
-    console.log(id);
     this.contentId = id;
     // this._cashAtBankService.contentId = id;
   }

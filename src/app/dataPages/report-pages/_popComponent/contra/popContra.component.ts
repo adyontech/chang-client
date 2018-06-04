@@ -86,7 +86,6 @@ export class PopContraComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.totalAmount += parseFloat(amount);
       }
-      // console.log(this.totalAmount);
     }
   }
 
@@ -95,7 +94,6 @@ export class PopContraComponent implements OnInit {
       .getLedgerUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         if (data.success !== false) {
           this.ledgerList = this.ledgerList.concat(data.ledgerData);
         }
@@ -107,7 +105,6 @@ export class PopContraComponent implements OnInit {
       .getAccountNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         if (data.success !== false) {
         this.accountList = this.accountList.concat(data.accountNameList);
         }
@@ -119,7 +116,6 @@ export class PopContraComponent implements OnInit {
   }
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -134,7 +130,6 @@ export class PopContraComponent implements OnInit {
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        console.log(user);
         this._contraService.createNewEntry(user, this.paramId).subscribe(data => {});
       }
     });

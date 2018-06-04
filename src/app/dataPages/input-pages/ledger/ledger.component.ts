@@ -93,7 +93,6 @@ export class LedgerComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -104,7 +103,6 @@ export class LedgerComponent implements OnInit {
       .getUnderGroupList(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data)
         data = data.ugData.map(item => item.groupName);
         this.underGroupItems = this.underGroupItems.concat(data);
       });

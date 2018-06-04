@@ -71,7 +71,6 @@ export class PopPurchaseComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
     });
   }
@@ -143,7 +142,6 @@ export class PopPurchaseComponent implements OnInit {
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -168,7 +166,6 @@ export class PopPurchaseComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        console.log(user);
         this._purchaseService.createNewEntry(user, this.paramId).subscribe(data => {});
       }
     });
@@ -179,7 +176,6 @@ export class PopPurchaseComponent implements OnInit {
       .getLedgerUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -189,7 +185,6 @@ export class PopPurchaseComponent implements OnInit {
       .getPurchaseUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data)
         this.purchaseList = this.purchaseList.concat(data.purchaseLedgerList);
       });
   }
@@ -200,7 +195,6 @@ export class PopPurchaseComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }
@@ -225,7 +219,6 @@ export class PopPurchaseComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.subTotal += parseFloat(amount);
       }
-      // console.log(this.subAmount);
     }
   }
   totalSum() {
@@ -243,7 +236,6 @@ export class PopPurchaseComponent implements OnInit {
     if (!isNaN(this.subTotal)) {
       this.totalAmount += this.subTotal;
     }
-    // console.log(this.totalAmount);
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });

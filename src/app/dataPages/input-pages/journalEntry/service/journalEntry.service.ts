@@ -35,7 +35,6 @@ export class JournalEntryService {
   createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-       // console.log(key, user['date']);
        if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {

@@ -26,7 +26,6 @@ export class PopSalesService {
   createNewEntry(user: any, compName, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key, user['date']);
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -38,14 +37,12 @@ export class PopSalesService {
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
     });
   }
 
   editEntry(user: any, compName, docId, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key, user['date']);
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -57,12 +54,10 @@ export class PopSalesService {
     }&&companyName=${compName}&&docId=${docId}&&ownerName=${ownerName}`;
     return this.http.patch(this._url, form).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result);
     });
   }
 
   getSalesFormData(compName, id: string, ownerName) {
-    console.log(`compName: ${compName} and compId: ${id}`);
     this._url = `${this._globalVariableService.baseServerUrl}/api/salesFormData?token=${
       this.token
     }&&compName=${compName}&&dataId=${id}&&ownerName=${ownerName}`;

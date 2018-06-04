@@ -22,8 +22,6 @@ export class PaymentService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // console.log(this.windowStorage)
-    // console.log(this.paramCompanyName)
   }
 
   getIncomingData(selectionValue, companyName, ownerName) {

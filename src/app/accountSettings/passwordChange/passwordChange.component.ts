@@ -13,7 +13,6 @@ export class PasswordChangeProfileComponent implements OnInit {
   form: FormGroup;
 
   constructor(public _passwordChangeService: PasswordChangeService, public fb: FormBuilder, private router: Router) {
-    console.log();
   }
 
   ngOnInit() {
@@ -27,11 +26,9 @@ export class PasswordChangeProfileComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log(user);
     if (user.password1 === user.password2) {
-    //   console.log('calling api');
       this._passwordChangeService.changePassword(user)
-      .subscribe(res => console.log(res.json()));
+      .subscribe(res =>res.json());
     }
   }
 }

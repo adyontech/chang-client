@@ -21,7 +21,6 @@ export class JournalEntryService {
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
-    // console.log(this.paramCompanyName)
   }
 
   getIncomingData(companyName) {

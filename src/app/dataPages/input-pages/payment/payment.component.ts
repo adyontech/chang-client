@@ -59,7 +59,6 @@ export class PaymentComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -126,7 +125,6 @@ export class PaymentComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.totalAmount += parseFloat(amount);
       }
-      // console.log(this.totalAmount);
     }
   }
 
@@ -143,14 +141,12 @@ export class PaymentComponent implements OnInit {
       .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.accountList = this.accountList.concat(data.accountNameList);
       });
   }
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -163,7 +159,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log(user);
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.endtotal = this.totalAmount;

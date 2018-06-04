@@ -47,7 +47,6 @@ export class EditProfileComponent implements OnInit {
   fetchDetails() {
     this._profileEditService.fetchDetails().subscribe(res => {
       this.user = res.json().user;
-      console.log(this.user);
       this.form.get('name').setValue(this.user.userName);
       this.form.get('phoneNo').setValue(this.user.phoneNo);
       this.form.get('gravator').setValue(this.user.gravator);
@@ -61,10 +60,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log(user);
 
     this._profileEditService.updateProfile(user).subscribe(data => {
-      console.log(data);
       if (data.success) {
         this._toastrService.typeSuccess('success', 'Profile updated successfully.');
       } else {

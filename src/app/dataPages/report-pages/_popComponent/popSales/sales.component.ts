@@ -82,7 +82,6 @@ export class PopSalesComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       this.ownerId = params.owner;
     });
@@ -106,7 +105,6 @@ export class PopSalesComponent implements OnInit {
 
   getIncomingData() {
     if (this.editContentId !== this.popContnetId) {
-      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
       this.popContnetId = this.editContentId;
       if (this.popContnetId !== '') {
         this._salesService
@@ -177,7 +175,6 @@ export class PopSalesComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -187,7 +184,6 @@ export class PopSalesComponent implements OnInit {
       .getSalesUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data)
         this.salesList = this.salesList.concat(data.salesLedgerList);
       });
   }
@@ -199,7 +195,6 @@ export class PopSalesComponent implements OnInit {
       .subscribe(data => {
         this.prsrData = data;
         this.prsrList = data.prsr.map(item => item.prsrName);
-        // console.log(this.prsrList);
       });
   }
 
@@ -223,7 +218,6 @@ export class PopSalesComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.subTotal += parseFloat(amount);
       }
-      // console.log(this.subAmount);
     }
   }
 
@@ -242,7 +236,6 @@ export class PopSalesComponent implements OnInit {
     if (!isNaN(this.subTotal)) {
       this.totalAmount += this.subTotal;
     }
-    // console.log(this.totalAmount);
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });
@@ -250,7 +243,6 @@ export class PopSalesComponent implements OnInit {
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -264,7 +256,6 @@ export class PopSalesComponent implements OnInit {
 
   fillForm(data) {
     data = data[0];
-    // console.log(data);
     data.date = new Date(data.date);
     this.form.controls['date'].setValue({
       year: data.date.getFullYear(),
@@ -285,7 +276,6 @@ export class PopSalesComponent implements OnInit {
     const oldArray = data.particularsData;
     oldArray.forEach((element, index) => {
       const array = particularsData.at(index);
-      console.log(element.nameOfProduct);
       if (!array) {
         particularsData.push(
           this.fb.group({
@@ -325,9 +315,7 @@ export class PopSalesComponent implements OnInit {
         el.amount = el.amount.toString();
       }
     });
-    console.log(user);
     if (action === false) {
-      console.log('edit');
       this._salesService.editEntry(user, this.paramId, this.editContentId, this.ownerId).subscribe(data => {});
     } else {
       this._salesService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});

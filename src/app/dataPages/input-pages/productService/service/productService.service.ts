@@ -38,7 +38,6 @@ export class ProductServiceService {
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
      return res.json();
-      // console.log(this.result)
     });
   }
 }

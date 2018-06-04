@@ -3,35 +3,14 @@ import { RouteInfo } from './settingSidebar.metadata';
 // Sidebar menu Routes and data
 export const ROUTES: RouteInfo[] = [
   {
-    path: '',
-    title: 'Gateway',
-    icon: 'ft-home',
-    class: 'has-sub',
-    badge: '2',
-    badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1',
+    path: "/gateway",
+    title: "Gateway",
+    icon: "ft-home",
+    class: "",
+    badge: "",
+    badgeClass: "",
     isExternalLink: false,
-    submenu: [
-      {
-        path: '/gateway',
-        title: 'View Company',
-        icon: '',
-        class: '',
-        badge: '',
-        badgeClass: '',
-        isExternalLink: false,
-        submenu: [],
-      },
-      {
-        path: '/gateway/addcompany',
-        title: 'Add Company',
-        icon: '',
-        class: '',
-        badge: '',
-        badgeClass: '',
-        isExternalLink: false,
-        submenu: [],
-      },
-    ],
+    submenu: [],
   },
   {
     path: '/settings/me',

@@ -45,7 +45,6 @@ export class ContributorService {
   }
 
   collabAddWrite(user) {
-    // console.log(user);
     this._url = `${this._globalVariableService.baseServerUrl}/api/collabAddWrite?token=${this.token}`;
     return this.http.patch(this._url, user).map((res: Response) => {
       this.result = res.json();

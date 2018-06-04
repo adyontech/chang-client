@@ -111,7 +111,6 @@ export class PurchaseReturnComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -196,7 +195,6 @@ export class PurchaseReturnComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        console.log(user);
         this._purchaseService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {});
       }
     });
@@ -207,7 +205,6 @@ export class PurchaseReturnComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -217,7 +214,6 @@ export class PurchaseReturnComponent implements OnInit {
       .getPurchaseUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data)
         this.purchaseList = this.purchaseList.concat(data.purchaseLedgerList);
       });
   }
@@ -228,7 +224,6 @@ export class PurchaseReturnComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }
@@ -253,13 +248,11 @@ export class PurchaseReturnComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.subTotal += parseFloat(amount);
       }
-      // console.log(this.subAmount);
     }
   }
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -286,7 +279,6 @@ export class PurchaseReturnComponent implements OnInit {
     if (!isNaN(this.subTotal)) {
       this.totalAmount += this.subTotal;
     }
-    // console.log(this.totalAmount);
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });

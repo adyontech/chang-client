@@ -70,7 +70,6 @@ export class ProductServiceComponent implements OnInit {
     public _productServiceService: ProductServiceService,
     public fb: FormBuilder
   ) {
-    // console.log(this._productServiceService);
   }
 
 
@@ -91,10 +90,7 @@ export class ProductServiceComponent implements OnInit {
   onSubmit(user) {
     // var newValue = this.form.get('underGroup').value[0].text;
     // this.form.controls['underGroup'].patchValue(newValue);
-    console.log(user);
-    console.log(user);
     this._productServiceService.createNewPrsr(user).subscribe(data => {
-      // console.log('hello gateway service')
     });
   }
 }

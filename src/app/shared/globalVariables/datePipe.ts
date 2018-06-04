@@ -11,7 +11,6 @@ import { isNumber, toInteger, padNumber } from '@ng-bootstrap/ng-bootstrap/util/
 @Injectable()
 export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
     parse(value: string): NgbDateStruct {
-        console.log('jhelllo')
     if (value) {
       const dateParts = value.trim().split('.');
       if (dateParts.length === 1 && isNumber(dateParts[0])) {

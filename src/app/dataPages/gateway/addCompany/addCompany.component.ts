@@ -79,7 +79,6 @@ export class AddCompanyComponent implements OnInit {
     if (this.logoError === true || this.signatureError === true) {
       return;
     }
-    console.log(user);
     user.pan = user.pan.toLowerCase();
     user.gstin = user.gstin.toLowerCase();
     user.startDate = new Date(user.startDate.year, user.startDate.month, user.startDate.day);
@@ -94,19 +93,16 @@ export class AddCompanyComponent implements OnInit {
       } else {
         this._toastrService.typeError('Error', data.message);
       }
-      console.log(data);
     });
   }
 
   // this.form.controls[fileField].setErrors({ incorrect: true });
   onFileChange(event, fileField) {
     fileField === 'logo' ? (this.logoError = false) : (this.signatureError = false);
-    // console.log(event.target.files);
     const reader = new FileReader();
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get(fileField).setValue(event.target.files[0]);
-        // console.log(event.target.files[0].name);
         fileField === 'logo'
           ? (this.logoFileName = event.target.files[0].name)
           : (this.sigFileName = event.target.files[0].name);

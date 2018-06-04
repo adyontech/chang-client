@@ -31,7 +31,6 @@ export class UnderGroupsService {
     }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, user).map((res: Response) => {
       return res.json();
-      // console.log(this.result)
     });
   }
 }

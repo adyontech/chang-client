@@ -33,7 +33,6 @@ export class PopJournalEntryService {
   }
 
   getFormData(compName, id: string) {
-    // console.log(`compName: ${compName} and compId: ${id}`);
     this._url = `${this._globalVariableService.baseServerUrl}/api/journalFormData?token=${
       this.token
     }&&compName=${compName}&&dataId=${id}`;
@@ -43,7 +42,6 @@ export class PopJournalEntryService {
   createNewEntry(user: any, compName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-       // console.log(key, user['date']);
        if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -55,14 +53,12 @@ export class PopJournalEntryService {
     }&companyName=${compName}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
     });
   }
 
   editEntry(user: any, compName, docId) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key, user['date']);
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -74,7 +70,6 @@ export class PopJournalEntryService {
     }&&companyName=${compName}&&docId=${docId}`;
     return this.http.patch(this._url, form).map((res: Response) => {
       this.result = res.json();
-      console.log(this.result);
     });
   }
 

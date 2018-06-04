@@ -30,13 +30,11 @@ export class GatewayService {
       this.router.navigate(['/app/login']);
     } else {
       this.token = this.windowStorage.token;
-      // console.log(this.token);
     }
   }
   createNewCompany(user: any) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key , user[key])
       form.append(key, user[key]);
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/gateway?token=${this.token}`;

@@ -27,7 +27,6 @@ export class PurchaseReturnService {
   createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key, user['date']);
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -39,7 +38,6 @@ export class PurchaseReturnService {
     }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
     });
   }
   getLedgerUGNames(compName, owner) {

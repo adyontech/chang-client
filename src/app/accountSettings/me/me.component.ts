@@ -35,7 +35,6 @@ export class MeProfileComponent implements OnInit {
   fetchDetails() {
     this._meService.fetchDetails().subscribe(res => {
       this.user = res.json().user;
-      console.log(this.user);
       this.bio = this.user.bio;
       this.plan = this.user.accountType.plan;
       this.updatedAt = this.user.accountType.updatedAt;

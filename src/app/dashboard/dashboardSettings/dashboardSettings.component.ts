@@ -46,7 +46,6 @@ export class DashboardSettingsComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       this._dashboardSettingService.setParamId(this.paramId);
@@ -65,10 +64,8 @@ export class DashboardSettingsComponent implements OnInit {
   getCollabList() {
     this.dataCopy = this._dashboardSettingService.getCollabList(this.paramId, this.ownerName).subscribe(data => {
       this.userInfo = data.json();
-      console.log(this.userInfo);
       this.readManagers = this.userInfo.user.readManagers;
       this.writeManagers = this.userInfo.user.writeManagers;
-      // console.log(this.writeManagers)
       if (this.readManagers !== undefined) {
         this.readManagersLength = this.userInfo.user.readManagers.length;
       }
@@ -85,7 +82,6 @@ export class DashboardSettingsComponent implements OnInit {
       this._dashboardSettingService
         .collabAddWrite(this.collabAddWriteModel, this.paramId, this.ownerName)
         .subscribe(res => {
-          console.log(res.json());
           this.getCollabList();
         });
     }
@@ -98,22 +94,18 @@ export class DashboardSettingsComponent implements OnInit {
       this._dashboardSettingService
         .collabAddRead(this.collabAddReadModel, this.paramId, this.ownerName)
         .subscribe(res => {
-          console.log(res.json());
           this.getCollabList();
         });
     }
   }
 
   removeHelper(id, role) {
-    console.log(id, role);
     if (role === 'write') {
       this._dashboardSettingService.removeWriteHelper(id, role,  this.paramId , this.ownerName).subscribe(res => {
-        console.log(res.json());
         this.getCollabList();
       });
     } else {
       this._dashboardSettingService.removeReadHelper(id, role, this.paramId , this.ownerName).subscribe(res => {
-        console.log(res.json());
         this.getCollabList();
       });
     }

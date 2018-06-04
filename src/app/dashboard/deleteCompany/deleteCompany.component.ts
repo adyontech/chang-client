@@ -30,7 +30,6 @@ export class DeleteCompanyComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -38,11 +37,9 @@ export class DeleteCompanyComponent implements OnInit {
   }
 
   deleteCompany() {
-    console.log('deleting')
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._dashboardSettingService.deleteCompany(this.paramId, this.ownerName).subscribe(res => {
-          console.log(res.json());
         });
       } else {
         return;

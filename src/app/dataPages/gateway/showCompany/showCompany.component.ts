@@ -24,7 +24,6 @@ export class ShowCompanyComponent implements OnInit {
   }
 
   removeCompany(id) {
-    console.log('deleting id : ' + id);
     this._gatewayService.removeCompany(id).subscribe(data => {
     });
   }

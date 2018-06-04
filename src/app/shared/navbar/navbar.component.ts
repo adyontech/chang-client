@@ -61,7 +61,7 @@ export class NavbarComponent implements OnInit {
   }
 
   selected(event) {
-    console.log(event);
+    this.getRouteParam();
     this.router.navigate(['/', this.ownerName, this.paramId, 'dashboard']);
   }
 }

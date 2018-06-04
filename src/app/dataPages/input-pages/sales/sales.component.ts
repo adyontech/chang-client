@@ -78,7 +78,6 @@ export class SalesComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       this.ownerId = params.owner;
     });
@@ -173,7 +172,6 @@ export class SalesComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -183,7 +181,6 @@ export class SalesComponent implements OnInit {
       .getSalesUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data)
         this.salesList = this.salesList.concat(data.salesLedgerList);
       });
   }
@@ -194,7 +191,6 @@ export class SalesComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        console.log(data.prsr);
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }
@@ -219,7 +215,6 @@ export class SalesComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.subTotal += parseFloat(amount);
       }
-      // console.log(this.subAmount);
     }
   }
   totalSum() {
@@ -237,14 +232,12 @@ export class SalesComponent implements OnInit {
     if (!isNaN(this.subTotal)) {
       this.totalAmount += this.subTotal;
     }
-    // console.log(this.totalAmount);
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });
   }
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -269,7 +262,6 @@ export class SalesComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        console.log(user);
         this._salesService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});
       }
     });

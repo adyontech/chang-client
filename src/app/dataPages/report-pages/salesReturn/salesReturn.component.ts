@@ -12,7 +12,6 @@ export class SalesReturnComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public _salesReturnService: SalesReturnService) {
     this.route.params.subscribe(params => (this.paramId = params.id));
-    console.log(this.paramId);
   }
 
   ngOnInit() {}

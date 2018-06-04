@@ -58,7 +58,6 @@ export class PopJournalEntryComponent implements OnInit {
   }
 
   fillForm(data) {
-    console.log(data);
     data = data[0];
     data.date = new Date(data.date);
     const now = new Date();
@@ -137,14 +136,12 @@ export class PopJournalEntryComponent implements OnInit {
 
   getIncomingData() {
     if (this.editContentId !== this.popContnetId) {
-      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
       this.popContnetId = this.editContentId;
       if (this.popContnetId !== '') {
         this._journalEntryService
           .getFormData(this.paramId, this.popContnetId)
           .map(response => response.json())
           .subscribe(data => {
-            // console.log(data);
             this.fillForm(data.journalData);
           });
       }
@@ -170,7 +167,6 @@ export class PopJournalEntryComponent implements OnInit {
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -185,9 +181,7 @@ export class PopJournalEntryComponent implements OnInit {
   onSubmit(user, action) {
     user.contentId = this.popContnetId;
     user.endtotal = this.totalAmount;
-    console.log(user);
     if (action === false) {
-      console.log('edit');
       this._journalEntryService.editEntry(user, this.paramId, this.editContentId).subscribe(data => {});
     } else {
       this._journalEntryService.createNewEntry(user, this.paramId).subscribe(data => {});

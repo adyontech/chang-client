@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
       this.navAllowed = true;
       this.ownerName = sanitizedSplitPath[0].split("%20").join(" ");
       this.companyName = sanitizedSplitPath[1].split("%20").join(" ");
-      console.log(this.companyName);
     } else this.navAllowed = false;
   }
   changeOfRoutes() {
@@ -49,7 +48,6 @@ export class AppComponent implements OnInit {
   }
   hotkeys(event) {
     if (this.navAllowed === true && event.altKey) {
-      console.log(event.keyCode);
       switch (event.keyCode) {
         case 76:
           this.router.navigate([

@@ -39,7 +39,6 @@ export class PasswordChangeService {
     return this.http.patch(this._url, user);
     // return  this.http.post(this._url, user).map((res: Response) => {
     // this.result = res.json();
-    // console.log(this.result);
     // });
   }
 }

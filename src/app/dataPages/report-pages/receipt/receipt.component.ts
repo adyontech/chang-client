@@ -76,7 +76,6 @@ export class ReceiptComponent implements OnInit {
         this.ColAgainst = true;
         break;
     }
-    console.log(this.selectedItems);
   }
 
   OnItemDeSelect(item: any) {
@@ -94,24 +93,20 @@ export class ReceiptComponent implements OnInit {
         this.ColAgainst = false;
         break;
     }
-    console.log(this.selectedItems);
   }
   onSelectAll(items: any) {
-    // console.log(items);
     this.ColReceiptType = true;
     this.ColReceiptThrough = true;
     this.ColChequeNO = true;
     this.ColAgainst = true;
   }
   onDeSelectAll(items: any) {
-    // console.log(items);
     this.ColReceiptType = false;
     this.ColReceiptThrough = false;
     this.ColChequeNO = false;
     this.ColAgainst = false;
   }
   onClose() {
-    console.log('Modal Closed');
     this.contentId = '';
   }
 
@@ -120,13 +115,11 @@ export class ReceiptComponent implements OnInit {
       .getIncomingData()
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.incomingData = data.receiptData;
       });
   }
 
   editData(id) {
-    console.log(id);
     this.contentId = id;
     this._receiptService.contentId = id;
   }

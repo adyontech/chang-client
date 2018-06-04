@@ -13,7 +13,6 @@ export class PurchaseComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, public _purchaseService: PurchaseService) {
         this.route.params.subscribe(params => this.paramId = params.id);
-        console.log(this.paramId)
     }
 
     ngOnInit() {

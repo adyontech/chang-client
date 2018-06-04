@@ -75,7 +75,6 @@ export class PopSalesReturnComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
     });
   }
@@ -126,10 +125,8 @@ export class PopSalesReturnComponent implements OnInit {
     control.push(addCtrl);
   }
   addSubParticular() {
-    console.log('adding sub');
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
-    console.log(cont);
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }
@@ -157,7 +154,6 @@ export class PopSalesReturnComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        console.log(user);
         this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
       }
     });
@@ -168,8 +164,7 @@ export class PopSalesReturnComponent implements OnInit {
       .getLedgerUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data);
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+s        this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
 
@@ -178,7 +173,6 @@ export class PopSalesReturnComponent implements OnInit {
       .getSalesUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        // console.log(data)
         this.salesList = this.salesList.concat(data.salesLedgerList);
       });
   }
@@ -189,7 +183,6 @@ export class PopSalesReturnComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        // console.log(data.prsr)
         this.prsrList = data.prsr.map(item => item.prsrName);
       });
   }
@@ -214,7 +207,6 @@ export class PopSalesReturnComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.subTotal += parseFloat(amount);
       }
-      // console.log(this.subAmount);
     }
   }
   totalSum() {
@@ -232,7 +224,6 @@ export class PopSalesReturnComponent implements OnInit {
     if (!isNaN(this.subTotal)) {
       this.totalAmount += this.subTotal;
     }
-    // console.log(this.totalAmount);
     this.form.patchValue({
       grandTotal: this.totalAmount,
     });
@@ -240,7 +231,6 @@ export class PopSalesReturnComponent implements OnInit {
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {

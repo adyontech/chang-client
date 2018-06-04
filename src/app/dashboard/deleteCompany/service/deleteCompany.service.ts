@@ -29,7 +29,6 @@ export class DeleteCompanyService {
     this._url = `${this._globalVariableService.baseServerUrl}/api/deleteCompany?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
-    console.log(this._url);
     return this.http.post(this._url, { ownerName: owner });
   }
 }

@@ -29,7 +29,6 @@ export class EditProfileService {
       this.router.navigate(['/app/login']);
     } else {
       this.token = this.windowStorage.token;
-      // console.log(this.token);
     }
   }
   updateProfile(user: any) {

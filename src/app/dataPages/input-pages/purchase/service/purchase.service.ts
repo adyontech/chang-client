@@ -27,7 +27,6 @@ export class PurchaseService {
   createNewEntry(user: any, compName, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key , user[key])
       form.append(key, user[key]);
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/purchaseReturn?token=${
@@ -35,7 +34,6 @@ export class PurchaseService {
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
     });
   }
   getLedgerUGNames(compName, ownerName) {

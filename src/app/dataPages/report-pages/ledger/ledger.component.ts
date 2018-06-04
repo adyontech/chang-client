@@ -62,7 +62,6 @@ export class LedgerComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split("%20").join(" ");
       this.ownerName = params.owner.split("%20").join(" ");
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -70,13 +69,11 @@ export class LedgerComponent implements OnInit {
   }
 
   public onAdd(value: any): void {
-    // console.log('Selected value is: ', value);
     this._ledgerService.ledgerName = value;
     this.dataCopy = this._ledgerService
       .getIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         data.formData.length === 0
           ? (this.haveData = true)
           : (this.haveData = null);
@@ -85,7 +82,6 @@ export class LedgerComponent implements OnInit {
         this.newTotalNet = Math.abs(this.totalNet);
         this.netDebitAmount = data.amountObj.debitAmount;
         this.netCreditAmount = data.amountObj.creditAmount;
-        // console.log(data.amountObj.totalNet);
       });
   }
 
@@ -94,7 +90,6 @@ export class LedgerComponent implements OnInit {
       .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.defaultLedgerSelect = data.ledgerData[0];
         this.items = this.items.concat(data.ledgerData);
         this.onAdd(this.defaultLedgerSelect);
@@ -103,14 +98,11 @@ export class LedgerComponent implements OnInit {
 
   startDate(value) {
     this.startingDate = value;
-    console.log(value);
   }
   endDate(value) {
     this.endingDate = value;
-    console.log(value);
   }
 
   deleteEntry(entryId) {
-    console.log(entryId);
   }
 }

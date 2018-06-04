@@ -28,7 +28,6 @@ export class SalesService {
   createNewEntry(user: any, compName, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      // console.log(key , user[key])
       if (user[key] instanceof Array || user[key] instanceof Object) {
         form.append(key, JSON.stringify(user[key]));
       } else {
@@ -40,7 +39,6 @@ export class SalesService {
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
-      // console.log(this.result)
     });
   }
   getLedgerUGNames(compName, ownerName) {

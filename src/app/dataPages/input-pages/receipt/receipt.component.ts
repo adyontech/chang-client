@@ -88,7 +88,6 @@ export class ReceiptComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
     });
   }
@@ -131,7 +130,6 @@ export class ReceiptComponent implements OnInit {
       .getLedgerNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -145,7 +143,6 @@ export class ReceiptComponent implements OnInit {
   }
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -160,7 +157,6 @@ export class ReceiptComponent implements OnInit {
   onSubmit(user) {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
-    console.log(user);
 
     user.endtotal = this.totalAmount;
     this._receiptService.createNewEntry(user, this.paramId).subscribe(data => {});

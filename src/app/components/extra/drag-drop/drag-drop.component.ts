@@ -33,7 +33,6 @@ export class DragDropComponent {
   }
   public sixthOptions: any = {
     moves: function (el: any, container: any, handle: any): any {
-      // console.log(el, container);
       return handle.className === 'handle';
     }
   }
@@ -46,7 +45,6 @@ export class DragDropComponent {
       this.onDrop(value.slice(1));
     });
     dragulaService.over.subscribe((value: any) => {
-      // console.log(`over: ${value[0]}`);
       this.onOver(value.slice(1));
     });
     dragulaService.out.subscribe((value: any) => {

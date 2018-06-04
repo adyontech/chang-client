@@ -33,9 +33,7 @@ export class ContraComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
-      console.log(this.paramId)
       //   this._cashAtBankService.setParamId(this.paramId)
     });
   }
@@ -51,7 +49,6 @@ export class ContraComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
-    console.log(item);
     if (item === 'All') {
       this.getAllIncomingData(this.paramId);
     } else {
@@ -75,9 +72,7 @@ export class ContraComponent implements OnInit {
       .getIncomingData(selectionValue, compaName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.incomingData = data.contraData;
-        console.log(this.incomingData);
       });
   }
 
@@ -86,20 +81,15 @@ export class ContraComponent implements OnInit {
       .getAllIncomingData(compName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
-        console.log(data.contraData);
         this.incomingData = data.contraData;
-        console.log(data.totalSum);
       });
   }
 
   deleteEntry(id) {
-    console.log(id);
     this._contraService
       .deleteEntry(id, this.paramId)
       // .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
       });
   }
 }

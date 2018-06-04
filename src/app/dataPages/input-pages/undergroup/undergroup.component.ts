@@ -39,7 +39,6 @@ export class UnderGroupComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -49,7 +48,6 @@ export class UnderGroupComponent implements OnInit {
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        console.log(user);
         this._underGroupsService.createNewUnderGroup(user, this.paramId, this.ownerName).subscribe(data => {
           if (data.success) {
             this._toastrService.typeSuccess('success', 'Data successfully added');

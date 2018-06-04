@@ -40,7 +40,6 @@ export class JournalEntryComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       //   this._cashAtBankService.setParamId(this.paramId)
     });
@@ -57,10 +56,8 @@ export class JournalEntryComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
-    console.log(item);
     if (item === 'All') {
       this.incomingData = this.compeleteData;
-      // console.log(this.incomingData);
     } else if (item === 'Dr') {
       // type Activity = typeof Mydata;
     }
@@ -88,12 +85,10 @@ export class JournalEntryComponent implements OnInit {
   }
 
   deleteEntry(id) {
-    console.log(id);
     this._journalEntryService
       .deleteEntry(id, this.paramId)
       // .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
       });
   }
 }

@@ -37,7 +37,6 @@ export class PopPaymentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // console.log(this.editContentId);
     $.getScript('./assets/js/jquery.steps.min.js');
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
@@ -69,7 +68,6 @@ export class PopPaymentComponent implements OnInit {
   }
 
   fillForm(data) {
-    console.log(data);
     data = data[0];
     data.date = new Date(data.date);
     data.drawnOn = new Date(data.drawnOn);
@@ -96,7 +94,6 @@ export class PopPaymentComponent implements OnInit {
     const oldArray = data.particularsData;
     oldArray.forEach((element, index) => {
       const array = particularsData.at(index);
-      console.log(element.particulars)
       if (!array) {
         particularsData.push(
           this.fb.group({
@@ -122,7 +119,6 @@ export class PopPaymentComponent implements OnInit {
       .getAccountNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.accountList = this.accountList.concat(data.accountNameList);
       });
   }
@@ -140,7 +136,6 @@ export class PopPaymentComponent implements OnInit {
 
   getIncomingData() {
     if (this.editContentId !== this.popContnetId) {
-      // console.log(`Content Id: ${this.editContentId}, Pop Content Id: ${this.popContnetId}`);
       this.popContnetId = this.editContentId;
       if (this.popContnetId !== '') {
         this._popPaymentService
@@ -164,7 +159,6 @@ export class PopPaymentComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       // this._popPaymentService.setParamId(this.paramId);
     });
@@ -179,7 +173,6 @@ export class PopPaymentComponent implements OnInit {
 
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -194,9 +187,7 @@ export class PopPaymentComponent implements OnInit {
   onSubmit(user, action) {
     user.contentId = this.popContnetId;
     user.endtotal = this.totalAmount;
-    console.log(user);
     if (action === false) {
-      console.log('edit');
       this._popPaymentService.editEntry(user, this.paramId, this.editContentId).subscribe(data => {});
     } else {
       this._popPaymentService.createNewEntry(user, this.paramId).subscribe(data => {});
@@ -217,7 +208,6 @@ export class PopPaymentComponent implements OnInit {
       if (!isNaN(amount) && amount !== '') {
         this.totalAmount += parseFloat(amount);
       }
-      // console.log(this.totalAmount);
     }
   }
 }

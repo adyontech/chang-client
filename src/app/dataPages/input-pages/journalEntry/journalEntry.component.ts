@@ -52,7 +52,6 @@ export class JournalEntryComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
@@ -121,7 +120,6 @@ export class JournalEntryComponent implements OnInit {
   }
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
     const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
@@ -138,7 +136,6 @@ export class JournalEntryComponent implements OnInit {
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        console.log(user);
         this._journalEntryService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
           if (data.success) {
             this._toastrService.typeSuccess('success', 'Data successfully added');
