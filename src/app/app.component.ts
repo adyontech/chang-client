@@ -5,6 +5,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  host: { '(window:keydown)': 'hotkeys($event)' },
 })
 export class AppComponent {
   // Set toastr container ref configuration for toastr positioning on screen
@@ -17,4 +18,15 @@ export class AppComponent {
     // let him know him you are looking for something ( try not to start somehthing your own)'
     // );
   }
+
+  hotkeys(event) {
+    if (event.keyCode == 65 ) {
+      this.showMessage();
+    }
+  }
+
+  showMessage() {
+    alert('Hotkey Test');
+  }
+  
 }
