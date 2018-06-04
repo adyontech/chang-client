@@ -45,7 +45,7 @@ export class PaymentComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     public _paymentService: PaymentService,
-  ) {}
+  ) { }
   ngOnInit() {
     this.getRouteParam();
     this.onAccSelect('All');
@@ -65,11 +65,16 @@ export class PaymentComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
+      // console.log(params.id);
       this.paramId = params.id;
       this.ownerId = params.owner;
     });
   }
 
+  onAdd(item: any): void {
+    // console.log(item)
+    // console.log(item === this.VColPaymentType);
+    // console.log(this.VColAgainst);
     switch (item) {
       case this.VColPaymentType:
         this.ColPaymentType = true;
@@ -87,6 +92,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
+    console.log(item);
     if (item === 'All') {
       this.getAllIncomingData(this.paramId);
     } else {
@@ -95,6 +101,8 @@ export class PaymentComponent implements OnInit {
   }
 
   onRemove(item: any) {
+    console.log(item);
+    console.log(item === this.VColPaymentType);
     switch (item.label) {
       case this.VColPaymentType:
         this.ColPaymentType = false;
@@ -112,6 +120,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onSelectAll() {
+    // console.log(items);
     this.ColPaymentType = true;
     this.ColPaymentThrough = true;
     this.ColChequeNO = true;
@@ -120,6 +129,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onDeSelectAll() {
+    // console.log(items);
     this.ColPaymentType = false;
     this.ColPaymentThrough = false;
     this.ColChequeNO = false;
@@ -146,7 +156,9 @@ export class PaymentComponent implements OnInit {
       .getIncomingData(selectionValue, compaName, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
         this.incomingData = data.paymentData;
+        console.log(this.incomingData);
       });
   }
 
@@ -155,15 +167,20 @@ export class PaymentComponent implements OnInit {
       .getAllIncomingData(compName, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
+        console.log(data.paymentData);
         this.incomingData = data.paymentData;
+        console.log(data.totalSum);
       });
   }
 
   deleteEntry(id) {
+    console.log(id);
     this._paymentService
       .deleteEntry(id, this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
       });
   }
 

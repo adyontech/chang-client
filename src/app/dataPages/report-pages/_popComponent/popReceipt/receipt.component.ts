@@ -34,7 +34,7 @@ export class PopReceiptComponent implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     $.getScript('./assets/js/jquery.steps.min.js');
@@ -87,7 +87,9 @@ export class PopReceiptComponent implements OnInit {
     }
   }
   getRouteParam() {
-    this.route.params.subscribe(params => {s      this.paramId = params.id;
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
     });
   }
 
@@ -128,7 +130,9 @@ export class PopReceiptComponent implements OnInit {
     this.dataCopy = this._receiptService
       .getLedgerNames(this.paramId)
       .map(response => response.json())
-      .subscribe(data => {s        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+      .subscribe(data => {
+        console.log(data);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
   getAccountNames() {
@@ -140,7 +144,9 @@ export class PopReceiptComponent implements OnInit {
       });
   }
   onFileChange(event) {
-    this.attachmentError = false;s    const reader = new FileReader();
+    this.attachmentError = false;
+    console.log(event.target.files[0].size);
+    const reader = new FileReader();
 
     if (event.target.files[0].size < 400000) {
       if (event.target.files && event.target.files.length > 0) {
@@ -153,9 +159,11 @@ export class PopReceiptComponent implements OnInit {
 
   onSubmit(user) {
     // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {s
+    //   if (datsa) {
+    console.log(user);
+
     user.endtotal = this.totalAmount;
-    this._receiptService.createNewEntry(user, this.paramId).subscribe(data => {});
+    this._receiptService.createNewEntry(user, this.paramId).subscribe(data => { });
     //   }
     // });
   }
