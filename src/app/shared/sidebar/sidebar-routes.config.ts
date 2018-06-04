@@ -10,7 +10,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: ""
     },
     {
       path: "/gateway",
@@ -20,7 +21,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: ""
     },
     {
       path: `/${ownerId}/${companyId}/form/contra`,
@@ -30,7 +32,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + R)"
     },
     {
       path: `/${ownerId}/${companyId}/form/journal`,
@@ -40,7 +43,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + J)"
     },
     {
       path: `/${ownerId}/${companyId}/form/ledger`,
@@ -50,7 +54,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + L)"
     },
     {
       path: `/${ownerId}/${companyId}/form/payment`,
@@ -60,7 +65,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + O)"
     },
     {
       path: `/${ownerId}/${companyId}/form/productservice`,
@@ -70,7 +76,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + T)"
     },
     {
       path: `/${ownerId}/${companyId}/form/purchase`,
@@ -80,7 +87,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + P)"
     },
     {
       path: `/${ownerId}/${companyId}/form/purchasereturn`,
@@ -90,7 +98,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + C)"
     },
     {
       path: `/${ownerId}/${companyId}/form/receipt`,
@@ -100,7 +109,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + I)"
     },
     {
       path: `/${ownerId}/${companyId}/form/sales`,
@@ -110,7 +120,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + S)"
     },
     {
       path: `/${ownerId}/${companyId}/form/salesreturn`,
@@ -120,7 +131,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + D)"
     },
     {
       path: `/${ownerId}/${companyId}/form/undergroup`,
@@ -130,7 +142,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       badge: "",
       badgeClass: "",
       isExternalLink: false,
-      submenu: []
+      submenu: [],
+      navInfo: "(alt + G)"
     },
     {
       path: "",
@@ -149,7 +162,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/journal`,
@@ -159,7 +173,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/ledger`,
@@ -169,7 +184,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/payment`,
@@ -179,7 +195,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/productservice`,
@@ -189,7 +206,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/purchase`,
@@ -199,7 +217,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/purchasereturn`,
@@ -209,7 +228,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/receipt`,
@@ -219,7 +239,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/sales`,
@@ -229,7 +250,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/salesreturn`,
@@ -239,7 +261,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/report/undergroup`,
@@ -249,7 +272,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         }
       ]
     },
@@ -270,7 +294,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         },
         {
           path: `/${ownerId}/${companyId}/dashboard/delete`,
@@ -280,7 +305,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           badge: "",
           badgeClass: "",
           isExternalLink: false,
-          submenu: []
+          submenu: [],
+          navInfo: ""
         }
       ]
     }

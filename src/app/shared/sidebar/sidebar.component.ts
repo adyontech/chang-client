@@ -8,8 +8,8 @@ import { AuthService } from './../auth/auth.service';
 declare var $: any;
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
 })
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
@@ -17,21 +17,27 @@ export class SidebarComponent implements OnInit {
   public innerWidth: any;
   public showIconBar: Boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, public _authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    public _authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.getRouteParam();
-    $.getScript('./assets/js/app-sidebar.js');
-    $.getScript('./assets/js/vertical-timeline.js');
-    this.menuItems = GenerateRoutes(ParseId(), ParseOwner()).filter(menuItem => menuItem);
+    $.getScript("./assets/js/app-sidebar.js");
+    $.getScript("./assets/js/vertical-timeline.js");
+    this.menuItems = GenerateRoutes(ParseId(), ParseOwner()).filter(
+      menuItem => menuItem
+    );
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
       this.paramId = params.id;
     });
   }
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event) {
     this.iconShow(window.innerWidth);
   }
@@ -47,8 +53,8 @@ export class SidebarComponent implements OnInit {
   }
   // NGX Wizard - skip url change
   ngxWizardFunction(path: string) {
-    if (path.indexOf('forms/ngx') !== -1) {
-      this.router.navigate(['forms/ngx/wizard'], { skipLocationChange: false });
+    if (path.indexOf("forms/ngx") !== -1) {
+      this.router.navigate(["forms/ngx/wizard"], { skipLocationChange: false });
     }
   }
 }
