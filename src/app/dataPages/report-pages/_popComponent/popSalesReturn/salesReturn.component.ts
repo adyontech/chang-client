@@ -164,7 +164,7 @@ export class PopSalesReturnComponent implements OnInit {
       .getLedgerUGNames(this.paramId)
       .map(response => response.json())
       .subscribe(data => {
-s        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
 

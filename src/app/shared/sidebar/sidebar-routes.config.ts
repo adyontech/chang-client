@@ -275,7 +275,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           submenu: [],
           navInfo: ""
         }
-      ]
+      ],
+      navInfo: ""
     },
     {
       path: "",
@@ -308,7 +309,8 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
           submenu: [],
           navInfo: ""
         }
-      ]
+      ],
+      navInfo: ""
     }
   ];
 
