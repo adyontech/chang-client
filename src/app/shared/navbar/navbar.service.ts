@@ -33,9 +33,7 @@ export class NavbarService {
     }
   }
   getCompanyNameList() {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/companyNameList?token=${this.token}`;
+    this._url = `${this._globalVariableService.baseServerUrl}/api/companyNameOwnerList?token=${this.token}`;
     return this.http.get(this._url);
   }
 }

@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
   companyList: Array<string>;
-  currentLang = "en";
+  companyData: Array<string>;
   public creator: string;
 
   toggleClass = "ft-maximize";
@@ -34,14 +34,6 @@ export class NavbarComponent implements OnInit {
     this.getCompanyNameList();
   }
 
-  getRouteParam() {
-    this.route.params.subscribe(params => {
-      this.paramId = params.id.split("%20").join(" ");
-      this.ownerName = params.owner.split("%20").join(" ");
-      // this._dashboardSettingService.setParamId(this.paramId);
-    });
-  }
-
   ToggleClass() {
     if (this.toggleClass === "ft-maximize") {
       this.toggleClass = "ft-minimize";
@@ -52,7 +44,8 @@ export class NavbarComponent implements OnInit {
 
   getCompanyNameList() {
     this._navbarService.getCompanyNameList().subscribe(data => {
-      this.companyList = data.json().companyData;
+      this.companyData = data.json().data;
+      this.companyList = data.json().data.map(el => el.companyName);
     });
   }
 
@@ -61,7 +54,11 @@ export class NavbarComponent implements OnInit {
   }
 
   selected(event) {
-    this.getRouteParam();
-    this.router.navigate(['/', this.ownerName, this.paramId, 'dashboard']);
+    // this.companyData.forEach(element => {
+    //   console.log(element.creator)
+    // });
+    // // JSON.parse(this.companyData).map(el=> el.)
+    this.router.navigate(["/"]);
   }
 }
+
