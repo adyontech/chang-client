@@ -69,14 +69,16 @@ export class ContraComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed `;
-      }
-    );
+    this.modalService
+      .open(content, { size: "lg", backdrop: "static" })
+      .result.then(
+        result => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        reason => {
+          this.closeResult = `Dismissed `;
+        }
+      );
   }
 
   initParticular() {

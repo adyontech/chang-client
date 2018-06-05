@@ -140,14 +140,16 @@ export class PaymentComponent implements OnInit {
 
   open(content, editId) {
     this.editContentId = editId;
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
+    this.modalService
+      .open(content, { size: "lg", backdrop: "static" })
+      .result.then(
+        result => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        reason => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
   // real date picker active from here
