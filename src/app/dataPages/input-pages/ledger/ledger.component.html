@@ -7,7 +7,7 @@
       </div>
       <div class="card-body">
         <div class="card-block">
-          <ng-template #content let-c="close" let-d="dismiss">
+          <ng-template #underGroup let-c="close" let-d="dismiss">
             <div class="modal-header">
               <h4 class="modal-title">Modal title</h4>
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -54,7 +54,12 @@
                       <div class="col-md-5  offset-md-3">
                         <div class="form-group">
                           <label class="text-left" for="underGroup">Under Group</label>
-                          <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup"></ng-select>
+                          <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup">
+                            <ng-template ng-header-tmp>
+<button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(underGroup)">+ New Ledger</button>
+
+                            </ng-template>
+                          </ng-select>
                         </div>
                       </div>
                     </div>
