@@ -1,19 +1,34 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { ContraService } from './service/contra.service';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { Component, Input, ViewChild, OnInit } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators
+} from "@angular/forms";
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from "@angular/router";
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal
+} from "@ng-bootstrap/ng-bootstrap";
+import * as alertFunctions from "./../../../shared/data/sweet-alerts";
+import { DatePipe } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { ContraService } from "./service/contra.service";
+import { ToastrService } from "./../../../utilities/toastr.service";
 
 declare var $: any;
 
 @Component({
-  selector: 'app-contra',
-  templateUrl: './contra.component.html',
-  styleUrls: ['./contra.component.scss'],
+  selector: "app-contra",
+  templateUrl: "./contra.component.html",
+  styleUrls: ["./contra.component.scss"]
 })
 export class ContraComponent implements OnInit {
   closeResult: string;
@@ -26,10 +41,10 @@ export class ContraComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
-  public fileName: String = 'No File Choosen.';
+  public fileName: String = "No File Choosen.";
 
   public value: any = {};
-  public _disabledV: String = '0';
+  public _disabledV: String = "0";
   public disabled: Boolean = false;
 
   constructor(
@@ -46,67 +61,69 @@ export class ContraComponent implements OnInit {
     this.getAccountNames();
     this.getLedgerUGNames();
     this.form = this.fb.group({
-      account: [''],
-      chequeNumber: [''],
-      contraNumber: [''],
-      date: [''],
+      account: [""],
+      chequeNumber: [""],
+      contraNumber: [""],
+      date: [""],
       drawnOn: [null, Validators.required],
-      drawnBank: [''],
-      attachment: [''],
-      narration: [''],
+      drawnBank: [""],
+      attachment: [""],
+      narration: [""],
       particularsData: this.fb.array([]),
-      endtotal: [''],
+      endtotal: [""]
     });
     this.addParticular();
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id.split('%20').join(' ');
-      this.ownerName = params.owner.split('%20').join(' ');
+      this.paramId = params.id.split("%20").join(" ");
+      this.ownerName = params.owner.split("%20").join(" ");
       // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 
   open(content) {
-    this.modalService
-      .open(content, { size: "lg", backdrop: "static" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed `;
-        }
-      );
+    this.modalService.open(content, { size: "lg" }).result.then(
+      result => {
+        this.getAccountNames();
+        this.getLedgerUGNames();
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.getAccountNames();
+        this.getLedgerUGNames();
+        this.closeResult = `Dismissed `;
+      }
+    );
   }
 
   initParticular() {
     return this.fb.group({
-      particulars: ['', Validators.required],
-      amount: [''],
+      particulars: ["", Validators.required],
+      amount: [""]
     });
   }
 
   addParticular() {
     this.totalSum();
-    const control = <FormArray>this.form.controls['particularsData'];
+    const control = <FormArray>this.form.controls["particularsData"];
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
 
   removeParticular(i: number) {
     this.totalSum();
-    const control = <FormArray>this.form.controls['particularsData'];
+    const control = <FormArray>this.form.controls["particularsData"];
     control.removeAt(i);
   }
 
   totalSum() {
-    const formControls = this.form.controls.particularsData['controls'];
+    const formControls = this.form.controls.particularsData["controls"];
     this.totalAmount = 0;
     for (let i = 0; i < formControls.length; i++) {
       const amount = formControls[i].controls.amount.value;
-      if (!isNaN(amount) && amount !== '') {
+      if (!isNaN(amount) && amount !== "") {
         this.totalAmount += parseFloat(amount);
       }
     }
@@ -118,6 +135,7 @@ export class ContraComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         if (data.success !== false) {
+          this.ledgerList = [];
           this.ledgerList = this.ledgerList.concat(data.ledgerData);
         }
       });
@@ -129,13 +147,14 @@ export class ContraComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         if (data.success !== false) {
+          this.accountList = [];
           this.accountList = this.accountList.concat(data.accountNameList);
         }
       });
   }
 
   get formData() {
-    return <FormArray>this.form.get('particularsData');
+    return <FormArray>this.form.get("particularsData");
   }
 
   onFileChange(event) {
@@ -144,12 +163,12 @@ export class ContraComponent implements OnInit {
 
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('attachment').setValue(event.target.files[0]);
+        this.form.get("attachment").setValue(event.target.files[0]);
         this.fileName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
-      this.fileName = 'No File choosen';
+      this.fileName = "No File choosen";
     }
   }
 
@@ -157,14 +176,19 @@ export class ContraComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.endtotal = this.totalAmount;
-        this._contraService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
-          this.form.reset();
-          if (data.success) {
-            this._toastrService.typeSuccess('success', 'Data successfully added');
-          } else {
-            this._toastrService.typeError('Error', data.message);
-          }
-        });
+        this._contraService
+          .createNewEntry(user, this.paramId, this.ownerName)
+          .subscribe(data => {
+            this.form.reset();
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                "success",
+                "Data successfully added"
+              );
+            } else {
+              this._toastrService.typeError("Error", data.message);
+            }
+          });
       }
     });
   }

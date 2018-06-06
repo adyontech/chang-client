@@ -84,7 +84,7 @@ export class PurchaseComponent implements OnInit {
 
   open(content) {
     this.modalService
-      .open(content, { size: "lg", backdrop: "static" })
+      .open(content, { size: "lg" })
       .result.then(
         result => {
           this.closeResult = `Closed with: ${result}`;
