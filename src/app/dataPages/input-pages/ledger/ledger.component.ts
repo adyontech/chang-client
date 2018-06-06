@@ -103,6 +103,7 @@ export class LedgerComponent implements OnInit {
       .getUnderGroupList(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data)
         data = data.ugData.map(item => item.groupName);
         this.underGroupItems = this.underGroupItems.concat(data);
       });
