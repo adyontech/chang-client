@@ -26,6 +26,7 @@ declare var $: any;
   styleUrls: ["./ledger.component.scss"]
 })
 export class LedgerComponent implements OnInit {
+  modalReference:any;
   @Input() statePop: string;
   public paramId: string;
   public ownerName: string;
@@ -119,7 +120,7 @@ export class LedgerComponent implements OnInit {
       });
   }
   open(content) {
-    this.modalService
+    this.modalReference = this.modalService
       .open(content, { size: "lg" })
       .result.then(
         result => {
@@ -156,7 +157,7 @@ export class LedgerComponent implements OnInit {
               //the code is to check whether the window is a pop-up
               // or not, if pop-up then it will close it.
               if (this.statePop == "child") {
-                this.modalService.open('ledger');
+                this.modalReference.close();
               }
             } else {
               this._toastrService.typeError("Error", data.message);

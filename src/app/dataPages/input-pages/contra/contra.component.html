@@ -71,7 +71,7 @@
                           <label>account</label>
                           <ng-select [items]="accountList" formControlName="account" placeholder="No particulars selected">
                             <ng-template ng-header-tmp>
-                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
+                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New undergroup</button>
                             </ng-template>
                           </ng-select>
                         </div>
@@ -240,21 +240,9 @@
                       <button type="button" class="btn btn-secondary" resetWizard (click)="resetForm()">Reset</button>
                       <button type="submit" class="btn btn-secondary" resetWizard>submit</button>
                     </div>
-
                   </wizard-step>
-
                 </div>
-
               </wizard>
-
-
-
-
-
-
-
-
-
             </form>
           </div>
         </div>
