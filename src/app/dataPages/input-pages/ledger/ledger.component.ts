@@ -26,8 +26,8 @@ declare var $: any;
   styleUrls: ["./ledger.component.scss"]
 })
 export class LedgerComponent implements OnInit {
-  modalReference:any;
   @Input() statePop: string;
+  @Input() modalReference: any;
   public paramId: string;
   public ownerName: string;
   public form: FormGroup;
@@ -120,16 +120,14 @@ export class LedgerComponent implements OnInit {
       });
   }
   open(content) {
-    this.modalReference = this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: "lg" }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

@@ -35,6 +35,7 @@ export class ContraComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 1;
   dataCopy: any;
+  public modalRef: any;
   public paramId: string;
   public ownerName: string;
   public totalAmount: number;
@@ -84,7 +85,8 @@ export class ContraComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, { size: "lg" }).result.then(
+    this.modalRef = this.modalService.open(content, { size: "lg" });
+    this.modalRef.result.then(
       result => {
         this.getAccountNames();
         this.getLedgerUGNames();

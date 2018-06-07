@@ -8,7 +8,7 @@
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <app-ledger [statePop]="'child'"></app-ledger>
+              <app-ledger [modalReference]="modalRef" [statePop]="'child'"></app-ledger>
             </div>
           </ng-template>
         </div>
@@ -71,7 +71,7 @@
                           <label>account</label>
                           <ng-select [items]="accountList" formControlName="account" placeholder="No particulars selected">
                             <ng-template ng-header-tmp>
-                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New undergroup</button>
+                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New ledger</button>
                             </ng-template>
                           </ng-select>
                         </div>
