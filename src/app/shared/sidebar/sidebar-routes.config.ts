@@ -135,7 +135,7 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
         {
           path: `/${ownerId}/${companyId}/form/undergroup`,
           title: "Undergroup",
-          icon: "ft-edit",
+          icon: "",
           class: "",
           badge: "",
           badgeClass: "",
@@ -146,7 +146,7 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
         {
           path: `/${ownerId}/${companyId}/form/productservice`,
           title: "Product & services",
-          icon: "ft-edit",
+          icon: "",
           class: "",
           badge: "",
           badgeClass: "",
