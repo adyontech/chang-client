@@ -25,28 +25,6 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       navInfo: ""
     },
     {
-      path: `/${ownerId}/${companyId}/form/contra`,
-      title: "Contra",
-      icon: "ft-edit",
-      class: "",
-      badge: "",
-      badgeClass: "",
-      isExternalLink: false,
-      submenu: [],
-      navInfo: "(alt + R)"
-    },
-    {
-      path: `/${ownerId}/${companyId}/form/journal`,
-      title: "Journal Entry",
-      icon: "ft-edit",
-      class: "",
-      badge: "",
-      badgeClass: "",
-      isExternalLink: false,
-      submenu: [],
-      navInfo: "(alt + J)"
-    },
-    {
       path: `/${ownerId}/${companyId}/form/ledger`,
       title: "Ledger",
       icon: "ft-edit",
@@ -58,50 +36,6 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       navInfo: "(alt + L)"
     },
     {
-      path: `/${ownerId}/${companyId}/form/payment`,
-      title: "Payment",
-      icon: "ft-edit",
-      class: "",
-      badge: "",
-      badgeClass: "",
-      isExternalLink: false,
-      submenu: [],
-      navInfo: "(alt + O)"
-    },
-    {
-      path: `/${ownerId}/${companyId}/form/productservice`,
-      title: "Product & services",
-      icon: "ft-edit",
-      class: "",
-      badge: "",
-      badgeClass: "",
-      isExternalLink: false,
-      submenu: [],
-      navInfo: "(alt + T)"
-    },
-    {
-      path: `/${ownerId}/${companyId}/form/purchase`,
-      title: "Purchase",
-      icon: "ft-edit",
-      class: "",
-      badge: "",
-      badgeClass: "",
-      isExternalLink: false,
-      submenu: [],
-      navInfo: "(alt + P)"
-    },
-    {
-      path: `/${ownerId}/${companyId}/form/purchasereturn`,
-      title: "Purchase return",
-      icon: "ft-edit",
-      class: "",
-      badge: "",
-      badgeClass: "",
-      isExternalLink: false,
-      submenu: [],
-      navInfo: "(alt + C)"
-    },
-    {
       path: `/${ownerId}/${companyId}/form/receipt`,
       title: "Receipt",
       icon: "ft-edit",
@@ -111,6 +45,17 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       isExternalLink: false,
       submenu: [],
       navInfo: "(alt + I)"
+    },
+    {
+      path: `/${ownerId}/${companyId}/form/payment`,
+      title: "Payment",
+      icon: "ft-edit",
+      class: "",
+      badge: "",
+      badgeClass: "",
+      isExternalLink: false,
+      submenu: [],
+      navInfo: "(alt + O)"
     },
     {
       path: `/${ownerId}/${companyId}/form/sales`,
@@ -135,15 +80,82 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       navInfo: "(alt + D)"
     },
     {
-      path: `/${ownerId}/${companyId}/form/undergroup`,
-      title: "Undergoroup",
+      path: `/${ownerId}/${companyId}/form/purchase`,
+      title: "Purchase",
       icon: "ft-edit",
       class: "",
       badge: "",
       badgeClass: "",
       isExternalLink: false,
       submenu: [],
-      navInfo: "(alt + G)"
+      navInfo: "(alt + P)"
+    },
+    {
+      path: `/${ownerId}/${companyId}/form/purchasereturn`,
+      title: "Purchase return",
+      icon: "ft-edit",
+      class: "",
+      badge: "",
+      badgeClass: "",
+      isExternalLink: false,
+      submenu: [],
+      navInfo: "(alt + C)"
+    },
+    {
+      path: `/${ownerId}/${companyId}/form/contra`,
+      title: "Contra",
+      icon: "ft-edit",
+      class: "",
+      badge: "",
+      badgeClass: "",
+      isExternalLink: false,
+      submenu: [],
+      navInfo: "(alt + R)"
+    },
+    {
+      path: `/${ownerId}/${companyId}/form/journal`,
+      title: "Journal Entry",
+      icon: "ft-edit",
+      class: "",
+      badge: "",
+      badgeClass: "",
+      isExternalLink: false,
+      submenu: [],
+      navInfo: "(alt + J)"
+    },
+    {
+      path: "",
+      title: "Ledger Info",
+      icon: "ft-home",
+      class: "has-sub",
+      badge: "2",
+      badgeClass: "badge badge-pill badge-danger float-right mr-1 mt-1",
+      isExternalLink: false,
+      submenu: [
+        {
+          path: `/${ownerId}/${companyId}/form/undergroup`,
+          title: "Undergroup",
+          icon: "ft-edit",
+          class: "",
+          badge: "",
+          badgeClass: "",
+          isExternalLink: false,
+          submenu: [],
+          navInfo: "(alt + G)"
+        },
+        {
+          path: `/${ownerId}/${companyId}/form/productservice`,
+          title: "Product & services",
+          icon: "ft-edit",
+          class: "",
+          badge: "",
+          badgeClass: "",
+          isExternalLink: false,
+          submenu: [],
+          navInfo: "(alt + T)"
+        }
+      ],
+      navInfo: ""
     },
     {
       path: "",
