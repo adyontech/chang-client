@@ -95,7 +95,7 @@ export class LedgerComponent implements OnInit {
       phoneNumber: [""],
       qty: [""],
       rate: [""],
-      total: [{ value: "", disabled: true }]
+      total: [""]
     });
   }
 
