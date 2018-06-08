@@ -33,11 +33,13 @@ export class LedgerComponent implements OnInit {
   public form: FormGroup;
   public dataCopy: any;
   public closeResult: string;
+  breadcrumbs = [];
+
   public underGroupItems: Array<string> = [
     "cash in hand(dr)",
     "cash at bank(dr)",
-    "sales a / c(cr)",
-    "purchases a / c(dr)",
+    "sales(cr)",
+    "purchases(dr)",
     "stock in hand(dr)",
     "sundry debtors(dr)",
     "sundry creditors(cr)",
@@ -109,6 +111,10 @@ export class LedgerComponent implements OnInit {
       this.ownerName = params.owner.split("%20").join(" ");
       // this._dashboardSettingService.setParamId(this.paramId);
     });
+     this.breadcrumbs = [
+    { name: "Ledger Form" },
+    { name: "Dasboard", link: `/${this.ownerName}/${this.paramId}/dashboard` }
+  ];
   }
   getUnderGroupList() {
     this.dataCopy = this._ledgerService

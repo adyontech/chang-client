@@ -212,7 +212,7 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
         },
         {
           path: `/${ownerId}/${companyId}/report/productservice`,
-          title: "Product & services",
+          title: "Prod & serv",
           icon: "",
           class: "",
           badge: "",

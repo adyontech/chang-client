@@ -1,25 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { ActivatedRoute } from '@angular/router';
-import { LedgerService } from './../ledger/service/ledger.service';
-import { UnderGroupsService } from './service/underGroup.service';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators
+} from "@angular/forms";
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from "@angular/router";
+import * as alertFunctions from "./../../../shared/data/sweet-alerts";
+import { ActivatedRoute } from "@angular/router";
+import { LedgerService } from "./../ledger/service/ledger.service";
+import { UnderGroupsService } from "./service/underGroup.service";
 // import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { ToastrService } from "./../../../utilities/toastr.service";
+import { constructDependencies } from "@angular/core/src/di/reflective_provider";
 
 @Component({
-  selector: 'app-undergroup',
-  templateUrl: './undergroup.component.html',
-  styleUrls: ['./undergroup.component.scss'],
+  selector: "app-undergroup",
+  templateUrl: "./undergroup.component.html",
+  styleUrls: ["./undergroup.component.scss"]
 })
 export class UnderGroupComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
   form: FormGroup;
   selectedIndex = 1;
-  underHeadArray = ['revenue (CR)', 'expenses (DR)', 'sales (CR)', ' purchases (DR)', 'asset (DR)', 'liabilities (CR)'];
-  typeArray = ['Dr', 'Cr'];
+  underHeadArray = [
+    "revenue (CR)",
+    "expenses (DR)",
+    "sales (CR)",
+    " purchases (DR)",
+    "asset (DR)",
+    "liabilities (CR)"
+  ];
+  typeArray = ["Dr", "Cr"];
   constructor(
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
@@ -31,30 +50,51 @@ export class UnderGroupComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.form = this.fb.group({
-      underHead: [''],
-      groupName: [''],
-      type: [''],
+      underHead: [""],
+      groupName: [""],
+      type: [""]
     });
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id.split('%20').join(' ');
-      this.ownerName = params.owner.split('%20').join(' ');
+      this.paramId = params.id.split("%20").join(" ");
+      this.ownerName = params.owner.split("%20").join(" ");
       // this._dashboardSettingService.setParamId(this.paramId);
+    });
+  }
+  setType(value) {
+    console.log(value);
+    let types = "";
+    if (
+      value === "sales (CR)" ||
+      value === "revenue (CR)" ||
+      value === "liabilities (CR)"
+    ) {
+      types = "CR";
+    } else {
+      types = "DR";
+    }
+    this.form.patchValue({
+      type: types
     });
   }
 
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        this._underGroupsService.createNewUnderGroup(user, this.paramId, this.ownerName).subscribe(data => {
-          if (data.success) {
-            this._toastrService.typeSuccess('success', 'Data successfully added');
-          } else {
-            this._toastrService.typeError('Error', data.message);
-          }
-        });
+        this._underGroupsService
+          .createNewUnderGroup(user, this.paramId, this.ownerName)
+          .subscribe(data => {
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                "success",
+                "Data successfully added"
+              );
+            } else {
+              this._toastrService.typeError("Error", data.message);
+            }
+          });
       }
     });
   }
