@@ -18,8 +18,6 @@ import { LedgerService } from "./../ledger/service/ledger.service";
 import { UnderGroupsService } from "./service/underGroup.service";
 // import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from "./../../../utilities/toastr.service";
-import { constructDependencies } from "@angular/core/src/di/reflective_provider";
-
 @Component({
   selector: "app-undergroup",
   templateUrl: "./undergroup.component.html",
@@ -38,7 +36,8 @@ export class UnderGroupComponent implements OnInit {
     "asset (DR)",
     "liabilities (CR)"
   ];
-  typeArray = ["Dr", "Cr"];
+
+  breadcrumbs = [];
   constructor(
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
@@ -62,6 +61,10 @@ export class UnderGroupComponent implements OnInit {
       this.ownerName = params.owner.split("%20").join(" ");
       // this._dashboardSettingService.setParamId(this.paramId);
     });
+     this.breadcrumbs = [
+    { name: "Undergroup" },
+    { name: "Dasboard", link: `/${this.ownerName}/${this.paramId}/dashboard` }
+  ];
   }
   setType(value) {
     console.log(value);
