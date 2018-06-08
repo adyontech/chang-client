@@ -145,7 +145,7 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
         },
         {
           path: `/${ownerId}/${companyId}/form/productservice`,
-          title: "Product & services",
+          title: "Prod & service",
           icon: "",
           class: "",
           badge: "",
@@ -212,7 +212,7 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
         },
         {
           path: `/${ownerId}/${companyId}/report/productservice`,
-          title: "Prod & serv",
+          title: "Prod & service",
           icon: "",
           class: "",
           badge: "",
