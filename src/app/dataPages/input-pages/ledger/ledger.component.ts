@@ -15,7 +15,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { StateVaribles } from "./../../../shared/forms/States";
+import { StateVaribles } from './../../../shared/forms/States';
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
 import { ToastrService } from './../../../utilities/toastr.service';
@@ -36,7 +36,7 @@ export class LedgerComponent implements OnInit {
   public dataCopy: any;
   public closeResult: string;
   public breadcrumbs = [];
-  public applicableDummyModel: string = ''
+  public applicableDummyModel: string = '';
   public stateList: Array<string>;
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
@@ -76,9 +76,8 @@ export class LedgerComponent implements OnInit {
     private modalService: NgbModal,
     public _toastrService: ToastrService,
     public _stateVariables: StateVaribles
-
   ) {
-    this.stateList = this._stateVariables.stateListArray
+    this.stateList = this._stateVariables.stateListArray;
   }
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
@@ -94,20 +93,25 @@ export class LedgerComponent implements OnInit {
       applicableTax: new FormControl('', [Validators.required]),
       businessType: new FormControl('', [Validators.required]),
       gstin: new FormControl('', [Validators.required]),
-      name: new FormControl('', [
-        patternValidator(/^[a-zA-Z\d-_]+$/),
+      name: new FormControl('', [patternValidator(/^[a-zA-Z\d-_]+$/)]),
+      email: new FormControl('', [
+        Validators.required,
+        patternValidator(
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        ),
       ]),
-      email: [''],
-      pan: [''],
-      address: [''],
-      city: [''],
-      state: [''],
-      pinCode: [''],
+      pan: new FormControl('', [
+        patternValidator(/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/),
+      ]),
+      address: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      state: new FormControl('', [Validators.required]),
+      pinCode: new FormControl('', [patternValidator(/^[1-9][0-9]{5}$/)]),
       country: [''],
-      phoneNumber: [''],
-      qty: [''],
-      rate: [''],
-      total: [''],
+      phoneNumber: new FormControl('', [patternValidator(/^[0]?[6789]\d{9}$/)]),
+      qty: new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
+      rate: new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
+      total: new FormControl('', [patternValidator(/^\d+$/)]),
     });
   }
   updateTotal() {
@@ -159,10 +163,21 @@ export class LedgerComponent implements OnInit {
     }
   }
 
-  fillName(value){
+  fillName(value) {
     this.form.patchValue({
       name: value,
     });
+  }
+  fillCountry(value){
+    if(value !== 'Others'){
+      this.form.patchValue({
+      country: 'India',
+    });
+    }else{
+      this.form.patchValue({
+      country: '',
+    });
+    }
   }
   // onSubmit(user) {
   onSubmit() {

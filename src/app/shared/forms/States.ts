@@ -41,6 +41,7 @@ export class StateVaribles {
   ];
 
   public stateListArray: any = [
+    'Others',
     '1 Jammu & Kashmir',
     '2 Himachal Pradesh',
     '3 Punjab',

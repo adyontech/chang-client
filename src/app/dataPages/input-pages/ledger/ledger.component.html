@@ -112,8 +112,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{!form.controls['ledgerName'].errors}}
-                                        {{!form.controls['underGroup'].errors}}
                                         <!-- {{!form.controls['ledgerName'].errors.patternInvalid}} -->
                                         <div class="row">
                                             <div class="col-md-5  offset-md-3">
@@ -145,6 +143,25 @@
                                                         </ng-template>
                                                     </ng-select>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div [ngClass]="{'error': form.controls['underGroup'].errors && !form.controls['underGroup'].pristine}">
+                                            <div
+                                                *ngIf="form.controls['underGroup'].errors && !form.controls['underGroup'].pristine"
+                                                class="error-msg"
+                                            >
+                                                <small
+                                                    class="form-text text-muted danger"
+                                                    [hidden]="!form.controls['underGroup'].errors.required"
+                                                >
+                                                    filed is required.
+                                                </small>
+                                                <small
+                                                    class="form-text text-muted danger"
+                                                    [hidden]="!form.controls['underGroup'].errors.patternInvalid"
+                                                >
+                                                    Invalid filed.
+                                                </small>
                                             </div>
                                         </div>
                                         <div class="btn-group">
@@ -182,6 +199,26 @@
                                                     ></ng-select>
                                                 </div>
                                             </div>
+
+                                            <div [ngClass]="{'error': form.controls['applicableTax'].errors && !form.controls['applicableTax'].pristine}">
+                                                <div
+                                                    *ngIf="form.controls['applicableTax'].errors && !form.controls['applicableTax'].pristine"
+                                                    class="error-msg"
+                                                >
+                                                    <small
+                                                        class="form-text text-muted danger"
+                                                        [hidden]="!form.controls['applicableTax'].errors.required"
+                                                    >
+                                                        filed is required.
+                                                    </small>
+                                                    <small
+                                                        class="form-text text-muted danger"
+                                                        [hidden]="!form.controls['applicableTax'].errors.patternInvalid"
+                                                    >
+                                                        Invalid filed.
+                                                    </small>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-5  offset-md-3">
@@ -199,6 +236,25 @@
                                                         placeholder="Select type"
                                                         formControlName="businessType"
                                                     ></ng-select>
+                                                </div>
+                                            </div>
+                                            <div [ngClass]="{'error': form.controls['businessType'].errors && !form.controls['businessType'].pristine}">
+                                                <div
+                                                    *ngIf="form.controls['businessType'].errors && !form.controls['businessType'].pristine"
+                                                    class="error-msg"
+                                                >
+                                                    <small
+                                                        class="form-text text-muted danger"
+                                                        [hidden]="!form.controls['businessType'].errors.required"
+                                                    >
+                                                        filed is required.
+                                                    </small>
+                                                    <small
+                                                        class="form-text text-muted danger"
+                                                        [hidden]="!form.controls['businessType'].errors.patternInvalid"
+                                                    >
+                                                        Invalid filed.
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,6 +279,25 @@
                                                     </small>
                                                 </div>
                                             </div>
+                                            <div [ngClass]="{'error': form.controls['gstin'].errors && !form.controls['gstin'].pristine}">
+                                                <div
+                                                    *ngIf="form.controls['gstin'].errors && !form.controls['gstin'].pristine"
+                                                    class="error-msg"
+                                                >
+                                                    <small
+                                                        class="form-text text-muted danger"
+                                                        [hidden]="!form.controls['gstin'].errors.required"
+                                                    >
+                                                        filed is required.
+                                                    </small>
+                                                    <small
+                                                        class="form-text text-muted danger"
+                                                        [hidden]="!form.controls['gstin'].errors.patternInvalid"
+                                                    >
+                                                        Invalid filed.
+                                                    </small>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
 
@@ -244,6 +319,26 @@
                                                         eg.
                                                         <i>XXXXK2104P</i>
                                                     </small>
+                                                </div>
+
+                                                <div [ngClass]="{'error': form.controls['pan'].errors && !form.controls['pan'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['pan'].errors && !form.controls['pan'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['pan'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['pan'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -280,6 +375,7 @@
                                                     >
                                                         Name
                                                     </label>
+                                                    <span class="danger">*</span>
                                                     <input
                                                         type="text"
                                                         class="form-control"
@@ -322,6 +418,29 @@
                                                         id="email"
                                                         formControlName="email"
                                                     >
+                                                    <small class="text-muted">
+                                                        eg.
+                                                        <i>proworktree@gmail.com</i>
+                                                    </small>
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['email'].errors && !form.controls['email'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['email'].errors && !form.controls['email'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['email'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['email'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -333,6 +452,7 @@
                                                     >
                                                         Address
                                                     </label>
+                                                    <span class="danger">*</span>
                                                     <input
                                                         type="text"
                                                         class="form-control"
@@ -340,17 +460,57 @@
                                                         formControlName="address"
                                                     >
                                                 </div>
+                                                <div [ngClass]="{'error': form.controls['address'].errors && !form.controls['address'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['address'].errors && !form.controls['address'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['address'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['address'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="col-md-5  offset-md-1">
                                                 <div class="form-group">
                                                     <label for="city">City</label>
+                                                    <span class="danger">*</span>
                                                     <input
                                                         type="text"
                                                         class="form-control"
                                                         id="city"
                                                         formControlName="city"
                                                     >
+
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['city'].errors && !form.controls['city'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['city'].errors && !form.controls['city'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['city'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['city'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -362,13 +522,34 @@
                                                     >
                                                         State
                                                     </label>
+                                                    <span class="danger">*</span>
                                                     <ng-select
                                                         [items]="stateList"
                                                         id="state"
                                                         placeholder="Select type"
                                                         formControlName="state"
+                                                        (change)="fillCountry($event)"
                                                     ></ng-select>
 
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['state'].errors && !form.controls['state'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['state'].errors && !form.controls['state'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['state'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['state'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -386,18 +567,61 @@
                                                         id="pinCode"
                                                         formControlName="pinCode"
                                                     >
+                                                    <small class="text-muted">
+                                                        eg.
+                                                        <i>302036</i>
+                                                    </small>
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['pinCode'].errors && !form.controls['pinCode'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['pinCode'].errors && !form.controls['pinCode'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['pinCode'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['pinCode'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-5  offset-md-1">
                                                 <div class="form-group">
                                                     <label for="country">Country</label>
+                                                    <span class="danger">*</span>
                                                     <input
                                                         type="text"
                                                         class="form-control"
                                                         id="country"
                                                         formControlName="country"
                                                     >
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['country'].errors && !form.controls['country'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['country'].errors && !form.controls['country'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['country'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['country'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -415,6 +639,29 @@
                                                         id="phoneNumber"
                                                         formControlName="phoneNumber"
                                                     >
+                                                    <small class="text-muted">
+                                                        eg.
+                                                        <i>7897897897</i>
+                                                    </small>
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['phoneNumber'].errors && !form.controls['phoneNumber'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['phoneNumber'].errors && !form.controls['phoneNumber'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['phoneNumber'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['phoneNumber'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -432,6 +679,7 @@
                                                     >
                                                         Quantity
                                                     </label>
+                                                    <span class="danger">*</span>
                                                     <input
                                                         type="text"
                                                         class="form-control"
@@ -439,6 +687,25 @@
                                                         formControlName="qty"
                                                         (input)="updateTotal()"
                                                     >
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['qty'].errors && !form.controls['qty'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['qty'].errors && !form.controls['qty'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['qty'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['qty'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -450,6 +717,7 @@
                                                     >
                                                         Rate
                                                     </label>
+                                                    <span class="danger">*</span>
                                                     <input
                                                         type="text"
                                                         class="form-control"
@@ -457,6 +725,25 @@
                                                         formControlName="rate"
                                                         (input)="updateTotal()"
                                                     >
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['rate'].errors && !form.controls['rate'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['rate'].errors && !form.controls['rate'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['rate'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['rate'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -468,12 +755,32 @@
                                                     >
                                                         Total
                                                     </label>
+                                                    <span class="danger">*</span>
                                                     <input
                                                         type="text"
                                                         class="form-control"
                                                         id="total"
                                                         formControlName="total"
                                                     >
+                                                </div>
+                                                <div [ngClass]="{'error': form.controls['total'].errors && !form.controls['total'].pristine}">
+                                                    <div
+                                                        *ngIf="form.controls['total'].errors && !form.controls['total'].pristine"
+                                                        class="error-msg"
+                                                    >
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['total'].errors.required"
+                                                        >
+                                                            filed is required.
+                                                        </small>
+                                                        <small
+                                                            class="form-text text-muted danger"
+                                                            [hidden]="!form.controls['total'].errors.patternInvalid"
+                                                        >
+                                                            Invalid filed.
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
