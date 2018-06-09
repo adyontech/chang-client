@@ -16,7 +16,7 @@ import * as alertFunctions from "./../../../shared/data/sweet-alerts";
 import { ActivatedRoute } from "@angular/router";
 import { LedgerService } from "./../ledger/service/ledger.service";
 import { UnderGroupsService } from "./service/underGroup.service";
-// import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { ToastrService } from "./../../../utilities/toastr.service";
 @Component({
   selector: "app-undergroup",
@@ -49,8 +49,11 @@ export class UnderGroupComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.form = this.fb.group({
-      underHead: [""],
-      groupName: [""],
+      underHead:new FormControl('', [Validators.required]),
+      groupName: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+      ]),
       type: [""]
     });
   }

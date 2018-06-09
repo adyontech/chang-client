@@ -1,5 +1,4 @@
 <section>
-
   <div class="row">
     <div class="col-sm-12">
       <div style="float: left;">
@@ -27,8 +26,13 @@
                       <div class="col-md-9">
                         <!-- pattern="^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$" -->
                         <input type="text" class="form-control" placeholder="Full name" formControlName="groupName" />
-                        <small class="form-text text-muted danger" *ngIf="!form.get('groupName').valid && (form.get('groupName').dirty || form.get('groupName').touched)">Please enter a valid Name!</small>
-                        <small class="text-muted">eg.
+
+                          <div [ngClass]="{'error': form.controls['groupName'].errors && !form.controls['groupName'].pristine}">
+                            <div *ngIf="form.controls['groupName'].errors && !form.controls['groupName'].pristine" class="error-msg">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.required">Required field.</small>
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.patternInvalid">Invalid field entry.</small>
+                            </div>
+                          </div>                        <small class="text-muted">eg.
                           <i>Sales @ gst 5%</i>
                         </small>
                       </div>
