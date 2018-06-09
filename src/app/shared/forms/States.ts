@@ -1,5 +1,5 @@
-export class States {
-  public stateList: any = [
+export class StateVaribles {
+  public stateListObj: any = [
     { id: 1, value: 'Jammu & Kashmir' },
     { id: 2, value: 'Himachal Pradesh' },
     { id: 3, value: 'Punjab' },
@@ -40,18 +40,45 @@ export class States {
     { id: 97, value: 'Other Territory' },
   ];
 
-  stateListArray: any = [
-    'Afghanistan',
-    'Albania',
-    'Algeria',
-    'American Samoa',
-    'Angola',
-    'Anguilla',
-    'Antartica',
-    'Antigua and Barbuda',
-    'Argentina',
-    'Armenia',
+  public stateListArray: any = [
+    '1 Jammu & Kashmir',
+    '2 Himachal Pradesh',
+    '3 Punjab',
+    '4 Chandigarh',
+    '5 Uttarakhand',
+    '6 Haryana',
+    '7 Delhi',
+    '8 Rajasthan',
+    '9 Uttar Pradesh',
+    '10 Bihar',
+    '11 Sikkim',
+    '12 Arunachal Pradesh',
+    '13 Nagaland',
+    '14 Manipur',
+    '15 Mizoram',
+    '16Tripura',
+    '17 Meghalaya',
+    '18 Assam',
+    '19 West Bengal',
+    '20 Jharkhand',
+    '21 Odisha',
+    '22 Chhattisgarh',
+    '23 Madhya Pradesh',
+    '24 Gujarat',
+    '25 Daman & Diu',
+    '26 Dadra & Nagar Haveli',
+    '27 Maharashtra',
+    '28 Karnataka',
+    '29 Goa',
+    '30 Lakshdweep',
+    '31 Kerala',
+    '32 Tamil Nadu',
+    '33 Pondicherry',
+    '34 Andaman & Nicobar Islands',
+    '35 Telengana',
+    '36 Andhra Pradesh',
+    '97 Other Territory',
   ];
 
-  constructor(public id: number, public name: string) {}
+  constructor() {}
 }

@@ -192,7 +192,8 @@
                           <label class="text-left" for="state">
                             State
                           </label>
-                          <input type="text" class="form-control" id="state" formControlName="state">
+                          <ng-select [items]="stateList" id="state" placeholder="Select type" formControlName="state"></ng-select>
+
                         </div>
                       </div>
 

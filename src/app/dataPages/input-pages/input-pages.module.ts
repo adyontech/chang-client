@@ -39,6 +39,7 @@ import { SalesService } from './sales/service/sales.service';
 import { SalesReturnService } from './salesReturn/service/salesReturn.service';
 import { UnderGroupsService } from './undergroup/service/underGroup.service';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
+import { StatesVariables } from "./../../shared/forms/States";
 @NgModule({
   imports: [
     HttpModule,
@@ -82,7 +83,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
     SalesReturnService,
     UnderGroupsService,
     GlobalVaribles,
-    BreadcrumbsService
+    BreadcrumbsService,
   ]
 })
 export class InputPagesModule {}

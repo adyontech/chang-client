@@ -15,6 +15,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
 
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
@@ -35,9 +36,9 @@ export class LedgerComponent implements OnInit {
   public form: FormGroup;
   public dataCopy: any;
   public closeResult: string;
-  breadcrumbs = [];
+  public breadcrumbs = [];
   public applicableDummyModel: string = ''
-
+  public stateList: Array<string>;
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
     'cash at bank(dr)',
@@ -74,8 +75,12 @@ export class LedgerComponent implements OnInit {
     public _ledgerService: LedgerService,
     public fb: FormBuilder,
     private modalService: NgbModal,
-    public _toastrService: ToastrService
-  ) {}
+    public _toastrService: ToastrService,
+    public _globalVariableService: GlobalVaribles
+
+  ) {
+    this.stateList = this._globalVariableService.stateListArray
+  }
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
     // $.getScript('./assets/js/wizard-steps.js');
@@ -107,9 +112,6 @@ export class LedgerComponent implements OnInit {
       total: [''],
     });
   }
-  // new FormControl('', [
-  //         this.gstinValidator(),
-  //       ]),
   updateTotal() {
     const qty = this.form.get('qty').value || 0,
       rate = this.form.get('rate').value || 0;
