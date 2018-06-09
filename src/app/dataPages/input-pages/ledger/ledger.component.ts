@@ -1,29 +1,31 @@
-import { Component, Input, ViewChild, OnInit } from "@angular/core";
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
+// import { , ValidatorFn, FormGroup } from '@angular/forms';
 import {
+  AbstractControl,
   FormGroup,
   FormControl,
   FormArray,
   FormBuilder,
-  Validators
-} from "@angular/forms";
+  Validators,
+} from '@angular/forms';
 import {
   NgbModal,
   ModalDismissReasons,
-  NgbActiveModal
-} from "@ng-bootstrap/ng-bootstrap";
-import { TitleCasePipe } from "@angular/common";
-import * as alertFunctions from "./../../../shared/data/sweet-alerts";
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { patternValidator } from './../../../shared/validators/pattern-validator';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
-import { ActivatedRoute } from "@angular/router";
-import { LedgerService } from "./service/ledger.service";
-import { ToastrService } from "./../../../utilities/toastr.service";
+import { ActivatedRoute } from '@angular/router';
+import { LedgerService } from './service/ledger.service';
+import { ToastrService } from './../../../utilities/toastr.service';
 
 declare var $: any;
 
 @Component({
-  selector: "app-ledger",
-  templateUrl: "./ledger.component.html",
-  styleUrls: ["./ledger.component.scss"]
+  selector: 'app-ledger',
+  templateUrl: './ledger.component.html',
+  styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
   @Input() statePop: string;
@@ -34,38 +36,39 @@ export class LedgerComponent implements OnInit {
   public dataCopy: any;
   public closeResult: string;
   breadcrumbs = [];
+  public applicableDummyModel: string = ''
 
   public underGroupItems: Array<string> = [
-    "cash in hand(dr)",
-    "cash at bank(dr)",
-    "sales(cr)",
-    "purchases(dr)",
-    "stock in hand(dr)",
-    "sundry debtors(dr)",
-    "sundry creditors(cr)",
-    "current asset(dr)",
-    "current liabilities(cr)",
-    "non - current assets(dr)",
-    "non - current liabilities(cr)",
-    "capital(cr)",
-    "bank overdraft(cr)",
-    "duties and taxes(cr)",
-    "Deposit(asset)(DR)",
-    "Direct expenses(DR)",
-    "Direct Income(CR)",
-    "indirect expense(DR)",
-    "Indirect Income(CR)",
-    "Fixed Asset(DR)",
-    "Investments(DR)",
-    "Loans & advances(Asset)(DR)",
-    "Loans(liability)(CR)",
-    "Reserves and Surplus(CR)",
-    "Provisions(CR)",
-    "Bad debt(DR)",
-    "Suspense."
+    'cash in hand(dr)',
+    'cash at bank(dr)',
+    'sales(cr)',
+    'purchases(dr)',
+    'stock in hand(dr)',
+    'sundry debtors(dr)',
+    'sundry creditors(cr)',
+    'current asset(dr)',
+    'current liabilities(cr)',
+    'non - current assets(dr)',
+    'non - current liabilities(cr)',
+    'capital(cr)',
+    'bank overdraft(cr)',
+    'duties and taxes(cr)',
+    'Deposit(asset)(DR)',
+    'Direct expenses(DR)',
+    'Direct Income(CR)',
+    'indirect expense(DR)',
+    'Indirect Income(CR)',
+    'Fixed Asset(DR)',
+    'Investments(DR)',
+    'Loans & advances(Asset)(DR)',
+    'Loans(liability)(CR)',
+    'Reserves and Surplus(CR)',
+    'Provisions(CR)',
+    'Bad debt(DR)',
+    'Suspense.',
   ];
-  public applicableTaxItems = ["GST", "Other", "Not Applicable"];
-  public businessTypeItems = ["Goods", "Services", "Other"];
+  public applicableTaxItems = ['GST', 'Other', 'Not Applicable'];
+  public businessTypeItems = ['Goods', 'Services', 'Other'];
   constructor(
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
@@ -79,42 +82,53 @@ export class LedgerComponent implements OnInit {
     this.getRouteParam();
     this.getUnderGroupList();
     this.form = this.fb.group({
-      ledgerName: [""],
-      underGroup: [""],
-      applicableTax: [""],
-      businessType: [""],
-      gstin: [""],
-      name: [""],
-      email: [""],
-      pan: [""],
-      address: [""],
-      city: [""],
-      state: [""],
-      pinCode: [""],
-      country: [""],
-      phoneNumber: [""],
-      qty: [""],
-      rate: [""],
-      total: [""]
+      ledgerName: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+      ]),
+      underGroup: new FormControl('', [Validators.required]),
+      applicableTax: new FormControl('', [Validators.required]),
+      businessType: new FormControl('', [Validators.required]),
+      gstin: new FormControl('', [Validators.required]),
+      name: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+      ]),
+      email: [''],
+      pan: [''],
+      address: [''],
+      city: [''],
+      state: [''],
+      pinCode: [''],
+      country: [''],
+      phoneNumber: [''],
+      qty: [''],
+      rate: [''],
+      total: [''],
     });
   }
-
+  // new FormControl('', [
+  //         this.gstinValidator(),
+  //       ]),
   updateTotal() {
-    const qty = this.form.get("qty").value || 0,
-      rate = this.form.get("rate").value || 0;
-    this.form.controls["total"].setValue(qty * rate);
+    const qty = this.form.get('qty').value || 0,
+      rate = this.form.get('rate').value || 0;
+    this.form.controls['total'].setValue(qty * rate);
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id.split("%20").join(" ");
-      this.ownerName = params.owner.split("%20").join(" ");
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
     });
-     this.breadcrumbs = [
-    { name: "Ledger Form" },
-    { name: "Dasboard", link: `/${this.ownerName}/${this.paramId}/dashboard` }
-  ];
+    this.breadcrumbs = [
+      { name: 'Ledger Form' },
+      {
+        name: 'Dasboard',
+        link: `/${this.ownerName}/${this.paramId}/dashboard`,
+      },
+    ];
   }
   getUnderGroupList() {
     this.dataCopy = this._ledgerService
@@ -126,7 +140,7 @@ export class LedgerComponent implements OnInit {
       });
   }
   open(content) {
-    this.modalService.open(content, { size: "lg" }).result.then(
+    this.modalService.open(content, { size: 'lg' }).result.then(
       result => {
         this.closeResult = `Closed with: ${result}`;
       },
@@ -137,14 +151,13 @@ export class LedgerComponent implements OnInit {
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
-      return "by pressing ESC";
+      return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "by clicking on a backdrop";
+      return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
     }
   }
-
   // onSubmit(user) {
   onSubmit() {
     alertFunctions.SaveData().then(datsa => {
@@ -155,16 +168,16 @@ export class LedgerComponent implements OnInit {
           .subscribe(data => {
             if (data.success) {
               this._toastrService.typeSuccess(
-                "success",
-                "Data successfully added"
+                'success',
+                'Data successfully added'
               );
               //the code is to check whether the window is a pop-up
               // or not, if pop-up then it will close it.
-              if (this.statePop == "child") {
+              if (this.statePop == 'child') {
                 this.modalReference.close();
               }
             } else {
-              this._toastrService.typeError("Error", data.message);
+              this._toastrService.typeError('Error', data.message);
             }
           });
       } else {
