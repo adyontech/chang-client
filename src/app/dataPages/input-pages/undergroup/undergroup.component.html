@@ -27,12 +27,13 @@
                         <!-- pattern="^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$" -->
                         <input type="text" class="form-control" placeholder="Full name" formControlName="groupName" />
 
-                          <div [ngClass]="{'error': form.controls['groupName'].errors && !form.controls['groupName'].pristine}">
-                            <div *ngIf="form.controls['groupName'].errors && !form.controls['groupName'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.required">Required field.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.patternInvalid">Invalid field entry.</small>
-                            </div>
-                          </div>                        <small class="text-muted">eg.
+                        <div [ngClass]="{'error': form.controls['groupName'].errors && !form.controls['groupName'].pristine}">
+                          <div *ngIf="form.controls['groupName'].errors && !form.controls['groupName'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.required">Required field.</small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.patternInvalid">Invalid field entry.</small>
+                          </div>
+                        </div>
+                        <small class="text-muted">eg.
                           <i>Sales @ gst 5%</i>
                         </small>
                       </div>
@@ -47,6 +48,12 @@
 
                         <ng-select [items]="underHeadArray" (change)="setType($event, i)" placeholder="Select age" formControlName="underHead">
                         </ng-select>
+                        <div [ngClass]="{'error': form.controls['underHead'].errors && !form.controls['underHead'].pristine}">
+                          <div *ngIf="form.controls['underHead'].errors && !form.controls['underHead'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['underHead'].errors.required">Required field.</small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['underHead'].errors.patternInvalid">Invalid field entry.</small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -53,14 +53,12 @@
                             <span class="danger">*</span>
                           </label>
                           <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName">
-
                           <div [ngClass]="{'error': form.controls['ledgerName'].errors && !form.controls['ledgerName'].pristine}">
                             <div *ngIf="form.controls['ledgerName'].errors && !form.controls['ledgerName'].pristine" class="error-msg">
                               <small class="form-text text-muted danger" [hidden]="!form.controls['ledgerName'].errors.required">Ledger Name is required.</small>
                               <small class="form-text text-muted danger" [hidden]="!form.controls['ledgerName'].errors.patternInvalid">Ledger Name is invalid.</small>
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -105,7 +103,8 @@
                       <div class="col-md-5  offset-md-3">
                         <div class="form-group">
                           <label class="text-left" for="businessType">
-                            Business Type <span class="danger">*</span>
+                            Business Type
+                            <span class="danger">*</span>
                           </label>
                           <ng-select [items]="businessTypeItems" id="businessType" placeholder="Select type" formControlName="businessType"></ng-select>
                         </div>
