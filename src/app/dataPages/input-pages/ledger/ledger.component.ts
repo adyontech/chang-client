@@ -15,8 +15,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
-
+import { StateVaribles } from "./../../../shared/forms/States";
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
 import { ToastrService } from './../../../utilities/toastr.service';
@@ -76,10 +75,10 @@ export class LedgerComponent implements OnInit {
     public fb: FormBuilder,
     private modalService: NgbModal,
     public _toastrService: ToastrService,
-    public _globalVariableService: GlobalVaribles
+    public _stateVariables: StateVaribles
 
   ) {
-    this.stateList = this._globalVariableService.stateListArray
+    this.stateList = this._stateVariables.stateListArray
   }
   ngOnInit() {
     // $.getScript('./assets/js/jquery.steps.min.js');
