@@ -95,7 +95,6 @@ export class LedgerComponent implements OnInit {
       businessType: new FormControl('', [Validators.required]),
       gstin: new FormControl('', [Validators.required]),
       name: new FormControl('', [
-        Validators.required,
         patternValidator(/^[a-zA-Z\d-_]+$/),
       ]),
       email: [''],
@@ -158,6 +157,12 @@ export class LedgerComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  fillName(value){
+    this.form.patchValue({
+      name: value,
+    });
   }
   // onSubmit(user) {
   onSubmit() {
