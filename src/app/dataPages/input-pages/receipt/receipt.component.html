@@ -22,16 +22,18 @@
 <!-- Wizard Starts -->
 <div class="row">
   <div class="col-sm-12">
-    <div class="content-header">Receipt Forms</div>
+    <div style="float: left;">
+      <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+    </div>
+    <div class="mt-2">
+      <p class="mt-2">For:- {{paramId}}</p>
+    </div>
   </div>
 </div>
 <section id="icon-tabs">
   <div class="row">
     <div class="col-12">
       <div class="card text-center">
-        <div class="card-header">
-          <h4 class="card-title">{{paramId}}</h4>
-        </div>
         <div class="card-body">
           <div class="card-block">
             <form id="form" class="icons-tab-steps wizard-circle" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
@@ -42,12 +44,24 @@
                       <div class="col-md-4 offset-md-2 form-group">
                         <label>Receipt Number</label>
                         <input type="text" class="form-control" formControlName="receiptNumber">
+
+                        <div [ngClass]="{'error': form.controls['receiptNumber'].errors && !form.controls['receiptNumber'].pristine}">
+                          <div *ngIf="form.controls['receiptNumber'].errors && !form.controls['receiptNumber'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['receiptNumber'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['receiptNumber'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-md-4 form-group">
                         <label>Date</label>
                         <div class="card-body">
                           <div class="input-group">
-                            <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" ngbDatepicker #ds1="ngbDatepicker" formControlName="date" (ngModelChange)="SetDrawnOn($event)" >
+                            <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" ngbDatepicker #ds1="ngbDatepicker" formControlName="date"
+                              (ngModelChange)="SetDrawnOn($event)">
                             <div class="input-group-append">
                               <div class="input-group-text" (click)="ds1.toggle()">
                                 <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -75,11 +89,22 @@
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                           </ng-template>
                         </ng-select>
+
+                        <div [ngClass]="{'error': form.controls['account'].errors && !form.controls['account'].pristine}">
+                          <div *ngIf="form.controls['account'].errors && !form.controls['account'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['account'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['account'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-md-4 form-group">
+                      <!-- <div class="col-md-4 form-group">
                         <label>Current balance</label>
                         <p>123456</p>
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="btn-group mt-3">
@@ -97,6 +122,17 @@
                           <option value="purchaseRefund">Purchase refund</option>
                           <option value="others">others</option>
                         </select>
+
+                        <div [ngClass]="{'error': form.controls['receiptType'].errors && !form.controls['receiptType'].pristine}">
+                          <div *ngIf="form.controls['receiptType'].errors && !form.controls['receiptType'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['receiptType'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['receiptType'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-md-4 form-group">
                         <label>Receipt Through</label>
@@ -106,12 +142,34 @@
                           <option value="Etransfe">E transfe</option>
                           <option value="others">others</option>
                         </select>
+
+                        <div [ngClass]="{'error': form.controls['receiptThrough'].errors && !form.controls['receiptThrough'].pristine}">
+                          <div *ngIf="form.controls['receiptThrough'].errors && !form.controls['receiptThrough'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['receiptThrough'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['receiptThrough'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="col-md-4 offset-md-2" *ngIf=" form.get('receiptThrough').value =='cheque'">
                         <label>Cheque no.</label>
                         <input type="text" class="form-control" formControlName="chequeNumber">
+
+                        <div [ngClass]="{'error': form.controls['chequeNumber'].errors && !form.controls['chequeNumber'].pristine}">
+                          <div *ngIf="form.controls['chequeNumber'].errors && !form.controls['chequeNumber'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['chequeNumber'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['chequeNumber'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-md-4 form-group" [ngClass]="form.get('receiptThrough').value !== 'cheque' ? 'offset-md-2' : ''">
                         <label>Drawn on</label>
@@ -123,6 +181,17 @@
                                 <div class="input-group-text" (click)="ds2.toggle()">
                                   <i class="fa fa-calendar" style="cursor: pointer;"></i>
                                 </div>
+                              </div>
+                            </div>
+
+                            <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
+                              <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
+                                <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
+                                  filed is required.
+                                </small>
+                                <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.date">
+                                  Invalid filed.
+                                </small>
                               </div>
                             </div>
                           </div>
@@ -137,6 +206,18 @@
                           <option value="advanceReceipt">Advance receipt</option>
                           <option value="others" *ngIf=" form.get('receiptThrough').value =='cash'"> others</option>
                         </select>
+
+
+                        <div [ngClass]="{'error': form.controls['against'].errors && !form.controls['against'].pristine}">
+                          <div *ngIf="form.controls['against'].errors && !form.controls['against'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['against'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['against'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="btn-group  mt-3">
@@ -177,10 +258,17 @@
                                   <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">
                                     <h6>Amount</h6>
                                     <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
-                                    <small [hidden]="form.controls.particularsData.controls[i].controls.amount.untouched || form.controls.particularsData.controls[i].controls.amount.valid"
-                                      class="text-danger">
-                                      Amount is required
-                                    </small>
+                                    <div [ngClass]="{'error': form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine}">
+                                      <div *ngIf="form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine"
+                                        class="error-msg">
+                                        <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.required">
+                                          filed is required.
+                                        </small>
+                                        <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.patternInvalid">
+                                          Invalid filed.
+                                        </small>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>

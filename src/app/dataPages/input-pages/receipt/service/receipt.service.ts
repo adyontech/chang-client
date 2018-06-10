@@ -40,20 +40,20 @@ export class ReceiptService {
       }
     }
     this._url = `${this._globalVariableService.baseServerUrl}/api/receipts?token=${this.token}&companyName=${compName}`;
-    return this.http.post(this._url, user).map((res: Response) => {
-      this.result = res.json();
+    return this.http.post(this._url, form).map((res: Response) => {
+      return res.json();
     });
   }
-  getLedgerNames(compName) {
+  getLedgerNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
-  getAccountNames(compName) {
+  getAccountNames(compName, owner) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 }

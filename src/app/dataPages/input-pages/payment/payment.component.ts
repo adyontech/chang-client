@@ -1,10 +1,19 @@
-import { Component, HostListener, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
+import { DateValidator } from './../receipt/date';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
+import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { ToastrService } from './../../../utilities/toastr.service';
 
 declare var $: any;
@@ -24,13 +33,17 @@ export class PaymentComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
-  breadcrumbs = [{ name: 'Payment' }, { name: 'Forms', link: '/form/' }, { name: 'Dasboard', link: '/' }];
+  public value: any = {};
+  breadcrumbs = [
+    { name: 'Payment' },
+    { name: 'Forms', link: '/form/' },
+    { name: 'Dasboard', link: '/' },
+  ];
 
   constructor(
     private route: ActivatedRoute,
     public _paymentService: PaymentService,
     public fb: FormBuilder,
-    private router: Router,
     private modalService: NgbModal,
     public _toastrService: ToastrService
   ) {}
@@ -42,13 +55,23 @@ export class PaymentComponent implements OnInit {
     this.getAccountNames();
     this.getLedgerUGNames();
     this.form = this.fb.group({
-      paymentNumber: [''],
-      date: [''],
-      account: [''],
-      paymentType: [''],
-      paymentThrough: [''],
+      paymentNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      date: new FormControl(
+        '',
+        Validators.compose([Validators.required, DateValidator.date])
+      ),
+      account: new FormControl('', [Validators.required]),
+      paymentType: new FormControl('', [Validators.required]),
+      paymentThrough: new FormControl('', [Validators.required]),
       chequeNumber: [''],
-      drawnOn: [null, Validators.required],
+      drawnOn: new FormControl(
+        '',
+        Validators.compose([Validators.required, DateValidator.date])
+      ),
       particularsData: this.fb.array([]),
       narration: [''],
       against: [''],
@@ -64,24 +87,16 @@ export class PaymentComponent implements OnInit {
       // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
-  // To open modal we need key event here
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.keyCode === 66 && event.ctrlKey) {
-      document.getElementById('openModalButton').click();
-    }
-  }
+
   open(content) {
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // This function is used in open
@@ -98,7 +113,7 @@ export class PaymentComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      amount: [''],
+      amount:  new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
     });
   }
 
@@ -128,6 +143,14 @@ export class PaymentComponent implements OnInit {
         this.totalAmount += parseFloat(amount);
       }
     }
+  }
+   SetDrawnOn(value) {
+    let dateval = new Date(value.year, value.month, value.day);
+    this.form.controls['drawnOn'].setValue({
+      year: dateval.getFullYear(),
+      month: dateval.getMonth(),
+      day: dateval.getDate(),
+    });
   }
 
   getLedgerUGNames() {
@@ -164,13 +187,18 @@ export class PaymentComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.endtotal = this.totalAmount;
-        this._paymentService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
-          if (data.success) {
-            this._toastrService.typeSuccess('success', 'Data successfully added');
-          } else {
-            this._toastrService.typeError('Error', data.message);
-          }
-        });
+        this._paymentService
+          .createNewEntry(user, this.paramId, this.ownerName)
+          .subscribe(data => {
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+            } else {
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
       } else {
         return;
       }

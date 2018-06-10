@@ -1,11 +1,4 @@
-import {
-  Component,
-  HostListener,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { DateValidator } from './date';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -13,21 +6,14 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { DateValidator } from './date';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import {
-  NgbModal,
-  ModalDismissReasons,
-  NgbActiveModal,
-} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
+import { ToastrService } from './../../../utilities/toastr.service';
 
 declare var $: any;
 
@@ -39,24 +25,26 @@ declare var $: any;
 export class ReceiptComponent implements OnInit {
   public closeResult: string;
   public form: FormGroup;
-  public selectedIndex = 1;
   public dataCopy: any;
   public paramId: string;
+  public ownerName: string;
   public totalAmount: number;
-  public attachmentError: Boolean = false;
-
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = ['Cash'];
-
+  public attachmentError: Boolean = false;
   public value: any = {};
-  public _disabledV: String = '0';
-  public disabled: Boolean = false;
+  breadcrumbs = [
+    { name: 'Receipt' },
+    { name: 'Forms', link: '/form/' },
+    { name: 'Dasboard', link: '/' },
+  ];
+
   constructor(
     private route: ActivatedRoute,
     public _receiptService: ReceiptService,
     public fb: FormBuilder,
-    private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -75,26 +63,29 @@ export class ReceiptComponent implements OnInit {
         '',
         Validators.compose([Validators.required, DateValidator.date])
       ),
-      account: [''],
-      receiptType: [''],
-      receiptThrough: [''],
+      account: new FormControl('', [Validators.required]),
+      receiptType: new FormControl('', [Validators.required]),
+      receiptThrough:new FormControl('', [Validators.required]),
       chequeNumber: [''],
-      drawnOn: [null, Validators.required],
+      drawnOn: new FormControl(
+        '',
+        Validators.compose([Validators.required, DateValidator.date])
+      ),
       against: [''],
       particularsData: this.fb.array([]),
       narration: [''],
-      file: [''],
+      attachment: [''],
     });
     this.addParticular();
   }
-
-  // To open modal we need key event here
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.keyCode === 66 && event.ctrlKey) {
-      document.getElementById('openModalButton').click();
-    }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
+    });
   }
+
   open(content) {
     this.modalService.open(content, { size: 'lg' }).result.then(
       result => {
@@ -116,16 +107,11 @@ export class ReceiptComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  getRouteParam() {
-    this.route.params.subscribe(params => {
-      this.paramId = params.id;
-    });
-  }
 
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      amount: [''],
+      amount:  new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
     });
   }
   addParticular() {
@@ -135,22 +121,12 @@ export class ReceiptComponent implements OnInit {
     control.push(addCtrl);
   }
   removeParticular(i: number) {
-    this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
+    this.totalSum();
   }
-
   get formData() {
     return <FormArray>this.form.get('particularsData');
-  }
-  SetDrawnOn(value) {
-    let dateval = new Date(value.year, value.month, value.day);
-    this.form.controls['drawnOn'].setValue({
-      year: dateval.getFullYear(),
-      month: dateval.getMonth(),
-      day: dateval.getDate(),
-    });
-    console.log(this.form.get('drawnOn'));
   }
 
   totalSum() {
@@ -163,10 +139,17 @@ export class ReceiptComponent implements OnInit {
       }
     }
   }
-
+  SetDrawnOn(value) {
+    let dateval = new Date(value.year, value.month, value.day);
+    this.form.controls['drawnOn'].setValue({
+      year: dateval.getFullYear(),
+      month: dateval.getMonth(),
+      day: dateval.getDate(),
+    });
+  }
   getLedgerNames() {
     this.dataCopy = this._receiptService
-      .getLedgerNames(this.paramId)
+      .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
@@ -174,7 +157,7 @@ export class ReceiptComponent implements OnInit {
   }
   getAccountNames() {
     this.dataCopy = this._receiptService
-      .getAccountNames(this.paramId)
+      .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.accountList = this.accountList.concat(data.accountNameList);
@@ -186,7 +169,7 @@ export class ReceiptComponent implements OnInit {
 
     if (event.target.files[0].size < 400000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('file').setValue(event.target.files[0]);
+        this.form.get('attachment').setValue(event.target.files[0]);
       }
     } else {
       this.attachmentError = true;
@@ -194,14 +177,24 @@ export class ReceiptComponent implements OnInit {
   }
 
   onSubmit(user) {
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
-    console.log(user);
-    user.endtotal = this.totalAmount;
-    this._receiptService
-      .createNewEntry(user, this.paramId)
-      .subscribe(data => {});
-    //   }
-    // });
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.endtotal = this.totalAmount;
+        this._receiptService
+          .createNewEntry(user, this.paramId)
+          .subscribe(data => {
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+            } else {
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
+      } else {
+        return;
+      }
+    });
   }
 }
