@@ -1,10 +1,33 @@
-import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  Component,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { DateValidator } from './date';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
+import { patternValidator } from './../../../shared/validators/pattern-validator';
 
 declare var $: any;
 
@@ -43,8 +66,15 @@ export class ReceiptComponent implements OnInit {
     this.getAccountNames();
     this.getLedgerNames();
     this.form = this.fb.group({
-      receiptNumber: [''],
-      date: [''],
+      receiptNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      date: new FormControl(
+        '',
+        Validators.compose([Validators.required, DateValidator.date])
+      ),
       account: [''],
       receiptType: [''],
       receiptThrough: [''],
@@ -66,16 +96,14 @@ export class ReceiptComponent implements OnInit {
     }
   }
   open(content) {
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // This function is used in open
@@ -114,6 +142,13 @@ export class ReceiptComponent implements OnInit {
 
   get formData() {
     return <FormArray>this.form.get('particularsData');
+  }
+  SetDrawnOn(value) {
+    let dateval = new Date(value.year, value.month, value.day);
+    console.log(dateval);
+    this.form.patchValue({
+      drawnOn: dateval,
+    });
   }
 
   totalSum() {
@@ -161,7 +196,9 @@ export class ReceiptComponent implements OnInit {
     //   if (datsa) {
 
     user.endtotal = this.totalAmount;
-    this._receiptService.createNewEntry(user, this.paramId).subscribe(data => {});
+    this._receiptService
+      .createNewEntry(user, this.paramId)
+      .subscribe(data => {});
     //   }
     // });
   }
