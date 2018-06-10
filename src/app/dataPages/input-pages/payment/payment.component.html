@@ -45,7 +45,7 @@
                   <wizard-step stepTitle="Start" navigationSymbol="1">
                     <div class="form-row">
                       <div class="col-md-4 offset-md-2 form-group">
-                        <label>Payment Number</label>
+                        <label>Payment Number</label><span class="danger">*</span>
                         <input type="text" class="form-control" formControlName="paymentNumber">
 
                         <div [ngClass]="{'error': form.controls['paymentNumber'].errors && !form.controls['paymentNumber'].pristine}">
@@ -60,7 +60,7 @@
                         </div>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Date</label>
+                        <label>Date</label><span class="danger">*</span>
                         <div class="card-body">
                           <div class="input-group">
                             <input class="form-control" placeholder="dd.mm.yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="date">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="form-row">
                       <div class="col-md-4 offset-md-2 form-group">
-                        <label>Account</label>
+                        <label>Account</label><span class="danger">*</span>
                         <ng-select [items]="accountList" formControlName="account" placeholder="No particulars selected">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
@@ -118,7 +118,7 @@
                   <wizard-step stepTitle="Info" navigationSymbol="2" class="mt-3">
                     <div class="form-row">
                       <div class="col-md-4 offset-md-2 form-group">
-                        <label>Payment type</label>
+                        <label>Payment type</label><span class="danger">*</span>
                         <select class="form-control" formControlName="paymentType">
                           <option value="general" selected>General</option>
                           <option value="purchasepayment">Purchase payment</option>
@@ -140,7 +140,7 @@
                         </div>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Payment Through</label>
+                        <label>Payment Through</label><span class="danger">*</span>
                         <select class="form-control" formControlName="paymentThrough">
                           <option value="cash" selected>Cash</option>
                           <option value="cheque">Cheque</option>
@@ -162,7 +162,7 @@
                     </div>
                     <div class="form-row">
                       <div class="col-md-4 offset-md-2 form-group" *ngIf="form.get('paymentThrough').value === 'cheque'">
-                        <label>Cheque no.</label>
+                        <label>Cheque no.</label><span class="danger">*</span>
                         <input type="text" class="form-control" formControlName="chequeNumber">
 
                         <div [ngClass]="{'error': form.controls['chequeNumber'].errors && !form.controls['chequeNumber'].pristine}">
@@ -177,7 +177,7 @@
                         </div>
                       </div>
                       <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value !== 'cheque' ? 'offset-md-2' : ''">
-                        <label>Drawn on</label>
+                        <label>Drawn on</label><span class="danger">*</span>
                         <div class="card-body">
                           <div class="input-group">
                             <input class="form-control" placeholder="dd.mm.yyyy" name="ds2" ngbDatepicker #ds2="ngbDatepicker" formControlName="drawnOn">
@@ -201,7 +201,7 @@
                         </div>
                       </div>
                       <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value === 'cheque' ? 'offset-md-2' : ''">
-                        <label>Against</label>
+                        <label>Against</label><span class="danger">*</span>
                         <select class="form-control" formControlName="against">
                           <option value="againstinvoice" selected>Against invoice</option>
                           <option value="againstaccount ">Against account</option>
@@ -245,7 +245,7 @@
                                     <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
                                   </div>
                                   <div class="col-lg-4 col-xs-4">
-                                    <h6>Particulars</h6>
+                                    <h6>Particulars <span class="danger">*</span></h6>
                                     <!-- <input type="text" class="form-control" formControlName="particulars"> -->
                                     <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
                                       <ng-template ng-header-tmp>
@@ -258,7 +258,7 @@
                                     </small>
                                   </div>
                                   <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">
-                                    <h6>Amount</h6>
+                                    <h6>Amount <span class="danger">*</span></h6>
                                     <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
                                     <div [ngClass]="{'error': form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine}">
                                       <div *ngIf="form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine"
