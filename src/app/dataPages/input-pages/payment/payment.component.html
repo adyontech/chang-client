@@ -301,13 +301,24 @@
                         <div class="form-inline">
                           <div class="form-group">
                             <label for="upload">Attachment:</label>
-                            <div class="card-body">
+                            <!-- <div class="card-body">
                               <div class="form-group">
                                 <div class="input-group">
                                   <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                                 </div>
                                 <div *ngIf="attachmentError">Error in attachment</div>
                               </div>
+                            </div> -->
+
+                            <div class="card-body">
+                              <div class="input-group">
+                                <div class="upload-btnF-wrapper">
+                                  <button type="button" class="btnF">Upload Logo</button>
+                                  <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+                                </div>
+                              </div>
+                              <div>{{attachmentName}}</div>
+                              <div *ngIf="logoError" style="color: red">Max file size exceeded.</div>
                             </div>
                           </div>
                         </div>

@@ -33,6 +33,7 @@ export class PaymentComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
+  public attachmentName: String = 'No File Choosen.';
   public value: any = {};
   breadcrumbs = [
     { name: 'Payment' },
@@ -174,12 +175,14 @@ export class PaymentComponent implements OnInit {
     this.attachmentError = false;
     const reader = new FileReader();
 
-    if (event.target.files[0].size < 400000) {
+    if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('attachment').setValue(event.target.files[0]);
+        this.attachmentName = event.target.files[0].name
       }
     } else {
       this.attachmentError = true;
+      this.attachmentName = 'No File choosen'
     }
   }
 
