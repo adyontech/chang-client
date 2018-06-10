@@ -33,6 +33,8 @@ export class ReceiptComponent implements OnInit {
   public accountList: Array<string> = ['Cash'];
   public attachmentError: Boolean = false;
   public value: any = {};
+  public attachmentName: String = 'No File Choosen.';
+
   breadcrumbs = [
     { name: 'Receipt' },
     { name: 'Forms', link: '/form/' },
@@ -65,7 +67,7 @@ export class ReceiptComponent implements OnInit {
       ),
       account: new FormControl('', [Validators.required]),
       receiptType: new FormControl('', [Validators.required]),
-      receiptThrough:new FormControl('', [Validators.required]),
+      receiptThrough: new FormControl('', [Validators.required]),
       chequeNumber: [''],
       drawnOn: new FormControl(
         '',
@@ -111,7 +113,10 @@ export class ReceiptComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      amount:  new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
+      amount: new FormControl('', [
+        Validators.required,
+        patternValidator(/^\d+$/),
+      ]),
     });
   }
   addParticular() {
@@ -167,12 +172,14 @@ export class ReceiptComponent implements OnInit {
     this.attachmentError = false;
     const reader = new FileReader();
 
-    if (event.target.files[0].size < 400000) {
+    if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('attachment').setValue(event.target.files[0]);
+        this.attachmentName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
+      this.attachmentName = 'No File choosen';
     }
   }
 
