@@ -6,7 +6,6 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DateValidator } from './date';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';

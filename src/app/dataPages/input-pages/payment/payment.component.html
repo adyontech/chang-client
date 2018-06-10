@@ -63,7 +63,7 @@
                         <label>Date</label><span class="danger">*</span>
                         <div class="card-body">
                           <div class="input-group">
-                            <input class="form-control" placeholder="dd.mm.yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="date">
+                            <input class="form-control" placeholder="dd.mm.yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="date"  (ngModelChange)="SetDrawnOn($event)">
                             <div class="input-group-append">
                               <div class="input-group-text" (click)="ds.toggle()">
                                 <i class="fa fa-calendar" style="cursor: pointer;"></i>
