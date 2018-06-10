@@ -73,7 +73,7 @@
                               <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
                                 filed is required.
                               </small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.date">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
                                 Invalid filed.
                               </small>
                             </div>
@@ -117,10 +117,10 @@
                         <label>Receipt type</label>
                         <select class="form-control" formControlName="receiptType">
                           <option value="general" selected>General</option>
-                          <option value="salesReceipt">Sales receipt</option>
-                          <option value="advanceReceipt">Advance receipt</option>
-                          <option value="purchaseRefund">Purchase refund</option>
-                          <option value="others">others</option>
+                          <option value="salesreceipt">Sales receipt</option>
+                          <option value="advancereceipt">Advance receipt</option>
+                          <option value="purchaserefund">Purchase refund</option>
+                          <option value="others">Others</option>
                         </select>
 
                         <div [ngClass]="{'error': form.controls['receiptType'].errors && !form.controls['receiptType'].pristine}">
@@ -139,8 +139,8 @@
                         <select class="form-control" formControlName="receiptThrough">
                           <option value="cash" selected>Cash</option>
                           <option value="cheque">Cheque</option>
-                          <option value="Etransfe">E transfe</option>
-                          <option value="others">others</option>
+                          <option value="etransfer">E transfer</option>
+                          <option value="others">Others</option>
                         </select>
 
                         <div [ngClass]="{'error': form.controls['receiptThrough'].errors && !form.controls['receiptThrough'].pristine}">
@@ -184,12 +184,12 @@
                               </div>
                             </div>
 
-                            <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
-                              <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
-                                <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
+                            <div [ngClass]="{'error': form.controls['drawnOn'].errors && !form.controls['drawnOn'].pristine}">
+                              <div *ngIf="form.controls['drawnOn'].errors && !form.controls['drawnOn'].pristine" class="error-msg">
+                                <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.required">
                                   filed is required.
                                 </small>
-                                <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.date">
+                                <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.datevalidator">
                                   Invalid filed.
                                 </small>
                               </div>
@@ -202,8 +202,8 @@
                         <select class="form-control" formControlName="against">
                           <option value="againstInvoice" selected>Against invoice</option>
                           <option value="againstAccount ">Against account</option>
-                          <option value="againstAdvance" *ngIf=" form.get('receiptType').value =='salesReceipt'">Against advance</option>
-                          <option value="advanceReceipt">Advance receipt</option>
+                          <option value="againstAdvance" *ngIf=" form.get('receiptType').value =='salesreceipt'">Against advance</option>
+                          <option value="advancereceipt">Advance receipt</option>
                           <option value="others" *ngIf=" form.get('receiptThrough').value =='cash'"> others</option>
                         </select>
 

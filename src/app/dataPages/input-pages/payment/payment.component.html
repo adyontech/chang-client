@@ -76,7 +76,7 @@
                               <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
                                 filed is required.
                               </small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.date">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
                                 Invalid filed.
                               </small>
                             </div>
@@ -121,11 +121,11 @@
                         <label>Payment type</label>
                         <select class="form-control" formControlName="paymentType">
                           <option value="general" selected>General</option>
-                          <option value="purchasePayment">Purchase payment</option>
-                          <option value="advancePayment">Advance payment</option>
-                          <option value="salesRefund">Sales refund</option>
-                          <option value="creditNote">Credit Note</option>
-                          <option value="others">others</option>
+                          <option value="purchasepayment">Purchase payment</option>
+                          <option value="advancepayment">Advance payment</option>
+                          <option value="salesrefund">Sales refund</option>
+                          <option value="creditnote">Credit Note</option>
+                          <option value="others">Others</option>
                         </select>
 
                         <div [ngClass]="{'error': form.controls['paymentType'].errors && !form.controls['paymentType'].pristine}">
@@ -144,8 +144,8 @@
                         <select class="form-control" formControlName="paymentThrough">
                           <option value="cash" selected>Cash</option>
                           <option value="cheque">Cheque</option>
-                          <option value="Etransfe">E transfe</option>
-                          <option value="others">others</option>
+                          <option value="etransfer">E transfer</option>
+                          <option value="others">Others</option>
                         </select>
 
                         <div [ngClass]="{'error': form.controls['paymentThrough'].errors && !form.controls['paymentThrough'].pristine}">
@@ -188,12 +188,12 @@
                             </div>
                           </div>
 
-                          <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
-                            <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
+                          <div [ngClass]="{'error': form.controls['drawnOn'].errors && !form.controls['drawnOn'].pristine}">
+                            <div *ngIf="form.controls['drawnOn'].errors && !form.controls['drawnOn'].pristine" class="error-msg">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.required">
                                 filed is required.
                               </small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.date">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.datevalidator">
                                 Invalid filed.
                               </small>
                             </div>
@@ -203,10 +203,10 @@
                       <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value === 'cheque' ? 'offset-md-2' : ''">
                         <label>Against</label>
                         <select class="form-control" formControlName="against">
-                          <option value="againstInvoice" selected>Against invoice</option>
-                          <option value="againstAccount ">Against account</option>
-                          <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasePayment'">Against advance</option>
-                          <option value="advancePayment">Advance receipt</option>
+                          <option value="againstinvoice" selected>Against invoice</option>
+                          <option value="againstaccount ">Against account</option>
+                          <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasepayment'">Against advance</option>
+                          <option value="advancepayment">Advance receipt</option>
                           <option value="others" *ngIf=" form.get('paymentThrough').value =='cash'"> others</option>
                         </select>
 

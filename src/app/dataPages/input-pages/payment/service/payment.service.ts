@@ -29,7 +29,9 @@ export class PaymentService {
   // }
 
   getData(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&&companyName=${compName}`;
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/uglist?token=${this.token}&&companyName=${compName}`;
     return this.http.get(this._url);
   }
 
@@ -42,7 +44,9 @@ export class PaymentService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/payment?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/payment?token=${
       this.token
     }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, form).map((res: Response) => {
@@ -51,13 +55,17 @@ export class PaymentService {
   }
 
   getLedgerUGNames(compName, owner) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
   getAccountNames(compName, owner) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/accountNameList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);

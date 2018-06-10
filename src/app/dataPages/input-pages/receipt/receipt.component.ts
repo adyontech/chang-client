@@ -63,7 +63,7 @@ export class ReceiptComponent implements OnInit {
       ]),
       date: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.date])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       account: new FormControl('', [Validators.required]),
       receiptType: new FormControl('', [Validators.required]),
@@ -71,9 +71,9 @@ export class ReceiptComponent implements OnInit {
       chequeNumber: [''],
       drawnOn: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.date])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
-      against: [''],
+      against: new FormControl('', [Validators.required]),
       particularsData: this.fb.array([]),
       narration: [''],
       attachment: [''],
@@ -145,12 +145,13 @@ export class ReceiptComponent implements OnInit {
     }
   }
   SetDrawnOn(value) {
+    if(value !==null){
     let dateval = new Date(value.year, value.month, value.day);
     this.form.controls['drawnOn'].setValue({
       year: dateval.getFullYear(),
       month: dateval.getMonth(),
       day: dateval.getDate(),
-    });
+    });}
   }
   getLedgerNames() {
     this.dataCopy = this._receiptService

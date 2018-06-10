@@ -63,7 +63,7 @@ export class PaymentComponent implements OnInit {
       ]),
       date: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.date])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       account: new FormControl('', [Validators.required]),
       paymentType: new FormControl('', [Validators.required]),
@@ -71,11 +71,11 @@ export class PaymentComponent implements OnInit {
       chequeNumber: [''],
       drawnOn: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.date])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       particularsData: this.fb.array([]),
       narration: [''],
-      against: [''],
+      against: new FormControl('', [Validators.required]),
       attachment: [''],
       endtotal: [''],
     });
@@ -114,7 +114,10 @@ export class PaymentComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      amount:  new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
+      amount: new FormControl('', [
+        Validators.required,
+        patternValidator(/^\d+$/),
+      ]),
     });
   }
 
@@ -145,13 +148,15 @@ export class PaymentComponent implements OnInit {
       }
     }
   }
-   SetDrawnOn(value) {
-    let dateval = new Date(value.year, value.month, value.day);
-    this.form.controls['drawnOn'].setValue({
-      year: dateval.getFullYear(),
-      month: dateval.getMonth(),
-      day: dateval.getDate(),
-    });
+  SetDrawnOn(value) {
+    if (value !== null) {
+      let dateval = new Date(value.year, value.month, value.day);
+      this.form.controls['drawnOn'].setValue({
+        year: dateval.getFullYear(),
+        month: dateval.getMonth(),
+        day: dateval.getDate(),
+      });
+    }
   }
 
   getLedgerUGNames() {
@@ -178,11 +183,11 @@ export class PaymentComponent implements OnInit {
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('attachment').setValue(event.target.files[0]);
-        this.attachmentName = event.target.files[0].name
+        this.attachmentName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
-      this.attachmentName = 'No File choosen'
+      this.attachmentName = 'No File choosen';
     }
   }
 
