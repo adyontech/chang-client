@@ -145,10 +145,12 @@ export class ReceiptComponent implements OnInit {
   }
   SetDrawnOn(value) {
     let dateval = new Date(value.year, value.month, value.day);
-    console.log(dateval);
-    this.form.patchValue({
-      drawnOn: dateval,
+    this.form.controls['drawnOn'].setValue({
+      year: dateval.getFullYear(),
+      month: dateval.getMonth(),
+      day: dateval.getDate(),
     });
+    console.log(this.form.get('drawnOn'));
   }
 
   totalSum() {
@@ -194,7 +196,7 @@ export class ReceiptComponent implements OnInit {
   onSubmit(user) {
     // alertFunctions.SaveData().then(datsa => {
     //   if (datsa) {
-
+    console.log(user);
     user.endtotal = this.totalAmount;
     this._receiptService
       .createNewEntry(user, this.paramId)
