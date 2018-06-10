@@ -1,17 +1,13 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-// import { , ValidatorFn, FormGroup } from '@angular/forms';
 import {
-  AbstractControl,
   FormGroup,
   FormControl,
-  FormArray,
   FormBuilder,
   Validators,
 } from '@angular/forms';
 import {
   NgbModal,
   ModalDismissReasons,
-  NgbActiveModal,
 } from '@ng-bootstrap/ng-bootstrap';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
