@@ -43,6 +43,7 @@ export class SalesComponent implements OnInit {
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;
+  @Input() public stylesObj;
 
   constructor(
     private route: ActivatedRoute,
@@ -74,6 +75,10 @@ export class SalesComponent implements OnInit {
     });
     this.addParticular();
     this.addSubParticular();
+    // this.stylesObj = {
+    //     width: '50px',
+    //     height: '25px'
+    //   };
   }
 
   getRouteParam() {
@@ -85,7 +90,7 @@ export class SalesComponent implements OnInit {
 
   open(content) {
     this.modalService
-      .open(content, { size: "lg" })
+      .open(content, { size: 'lg' })
       .result.then(
         result => {
           this.closeResult = `Closed with: ${result}`;

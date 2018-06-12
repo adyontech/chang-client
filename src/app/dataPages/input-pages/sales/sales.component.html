@@ -26,31 +26,31 @@
 </div>
 <!-- Modal for product service start -->
 <div class="row" matchHeight="card" [hidden]="true">
-    <!--Modal with Default options starts-->
-    <div class="col-sm-12 col-md-6 col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-block">
-            <ng-template #content let-c="close" let-d="dismiss">
-              <div class="modal-header">
-                <h4 class="modal-title">Modal title</h4>
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <app-product-service></app-product-service>
-              </div>
-            </ng-template>
-  
-            <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
-  
-            <hr>
-          </div>
+  <!--Modal with Default options starts-->
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Modal title</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <app-product-service></app-product-service>
+            </div>
+          </ng-template>
+
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
+
+          <hr>
         </div>
       </div>
     </div>
   </div>
+</div>
 <!-- Wizard Starts -->
 <div class="row">
   <div class="col-sm-12">
@@ -114,11 +114,13 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Sales ledger</label>
+                        <div [ngStyle]="stylesObj">
                         <ng-select [items]="salesList" formControlName="salesLedgerName" placeholder="No party selected">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                           </ng-template>
                         </ng-select>
+                        </div>
                       </div>
 
                     </div>
@@ -146,11 +148,23 @@
                           <h5 class="form-group-header">
                             Details
                           </h5>
-                          <div formArrayName="particularsData">
-                            <div *ngFor="let formDum of formData.controls; let i=index">
-                              <!-- <span>{{i + 1}}</span> -->
-                              <div [formGroupName]="i">
-                                <div class="block">
+
+
+                          <table class="table table-responsive-md text-center">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Name of product service</th>
+                                <th>Qty.</th>
+                                <th>Units.</th>
+                                <th>Rate.</th>
+                                <th>Sub. amt.</th>
+                                <th> GST Rate.</th>
+                                <th>Amount</th>
+                              </tr>
+                            </thead>
+
+                            <!-- <div class="block">
                                   <div class="content ">
                                     <div class="form-row">
                                       <div class="col-md-1 col-sm-12 mt-3">
@@ -220,10 +234,47 @@
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                                </div> -->
+
+                            <tbody formArrayName="particularsData">
+                              <tr *ngFor="let formDum of formData.controls; let i=index" [formGroupName]="i">
+                                <td>
+                                  <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1"
+                                    (click)="removeParticular(i)"></span>
+                                </td>
+                                <td width=30%>
+                                  <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)"
+                                    formControlName="nameOfProduct" placeholder="No city selected">
+                                    <ng-template ng-header-tmp>
+                                      <p style="cursor: pointer;" id="openModalButton" (click)="open(content)">+ PrSr</p>
+                                    </ng-template>
+                                  </ng-select>
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum();  totalSum() "
+                                    formControlName="qty">
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" style="min-width: 55px;" formControlName="units">
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() "
+                                    formControlName="rate">
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() " formControlName="subAmount"
+                                    value=" {{(formDum.get('qty').value)*(formDum.get('rate').value) }}">
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() " formControlName="gstRate">
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" style="min-width: 55px;" placeholder="Amount" (input)="subSum(); totalSum() " formControlName="amount"
+                                    value=" {{((formDum.get('qty').value)*(formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*formDum.get('gstRate').value) }}">
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
 
                           <div class="row">
                             <div class=" col-md-2">
