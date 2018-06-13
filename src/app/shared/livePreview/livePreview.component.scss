@@ -1,0 +1,52 @@
+       .clearFix
+        {
+            clear:both;
+        }
+        .panel.panel-chat
+        {
+            position: fixed;
+            bottom:0;
+            right:0;
+            max-width: 350px;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+        .panel.panel-chat *
+        {
+            background: none;
+            border: none;
+        }
+        .panel.panel-chat .panel-heading
+        {
+            background: #383B51;
+            border: 1px solid #383B51;
+            color:#FFF;
+        }
+        .panel.panel-chat .panel-heading a:nth-of-type(1)
+        {
+            text-decoration: none;
+            width: 290px;
+            color:#FFF;
+            font-weight: bold;
+            float:left;
+        }
+        .panel.panel-chat .panel-heading a:nth-of-type(2)
+        {
+            text-decoration: none;
+            max-width: 11px;
+            width: 11px;
+            color:#FFF;
+            float:right;
+        }
+        .panel.panel-chat .panel-body
+        {
+            display: block;
+            padding: 0;
+            margin: 0;
+            max-height: 250px;
+            height: 250px;
+            border-left: 1px solid #b2b2b2;
+            border-right: 1px solid #b2b2b2;
+            background: #EDEFF4;
+            overflow: auto;
+        }

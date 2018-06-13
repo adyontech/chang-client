@@ -1,33 +1,36 @@
-import { forwardRef, NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
-import { AvatarModule } from "ngx-avatar";
-import { NgSelectModule } from "@ng-select/ng-select";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AvatarModule } from 'ngx-avatar';
+import { NgSelectModule } from '@ng-select/ng-select';
 
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { FooterComponent } from "./footer/footer.component";
-import { NavbarComponent } from "./navbar/navbar.component";
-import { SidebarComponent } from "./sidebar/sidebar.component";
-import { SettingSidebarComponent } from "./settingSidebar/settingSidebar.component";
-import { CustomizerComponent } from "./customizer/customizer.component";
-import { NotificationSidebarComponent } from "./notification-sidebar/notification-sidebar.component";
-import { ToggleFullscreenDirective } from "./directives/toggle-fullscreen.directive";
+import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { LivePreviewComponent } from './livePreview/livePreview.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { SettingSidebarComponent } from './settingSidebar/settingSidebar.component';
+import { CustomizerComponent } from './customizer/customizer.component';
+import { NotificationSidebarComponent } from './notification-sidebar/notification-sidebar.component';
+import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.directive';
 // import { NgbDateCustomParserFormatter } from './globalVariables/datePipe';
 
-import { GlobalVaribles } from "./globalVariables/globalVariable";
-import { NavbarService } from "./navbar/navbar.service";
+import { GlobalVaribles } from './globalVariables/globalVariable';
+import { NavbarService } from './navbar/navbar.service';
+import { LivePreviewService } from './livePreview/livePreview.service';
 @NgModule({
   exports: [
     CommonModule,
     FooterComponent,
     NavbarComponent,
+    LivePreviewComponent,
     SidebarComponent,
     CustomizerComponent,
     NotificationSidebarComponent,
     SettingSidebarComponent,
     ToggleFullscreenDirective,
-    NgbModule
+    NgbModule,
     // NgbDateCustomParserFormatter,
   ],
   imports: [
@@ -35,17 +38,18 @@ import { NavbarService } from "./navbar/navbar.service";
     CommonModule,
     NgbModule,
     AvatarModule,
-    NgSelectModule
+    NgSelectModule,
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
+    LivePreviewComponent,
     SidebarComponent,
     SettingSidebarComponent,
     CustomizerComponent,
     NotificationSidebarComponent,
-    ToggleFullscreenDirective
+    ToggleFullscreenDirective,
   ],
-  providers: [NavbarService, GlobalVaribles]
+  providers: [NavbarService, GlobalVaribles, LivePreviewService],
 })
 export class SharedModule {}

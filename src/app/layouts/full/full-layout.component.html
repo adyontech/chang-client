@@ -1,22 +1,25 @@
-<div class="wrapper">
-  <!-- <div class="app-sidebar" data-active-color="white" data-background-color="black" data-image="assets/img/sidebar-bg/01.jpg"> -->
-  <div class="app-sidebar" data-active-color="white" data-background-color="black">
-    <app-sidebar></app-sidebar>
-    <div class="sidebar-background"></div>
+<div>
+  <div style="position: relative; z-index: 999;">
+    <app-livepreview></app-livepreview>
   </div>
-  <div class="main-panel">
-    <app-navbar></app-navbar>
-    <div class="main-content">
-      <div class="content-wrapper">
-        <div class="container-fluid">
-          <router-outlet></router-outlet>
+  <div class="wrapper">
+    <!-- <div class="app-sidebar" data-active-color="white" data-background-color="black" data-image="assets/img/sidebar-bg/01.jpg"> -->
+    <div class="app-sidebar" data-active-color="white" data-background-color="black">
+      <app-sidebar></app-sidebar>
+      <div class="sidebar-background"></div>
+    </div>
+    <div class="main-panel">
+      <app-navbar></app-navbar>
+      <div class="main-content">
+        <div class="content-wrapper">
+          <div class="container-fluid">
+            <router-outlet></router-outlet>
+          </div>
         </div>
       </div>
+      <app-footer></app-footer>
     </div>
-    <app-footer></app-footer>
+    <app-notification-sidebar></app-notification-sidebar>
+    <!-- <app-customizer></app-customizer> -->
   </div>
-  <app-notification-sidebar></app-notification-sidebar>
-  <!-- <app-customizer></app-customizer> -->
-
-
 </div>

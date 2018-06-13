@@ -1,18 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "./../auth/auth.service";
-import { NavbarService } from "./navbar.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../auth/auth.service';
+import { NavbarService } from './navbar.service';
 import {
   Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
-import { Routes, RouterModule, ActivatedRoute } from "@angular/router";
+} from '@angular/router';
 
 @Component({
-  selector: "app-navbar",
-  templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.scss"]
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   public paramId: string;
@@ -21,24 +17,23 @@ export class NavbarComponent implements OnInit {
   companyData: Array<string>;
   public creator: string;
 
-  toggleClass = "ft-maximize";
+  toggleClass = 'ft-maximize';
   constructor(
     public _authService: AuthService,
     public _navbarService: NavbarService,
-    private route: ActivatedRoute,
     private router: Router
   ) {
-    this.creator = JSON.parse(window.localStorage.getItem("user")).userName;
+    this.creator = JSON.parse(window.localStorage.getItem('user')).userName;
   }
   ngOnInit() {
     this.getCompanyNameList();
   }
 
   ToggleClass() {
-    if (this.toggleClass === "ft-maximize") {
-      this.toggleClass = "ft-minimize";
+    if (this.toggleClass === 'ft-maximize') {
+      this.toggleClass = 'ft-minimize';
     } else {
-      this.toggleClass = "ft-maximize";
+      this.toggleClass = 'ft-maximize';
     }
   }
 
@@ -58,7 +53,6 @@ export class NavbarComponent implements OnInit {
     //   console.log(element.creator)
     // });
     // // JSON.parse(this.companyData).map(el=> el.)
-    this.router.navigate(["/"]);
+    this.router.navigate(['/']);
   }
 }
-
