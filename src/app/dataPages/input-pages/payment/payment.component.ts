@@ -148,7 +148,7 @@ export class PaymentComponent implements OnInit {
   }
   SetDrawnOn(value) {
     if (value !== null) {
-      let dateval = new Date(value.year, value.month, value.day);
+      const dateval = new Date(value.year, value.month, value.day);
       this.form.controls['drawnOn'].setValue({
         year: dateval.getFullYear(),
         month: dateval.getMonth(),

@@ -1,39 +1,38 @@
-import { Component, Input, ViewChild, OnInit } from "@angular/core";
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   FormArray,
   FormBuilder,
-  Validators
-} from "@angular/forms";
+  Validators,
+} from '@angular/forms';
 import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
+  RouterStateSnapshot,
+} from '@angular/router';
 import {
   NgbModal,
   ModalDismissReasons,
-  NgbActiveModal
-} from "@ng-bootstrap/ng-bootstrap";
-import * as alertFunctions from "./../../../shared/data/sweet-alerts";
-import { DatePipe } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { ContraService } from "./service/contra.service";
-import { ToastrService } from "./../../../utilities/toastr.service";
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { ContraService } from './service/contra.service';
+import { ToastrService } from './../../../utilities/toastr.service';
 
 declare var $: any;
 
 @Component({
-  selector: "app-contra",
-  templateUrl: "./contra.component.html",
-  styleUrls: ["./contra.component.scss"]
+  selector: 'app-contra',
+  templateUrl: './contra.component.html',
+  styleUrls: ['./contra.component.scss'],
 })
 export class ContraComponent implements OnInit {
   closeResult: string;
   form: FormGroup;
-  selectedIndex = 1;
   dataCopy: any;
   public modalRef: any;
   public paramId: string;
@@ -42,10 +41,10 @@ export class ContraComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
-  public fileName: String = "No File Choosen.";
+  public fileName: String = 'No File Choosen.';
 
   public value: any = {};
-  public _disabledV: String = "0";
+  public _disabledV: String = '0';
   public disabled: Boolean = false;
 
   constructor(
@@ -62,30 +61,30 @@ export class ContraComponent implements OnInit {
     this.getAccountNames();
     this.getLedgerUGNames();
     this.form = this.fb.group({
-      account: [""],
-      chequeNumber: [""],
-      contraNumber: [""],
-      date: [""],
+      account: [''],
+      chequeNumber: [''],
+      contraNumber: [''],
+      date: [''],
       drawnOn: [null, Validators.required],
-      drawnBank: [""],
-      attachment: [""],
-      narration: [""],
+      drawnBank: [''],
+      attachment: [''],
+      narration: [''],
       particularsData: this.fb.array([]),
-      endtotal: [""]
+      endtotal: [''],
     });
     this.addParticular();
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id.split("%20").join(" ");
-      this.ownerName = params.owner.split("%20").join(" ");
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 
   open(content) {
-    this.modalRef = this.modalService.open(content, { size: "lg" });
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
     this.modalRef.result.then(
       result => {
         this.getAccountNames();
@@ -102,30 +101,30 @@ export class ContraComponent implements OnInit {
 
   initParticular() {
     return this.fb.group({
-      particulars: ["", Validators.required],
-      amount: [""]
+      particulars: ['', Validators.required],
+      amount: [''],
     });
   }
 
   addParticular() {
     this.totalSum();
-    const control = <FormArray>this.form.controls["particularsData"];
+    const control = <FormArray>this.form.controls['particularsData'];
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
 
   removeParticular(i: number) {
     this.totalSum();
-    const control = <FormArray>this.form.controls["particularsData"];
+    const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
   }
 
   totalSum() {
-    const formControls = this.form.controls.particularsData["controls"];
+    const formControls = this.form.controls.particularsData['controls'];
     this.totalAmount = 0;
     for (let i = 0; i < formControls.length; i++) {
       const amount = formControls[i].controls.amount.value;
-      if (!isNaN(amount) && amount !== "") {
+      if (!isNaN(amount) && amount !== '') {
         this.totalAmount += parseFloat(amount);
       }
     }
@@ -156,7 +155,7 @@ export class ContraComponent implements OnInit {
   }
 
   get formData() {
-    return <FormArray>this.form.get("particularsData");
+    return <FormArray>this.form.get('particularsData');
   }
 
   onFileChange(event) {
@@ -165,12 +164,12 @@ export class ContraComponent implements OnInit {
 
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get("attachment").setValue(event.target.files[0]);
+        this.form.get('attachment').setValue(event.target.files[0]);
         this.fileName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
-      this.fileName = "No File choosen";
+      this.fileName = 'No File choosen';
     }
   }
 
@@ -184,11 +183,11 @@ export class ContraComponent implements OnInit {
             this.form.reset();
             if (data.success) {
               this._toastrService.typeSuccess(
-                "success",
-                "Data successfully added"
+                'success',
+                'Data successfully added'
               );
             } else {
-              this._toastrService.typeError("Error", data.message);
+              this._toastrService.typeError('Error', data.message);
             }
           });
       }

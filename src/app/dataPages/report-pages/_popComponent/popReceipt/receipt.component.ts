@@ -16,7 +16,6 @@ declare var $: any;
 export class PopReceiptComponent implements OnInit {
   public closeResult: string;
   public form: FormGroup;
-  public selectedIndex = 1;
   public dataCopy: any;
   public paramId: string;
   public totalAmount: number;

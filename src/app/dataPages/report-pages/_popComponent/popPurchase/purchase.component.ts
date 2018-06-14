@@ -12,7 +12,6 @@ declare var $: any;
 })
 export class PopPurchaseComponent implements OnInit {
   form: FormGroup;
-  selectedIndex = 1;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;

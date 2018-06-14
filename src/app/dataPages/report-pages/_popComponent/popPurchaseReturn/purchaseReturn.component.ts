@@ -12,7 +12,6 @@ import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 })
 export class PopPurchaseReturnComponent implements OnInit {
   form: FormGroup;
-  selectedIndex = 1;
   public dataCopy: any;
   public dataCopy1: any;
   public dataCopy2: any;

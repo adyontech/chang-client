@@ -16,15 +16,6 @@ export class ConfirmComponent implements OnInit {
   paymentId: String;
   paymentRequest: String;
   disableClick: Boolean = true;
-  // closeResult: string;
-  // public form: FormGroup;
-  // public selectedIndex = 1;
-  // public dataCopy: any;
-  // public paramId: string;
-  // public totalAmount: number;
-  // public ledgerList: Array<string> = [];
-  // public accountList: Array<string> = [];
-  // public attachmentError: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,

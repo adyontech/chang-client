@@ -14,7 +14,6 @@ declare var $: any;
 })
 export class UnderGroupComponent implements OnInit {
   form: FormGroup;
-  selectedIndex = 1;
 
   constructor(
     private route: ActivatedRoute,

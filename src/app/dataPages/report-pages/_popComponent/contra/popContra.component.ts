@@ -14,7 +14,6 @@ declare var $: any;
 })
 export class PopContraComponent implements OnInit {
   form: FormGroup;
-  selectedIndex = 1;
   dataCopy: any;
   paramId: string;
   closeResult: string;

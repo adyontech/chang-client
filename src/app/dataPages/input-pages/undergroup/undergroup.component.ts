@@ -1,40 +1,39 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   FormArray,
   FormBuilder,
-  Validators
-} from "@angular/forms";
+  Validators,
+} from '@angular/forms';
 import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
-import * as alertFunctions from "./../../../shared/data/sweet-alerts";
-import { ActivatedRoute } from "@angular/router";
-import { LedgerService } from "./../ledger/service/ledger.service";
-import { UnderGroupsService } from "./service/underGroup.service";
+  RouterStateSnapshot,
+} from '@angular/router';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { ActivatedRoute } from '@angular/router';
+import { LedgerService } from './../ledger/service/ledger.service';
+import { UnderGroupsService } from './service/underGroup.service';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { ToastrService } from "./../../../utilities/toastr.service";
+import { ToastrService } from './../../../utilities/toastr.service';
 @Component({
-  selector: "app-undergroup",
-  templateUrl: "./undergroup.component.html",
-  styleUrls: ["./undergroup.component.scss"]
+  selector: 'app-undergroup',
+  templateUrl: './undergroup.component.html',
+  styleUrls: ['./undergroup.component.scss'],
 })
 export class UnderGroupComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
-  form: FormGroup;
-  selectedIndex = 1;
-  underHeadArray = [
-    "revenue (CR)",
-    "expenses (DR)",
-    "sales (CR)",
-    " purchases (DR)",
-    "asset (DR)",
-    "liabilities (CR)"
+  public form: FormGroup;
+  public underHeadArray = [
+    'revenue (CR)',
+    'expenses (DR)',
+    'sales (CR)',
+    ' purchases (DR)',
+    'asset (DR)',
+    'liabilities (CR)',
   ];
 
   breadcrumbs = [];
@@ -49,40 +48,43 @@ export class UnderGroupComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.form = this.fb.group({
-      underHead:new FormControl('', [Validators.required]),
+      underHead: new FormControl('', [Validators.required]),
       groupName: new FormControl('', [
         Validators.required,
         patternValidator(/^[a-zA-Z\d-_]+$/),
       ]),
-      type: [""]
+      type: [''],
     });
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id.split("%20").join(" ");
-      this.ownerName = params.owner.split("%20").join(" ");
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
     });
-     this.breadcrumbs = [
-    { name: "Undergroup" },
-    { name: "Dasboard", link: `/${this.ownerName}/${this.paramId}/dashboard` }
-  ];
+    this.breadcrumbs = [
+      { name: 'Undergroup' },
+      {
+        name: 'Dasboard',
+        link: `/${this.ownerName}/${this.paramId}/dashboard`,
+      },
+    ];
   }
   setType(value) {
     console.log(value);
-    let types = "";
+    let types = '';
     if (
-      value === "sales (CR)" ||
-      value === "revenue (CR)" ||
-      value === "liabilities (CR)"
+      value === 'sales (CR)' ||
+      value === 'revenue (CR)' ||
+      value === 'liabilities (CR)'
     ) {
-      types = "CR";
+      types = 'CR';
     } else {
-      types = "DR";
+      types = 'DR';
     }
     this.form.patchValue({
-      type: types
+      type: types,
     });
   }
 
@@ -94,11 +96,11 @@ export class UnderGroupComponent implements OnInit {
           .subscribe(data => {
             if (data.success) {
               this._toastrService.typeSuccess(
-                "success",
-                "Data successfully added"
+                'success',
+                'Data successfully added'
               );
             } else {
-              this._toastrService.typeError("Error", data.message);
+              this._toastrService.typeError('Error', data.message);
             }
           });
       }

@@ -5,10 +5,7 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import {
-  NgbModal,
-  ModalDismissReasons,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { StateVaribles } from './../../../shared/forms/States';
@@ -32,7 +29,7 @@ export class LedgerComponent implements OnInit {
   public dataCopy: any;
   public closeResult: string;
   public breadcrumbs = [];
-  public applicableDummyModel: string = '';
+  public applicableDummyModel: String = '';
   public stateList: Array<string>;
   public underGroupItems: Array<string> = [
     'cash in hand(dr)',
@@ -105,8 +102,14 @@ export class LedgerComponent implements OnInit {
       pinCode: new FormControl('', [patternValidator(/^[1-9][0-9]{5}$/)]),
       country: [''],
       phoneNumber: new FormControl('', [patternValidator(/^[0]?[6789]\d{9}$/)]),
-      qty: new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
-      rate: new FormControl('', [Validators.required,patternValidator(/^\d+$/)]),
+      qty: new FormControl('', [
+        Validators.required,
+        patternValidator(/^\d+$/),
+      ]),
+      rate: new FormControl('', [
+        Validators.required,
+        patternValidator(/^\d+$/),
+      ]),
       total: new FormControl('', [patternValidator(/^\d+$/)]),
     });
   }
@@ -164,15 +167,15 @@ export class LedgerComponent implements OnInit {
       name: value,
     });
   }
-  fillCountry(value){
-    if(value !== 'Others'){
+  fillCountry(value) {
+    if (value !== 'Others') {
       this.form.patchValue({
-      country: 'India',
-    });
-    }else{
+        country: 'India',
+      });
+    } else {
       this.form.patchValue({
-      country: '',
-    });
+        country: '',
+      });
     }
   }
   // onSubmit(user) {
@@ -188,9 +191,9 @@ export class LedgerComponent implements OnInit {
                 'success',
                 'Data successfully added'
               );
-              //the code is to check whether the window is a pop-up
+              // the code is to check whether the window is a pop-up
               // or not, if pop-up then it will close it.
-              if (this.statePop == 'child') {
+              if (this.statePop === 'child') {
                 this.modalReference.close();
               }
             } else {
