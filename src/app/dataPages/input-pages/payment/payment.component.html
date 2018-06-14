@@ -9,7 +9,7 @@
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <app-ledger></app-ledger>
+              <app-ledger [modalReference]="modalRef" [statePop]="'child'"></app-ledger>
             </div>
           </ng-template>
 

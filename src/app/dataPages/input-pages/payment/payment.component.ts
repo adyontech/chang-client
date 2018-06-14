@@ -25,6 +25,7 @@ export class PaymentComponent implements OnInit {
   closeResult: string;
   public form: FormGroup;
   public dataCopy: any;
+  public modalRef: any;
   public paramId: string;
   public ownerName: string;
   public totalAmount: number;
@@ -88,11 +89,16 @@ export class PaymentComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' }).result.then(
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.modalRef.result.then(
       result => {
+        this.getAccountNames();
+        this.getLedgerUGNames();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
+        this.getAccountNames();
+        this.getLedgerUGNames();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
@@ -162,6 +168,7 @@ export class PaymentComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        this.ledgerList = [];
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -170,6 +177,7 @@ export class PaymentComponent implements OnInit {
       .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        this.accountList = [];
         this.accountList = this.accountList.concat(data.accountNameList);
       });
   }

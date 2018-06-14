@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -90,9 +90,13 @@ export class ReceiptComponent implements OnInit {
   open(content) {
     this.modalService.open(content, { size: 'lg' }).result.then(
       result => {
+        this.getAccountNames();
+        this.getLedgerNames();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
+        this.getAccountNames();
+        this.getLedgerNames();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
@@ -144,13 +148,14 @@ export class ReceiptComponent implements OnInit {
     }
   }
   SetDrawnOn(value) {
-    if(value !==null){
-    let dateval = new Date(value.year, value.month, value.day);
-    this.form.controls['drawnOn'].setValue({
-      year: dateval.getFullYear(),
-      month: dateval.getMonth(),
-      day: dateval.getDate(),
-    });}
+    if (value !== null) {
+      const dateval = new Date(value.year, value.month, value.day);
+      this.form.controls['drawnOn'].setValue({
+        year: dateval.getFullYear(),
+        month: dateval.getMonth(),
+        day: dateval.getDate(),
+      });
+    }
   }
   getLedgerNames() {
     this.dataCopy = this._receiptService
@@ -170,8 +175,6 @@ export class ReceiptComponent implements OnInit {
   }
   onFileChange(event) {
     this.attachmentError = false;
-    const reader = new FileReader();
-
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('attachment').setValue(event.target.files[0]);
