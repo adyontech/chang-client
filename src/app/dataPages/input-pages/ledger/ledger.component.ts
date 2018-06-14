@@ -104,19 +104,19 @@ export class LedgerComponent implements OnInit {
       phoneNumber: new FormControl('', [patternValidator(/^[0]?[6789]\d{9}$/)]),
       qty: new FormControl('', [
         Validators.required,
-        patternValidator(/^\d+$/),
+        patternValidator(/^-?\d*(\.\d+)?$/),
       ]),
       rate: new FormControl('', [
         Validators.required,
-        patternValidator(/^\d+$/),
+        patternValidator(/^-?\d*(\.\d+)?$/),
       ]),
-      total: new FormControl('', [patternValidator(/^\d+$/)]),
+      total: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
   updateTotal() {
     const qty = this.form.get('qty').value || 0,
       rate = this.form.get('rate').value || 0;
-    this.form.controls['total'].setValue(qty * rate);
+    this.form.controls['total'].setValue((qty * rate).toFixed(2));
   }
 
   getRouteParam() {
