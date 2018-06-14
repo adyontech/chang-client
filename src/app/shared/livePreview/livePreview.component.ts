@@ -23,4 +23,8 @@ export class LivePreviewComponent implements OnInit {
     console.log('hello');
     this.heightToggle = !this.heightToggle;
   }
+  expand() {
+    event.stopPropagation();
+    console.log('helo');
+  }
 }
