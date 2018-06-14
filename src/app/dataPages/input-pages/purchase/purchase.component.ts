@@ -1,8 +1,23 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './service/purchase.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 declare var $: any;
@@ -28,6 +43,7 @@ export class PurchaseComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public purchaseList: Array<string> = [];
   public prsrList: Array<string> = [];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
 
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
   public transportationModeArray = ['road', 'train', 'air', 'water'];
@@ -81,18 +97,15 @@ export class PurchaseComponent implements OnInit {
     this.disabled = this._disabledV === '1';
   }
 
-
   open(content) {
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // This function is used in open
@@ -201,7 +214,9 @@ export class PurchaseComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        this._purchaseService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});
+        this._purchaseService
+          .createNewEntry(user, this.paramId, this.ownerId)
+          .subscribe(data => {});
       }
     });
   }

@@ -51,19 +51,21 @@
     </div>
   </div>
 </div>
-<!-- Wizard Starts -->
 <div class="row">
-  <div class="col-sm-12">
-    <div class="content-header">Sales Forms</div>
+  <div class="col-sm-5">
+    <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <h3>
+      <b> {{paramId | titlecase}}
+      </b>
+    </h3>
   </div>
 </div>
 <section id="icon-tabs">
   <div class="row">
     <div class="col-12">
       <div class="card text-center">
-        <div class="card-header">
-          <h4 class="card-title">{{paramId}}</h4>
-        </div>
         <div class="card-body">
           <div class="card-block">
             <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
@@ -115,11 +117,11 @@
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Sales ledger</label>
                         <div [ngStyle]="stylesObj">
-                        <ng-select [items]="salesList" formControlName="salesLedgerName" placeholder="No party selected">
-                          <ng-template ng-header-tmp>
-                            <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
-                          </ng-template>
-                        </ng-select>
+                          <ng-select [items]="salesList" formControlName="salesLedgerName" placeholder="No party selected">
+                            <ng-template ng-header-tmp>
+                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
+                            </ng-template>
+                          </ng-select>
                         </div>
                       </div>
 
@@ -239,27 +241,24 @@
                             <tbody formArrayName="particularsData">
                               <tr *ngFor="let formDum of formData.controls; let i=index" [formGroupName]="i">
                                 <td>
-                                  <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1"
-                                    (click)="removeParticular(i)"></span>
+                                  <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
                                 </td>
                                 <td width=30%>
-                                  <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)"
-                                    formControlName="nameOfProduct" placeholder="No city selected">
+                                  <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
+                                    placeholder="No city selected">
                                     <ng-template ng-header-tmp>
                                       <p style="cursor: pointer;" id="openModalButton" (click)="open(content)">+ PrSr</p>
                                     </ng-template>
                                   </ng-select>
                                 </td>
                                 <td>
-                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum();  totalSum() "
-                                    formControlName="qty">
+                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum();  totalSum() " formControlName="qty">
                                 </td>
                                 <td>
                                   <input type="text" class="form-control" style="min-width: 55px;" formControlName="units">
                                 </td>
                                 <td>
-                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() "
-                                    formControlName="rate">
+                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() " formControlName="rate">
                                 </td>
                                 <td>
                                   <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() " formControlName="subAmount"

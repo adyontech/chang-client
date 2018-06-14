@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="col-sm-12">
-    <div style="float: left;">
-      <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
-    </div>
-    <div class="mt-2">
-      <p class="mt-2"> For:- {{paramId}}</p>
-    </div>
+  <div class="col-sm-5">
+    <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <h3>
+      <b> {{paramId | titlecase}}
+      </b>
+    </h3>
   </div>
 </div>
 <section id="icon-tabs">
@@ -25,12 +26,12 @@
                       <i>Butter</i>
                     </small>
 
-                          <div [ngClass]="{'error': form.controls['prsrName'].errors && !form.controls['prsrName'].pristine}">
-                            <div *ngIf="form.controls['prsrName'].errors && !form.controls['prsrName'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['prsrName'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['prsrName'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                    <div [ngClass]="{'error': form.controls['prsrName'].errors && !form.controls['prsrName'].pristine}">
+                      <div *ngIf="form.controls['prsrName'].errors && !form.controls['prsrName'].pristine" class="error-msg">
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['prsrName'].errors.required">Field is required.</small>
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['prsrName'].errors.patternInvalid">Invalid field.</small>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-5   col-sm-5  offset-sm-4 offset-md-1">
@@ -44,12 +45,12 @@
                     </select>
                   </div>
 
-                          <div [ngClass]="{'error': form.controls['type'].errors && !form.controls['type'].pristine}">
-                            <div *ngIf="form.controls['type'].errors && !form.controls['type'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['type'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['type'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                  <div [ngClass]="{'error': form.controls['type'].errors && !form.controls['type'].pristine}">
+                    <div *ngIf="form.controls['type'].errors && !form.controls['type'].pristine" class="error-msg">
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['type'].errors.required">Field is required.</small>
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['type'].errors.patternInvalid">Invalid field.</small>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-lg-5   col-sm-5  offset-sm-4 offset-md-1">
                   <div class="form-group">
@@ -58,12 +59,12 @@
                     <ng-select [items]="items" formControlName="units" placeholder="No city selected">
                     </ng-select>
 
-                          <div [ngClass]="{'error': form.controls['units'].errors && !form.controls['units'].pristine}">
-                            <div *ngIf="form.controls['units'].errors && !form.controls['units'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['units'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['units'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                    <div [ngClass]="{'error': form.controls['units'].errors && !form.controls['units'].pristine}">
+                      <div *ngIf="form.controls['units'].errors && !form.controls['units'].pristine" class="error-msg">
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['units'].errors.required">Field is required.</small>
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['units'].errors.patternInvalid">Invalid field.</small>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-5   col-sm-5  offset-sm-4 offset-md-1">
@@ -72,12 +73,12 @@
                     <label>Product/Service Rate</label>
                     <input type="text" class="form-control" formControlName="prsrRate">
 
-                          <div [ngClass]="{'error': form.controls['prsrRate'].errors && !form.controls['prsrRate'].pristine}">
-                            <div *ngIf="form.controls['prsrRate'].errors && !form.controls['prsrRate'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['prsrRate'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['prsrRate'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                    <div [ngClass]="{'error': form.controls['prsrRate'].errors && !form.controls['prsrRate'].pristine}">
+                      <div *ngIf="form.controls['prsrRate'].errors && !form.controls['prsrRate'].pristine" class="error-msg">
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['prsrRate'].errors.required">Field is required.</small>
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['prsrRate'].errors.patternInvalid">Invalid field.</small>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-5   col-sm-5  offset-sm-4 offset-md-1">
@@ -97,12 +98,12 @@
                     </select>
                   </div>
 
-                          <div [ngClass]="{'error': form.controls['gstRate'].errors && !form.controls['gstRate'].pristine}">
-                            <div *ngIf="form.controls['gstRate'].errors && !form.controls['gstRate'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['gstRate'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['gstRate'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                  <div [ngClass]="{'error': form.controls['gstRate'].errors && !form.controls['gstRate'].pristine}">
+                    <div *ngIf="form.controls['gstRate'].errors && !form.controls['gstRate'].pristine" class="error-msg">
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['gstRate'].errors.required">Field is required.</small>
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['gstRate'].errors.patternInvalid">Invalid field.</small>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-lg-5   col-sm-5  offset-sm-4 offset-md-1">
                   <div class="form-group">
@@ -110,12 +111,12 @@
                     <span class="danger">*</span>
                     <input type="text" class="form-control" formControlName="hsnaCode">
 
-                          <div [ngClass]="{'error': form.controls['hsnaCode'].errors && !form.controls['hsnaCode'].pristine}">
-                            <div *ngIf="form.controls['hsnaCode'].errors && !form.controls['hsnaCode'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['hsnaCode'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['hsnaCode'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                    <div [ngClass]="{'error': form.controls['hsnaCode'].errors && !form.controls['hsnaCode'].pristine}">
+                      <div *ngIf="form.controls['hsnaCode'].errors && !form.controls['hsnaCode'].pristine" class="error-msg">
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['hsnaCode'].errors.required">Field is required.</small>
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['hsnaCode'].errors.patternInvalid">Invalid field.</small>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="text-center pl-3" style="text-align: center; width: 100%">
@@ -128,12 +129,12 @@
                       <span class="danger">*</span>
                       <input type="text" class="form-control" formControlName="qty">
 
-                          <div [ngClass]="{'error': form.controls['qty'].errors && !form.controls['qty'].pristine}">
-                            <div *ngIf="form.controls['qty'].errors && !form.controls['qty'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['qty'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['qty'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                      <div [ngClass]="{'error': form.controls['qty'].errors && !form.controls['qty'].pristine}">
+                        <div *ngIf="form.controls['qty'].errors && !form.controls['qty'].pristine" class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['qty'].errors.required">Field is required.</small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['qty'].errors.patternInvalid">Invalid field.</small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-3  offset-lg-1 col-sm-2  offset-sm-1">
@@ -142,12 +143,12 @@
                       <span class="danger">*</span>
                       <input type="text" class="form-control" formControlName="rate">
 
-                          <div [ngClass]="{'error': form.controls['rate'].errors && !form.controls['rate'].pristine}">
-                            <div *ngIf="form.controls['rate'].errors && !form.controls['rate'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['rate'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['rate'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                      <div [ngClass]="{'error': form.controls['rate'].errors && !form.controls['rate'].pristine}">
+                        <div *ngIf="form.controls['rate'].errors && !form.controls['rate'].pristine" class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['rate'].errors.required">Field is required.</small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['rate'].errors.patternInvalid">Invalid field.</small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-3  offset-lg-1 col-sm-2  offset-sm-1">
@@ -156,12 +157,12 @@
                       <span class="danger">*</span>
                       <input type="text" class="form-control" formControlName="val" value=" {{(form.get('qty').value)*(form.get('rate').value) }}">
 
-                          <div [ngClass]="{'error': form.controls['val'].errors && !form.controls['val'].pristine}">
-                            <div *ngIf="form.controls['val'].errors && !form.controls['val'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['val'].errors.required">Field is required.</small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['val'].errors.patternInvalid">Invalid field.</small>
-                            </div>
-                          </div>
+                      <div [ngClass]="{'error': form.controls['val'].errors && !form.controls['val'].pristine}">
+                        <div *ngIf="form.controls['val'].errors && !form.controls['val'].pristine" class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['val'].errors.required">Field is required.</small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['val'].errors.patternInvalid">Invalid field.</small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

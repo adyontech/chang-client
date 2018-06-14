@@ -34,11 +34,7 @@ export class ReceiptComponent implements OnInit {
   public value: any = {};
   public attachmentName: String = 'No File Choosen.';
 
-  breadcrumbs = [
-    { name: 'Receipt' },
-    { name: 'Forms', link: '/form/' },
-    { name: 'Dasboard', link: '/' },
-  ];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
 
   constructor(
     private route: ActivatedRoute,

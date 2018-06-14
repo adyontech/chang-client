@@ -34,11 +34,7 @@ export class PaymentComponent implements OnInit {
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
   public value: any = {};
-  breadcrumbs = [
-    { name: 'Payment' },
-    { name: 'Forms', link: '/form/' },
-    { name: 'Dasboard', link: '/' },
-  ];
+  breadcrumbs = [{ name: 'Payment' }, { name: 'Dasboard', link: '/' }];
 
   constructor(
     private route: ActivatedRoute,

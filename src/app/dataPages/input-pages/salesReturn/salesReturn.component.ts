@@ -1,9 +1,24 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
-import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDateStruct,
+  NgbDatepickerI18n,
+  NgbCalendar,
+} from '@ng-bootstrap/ng-bootstrap';
 import { SalesReturnService } from './service/salesReturn.service';
 declare var $: any;
 
@@ -22,6 +37,7 @@ export class SalesReturnComponent implements OnInit {
   public subTotal: number;
   public totalAmount: number;
   public attachmentError: Boolean = false;
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
 
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
@@ -154,7 +170,9 @@ export class SalesReturnComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        this._salesService.createNewEntry(user, this.paramId).subscribe(data => {});
+        this._salesService
+          .createNewEntry(user, this.paramId)
+          .subscribe(data => {});
       }
     });
   }

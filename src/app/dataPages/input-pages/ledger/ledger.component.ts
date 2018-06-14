@@ -85,7 +85,11 @@ export class LedgerComponent implements OnInit {
       underGroup: new FormControl('', [Validators.required]),
       applicableTax: new FormControl('', [Validators.required]),
       businessType: new FormControl('', [Validators.required]),
-      gstin: new FormControl('', [Validators.required]),
+      gstin: new FormControl('', [
+        patternValidator(
+          /\d{2}[a-zA-Z]{5}\d{4}[a-zA-Z]{1}\d[zZ]{1}[a-zA-Z\d]{1}/
+        ),
+      ]),
       name: new FormControl('', [patternValidator(/^[a-zA-Z\d-_]+$/)]),
       email: new FormControl('', [
         Validators.required,

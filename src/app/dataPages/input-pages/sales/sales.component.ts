@@ -1,8 +1,23 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 declare var $: any;
@@ -40,6 +55,8 @@ export class SalesComponent implements OnInit {
     'outsidestate',
     'others',
   ];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
+
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;
@@ -89,16 +106,14 @@ export class SalesComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService
-      .open(content, { size: 'lg' })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // This function is used in open
@@ -269,7 +284,9 @@ export class SalesComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        this._salesService.createNewEntry(user, this.paramId, this.ownerId).subscribe(data => {});
+        this._salesService
+          .createNewEntry(user, this.paramId, this.ownerId)
+          .subscribe(data => {});
       }
     });
   }

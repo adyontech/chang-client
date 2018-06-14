@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
-  FormArray,
   FormBuilder,
   Validators,
 } from '@angular/forms';
@@ -29,7 +28,7 @@ export class ProductServiceComponent implements OnInit {
   dataCopy: any;
   paramId: string;
   ownerName: string;
-  breadcrumbs = [];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
 
   public items: Array<string> = [
     'BAG-BAGS ',

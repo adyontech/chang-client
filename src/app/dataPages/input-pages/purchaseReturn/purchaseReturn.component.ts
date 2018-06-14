@@ -1,9 +1,24 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PurchaseReturnService } from './service/purchaseReturn.service';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ToastrService } from './../../../utilities/toastr.service';
 
@@ -27,6 +42,7 @@ export class PurchaseReturnComponent implements OnInit {
   public totalAmount: number;
   public selectedString: String;
   public attachmentError: Boolean = false;
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
 
   public ledgerList: Array<string> = [];
   public purchaseList: Array<string> = [];
@@ -81,18 +97,15 @@ export class PurchaseReturnComponent implements OnInit {
     this.addSubParticular();
   }
 
-
   open(content) {
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // This function is used in open
@@ -197,7 +210,9 @@ export class PurchaseReturnComponent implements OnInit {
             el.amount = el.amount.toString();
           }
         });
-        this._purchaseService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {});
+        this._purchaseService
+          .createNewEntry(user, this.paramId, this.ownerName)
+          .subscribe(data => {});
       }
     });
   }

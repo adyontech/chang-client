@@ -27,17 +27,20 @@
 </div>
 <!-- Wizard Starts -->
 <div class="row">
-  <div class="col-sm-12">
-    <div class="content-header">journal Entry Forms</div>
+  <div class="col-sm-5">
+    <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <h3>
+      <b> {{paramId | titlecase}}
+      </b>
+    </h3>
   </div>
 </div>
 <section id="icon-tabs">
   <div class="row">
     <div class="col-12">
       <div class="card text-center">
-        <div class="card-header">
-          <h4 class="card-title">{{paramId}}</h4>
-        </div>
         <div class="card-body">
           <div class="card-block">
             <form class="icons-tab-steps" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">

@@ -32,6 +32,7 @@ export class ContraComponent implements OnInit {
   public attachmentError: Boolean = false;
   public fileName: String = 'No File Choosen.';
 
+  breadcrumbs = [{ name: 'Payment' }, { name: 'Dasboard', link: '/' }];
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;

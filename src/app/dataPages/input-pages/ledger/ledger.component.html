@@ -21,13 +21,14 @@
 </div>
 <!-- Wizard -->
 <div class="row">
-  <div class="col-sm-12">
-    <div style="float: left;">
-      <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
-    </div>
-    <div class="mt-2">
-      <p class="mt-2">For:- {{paramId}}</p>
-    </div>
+  <div class="col-sm-5">
+    <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <h3>
+      <b> {{paramId | titlecase}}
+      </b>
+    </h3>
   </div>
 </div>
 <section id="icon-tabs">
@@ -142,13 +143,13 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="form.get('applicableTax').value === 'GST'">
                       <div class="col-md-5  offset-md-3">
                         <div class="form-group">
                           <label class="text-left" for="gstin">
                             GSTIN
                           </label>
-                          <input type="text" class="form-control" id="gstin" formControlName="gstin">
+                          <input type="text" class="form-control" required id="gstin" formControlName="gstin">
                           <small class="text-muted">
                             eg.
                             <i>36XXXXK2104P1Z4</i>

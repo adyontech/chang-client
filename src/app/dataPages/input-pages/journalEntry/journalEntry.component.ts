@@ -1,8 +1,7 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
 import { ToastrService } from './../../../utilities/toastr.service';
@@ -24,6 +23,7 @@ export class JournalEntryComponent implements OnInit {
   creditSum: number;
   public ledgerList: Array<string> = [];
   public attachmentError: Boolean = false;
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
 
   public value: any = {};
   public _disabledV: String = '0';
@@ -136,13 +136,18 @@ export class JournalEntryComponent implements OnInit {
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        this._journalEntryService.createNewEntry(user, this.paramId, this.ownerName).subscribe(data => {
-          if (data.success) {
-            this._toastrService.typeSuccess('success', 'Data successfully added');
-          } else {
-            this._toastrService.typeError('Error', data.message);
-          }
-        });
+        this._journalEntryService
+          .createNewEntry(user, this.paramId, this.ownerName)
+          .subscribe(data => {
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+            } else {
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
       }
     });
   }
