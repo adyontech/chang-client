@@ -23,13 +23,14 @@
 </div>
 <!-- Wizard Starts -->
 <div class="row">
-  <div class="col-sm-12">
-    <div style="float: left;">
-      <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
-    </div>
-    <div class="mt-2">
-      <p class="mt-2">For:- {{paramId}}</p>
-    </div>
+  <div class="col-sm-5">
+    <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <h3>
+      <b> {{paramId | titlecase}}
+        </b>
+    </h3>
   </div>
 </div>
 <section id="icon-tabs">
@@ -248,16 +249,17 @@
                             <th></th>
                             <th>Particulars
                               <span class="danger">*</span>
-                            </th><th>
-                            <th>Amount
-                              <span class="danger">*</span>
                             </th>
+                            <th>
+                              <th>Amount
+                                <span class="danger">*</span>
+                              </th>
 
                           </tr>
                         </thead>
                         <tbody formArrayName="particularsData">
                           <tr *ngFor="let address of formData.controls; let i=index" class="form-group" [formGroupName]="i">
-                            <td >
+                            <td>
                               <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
                             </td>
                             <td width="45%">
@@ -272,7 +274,7 @@
                                 <span> Particulars is required</span>
                               </small>
                             </td>
-                          <td width="10%"></td>
+                            <td width="10%"></td>
                             <td width="45%">
                               <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
                               <div [ngClass]="{'error': form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine}">

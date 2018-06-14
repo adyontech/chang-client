@@ -7,7 +7,7 @@ import { LivePreviewService } from './livePreview.service';
   styleUrls: ['./livePreview.component.scss'],
 })
 export class LivePreviewComponent implements OnInit {
-  public heightToggle: Boolean = true;
+  public heightToggle: Boolean = false;
   public togglePositinonClass = 'panel panel-chat';
   public sideArrow = 'ft-arrow-left';
   constructor() {}
