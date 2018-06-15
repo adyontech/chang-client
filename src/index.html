@@ -24,18 +24,22 @@
       display: none;
     }
 
-    .page-loading {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      overflow: hidden;
-      background: rgba(51, 51, 51, 1.00);
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      z-index: -1;
+    * {
+      margin: 0;
+      padding: 0;
     }
+
+    .loader {
+      text-align: center;
+      width: 100%;
+      height: 80px;
+      margin: 0 auto;
+      padding-top: 5%;
+      background: #f3f3f3;
+      overflow: hidden;
+    }
+
+    /* First loader CSS */
 
     .loading-icon {
       position: absolute;
@@ -46,6 +50,61 @@
       margin-left: -19px;
       margin-top: -19px;
     }
+
+    .circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 10px;
+      background: orange;
+      position: relative;
+      display: inline-block;
+    }
+
+    .orange {
+      background: orange;
+      animation: 1s animCircleOrange cubic-bezier(0.215, 0.61, 0.355, 1) infinite alternate-reverse;
+    }
+
+    .blue {
+      background: blue;
+      animation: 1s animCircleBlue cubic-bezier(0.215, 0.61, 0.355, 1) infinite alternate-reverse;
+    }
+
+    .purple {
+      background: purple;
+      animation: 1s animCirclePurple cubic-bezier(0.215, 0.61, 0.355, 1) infinite alternate-reverse;
+    }
+
+    .green {
+      background: green;
+      animation: 1s animCircleGreen cubic-bezier(0.215, 0.61, 0.355, 1) infinite alternate-reverse;
+    }
+
+    @keyframes animCircleOrange {
+      to {
+        transform: translate(18px, 18px);
+      }
+    }
+
+    @keyframes animCircleBlue {
+      to {
+        transform: translate(-18px, 18px);
+      }
+    }
+
+    @keyframes animCircleGreen {
+      to {
+        transform: translate(-18px, -18px);
+      }
+    }
+
+    @keyframes animCirclePurple {
+      to {
+        transform: translate(18px, -18px);
+      }
+    }
+
+
     app-root:empty~.page-loading {
       opacity: 1;
       z-index: 1;
@@ -94,7 +153,14 @@
 <body>
   <app-root></app-root>
   <div class="page-loading">
-    <img src="assets/img/oval.svg" class="loading-icon" />
+    <div class="loading-icon">
+      <div class="circle orange"></div>
+      <div class="circle blue"></div>
+      <br>
+      <div class="circle purple"></div>
+      <div class="circle green"></div>
+      <p class="loadingText">Loading</p>
+    </div>
   </div>
 </body>
 

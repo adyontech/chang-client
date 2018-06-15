@@ -2,8 +2,7 @@
   "name": "ProWorkTree",
   "short_name": "PWT",
   "description": "Awesome GST tooling",
-  "icons": [
-    {
+  "icons": [{
       "src": "assets/pwt/logo.jpg",
       "sizes": "128x128",
       "type": "image/png"
@@ -16,6 +15,6 @@
   ],
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#282828",
-  "theme_color": "#282828"
+  "background_color": "#383B51",
+  "theme_color": "#383B51"
 }
