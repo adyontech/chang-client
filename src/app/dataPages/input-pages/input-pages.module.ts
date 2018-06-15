@@ -25,7 +25,7 @@ import { SalesComponent } from './sales/sales.component';
 import { SalesReturnComponent } from './salesReturn/salesReturn.component';
 import { UnderGroupComponent } from './undergroup/undergroup.component';
 
-import { BreadcrumbsService } from '../../breadcrumbs/breadcrumbs.service'
+import { BreadcrumbsService } from '../../breadcrumbs/breadcrumbs.service';
 import { ContraService } from './contra/service/contra.service';
 import { JournalEntryService } from './journalEntry/service/journalEntry.service';
 import { LedgerService } from './ledger/service/ledger.service';
@@ -39,7 +39,9 @@ import { SalesService } from './sales/service/sales.service';
 import { SalesReturnService } from './salesReturn/service/salesReturn.service';
 import { UnderGroupsService } from './undergroup/service/underGroup.service';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
-import { StateVaribles } from "./../../shared/forms/States";
+import { StateVaribles } from './../../shared/forms/States';
+import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+
 @NgModule({
   imports: [
     HttpModule,
@@ -74,7 +76,6 @@ import { StateVaribles } from "./../../shared/forms/States";
     JournalEntryService,
     LedgerService,
     PaymentService,
-    // Payment1Service,
     ProductServiceService,
     PurchaseService,
     PurchaseReturnService,
@@ -84,7 +85,8 @@ import { StateVaribles } from "./../../shared/forms/States";
     UnderGroupsService,
     GlobalVaribles,
     BreadcrumbsService,
-    StateVaribles
-  ]
+    StateVaribles,
+    GlobalCompanyService,
+  ],
 })
 export class InputPagesModule {}

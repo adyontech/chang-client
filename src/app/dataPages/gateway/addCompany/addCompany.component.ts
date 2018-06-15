@@ -67,9 +67,7 @@ export class AddCompanyComponent implements OnInit {
 
       gstin: new FormControl('', [
         Validators.required,
-        patternValidator(
-          /\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}/
-        ),
+        patternValidator(/\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}/),
       ]),
 
       phoneNo: new FormControl('', [patternValidator(/^[0]?[6789]\d{9}$/)]),
@@ -89,12 +87,18 @@ export class AddCompanyComponent implements OnInit {
 
       startDate: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.datevalidator])
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator(2, 3),
+        ])
       ),
 
       endDate: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.datevalidator])
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator(2, 3),
+        ])
       ),
 
       logo: [''],

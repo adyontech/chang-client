@@ -12,8 +12,9 @@ export class DateValidator {
   //     return { datevalidator: true };
   //   }
   // }
-  static datevalidator(min: number, max: number) {
+  static datevalidator(minDate: String, maxDate: String) {
     return (c: FormControl): { [key: string]: boolean } | null => {
+      console.log(minDate);
       if (typeof c.value === 'object' && c.value !== null) {
         const dateString =
           c.value.day + '.' + c.value.month + '.' + c.value.year;
