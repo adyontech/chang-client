@@ -3,8 +3,6 @@ import { FormControl } from '@angular/forms';
 
 @Injectable()
 export class DateValidator {
-  constructor() {}
-
   static datevalidator(c: FormControl) {
     if (typeof c.value === 'object' && c.value !== null) {
       const dateString = c.value.day + '.' + c.value.month + '.' + c.value.year;
@@ -14,4 +12,6 @@ export class DateValidator {
       return { datevalidator: true };
     }
   }
+
+  constructor() {}
 }
