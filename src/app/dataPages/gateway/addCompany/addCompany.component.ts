@@ -89,7 +89,7 @@ export class AddCompanyComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          DateValidator.datevalidator(2, 3),
+          DateValidator.datevalidator('2', '3'),
         ])
       ),
 
@@ -97,7 +97,7 @@ export class AddCompanyComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          DateValidator.datevalidator(2, 3),
+          DateValidator.datevalidator('2', '3'),
         ])
       ),
 

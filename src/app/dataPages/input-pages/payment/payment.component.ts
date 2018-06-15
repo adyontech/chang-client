@@ -58,7 +58,10 @@ export class PaymentComponent implements OnInit {
       ]),
       date: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.datevalidator])
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator('2', '3'),
+        ])
       ),
       account: new FormControl('', [Validators.required]),
       paymentType: new FormControl('', [Validators.required]),
@@ -66,7 +69,10 @@ export class PaymentComponent implements OnInit {
       chequeNumber: [''],
       drawnOn: new FormControl(
         '',
-        Validators.compose([Validators.required, DateValidator.datevalidator])
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator('2', '3'),
+        ])
       ),
       particularsData: this.fb.array([]),
       narration: [''],

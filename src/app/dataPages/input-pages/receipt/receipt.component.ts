@@ -60,7 +60,7 @@ export class ReceiptComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          DateValidator.datevalidator(5, 4),
+          DateValidator.datevalidator('5', '4'),
         ])
       ),
       account: new FormControl('', [Validators.required]),
@@ -71,7 +71,7 @@ export class ReceiptComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          DateValidator.datevalidator(5, 4),
+          DateValidator.datevalidator('5', '4'),
         ])
       ),
       against: new FormControl('', [Validators.required]),
