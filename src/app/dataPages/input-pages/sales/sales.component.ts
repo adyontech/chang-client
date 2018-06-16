@@ -222,6 +222,7 @@ export class SalesComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        this.ledgerList = [];
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -231,6 +232,7 @@ export class SalesComponent implements OnInit {
       .getSalesUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        this.salesList = [];
         this.salesList = this.salesList.concat(data.salesLedgerList);
       });
   }
@@ -240,6 +242,7 @@ export class SalesComponent implements OnInit {
       .getprsrList(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        this.prsrData = [];
         this.prsrData = data;
         this.prsrList = data.prsr.map(item => item.prsrName);
       });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -24,6 +24,8 @@ declare var $: any;
   styleUrls: ['./productService.component.scss'],
 })
 export class ProductServiceComponent implements OnInit {
+  @Input() statePop: string;
+  @Input() modalReference: any;
   form: FormGroup;
   dataCopy: any;
   paramId: string;
@@ -147,6 +149,12 @@ export class ProductServiceComponent implements OnInit {
                 'success',
                 'Data successfully added'
               );
+              // the code is to check whether the window is a pop-up
+              // or not, if pop-up then it will close it.
+              if (this.statePop === 'child') {
+                this.modalReference.close();
+              }
+              this.form.reset();
             } else {
               this._toastrService.typeError('Error', data.message);
             }
