@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from './service/productService.service';
@@ -15,7 +26,6 @@ export class ProductServiceComponent implements OnInit {
   dataCopy: any;
   paramId: string;
   closeResult: string;
-
 
   public items: Array<string> = [
     'BAG-BAGS ',
@@ -64,14 +74,11 @@ export class ProductServiceComponent implements OnInit {
     'OTH - OTHERS',
   ];
 
-
   constructor(
     private route: ActivatedRoute,
     public _productServiceService: ProductServiceService,
     public fb: FormBuilder
-  ) {
-  }
-
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -90,7 +97,6 @@ export class ProductServiceComponent implements OnInit {
   onSubmit(user) {
     // var newValue = this.form.get('underGroup').value[0].text;
     // this.form.controls['underGroup'].patchValue(newValue);
-    this._productServiceService.createNewPrsr(user).subscribe(data => {
-    });
+    this._productServiceService.createNewPrsr(user).subscribe(data => {});
   }
 }

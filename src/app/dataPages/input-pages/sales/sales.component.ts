@@ -12,6 +12,7 @@ import { StateVaribles } from './../../../shared/forms/States';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 declare var $: any;
 
 @Component({
@@ -20,15 +21,17 @@ declare var $: any;
   styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
-  closeResult: string;
+  public closeResult: string;
   public form: FormGroup;
   public dataCopy: any;
+  public modalRef: any;
   public dataCopy1: any;
   public dataCopy2: any;
   private prsrData: any;
   public paramId: string;
   public ownerId: string;
   public subTotal: number;
+  public companyStateName: String;
   public totalAmount: number;
   public attachmentError: Boolean = false;
 
@@ -46,7 +49,7 @@ export class SalesComponent implements OnInit {
     'Stock Transfer',
     'others',
   ];
-  breadcrumbs = [{ name: 'Sales' }, { name: 'Dashboard', link: '/' }];
+  public breadcrumbs = [{ name: 'Sales' }, { name: 'Dashboard', link: '/' }];
 
   public value: any = {};
   public _disabledV: String = '0';
@@ -59,7 +62,8 @@ export class SalesComponent implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private modalService: NgbModal,
-    public _stateVariables: StateVaribles
+    public _stateVariables: StateVaribles,
+    public _globalCompanyService: GlobalCompanyService
   ) {
     this.stateList = this._stateVariables.stateListArray;
   }
@@ -68,6 +72,7 @@ export class SalesComponent implements OnInit {
     this.getRouteParam();
     this.getPrsrList();
     this.getLedgerUGNames();
+    this.getGlobalCompanyData();
     this.getSalesUGNames();
     this.form = this.fb.group({
       invoiceNumber: [''],
@@ -100,8 +105,12 @@ export class SalesComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' }).result.then(
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.modalRef.result.then(
       result => {
+        this.getLedgerUGNames();
+        this.getSalesUGNames();
+        this.getPrsrList();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
@@ -181,6 +190,31 @@ export class SalesComponent implements OnInit {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     cont.removeAt(i);
+  }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.companyStateName = data.state;
+      });
+  }
+  fillTypeOfSales(value) {
+    this.companyStateName = '1 Jammu & Kashmir';
+    if (value === this.companyStateName) {
+      this.form.patchValue({
+        saleType: 'Intra state',
+      });
+    } else if (value === 'Others') {
+      this.form.patchValue({
+        saleType: '',
+      });
+    } else {
+      this.form.patchValue({
+        saleType: 'Inter state',
+      });
+    }
   }
 
   getLedgerUGNames() {

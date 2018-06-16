@@ -129,7 +129,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
                         <label>Place of supply</label>
-                        <ng-select [items]="stateList" formControlName="supplyPlace">
+                        <ng-select [items]="stateList" (change)="fillTypeOfSales($event)" formControlName="supplyPlace">
                         </ng-select>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
@@ -148,10 +148,8 @@
                       <div class="form-row">
                         <div class="col-md-10 offset-lg -1 offset-md-1 offset-sm-1">
                           <h5 class="form-group-header">
-                            Details
+                            Product and service details
                           </h5>
-
-
                           <table class="table table-responsive-md text-center">
                             <thead>
                               <tr>

@@ -22,7 +22,7 @@ declare var $: any;
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
-  closeResult: string;
+  public closeResult: string;
   public form: FormGroup;
   public dataCopy: any;
   public modalRef: any;
