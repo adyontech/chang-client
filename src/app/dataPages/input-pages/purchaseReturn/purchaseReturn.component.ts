@@ -42,7 +42,7 @@ export class PurchaseReturnComponent implements OnInit {
   public totalAmount: number;
   public selectedString: String;
   public attachmentError: Boolean = false;
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
 
   public ledgerList: Array<string> = [];
   public purchaseList: Array<string> = [];

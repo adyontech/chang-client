@@ -28,7 +28,7 @@ export class ProductServiceComponent implements OnInit {
   dataCopy: any;
   paramId: string;
   ownerName: string;
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
 
   public items: Array<string> = [
     'BAG-BAGS ',

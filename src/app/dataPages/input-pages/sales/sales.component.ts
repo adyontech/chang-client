@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -6,18 +6,10 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import {
-  NgbModal,
-  ModalDismissReasons,
-  NgbActiveModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { StateVaribles } from './../../../shared/forms/States';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 declare var $: any;
@@ -44,18 +36,17 @@ export class SalesComponent implements OnInit {
   public salesList: Array<string> = [];
   public prsrList: Array<string> = [];
 
-  public items: Array<string> = ['wrowwaw', 'dagreb', 'waragoza', 'wwwww'];
+  public stateList: Array<string> = [];
   public transportationModeArray = ['road', 'train', 'air', 'water'];
   public salesType = [
-    'intrastate',
-    'interstate',
-    'outsidecountry',
-    'deemedexports',
-    'withinstate',
-    'outsidestate',
+    'Intra State',
+    'Inter State',
+    'Exports',
+    'Deemed Exports',
+    'Stock Transfer',
     'others',
   ];
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
+  breadcrumbs = [{ name: 'Sales' }, { name: 'Dashboard', link: '/' }];
 
   public value: any = {};
   public _disabledV: String = '0';
@@ -67,8 +58,11 @@ export class SalesComponent implements OnInit {
     public _salesService: SalesService,
     public fb: FormBuilder,
     private router: Router,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    public _stateVariables: StateVaribles
+  ) {
+    this.stateList = this._stateVariables.stateListArray;
+  }
 
   ngOnInit() {
     this.getRouteParam();

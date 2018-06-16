@@ -23,7 +23,7 @@ export class JournalEntryComponent implements OnInit {
   creditSum: number;
   public ledgerList: Array<string> = [];
   public attachmentError: Boolean = false;
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
 
   public value: any = {};
   public _disabledV: String = '0';

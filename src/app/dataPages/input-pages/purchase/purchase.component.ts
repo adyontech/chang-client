@@ -43,7 +43,7 @@ export class PurchaseComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public purchaseList: Array<string> = [];
   public prsrList: Array<string> = [];
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dasbhoard', link: '/' }];
+  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
 
   public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
   public transportationModeArray = ['road', 'train', 'air', 'water'];

@@ -92,7 +92,6 @@ export class LedgerComponent implements OnInit {
       ]),
       name: new FormControl('', [patternValidator(/^[a-zA-Z\d-_]+$/)]),
       email: new FormControl('', [
-        Validators.required,
         patternValidator(
           /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         ),
@@ -106,14 +105,8 @@ export class LedgerComponent implements OnInit {
       pinCode: new FormControl('', [patternValidator(/^[1-9][0-9]{5}$/)]),
       country: [''],
       phoneNumber: new FormControl('', [patternValidator(/^[0]?[6789]\d{9}$/)]),
-      qty: new FormControl('', [
-        Validators.required,
-        patternValidator(/^-?\d*(\.\d+)?$/),
-      ]),
-      rate: new FormControl('', [
-        Validators.required,
-        patternValidator(/^-?\d*(\.\d+)?$/),
-      ]),
+      qty: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      rate: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
       total: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
@@ -200,6 +193,7 @@ export class LedgerComponent implements OnInit {
               if (this.statePop === 'child') {
                 this.modalReference.close();
               }
+              this.form.reset();
             } else {
               this._toastrService.typeError('Error', data.message);
             }

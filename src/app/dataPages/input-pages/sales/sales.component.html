@@ -71,16 +71,16 @@
             <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
               <wizard #wizard navBarLayout="large-empty-symbols">
                 <div class="centered-content" style="margin: 6% 0 0 5%!important;width: 85%;">
-                  <wizard-step stepTitle="Steptitle 1" navigationSymbol="1">
+                  <wizard-step stepTitle="Info" navigationSymbol="1">
 
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Invoice Number</label>
-                        <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="invoiceNumber">
+                        <input type="text" class="form-control" name="company_name" formControlName="invoiceNumber">
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Transportation Mode</label>
-                        <ng-select [items]="transportationModeArray" placeholder="Select age" formControlName="transportationMode">
+                        <ng-select [items]="transportationModeArray" formControlName="transportationMode">
                         </ng-select>
                       </div>
                     </div>
@@ -102,13 +102,13 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Vehicle Number</label>
-                        <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="vehicleNumber">
+                        <input type="text" class="form-control" name="company_name" formControlName="vehicleNumber">
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
                         <label>Party Name</label>
-                        <ng-select [items]="ledgerList" formControlName="partyName" placeholder="No party selected">
+                        <ng-select [items]="ledgerList" formControlName="partyName">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                           </ng-template>
@@ -117,7 +117,7 @@
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Sales ledger</label>
                         <div [ngStyle]="stylesObj">
-                          <ng-select [items]="salesList" formControlName="salesLedgerName" placeholder="No party selected">
+                          <ng-select [items]="salesList" formControlName="salesLedgerName">
                             <ng-template ng-header-tmp>
                               <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                             </ng-template>
@@ -128,13 +128,13 @@
                     </div>
                     <div class="form-row">
                       <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
-                        <label>Place supplyPlace</label>
-                        <ng-select [items]="items" formControlName="supplyPlace" placeholder="No city selected">
+                        <label>Place of supply</label>
+                        <ng-select [items]="stateList" formControlName="supplyPlace">
                         </ng-select>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Type of sales</label>
-                        <ng-select [items]="salesType" formControlName="saleType" placeholder="No city selected">
+                        <ng-select [items]="salesType" formControlName="saleType">
                         </ng-select>
                       </div>
                     </div>
@@ -143,7 +143,7 @@
                       <button type="button" class="btn btn-secondary" nextStep>Continue</button>
                     </div>
                   </wizard-step>
-                  <wizard-step stepTitle="Steptitle 2" navigationSymbol="2" class="mt-3">
+                  <wizard-step stepTitle="Sales-details" navigationSymbol="2" class="mt-3">
                     <div class="centered-content">
                       <div class="form-row">
                         <div class="col-md-10 offset-lg -1 offset-md-1 offset-sm-1">
@@ -244,8 +244,7 @@
                                   <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
                                 </td>
                                 <td width=30%>
-                                  <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
-                                    placeholder="No city selected">
+                                  <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct">
                                     <ng-template ng-header-tmp>
                                       <p style="cursor: pointer;" id="openModalButton" (click)="open(content)">+ PrSr</p>
                                     </ng-template>
@@ -268,7 +267,7 @@
                                   <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() " formControlName="gstRate">
                                 </td>
                                 <td>
-                                  <input type="text" class="form-control" style="min-width: 55px;" placeholder="Amount" (input)="subSum(); totalSum() " formControlName="amount"
+                                  <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum() " formControlName="amount"
                                     value=" {{((formDum.get('qty').value)*(formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*formDum.get('gstRate').value) }}">
                                 </td>
                               </tr>
@@ -306,7 +305,7 @@
                                         <h6> Additional.
                                           <span *ngIf="form.controls.subParticularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <select class="form-control" id="business" name="business" formControlName="additionalService" placeholder="Additional">
+                                        <select class="form-control" id="business" name="business" formControlName="additionalService">
                                           <option value="road" selected> Discount</option>
                                           <option value="train"> Freight </option>
                                           <option value="air"> Shipping Charge</option>
@@ -317,7 +316,7 @@
                                         <h6> Amount.
                                           <span *ngIf="form.controls.subParticularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <input type="text " class="form-control " name="company_name " (input)="totalSum()" placeholder="Company Name " formControlName="percent">
+                                        <input type="text " class="form-control " name="company_name " (input)="totalSum()" formControlName="percent">
                                       </div>
                                     </div>
                                   </div>

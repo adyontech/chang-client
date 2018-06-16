@@ -234,7 +234,7 @@
                           <input type="email" class="form-control" id="email" formControlName="email">
                           <small class="text-muted">
                             eg.
-                            <i>proworktree@gmail.com</i>
+                            <i>abc@gmail.com</i>
                           </small>
                         </div>
                         <div [ngClass]="{'error': form.controls['email'].errors && !form.controls['email'].pristine}">
@@ -384,18 +384,7 @@
                           <label class="text-left" for="qty">
                             Quantity
                           </label>
-                          <span class="danger">*</span>
                           <input type="text" class="form-control" id="qty" formControlName="qty" (input)="updateTotal()">
-                        </div>
-                        <div [ngClass]="{'error': form.controls['qty'].errors && !form.controls['qty'].pristine}">
-                          <div *ngIf="form.controls['qty'].errors && !form.controls['qty'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['qty'].errors.required">
-                              filed is required.
-                            </small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['qty'].errors.patternInvalid">
-                              Invalid filed.
-                            </small>
-                          </div>
                         </div>
                       </div>
 
@@ -404,18 +393,7 @@
                           <label class="text-left" for="rate">
                             Rate
                           </label>
-                          <span class="danger">*</span>
                           <input type="text" class="form-control" id="rate" formControlName="rate" (input)="updateTotal()">
-                        </div>
-                        <div [ngClass]="{'error': form.controls['rate'].errors && !form.controls['rate'].pristine}">
-                          <div *ngIf="form.controls['rate'].errors && !form.controls['rate'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['rate'].errors.required">
-                              filed is required.
-                            </small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['rate'].errors.patternInvalid">
-                              Invalid filed.
-                            </small>
-                          </div>
                         </div>
                       </div>
 
@@ -424,18 +402,7 @@
                           <label class="text-left" for="total">
                             Total
                           </label>
-                          <span class="danger">*</span>
                           <input type="text" class="form-control" id="total" formControlName="total">
-                        </div>
-                        <div [ngClass]="{'error': form.controls['total'].errors && !form.controls['total'].pristine}">
-                          <div *ngIf="form.controls['total'].errors && !form.controls['total'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['total'].errors.required">
-                              filed is required.
-                            </small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['total'].errors.patternInvalid">
-                              Invalid filed.
-                            </small>
-                          </div>
                         </div>
                       </div>
                     </div>
