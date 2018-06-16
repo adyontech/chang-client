@@ -37,7 +37,7 @@ export class SalesComponent implements OnInit {
   public prsrList: Array<string> = [];
 
   public stateList: Array<string> = [];
-  public transportationModeArray = ['road', 'train', 'air', 'water'];
+  public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
   public salesType = [
     'Intra State',
     'Inter State',
@@ -221,11 +221,11 @@ export class SalesComponent implements OnInit {
       let subAmount = formControls[i].controls.subAmount.value;
       let amount = formControls[i].controls.amount.value;
       if (subAmount === '') {
-        subAmount = qty * rate;
-        subAmount = subAmount.toString();
+        subAmount = (qty * rate).toString();
       }
       if (amount === '') {
-        amount = qty * rate + qty * rate * gstRate;
+        const sub = qty * rate;
+        amount = sub * gstRate + sub;
         amount = amount.toString();
       }
       if (!isNaN(amount) && amount !== '') {
@@ -269,15 +269,17 @@ export class SalesComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.particularsData.map(el => {
+          let subAmt;
           if (el.subAmount === '') {
-            el.subAmount = el.qty * el.rate;
-            el.subAmount = el.subAmount.toString();
+            subAmt = el.qty * el.rate;
+            el.subAmount = (el.qty * el.rate).toString();
           }
           if (el.amount === '') {
-            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-            el.amount = el.amount.toString();
+            subAmt = el.qty * el.rate;
+            el.amount = (subAmt * el.gstRate + subAmt).toString();
           }
         });
+        console.log(user);
         this._salesService
           .createNewEntry(user, this.paramId, this.ownerId)
           .subscribe(data => {});

@@ -76,7 +76,7 @@ export class StateVaribles {
     '32 Tamil Nadu',
     '33 Pondicherry',
     '34 Andaman & Nicobar Islands',
-    '35 Telengana',
+    '35 Telangana',
     '36 Andhra Pradesh',
     '97 Other Territory',
   ];

@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class SalesService {
-  private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
@@ -17,8 +16,6 @@ export class SalesService {
 
   constructor(
     private http: Http,
-    private router: Router,
-    private route: ActivatedRoute,
     public _globalVariableService: GlobalVaribles
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
@@ -42,20 +39,26 @@ export class SalesService {
     });
   }
   getLedgerUGNames(compName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
   getSalesUGNames(compName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/salesLedgerList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/salesLedgerList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
   getprsrList(compName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/prsrList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/prsrList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
