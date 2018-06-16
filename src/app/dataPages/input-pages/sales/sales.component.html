@@ -12,7 +12,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <app-ledger></app-ledger>
+              <app-ledger [modalReference]="modalRef" [statePop]="'child'"></app-ledger>
             </div>
           </ng-template>
 
@@ -39,7 +39,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <app-product-service></app-product-service>
+              <app-product-service [modalReference]="modalRef" [statePop]="'child'"></app-product-service>
             </div>
           </ng-template>
 

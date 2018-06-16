@@ -17,8 +17,6 @@ export class LedgerService {
 
   constructor(
     private http: Http,
-    private router: Router,
-    private route: ActivatedRoute,
     public _globalVariableService: GlobalVaribles
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
@@ -26,7 +24,9 @@ export class LedgerService {
   }
 
   getUnderGroupList(companyName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/uglist?token=${
       this.token
     }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
@@ -37,7 +37,9 @@ export class LedgerService {
     for (const key of Object.keys(user)) {
       form.append(key, user[key]);
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledger?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledger?token=${
       this.token
     }&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {

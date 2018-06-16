@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -6,13 +6,8 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { ToastrService } from './../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from './service/productService.service';
 declare var $: any;
@@ -25,7 +20,10 @@ export class ProductServiceComponent implements OnInit {
   form: FormGroup;
   dataCopy: any;
   paramId: string;
-  closeResult: string;
+  public ownerName: string;
+  public breadcrumbs = [];
+  @Input() statePop: string;
+  @Input() modalReference: any;
 
   public items: Array<string> = [
     'BAG-BAGS ',
@@ -77,7 +75,8 @@ export class ProductServiceComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public _productServiceService: ProductServiceService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -93,10 +92,46 @@ export class ProductServiceComponent implements OnInit {
       rate: [''],
     });
   }
-
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
+    });
+    this.breadcrumbs = [
+      { name: 'Product and service' },
+      {
+        name: 'Dasboard',
+        link: `/${this.ownerName}/${this.paramId}/dashboard`,
+      },
+    ];
+  }
   onSubmit(user) {
-    // var newValue = this.form.get('underGroup').value[0].text;
-    // this.form.controls['underGroup'].patchValue(newValue);
-    this._productServiceService.createNewPrsr(user).subscribe(data => {});
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        // var newValue = this.form.get('underGroup').value[0].text;
+        // this.form.controls['underGroup'].patchValue(newValue);
+        this._productServiceService
+          .createNewPrsr(user, this.paramId, this.ownerName)
+          .subscribe(data => {
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+              // the code is to check whether the window is a pop-up
+              // or not, if pop-up then it will close it.
+              if (this.statePop === 'child') {
+                this.modalReference.close();
+              }
+              this.form.reset();
+            } else {
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
+      } else {
+        return;
+      }
+    });
   }
 }
