@@ -35,7 +35,7 @@ export class SalesService {
       this.token
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, form).map((res: Response) => {
-      this.result = res.json();
+      return (this.result = res.json());
     });
   }
   getLedgerUGNames(compName, ownerName) {

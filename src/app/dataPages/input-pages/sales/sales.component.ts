@@ -6,7 +6,7 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ToastrService } from './../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { StateVaribles } from './../../../shared/forms/States';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +40,12 @@ export class SalesComponent implements OnInit {
   public prsrList: Array<string> = [];
 
   public stateList: Array<string> = [];
+  public additionalServiceList: Array<string> = [
+    'Discount',
+    'Freight',
+    'Shipping Charge',
+    'BY WATER',
+  ];
   public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
   public salesType = [
     'Intra State',
@@ -60,10 +66,10 @@ export class SalesComponent implements OnInit {
     private route: ActivatedRoute,
     public _salesService: SalesService,
     public fb: FormBuilder,
-    private router: Router,
     private modalService: NgbModal,
     public _stateVariables: StateVaribles,
-    public _globalCompanyService: GlobalCompanyService
+    public _globalCompanyService: GlobalCompanyService,
+    public _toastrService: ToastrService
   ) {
     this.stateList = this._stateVariables.stateListArray;
   }
@@ -159,7 +165,7 @@ export class SalesComponent implements OnInit {
   }
   initSubParticular() {
     return this.fb.group({
-      additionalService: [''],
+      additionalService: [null],
       percent: [''],
     });
   }
@@ -319,7 +325,18 @@ export class SalesComponent implements OnInit {
         console.log(user);
         this._salesService
           .createNewEntry(user, this.paramId, this.ownerId)
-          .subscribe(data => {});
+          .subscribe(data => {{
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+            } else {
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
+      } else {
+        return;
       }
     });
   }
