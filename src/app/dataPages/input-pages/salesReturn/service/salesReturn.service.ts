@@ -50,6 +50,14 @@ export class SalesReturnService {
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
+  getIvoiceNumbers(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ivoiceNumbers?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.get(this._url);
+  }
 
   getprsrList(compName, ownerName) {
     this._url = `${

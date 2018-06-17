@@ -1,10 +1,14 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component,  OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
+import { ToastrService } from './../../utilities/toastr.service';
 import { DashboardSettingService } from './service/dashboardSettings.service';
-import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
-import { Routes, RouterModule } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { any } from 'codelyzer/util/function';
+import {
+  Router,
+  ActivatedRoute,
+} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-settings',
@@ -33,7 +37,8 @@ export class DashboardSettingsComponent implements OnInit {
     public _dashboardSettingService: DashboardSettingService,
     public fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -62,33 +67,48 @@ export class DashboardSettingsComponent implements OnInit {
   }
 
   getCollabList() {
-    this.dataCopy = this._dashboardSettingService.getCollabList(this.paramId, this.ownerName).subscribe(data => {
-      this.userInfo = data.json();
-      this.readManagers = this.userInfo.user.readManagers;
-      this.writeManagers = this.userInfo.user.writeManagers;
-      if (this.readManagers !== undefined) {
-        this.readManagersLength = this.userInfo.user.readManagers.length;
-      }
-      if (this.writeManagers !== undefined) {
-        this.writeManagersLength = this.userInfo.user.writeManagers.length;
-      }
-    });
+    this.dataCopy = this._dashboardSettingService
+      .getCollabList(this.paramId, this.ownerName)
+      .subscribe(data => {
+        this.userInfo = data.json();
+        this.readManagers = this.userInfo.user.readManagers;
+        this.writeManagers = this.userInfo.user.writeManagers;
+        if (this.readManagers !== undefined) {
+          this.readManagersLength = this.userInfo.user.readManagers.length;
+        }
+        if (this.writeManagers !== undefined) {
+          this.writeManagersLength = this.userInfo.user.writeManagers.length;
+        }
+      });
   }
 
   collabAddWrite() {
-    if (this.collabAddWriteModel === undefined || this.collabAddWriteModel === null) {
+    if (
+      this.collabAddWriteModel === undefined ||
+      this.collabAddWriteModel === null
+    ) {
       return;
     } else {
       this._dashboardSettingService
         .collabAddWrite(this.collabAddWriteModel, this.paramId, this.ownerName)
-        .subscribe(res => {
-          this.getCollabList();
-        });
+        .subscribe((data => {
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+            } else {
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
     }
   }
 
   collabAddRead() {
-    if (this.collabAddReadModel === undefined || this.collabAddReadModel === null) {
+    if (
+      this.collabAddReadModel === undefined ||
+      this.collabAddReadModel === null
+    ) {
       return;
     } else {
       this._dashboardSettingService
@@ -101,14 +121,17 @@ export class DashboardSettingsComponent implements OnInit {
 
   removeHelper(id, role) {
     if (role === 'write') {
-      this._dashboardSettingService.removeWriteHelper(id, role,  this.paramId , this.ownerName).subscribe(res => {
-        this.getCollabList();
-      });
+      this._dashboardSettingService
+        .removeWriteHelper(id, role, this.paramId, this.ownerName)
+        .subscribe(res => {
+          this.getCollabList();
+        });
     } else {
-      this._dashboardSettingService.removeReadHelper(id, role, this.paramId , this.ownerName).subscribe(res => {
-        this.getCollabList();
-      });
+      this._dashboardSettingService
+        .removeReadHelper(id, role, this.paramId, this.ownerName)
+        .subscribe(res => {
+          this.getCollabList();
+        });
     }
   }
-
 }

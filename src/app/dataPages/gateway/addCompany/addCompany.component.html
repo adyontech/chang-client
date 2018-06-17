@@ -20,7 +20,8 @@
                 <div class="row">
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="basicInput">Name of company</label><span class="danger">*</span>
+                      <label for="basicInput">Name of company</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" id="basicInput" placeholder="Company Name" formControlName="companyName">
                       <div [ngClass]="{'error': form.controls['companyName'].errors && !form.controls['companyName'].pristine}">
                         <div *ngIf="form.controls['companyName'].errors && !form.controls['companyName'].pristine" class="error-msg">
@@ -36,7 +37,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="helpInputTop">Company Pan</label><span class="danger">*</span>
+                      <label for="helpInputTop">Company Pan</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" id="helpInputTop" placeholder="Pan" formControlName="pan">
                       <small class="text-muted">eg.
                         <i>DXPDC2184T</i>
@@ -55,7 +57,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="disabledInput">Email</label><span class="danger">*</span>
+                      <label for="disabledInput">Email</label>
+                      <span class="danger">*</span>
                       <input type="email" class="form-control" id="basicInput" placeholder="Email" formControlName="email">
                       <div [ngClass]="{'error': form.controls['email'].errors && !form.controls['email'].pristine}">
                         <div *ngIf="form.controls['email'].errors && !form.controls['email'].pristine" class="error-msg">
@@ -69,13 +72,14 @@
                       </div>
                       <small class="text-muted">
                         eg.
-                        <i>proworktree@gmail.com</i>
+                        <i>abc@gmail.com</i>
                       </small>
                     </fieldset>
                   </div>
                   <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="disabledInput">Address</label><span class="danger">*</span>
+                      <label for="disabledInput">Address</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" id="basicInput" placeholder="Company address" formControlName="address">
                       <div [ngClass]="{'error': form.controls['address'].errors && !form.controls['address'].pristine}">
                         <div *ngIf="form.controls['address'].errors && !form.controls['address'].pristine" class="error-msg">
@@ -91,7 +95,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="basicInput">city</label><span class="danger">*</span>
+                      <label for="basicInput">city</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" id="basicInput" placeholder="Your city name" formControlName="city">
                       <div [ngClass]="{'error': form.controls['city'].errors && !form.controls['city'].pristine}">
                         <div *ngIf="form.controls['city'].errors && !form.controls['city'].pristine" class="error-msg">
@@ -107,7 +112,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="helpInputTop">State</label><span class="danger">*</span>
+                      <label for="helpInputTop">State</label>
+                      <span class="danger">*</span>
                       <ng-select [items]="stateList" id="state" placeholder="Select type" formControlName="state"></ng-select>
 
                       <div [ngClass]="{'error': form.controls['state'].errors && !form.controls['state'].pristine}">
@@ -124,7 +130,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="disabledInput">Phone Number</label><span class="danger">*</span>
+                      <label for="disabledInput">Phone Number</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" id="basicInput" placeholder="Phone number" formControlName="phoneNo">
                       <div [ngClass]="{'error': form.controls['phoneNo'].errors && !form.controls['phoneNo'].pristine}">
                         <div *ngIf="form.controls['phoneNo'].errors && !form.controls['phoneNo'].pristine" class="error-msg">
@@ -142,7 +149,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                     <fieldset class="form-group">
-                      <label for="helpInputTop">Gstin</label><span class="danger">*</span>
+                      <label for="helpInputTop">Gstin</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" id="helpInputTop" placeholder="Gstin number" formControlName="gstin">
                       <div [ngClass]="{'error': form.controls['gstin'].errors && !form.controls['gstin'].pristine}">
                         <div *ngIf="form.controls['gstin'].errors && !form.controls['gstin'].pristine" class="error-msg">
@@ -163,7 +171,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12">
                     <fieldset class="form-group">
-                      <label for="basicSelect">Nature of business:</label><span class="danger">*</span>
+                      <label for="basicSelect">Nature of business:</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" id="helpInputTop" placeholder="Your buisness nature" formControlName="natureOfBuisness">
                       <div [ngClass]="{'error': form.controls['natureOfBuisness'].errors && !form.controls['natureOfBuisness'].pristine}">
                         <div *ngIf="form.controls['natureOfBuisness'].errors && !form.controls['natureOfBuisness'].pristine" class="error-msg">
@@ -179,7 +188,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12">
                     <fieldset class="form-group">
-                      <label for="basicSelect">Currency:</label><span class="danger">*</span>
+                      <label for="basicSelect">Currency:</label>
+                      <span class="danger">*</span>
                       <select class="form-control" id="basicSelect" name="currency" formControlName="currency">
                         <option value="inr" selected>₹ - INR</option>
                         <option value="usd">$ - USD</option>
@@ -199,7 +209,8 @@
 
                   <div class="col-xl-4 col-lg-6 col-md-12">
                     <fieldset class="form-group">
-                      <label for="basicSelect">Preferred language:</label><span class="danger">*</span>
+                      <label for="basicSelect">Preferred language:</label>
+                      <span class="danger">*</span>
                       <select class="form-control" id="basicSelect" name="language" formControlName="language">
                         <option value="english" selected>English</option>
                         <option value="hindi">Hindi</option>
@@ -219,7 +230,8 @@
 
                   <div class="col-xl-4 col-lg-6 col-md-12">
                     <fieldset class="form-group">
-                      <label for="basicSelect">Starting Date:</label><span class="danger">*</span>
+                      <label for="basicSelect">Starting Date:</label>
+                      <span class="danger">*</span>
                       <div class="card-body">
                         <div class="form-group">
                           <div class="input-group">
@@ -232,22 +244,23 @@
                           </div>
                         </div>
                         <div [ngClass]="{'error': form.controls['startDate'].errors && !form.controls['startDate'].pristine}">
-                            <div *ngIf="form.controls['startDate'].errors && !form.controls['startDate'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['startDate'].errors.required">
-                                filed is required.
-                              </small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['startDate'].errors.datevalidator">
-                                Invalid filed.
-                              </small>
-                            </div>
+                          <div *ngIf="form.controls['startDate'].errors && !form.controls['startDate'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['startDate'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['startDate'].errors.datevalidator">
+                              Invalid filed.
+                            </small>
                           </div>
+                        </div>
                       </div>
                     </fieldset>
                   </div>
 
                   <div class="col-xl-4 col-lg-6 col-md-12">
                     <fieldset class="form-group">
-                      <label for="basicSelect">End Date:</label><span class="danger">*</span>s
+                      <label for="basicSelect">End Date:</label>
+                      <span class="danger">*</span>
                       <div class="card-body">
                         <div class="form-group">
                           <div class="input-group">
@@ -260,15 +273,15 @@
                           </div>
                         </div>
                         <div [ngClass]="{'error': form.controls['endDate'].errors && !form.controls['endDate'].pristine}">
-                            <div *ngIf="form.controls['endDate'].errors && !form.controls['endDate'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['endDate'].errors.required">
-                                filed is required.
-                              </small>
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['endDate'].errors.datevalidator">
-                                Invalid filed.
-                              </small>
-                            </div>
+                          <div *ngIf="form.controls['endDate'].errors && !form.controls['endDate'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['endDate'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['endDate'].errors.datevalidator">
+                              Invalid filed.
+                            </small>
                           </div>
+                        </div>
                       </div>
                     </fieldset>
                   </div>

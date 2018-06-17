@@ -83,7 +83,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Original invoice number</label>
-                        <ng-select [items]="transportationModeArray" formControlName="originalInvoiceNumber">
+                        <ng-select [items]="originalInvoiceArray" (select)="updateFromOriginalInvoice($event)" formControlName="originalInvoiceNumber">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['originalInvoiceNumber'].errors && !form.controls['originalInvoiceNumber'].pristine}">
                           <div *ngIf="form.controls['originalInvoiceNumber'].errors && !form.controls['originalInvoiceNumber'].pristine" class="error-msg">

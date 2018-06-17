@@ -43,7 +43,7 @@ export class AddCompanyComponent implements OnInit {
     this.form = this.fb.group({
       companyName: new FormControl('', [
         Validators.required,
-        patternValidator(/^[a-zA-Z\d-_]+$/),
+        patternValidator(/^[a-zA-Z\d- _]+$/),
         Validators.maxLength(20),
       ]),
 
@@ -53,13 +53,13 @@ export class AddCompanyComponent implements OnInit {
 
       address: new FormControl('', [
         Validators.required,
-        patternValidator(/^[a-zA-Z\d-]+$/),
+        patternValidator(/^[a-zA-Z\d- _]+$/),
         Validators.maxLength(20),
       ]),
 
       city: new FormControl('', [
         Validators.required,
-        patternValidator(/^[a-zA-Z\d-_]+$/),
+        patternValidator(/^[a-zA-Z\d- _]+$/),
         Validators.maxLength(20),
       ]),
 
@@ -67,7 +67,9 @@ export class AddCompanyComponent implements OnInit {
 
       gstin: new FormControl('', [
         Validators.required,
-        patternValidator(/\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}/),
+        patternValidator(
+          /\d{2}[a-zA-Z]{5}\d{4}[a-zA-Z]{1}\d[zZ]{1}[a-zA-Z\d]{1}/
+        ),
       ]),
 
       phoneNo: new FormControl('', [patternValidator(/^[0]?[6789]\d{9}$/)]),
@@ -108,6 +110,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit(user) {
+    console.log(user);
     this._toastrService.typeWarning('Processing the data');
     if (this.logoError === true || this.signatureError === true) {
       return;

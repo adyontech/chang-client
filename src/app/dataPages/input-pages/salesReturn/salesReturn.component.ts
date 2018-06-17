@@ -41,15 +41,19 @@ export class SalesReturnComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
   public prsrList: Array<string> = [];
-
+  public originalInvoiceArray: Array<string> = [];
   public stateList: Array<string> = [];
+  public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
+  public breadcrumbs = [
+    { name: 'Sales Return' },
+    { name: 'Dashboard', link: '/' },
+  ];
   public additionalServiceList: Array<string> = [
     'Discount',
     'Freight',
     'Shipping Charge',
     'BY WATER',
   ];
-  public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
   public salesType = [
     'Intra State',
     'Inter State',
@@ -58,7 +62,6 @@ export class SalesReturnComponent implements OnInit {
     'Stock Transfer',
     'others',
   ];
-  breadcrumbs = [{ name: 'Sales Return' }, { name: 'Dashboard', link: '/' }];
 
   constructor(
     private route: ActivatedRoute,
@@ -78,6 +81,7 @@ export class SalesReturnComponent implements OnInit {
     this.getLedgerUGNames();
     this.getGlobalCompanyData();
     this.getSalesUGNames();
+    this.getIvoiceNumbers();
     this.form = this.fb.group({
       debitInvoiceNumber: new FormControl('', [
         Validators.required,
@@ -216,6 +220,17 @@ export class SalesReturnComponent implements OnInit {
         this.companyStateName = data.state;
       });
   }
+
+  getIvoiceNumbers() {
+    this.dataCopy = this._salesService
+      .getIvoiceNumbers(this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        // this.ledgerList =
+      });
+  }
+
+  updateFromOriginalInvoice(value) {}
 
   fillTypeOfSales(value) {
     if (value === this.companyStateName) {

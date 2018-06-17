@@ -80,7 +80,7 @@ export class LedgerComponent implements OnInit {
     this.form = this.fb.group({
       ledgerName: new FormControl('', [
         Validators.required,
-        patternValidator(/^[a-zA-Z\d-_]+$/),
+        patternValidator(/^[a-zA-Z\d- _]+$/),
       ]),
       underGroup: new FormControl('', [Validators.required]),
       applicableTax: new FormControl('', [Validators.required]),
@@ -90,7 +90,7 @@ export class LedgerComponent implements OnInit {
           /\d{2}[a-zA-Z]{5}\d{4}[a-zA-Z]{1}\d[zZ]{1}[a-zA-Z\d]{1}/
         ),
       ]),
-      name: new FormControl('', [patternValidator(/^[a-zA-Z\d-_]+$/)]),
+      name: new FormControl('', [patternValidator(/^[a-zA-Z\d- _]+$/)]),
       email: new FormControl('', [
         patternValidator(
           /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
