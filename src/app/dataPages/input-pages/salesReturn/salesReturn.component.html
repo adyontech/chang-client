@@ -1,5 +1,4 @@
 <div class="row" matchHeight="card" [hidden]="true">
-  <!--Modal with Default options starts-->
   <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="card">
       <div class="card-body">
@@ -15,9 +14,6 @@
               <app-ledger></app-ledger>
             </div>
           </ng-template>
-
-          <!-- <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(ledger)">Launch demo modal</button> -->
-
           <hr>
         </div>
       </div>
@@ -42,9 +38,6 @@
               <app-product-service></app-product-service>
             </div>
           </ng-template>
-
-          <!-- <!-- <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button> -->-->
-
           <hr>
         </div>
       </div>
@@ -75,12 +68,12 @@
 
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
-                        <label>Invoice Number</label>
-                        <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="invoiceNumber">
+                        <label>Debit invoice Number</label>
+                        <input type="text" class="form-control" name="company_name" formControlName="invoiceNumber">
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
-                        <label>Transportation Mode</label>
-                        <ng-select [items]="transportationModeArray" placeholder="Select age" formControlName="transportationMode">
+                        <label>Original invoice number</label>
+                        <ng-select [items]="transportationModeArray" formControlName="transportationMode">
                         </ng-select>
                       </div>
                     </div>
@@ -101,14 +94,25 @@
                         </div>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
-                        <label>Vehicle Number</label>
-                        <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="vehicleNumber">
+                        <label>Original invoice date</label>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker" formControlName="date">
+                              <div class="input-group-append">
+                                <div class="input-group-text" (click)="de.toggle()">
+                                  <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
                         <label>Party Name</label>
-                        <ng-select [items]="ledgerList" formControlName="partyName" placeholder="No party selected">
+                        <ng-select [items]="ledgerList" formControlName="partyName">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                           </ng-template>
@@ -116,7 +120,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Sales ledger</label>
-                        <ng-select [items]="salesList" formControlName="salesLedgerName" placeholder="No party selected">
+                        <ng-select [items]="salesList" formControlName="salesLedgerName">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                           </ng-template>
@@ -127,12 +131,12 @@
                     <div class="form-row">
                       <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
                         <label>Place supplyPlace</label>
-                        <ng-select [items]="items" formControlName="supplyPlace" placeholder="No city selected">
+                        <ng-select [items]="items" formControlName="supplyPlace">
                         </ng-select>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Type of sales</label>
-                        <ng-select [items]="salesType" formControlName="saleType" placeholder="No city selected">
+                        <ng-select [items]="salesType" formControlName="saleType">
                         </ng-select>
                       </div>
                     </div>
@@ -162,8 +166,7 @@
                                         <h6 class="heading_height">Name of product service
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
-                                          placeholder="No city selected">
+                                        <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct">
                                           <ng-template ng-header-tmp>
                                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(content)">+ PrSr</button>
                                           </ng-template>
@@ -217,7 +220,7 @@
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
                                         <div class="form-group">
-                                          <input type="text" class="form-control" placeholder="Amount" (input)="subSum(); totalSum() " formControlName="amount" value=" {{((formDum.get('qty').value)*(formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*formDum.get('gstRate').value) }}">
+                                          <input type="text" class="form-control" (input)="subSum(); totalSum() " formControlName="amount" value=" {{((formDum.get('qty').value)*(formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*formDum.get('gstRate').value) }}">
                                         </div>
                                       </div>
                                     </div>
@@ -258,7 +261,7 @@
                                         <h6> Additional.
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <select class="form-control" id="business" name="business" formControlName="additionalService" placeholder="Additional">
+                                        <select class="form-control" id="business" name="business" formControlName="additionalService">
                                           <option value="road" selected> Discount</option>
                                           <option value="train"> Freight </option>
                                           <option value="air"> Shipping Charge</option>
@@ -269,7 +272,7 @@
                                         <h6> Amount.
                                           <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
                                         </h6>
-                                        <input type="text " class="form-control " name="company_name " (input)="totalSum()" placeholder="Company Name " formControlName="percent">
+                                        <input type="text " class="form-control " name="company_name " (input)="totalSum()" formControlName="percent">
                                       </div>
                                     </div>
                                   </div>
@@ -292,7 +295,7 @@
                             <div class="col-md-12 ">
                               <div class="form-group ">
                                 <label>Narration</label>
-                                <textarea rows="5 " formControlName="narration" class="form-control " placeholder="Here can be your description " value="Mike ">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                                <textarea rows="5 " formControlName="narration" class="form-control"></textarea>
                               </div>
                             </div>
                           </div>

@@ -196,25 +196,24 @@
                         </div>
                       </div>
                       <div class="row mt-3">
-                        <div class="col-md-7  mt-3">
+                        <div class="col-xs-12 col-md-7 mt-3">
                           <div class="form-group">
                             <label>Narration</label>
                             <textarea rows="5" formControlName="narration" class="form-control" placeholder="Here can be your description" value="Mike">
-                              Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.
                             </textarea>
                           </div>
                         </div>
-                        <div class="col-4 offset-md-1  mt-3">
+                        <div class="col-xs-12 offset-xs-0 col-md-4 offset-md-1  mt-3">
                           <div class="form-group">
-                            <label for="upload">Attachment:</label>
-                            <div class="card-body">
+                            <label for="upload">Attachment</label>
+                            <div class="card-body" style=" margin-left: 35px;">
                               <div class="input-group">
                                 <div class="upload-btnF-wrapper">
                                   <button type="button" class="btnF">Upload Logo</button>
                                   <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                                 </div>
                               </div>
-                              <div>{{attachmentName}}</div>
+                              <div style="padding-right: 25px;">{{attachmentName}}</div>
                               <div *ngIf="logoError" style="color: red">Max file size exceeded.</div>
                             </div>
 

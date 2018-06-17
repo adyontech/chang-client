@@ -37,7 +37,7 @@ export class SalesReturnComponent implements OnInit {
   public subTotal: number;
   public totalAmount: number;
   public attachmentError: Boolean = false;
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
+  breadcrumbs = [{ name: 'Sales return' }, { name: 'Dashboard', link: '/' }];
 
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
