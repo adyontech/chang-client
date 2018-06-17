@@ -34,6 +34,7 @@ export class SalesComponent implements OnInit {
   public companyStateName: String;
   public totalAmount: number;
   public attachmentError: Boolean = false;
+  public attachmentName: String = 'No File Choosen.';
 
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
@@ -91,7 +92,7 @@ export class SalesComponent implements OnInit {
       particularsData: this.fb.array([]),
       subParticularsData: this.fb.array([]),
       narration: [''],
-      file: [''],
+      attachment: [''],
       date: [''],
       grandTotal: ['0'],
     });
@@ -299,12 +300,14 @@ export class SalesComponent implements OnInit {
     this.attachmentError = false;
     const reader = new FileReader();
 
-    if (event.target.files[0].size < 400000) {
+    if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('file').setValue(event.target.files[0]);
+        this.form.get('attachment').setValue(event.target.files[0]);
+        this.attachmentName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
+      this.attachmentName = 'No File choosen';
     }
   }
 
@@ -322,10 +325,9 @@ export class SalesComponent implements OnInit {
             el.amount = (subAmt * el.gstRate + subAmt).toString();
           }
         });
-        console.log(user);
         this._salesService
           .createNewEntry(user, this.paramId, this.ownerId)
-          .subscribe(data => {{
+          .subscribe(data => {
             if (data.success) {
               this._toastrService.typeSuccess(
                 'success',
@@ -336,6 +338,7 @@ export class SalesComponent implements OnInit {
             }
           });
       } else {
+        console.log('hello');
         return;
       }
     });

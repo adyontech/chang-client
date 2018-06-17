@@ -301,16 +301,16 @@
                           <p class="p1">Total Amount: Rs.{{totalAmount}}</p>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-12">
+                      <div class="row mt-3">
+                        <div class="col-md-7  mt-3">
                           <div class="form-group">
                             <label>Narration</label>
-                            <textarea rows="5" class="form-control" placeholder="Here can be your description" formControlName="narration" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                            <textarea rows="5" formControlName="narration" class="form-control" placeholder="Here can be your description" value="Mike">
+                              Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.
+                            </textarea>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="form-inline">
+                        <div class="col-4 offset-md-1  mt-3">
                           <div class="form-group">
                             <label for="upload">Attachment:</label>
                             <div class="card-body">
@@ -323,6 +323,7 @@
                               <div>{{attachmentName}}</div>
                               <div *ngIf="logoError" style="color: red">Max file size exceeded.</div>
                             </div>
+
                           </div>
                         </div>
                       </div>

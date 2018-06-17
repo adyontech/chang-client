@@ -184,7 +184,6 @@
                           </div>
                         </div>
                       </div>
-
                       <br>
                       <div class="row">
                         <div class="offset-md-0 col-md-3">
@@ -196,41 +195,29 @@
                           <p class="p1">Total Amount: Rs.{{totalAmount}}</p>
                         </div>
                       </div>
-
-                      <div class="row">
-                        <div class="col-md-12">
+                      <div class="row mt-3">
+                        <div class="col-md-7  mt-3">
                           <div class="form-group">
                             <label>Narration</label>
-                            <textarea rows="5" class="form-control" placeholder="Here can be your description" formControlName="narration" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                            <textarea rows="5" formControlName="narration" class="form-control" placeholder="Here can be your description" value="Mike">
+                              Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.
+                            </textarea>
                           </div>
                         </div>
-                      </div>
-
-                      <div class="row">
-
-                        <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
-                          <fieldset class="form-group">
-                            <p>Attachment</p>
-                            <small class="text-muted">
-                              <i>Please select file having size below 200kb.</i>
-                            </small>
-                          </fieldset>
-                        </div>
-                        <div class="col-xl-4 offset-lg-2 col-lg-6 col-md-12 mt-3">
-                          <div class="form-inline mt-3">
-                            <fieldset class="form-group">
-                              <div class="card-body">
-                                <div class="input-group">
-                                  <div class="upload-btnF-wrapper">
-                                    <button type="button" class="btnF">Upload Attachment</button>
-                                    <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
-                                  </div>
+                        <div class="col-4 offset-md-1  mt-3">
+                          <div class="form-group">
+                            <label for="upload">Attachment:</label>
+                            <div class="card-body">
+                              <div class="input-group">
+                                <div class="upload-btnF-wrapper">
+                                  <button type="button" class="btnF">Upload Logo</button>
+                                  <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                                 </div>
-                                <div *ngIf="attachmentError" style="color: red">Max file size exceeded.</div>
-                                <div class="mt-3">{{fileName}}</div>
                               </div>
+                              <div>{{attachmentName}}</div>
+                              <div *ngIf="logoError" style="color: red">Max file size exceeded.</div>
+                            </div>
 
-                            </fieldset>
                           </div>
                         </div>
                       </div>
