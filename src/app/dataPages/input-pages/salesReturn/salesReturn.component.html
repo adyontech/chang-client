@@ -70,11 +70,28 @@
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Debit invoice Number</label>
                         <input type="text" class="form-control" name="company_name" formControlName="debitInvoiceNumber">
+                        <div [ngClass]="{'error': form.controls['debitInvoiceNumber'].errors && !form.controls['debitInvoiceNumber'].pristine}">
+                          <div *ngIf="form.controls['debitInvoiceNumber'].errors && !form.controls['debitInvoiceNumber'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['debitInvoiceNumber'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['invoiceNumber'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Original invoice number</label>
                         <ng-select [items]="transportationModeArray" formControlName="originalInvoiceNumber">
                         </ng-select>
+                        <div [ngClass]="{'error': form.controls['originalInvoiceNumber'].errors && !form.controls['originalInvoiceNumber'].pristine}">
+                          <div *ngIf="form.controls['originalInvoiceNumber'].errors && !form.controls['originalInvoiceNumber'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['originalInvoiceNumber'].errors.required">
+                              filed is required.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-row">
@@ -92,6 +109,16 @@
                             </div>
                           </div>
                         </div>
+                        <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
+                          <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Original invoice date</label>
@@ -107,6 +134,16 @@
                             </div>
                           </div>
                         </div>
+                        <div [ngClass]="{'error': form.controls['originalInvoiceDate'].errors && !form.controls['originalInvoiceDate'].pristine}">
+                          <div *ngIf="form.controls['originalInvoiceDate'].errors && !form.controls['originalInvoiceDate'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['originalInvoiceDate'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['originalInvoiceDate'].errors.datevalidator">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-row">
@@ -117,6 +154,13 @@
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                           </ng-template>
                         </ng-select>
+                        <div [ngClass]="{'error': form.controls['partyName'].errors && !form.controls['partyName'].pristine}">
+                          <div *ngIf="form.controls['partyName'].errors && !form.controls['partyName'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['partyName'].errors.required">
+                              filed is required.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Sales ledger</label>
@@ -125,19 +169,46 @@
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                           </ng-template>
                         </ng-select>
+                        <div [ngClass]="{'error': form.controls['salesLedgerName'].errors && !form.controls['salesLedgerName'].pristine}">
+                          <div *ngIf="form.controls['salesLedgerName'].errors && !form.controls['salesLedgerName'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['salesLedgerName'].errors.required">
+                              filed is required.
+                            </small>
+                          </div>
+                        </div>
                       </div>
 
                     </div>
                     <div class="form-row">
                       <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
-                        <label>Place supplyPlace</label>
-                        <ng-select [items]="items" formControlName="supplyPlace">
+                        <label>Place of supply</label>
+                        <ng-select [items]="stateList" (change)="fillTypeOfSales($event)" formControlName="supplyPlace">
                         </ng-select>
+                        <div [ngClass]="{'error': form.controls['supplyPlace'].errors && !form.controls['supplyPlace'].pristine}">
+                          <div *ngIf="form.controls['supplyPlace'].errors && !form.controls['supplyPlace'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['supplyPlace'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['supplyPlace'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Type of sales</label>
                         <ng-select [items]="salesType" formControlName="saleType">
                         </ng-select>
+                        <div [ngClass]="{'error': form.controls['saleType'].errors && !form.controls['saleType'].pristine}">
+                          <div *ngIf="form.controls['saleType'].errors && !form.controls['saleType'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['saleType'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['saleType'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                     </div>
 

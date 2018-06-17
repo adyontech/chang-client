@@ -68,7 +68,9 @@ export class SalesReturnComponent implements OnInit {
     public _stateVariables: StateVaribles,
     public _globalCompanyService: GlobalCompanyService,
     public _toastrService: ToastrService
-  ) {}
+  ) {
+    this.stateList = this._stateVariables.stateListArray;
+  }
 
   ngOnInit() {
     this.getRouteParam();
