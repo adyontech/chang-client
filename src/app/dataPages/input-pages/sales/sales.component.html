@@ -71,7 +71,7 @@
       <div class="card text-center">
         <div class="card-body">
           <div class="card-block">
-            <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
+            <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" novalidate class="mt-3">
               <wizard #wizard navBarLayout="large-empty-symbols">
                 <div class="centered-content" style="margin: 6% 0 0 5%!important;width: 85%;">
                   <wizard-step stepTitle="Info" navigationSymbol="1">
@@ -376,7 +376,7 @@
                       <button type="button" class="btn btn-secondary" resetWizard>
                         Reset
                       </button>
-                      <button type="submit" class="btn btn-secondary" resetWizard>
+                      <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" resetWizard>
                         submit
                       </button>
                     </div>

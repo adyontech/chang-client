@@ -12,6 +12,8 @@ import { StateVaribles } from './../../../shared/forms/States';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from './service/sales.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { patternValidator } from './../../../shared/validators/pattern-validator';
+import { DateValidator } from './../../../shared/validators/dateValidator';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 declare var $: any;
 
@@ -82,18 +84,31 @@ export class SalesComponent implements OnInit {
     this.getGlobalCompanyData();
     this.getSalesUGNames();
     this.form = this.fb.group({
-      invoiceNumber: [''],
-      vehicleNumber: [''],
-      partyName: [''],
-      salesLedgerName: [''],
-      saleType: [''],
+      invoiceNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      vehicleNumber: new FormControl('', [
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      partyName: new FormControl('', [Validators.required]),
+      salesLedgerName: new FormControl('', [Validators.required]),
+      saleType: new FormControl('', [Validators.required]),
       transportationMode: [''],
-      supplyPlace: [''],
+      supplyPlace: new FormControl('', [Validators.required]),
       particularsData: this.fb.array([]),
       subParticularsData: this.fb.array([]),
       narration: [''],
       attachment: [''],
-      date: [''],
+      date: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator('2', '3'),
+        ])
+      ),
       grandTotal: ['0'],
     });
     this.addParticular();
@@ -156,18 +171,18 @@ export class SalesComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       nameOfProduct: [''],
-      qty: [''],
+      qty: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
       units: [''],
-      rate: [''],
-      subAmount: [''],
-      gstRate: [''],
-      amount: [''],
+      rate: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      subAmount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      gstRate: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      amount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
   initSubParticular() {
     return this.fb.group({
       additionalService: [null],
-      percent: [''],
+      percent: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
   get formData() {
@@ -338,7 +353,6 @@ export class SalesComponent implements OnInit {
             }
           });
       } else {
-        console.log('hello');
         return;
       }
     });
