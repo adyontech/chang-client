@@ -53,9 +53,19 @@ export class SalesReturnService {
   getIvoiceNumbers(compName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/ivoiceNumbers?token=${
+    }/api/invoiceNumbers?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.get(this._url);
+  }
+
+  getSalesInvoiceData(id, compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/getSalesInvoiceData?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}&&id=${id}`;
+    console.log(this._url);
     return this.http.get(this._url);
   }
 

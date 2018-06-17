@@ -1,14 +1,8 @@
-import { Component,  OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from './../../utilities/toastr.service';
 import { DashboardSettingService } from './service/dashboardSettings.service';
-import {
-  Router,
-  ActivatedRoute,
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-settings',
@@ -91,16 +85,16 @@ export class DashboardSettingsComponent implements OnInit {
     } else {
       this._dashboardSettingService
         .collabAddWrite(this.collabAddWriteModel, this.paramId, this.ownerName)
-        .subscribe((data => {
-            if (data.success) {
-              this._toastrService.typeSuccess(
-                'success',
-                'Data successfully added'
-              );
-            } else {
-              this._toastrService.typeError('Error', data.message);
-            }
-          });
+        .subscribe(data => {
+          if (data.success) {
+            this._toastrService.typeSuccess(
+              'success',
+              'Data successfully added'
+            );
+          } else {
+            this._toastrService.typeError('Error', data.message);
+          }
+        });
     }
   }
 

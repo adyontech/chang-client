@@ -42,6 +42,7 @@ export class SalesReturnComponent implements OnInit {
   public salesList: Array<string> = [];
   public prsrList: Array<string> = [];
   public originalInvoiceArray: Array<string> = [];
+  public originalInvoiceObj: any;
   public stateList: Array<string> = [];
   public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
   public breadcrumbs = [
@@ -195,17 +196,20 @@ export class SalesReturnComponent implements OnInit {
     const addCtrl = this.initParticular();
     control.push(addCtrl);
   }
+
   addSubParticular() {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     const addCtrl = this.initSubParticular();
     cont.push(addCtrl);
   }
+
   removeParticular(i: number) {
     this.subSum();
     const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
   }
+
   removeSubParticular(i: number) {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
@@ -226,11 +230,28 @@ export class SalesReturnComponent implements OnInit {
       .getIvoiceNumbers(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        // this.ledgerList =
+        if (data.success === true) {
+          this.originalInvoiceObj = data.sales;
+          this.originalInvoiceArray = this.originalInvoiceObj.map(
+            el => el.invoiceNumber
+          );
+        }
       });
   }
 
-  updateFromOriginalInvoice(value) {}
+  updateFromOriginalInvoice(value) {
+    this.originalInvoiceObj.map(el => {
+      if (el.invoiceNumber === value) {
+        this._salesService
+          .getSalesInvoiceData(value, this.paramId, this.ownerId)
+          .map(response => response.json())
+          .subscribe(data => {
+            console.log(data);
+            // this.salesList = this.salesList.concat(data.salesLedgerList);
+          });
+      }
+    });
+  }
 
   fillTypeOfSales(value) {
     if (value === this.companyStateName) {
