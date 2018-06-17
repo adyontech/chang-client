@@ -15,7 +15,6 @@ import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { DateValidator } from './../../../shared/validators/dateValidator';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
-declare var $: any;
 
 @Component({
   selector: 'app-sales',
@@ -37,6 +36,7 @@ export class SalesComponent implements OnInit {
   public totalAmount: number;
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
+  public value: any = {};
 
   public ledgerList: Array<string> = [];
   public salesList: Array<string> = [];
@@ -59,11 +59,6 @@ export class SalesComponent implements OnInit {
     'others',
   ];
   public breadcrumbs = [{ name: 'Sales' }, { name: 'Dashboard', link: '/' }];
-
-  public value: any = {};
-  public _disabledV: String = '0';
-  public disabled: Boolean = false;
-  @Input() public stylesObj;
 
   constructor(
     private route: ActivatedRoute,
@@ -96,8 +91,8 @@ export class SalesComponent implements OnInit {
       partyName: new FormControl('', [Validators.required]),
       salesLedgerName: new FormControl('', [Validators.required]),
       saleType: new FormControl('', [Validators.required]),
-      transportationMode: [''],
       supplyPlace: new FormControl('', [Validators.required]),
+      transportationMode: [''],
       particularsData: this.fb.array([]),
       subParticularsData: this.fb.array([]),
       narration: [''],
@@ -113,10 +108,6 @@ export class SalesComponent implements OnInit {
     });
     this.addParticular();
     this.addSubParticular();
-    // this.stylesObj = {
-    //     width: '50px',
-    //     height: '25px'
-    //   };
   }
 
   getRouteParam() {
@@ -223,7 +214,6 @@ export class SalesComponent implements OnInit {
       });
   }
   fillTypeOfSales(value) {
-    this.companyStateName = '1 Jammu & Kashmir';
     if (value === this.companyStateName) {
       this.form.patchValue({
         saleType: 'Intra state',
