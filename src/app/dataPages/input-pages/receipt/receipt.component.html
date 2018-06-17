@@ -240,55 +240,55 @@
                         Particulars and Amount
                       </h5>
 
-                      <div formArrayName="particularsData">
-                        <div *ngFor="let address of formData.controls; let i=index">
-                          <!-- <span>{{i + 1}}</span> -->
-                          <div [formGroupName]="i">
-                            <div class="block">
-                              <div class="content ">
-                                <div class="row">
-                                  <div class="col-md-1 mt-3">
-                                    <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
-                                  </div>
+                      <table class="table table-responsive-md text-center">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Particulars
+                              <span class="danger">*</span>
+                            </th>
+                            <th>
+                              <th>Amount
+                                <span class="danger">*</span>
+                              </th>
 
-                                  <div class="col-lg-4 col-xs-4">
-                                    <h6>Particulars
-                                      <span class="danger">*</span>
-                                    </h6>
-                                    <!-- <input type="text" class="form-control" formControlName="particulars"> -->
-                                    <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
-                                      <ng-template ng-header-tmp>
-                                        <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
-                                      </ng-template>
-                                    </ng-select>
-                                    <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
-                                      class="text-danger">
-                                      <span> Particulars is required</span>
-                                    </small>
-                                  </div>
-                                  <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">
-                                    <h6>Amount
-                                      <span class="danger">*</span>
-                                    </h6>
-                                    <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
-                                    <div [ngClass]="{'error': form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine}">
-                                      <div *ngIf="form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine"
-                                        class="error-msg">
-                                        <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.required">
-                                          filed is required.
-                                        </small>
-                                        <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.patternInvalid">
-                                          Invalid filed.
-                                        </small>
-                                      </div>
-                                    </div>
-                                  </div>
+                          </tr>
+                        </thead>
+                        <tbody formArrayName="particularsData">
+                          <tr *ngFor="let address of formData.controls; let i=index" class="form-group" [formGroupName]="i">
+                            <td>
+                              <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                            </td>
+                            <td width="45%">
+                              <!-- <input type="text" class="form-control" formControlName="particulars"> -->
+                              <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
+                                <ng-template ng-header-tmp>
+                                  <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
+                                </ng-template>
+                              </ng-select>
+                              <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
+                                class="text-danger">
+                                <span> Particulars is required</span>
+                              </small>
+                            </td>
+                            <td width="10%"></td>
+                            <td width="45%">
+                              <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
+                              <div [ngClass]="{'error': form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine}">
+                                <div *ngIf="form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine"
+                                  class="error-msg">
+                                  <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.required">
+                                    filed is required.
+                                  </small>
+                                  <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.patternInvalid">
+                                    Invalid filed.
+                                  </small>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
 
                       <br>
                       <div class="row">

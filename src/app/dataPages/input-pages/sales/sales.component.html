@@ -358,6 +358,7 @@
                                   <span class="danger">*</span>
                                 </th>
                                 <th></th>
+                                <th></th>
                                 <th>Amount
                                   <span class="danger">*</span>
                                 </th>
@@ -379,8 +380,18 @@
                                   <span> Additional Service is required</span>
                                 </small>
                               </td>
-                              <td width="10%"></td>
-                              <td width="45%">
+                              <td width="15%">
+                                <div class="mt-2">
+                                  <a href="javascript:void(0)" class="btn btn-secondary btn-fab btn-sm">
+                                    <i class="ft-plus"></i>
+                                  </a>
+                                  <a href="javascript:void(0)" class="btn btn-secondary btn-fab btn-sm">
+                                    <i class="ft-minus"></i>
+                                  </a>
+
+                                </div>
+                              </td>
+                              <td width="40%">
                                 <input type="text" class="form-control" name="company_name" (input)="totalSum()" formControlName="percent">
                                 <div [ngClass]="{'error': form.controls.subParticularsData.controls[i].controls.percent.errors && !form.controls.subParticularsData.controls[i].controls.percent.pristine}">
                                   <div *ngIf="form.controls.subParticularsData.controls[i].controls.percent.errors && !form.controls.subParticularsData.controls[i].controls.percent.pristine"
