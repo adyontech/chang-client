@@ -1,7 +1,22 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PopJournalEntryService } from './service/journalEntry.service';
@@ -60,7 +75,6 @@ export class PopJournalEntryComponent implements OnInit {
   fillForm(data) {
     data = data[0];
     data.date = new Date(data.date);
-    const now = new Date();
     this.form.controls['journalNumber'].setValue(data.journalNumber);
     this.form.controls['narration'].setValue(data.narration);
     this.form.controls['date'].setValue({
@@ -182,9 +196,13 @@ export class PopJournalEntryComponent implements OnInit {
     user.contentId = this.popContnetId;
     user.endtotal = this.totalAmount;
     if (action === false) {
-      this._journalEntryService.editEntry(user, this.paramId, this.editContentId).subscribe(data => {});
+      this._journalEntryService
+        .editEntry(user, this.paramId, this.editContentId)
+        .subscribe(data => {});
     } else {
-      this._journalEntryService.createNewEntry(user, this.paramId).subscribe(data => {});
+      this._journalEntryService
+        .createNewEntry(user, this.paramId)
+        .subscribe(data => {});
     }
   }
 }

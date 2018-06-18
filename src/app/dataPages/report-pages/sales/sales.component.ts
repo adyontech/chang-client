@@ -1,7 +1,6 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { SalesService } from './service/sales.service';
 declare var $: any;
@@ -37,10 +36,19 @@ export class SalesComponent implements OnInit {
   public ownerId: string;
   public closeResult: String;
   incomingData: Array<String>;
-  chooseItem = ['Transportation Mode', 'Type of sale', 'Place of supply', 'Vehicle No'];
+  chooseItem = [
+    'Transportation Mode',
+    'Type of sale',
+    'Place of supply',
+    'Vehicle No',
+  ];
   chooseItemBox = [];
 
-  constructor(private route: ActivatedRoute, public _salesService: SalesService, private modalService: NgbModal) {}
+  constructor(
+    private route: ActivatedRoute,
+    public _salesService: SalesService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.getRouteParam();
@@ -99,7 +107,12 @@ export class SalesComponent implements OnInit {
     this.ColSupplyPlace = true;
     this.ColVehicleNo = true;
     // this.ColGstRate = true;
-    this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
+    this.chooseItemBox = [
+      'Payment Type',
+      'Payment Through',
+      'Cheque Number',
+      'Against',
+    ];
   }
   onDeSelectAll() {
     this.ColTransportationMode = false;
@@ -111,16 +124,14 @@ export class SalesComponent implements OnInit {
 
   open(content, editId) {
     this.editContentId = editId;
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   onClose() {
@@ -140,7 +151,6 @@ export class SalesComponent implements OnInit {
     this._salesService
       .deleteEntry(id, this.paramId, this.ownerId)
       .map(response => response.json())
-      .subscribe(data => {
-      });
+      .subscribe(data => {});
   }
 }

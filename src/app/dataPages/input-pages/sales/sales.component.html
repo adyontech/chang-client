@@ -329,7 +329,7 @@
                                 </td>
                                 <td>
                                   <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum()" formControlName="amount"
-                                    value="{{((formDum.get('qty').value)*(formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*formDum.get('gstRate').value) }}">
+                                    value="{{((formDum.get('qty').value) * (formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*(formDum.get('gstRate').value)/100) }}">
                                 </td>
                               </tr>
                             </tbody>

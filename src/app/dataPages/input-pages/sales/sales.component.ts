@@ -274,7 +274,7 @@ export class SalesComponent implements OnInit {
       }
       if (amount === '') {
         const sub = qty * rate;
-        amount = sub * gstRate + sub;
+        amount = ((sub * gstRate) / 100 + sub).toFixed(2);
         amount = amount.toString();
       }
       if (!isNaN(amount) && amount !== '') {
@@ -327,8 +327,11 @@ export class SalesComponent implements OnInit {
           }
           if (el.amount === '') {
             subAmt = el.qty * el.rate;
-            el.amount = (subAmt * el.gstRate + subAmt).toString();
+            el.amount = ((subAmt * el.gstRate) / 100 + subAmt)
+              .toFixed(2)
+              .toString();
           }
+          console.log(user);
         });
         this._salesService
           .createNewEntry(user, this.paramId, this.ownerId)

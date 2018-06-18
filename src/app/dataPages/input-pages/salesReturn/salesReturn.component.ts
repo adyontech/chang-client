@@ -242,12 +242,26 @@ export class SalesReturnComponent implements OnInit {
   updateFromOriginalInvoice(value) {
     this.originalInvoiceObj.map(el => {
       if (el.invoiceNumber === value) {
+        console.log(el);
         this._salesService
-          .getSalesInvoiceData(value, this.paramId, this.ownerId)
+          .getSalesInvoiceDataById(el._id, this.paramId, this.ownerId)
           .map(response => response.json())
           .subscribe(data => {
-            console.log(data);
-            // this.salesList = this.salesList.concat(data.salesLedgerList);
+            const originalDate = new Date(data.sales.date);
+            console.log(data.sales);
+            this.form.controls['originalInvoiceDate'].setValue({
+              year: originalDate.getFullYear(),
+              month: originalDate.getMonth(),
+              day: originalDate.getDate(),
+            });
+            this.form.controls['partyName'].setValue(data.sales.partyName);
+
+            this.form.controls['salesLedgerName'].setValue(
+              data.sales.salesLedgerName
+            );
+
+            this.form.controls['supplyPlace'].setValue(data.sales.supplyPlace);
+            this.form.controls['saleType'].setValue(data.sales.saleType);
           });
       }
     });
@@ -314,7 +328,7 @@ export class SalesReturnComponent implements OnInit {
       }
       if (amount === '') {
         const sub = qty * rate;
-        amount = sub * gstRate + sub;
+        amount = ((sub * gstRate) / 100 + sub).toFixed(2);
         amount = amount.toString();
       }
       if (!isNaN(amount) && amount !== '') {
@@ -367,7 +381,9 @@ export class SalesReturnComponent implements OnInit {
           }
           if (el.amount === '') {
             subAmt = el.qty * el.rate;
-            el.amount = (subAmt * el.gstRate + subAmt).toString();
+            el.amount = ((subAmt * el.gstRate) / 100 + subAmt)
+              .toFixed(2)
+              .toString();
           }
         });
         this._salesService

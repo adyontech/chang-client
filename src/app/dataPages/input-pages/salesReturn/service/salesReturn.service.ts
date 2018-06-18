@@ -59,10 +59,10 @@ export class SalesReturnService {
     return this.http.get(this._url);
   }
 
-  getSalesInvoiceData(id, compName, ownerName) {
+  getSalesInvoiceDataById(id, compName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/getSalesInvoiceData?token=${
+    }/api/getSalesInvoiceDataById?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${ownerName}&&id=${id}`;
     console.log(this._url);
