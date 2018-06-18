@@ -331,7 +331,6 @@ export class SalesComponent implements OnInit {
               .toFixed(2)
               .toString();
           }
-          console.log(user);
         });
         this._salesService
           .createNewEntry(user, this.paramId, this.ownerId)

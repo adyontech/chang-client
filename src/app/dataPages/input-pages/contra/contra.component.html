@@ -33,12 +33,12 @@
       <div class="card text-center">
         <div class="card-body">
           <div class="card-block">
-            <form id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
+            <form id="form" [formGroup]="form" novalidate class="mt-3">
 
 
               <wizard #wizard navBarLayout="large-empty-symbols">
                 <div class="centered-content" style="margin-top:6%; width: 100%;">
-                  <wizard-step stepTitle="Steptitle 1" navigationSymbol="1">
+                  <wizard-step stepTitle="Info" navigationSymbol="1">
 
                     <div class="mt-3">
                       <div class="row">
@@ -46,6 +46,16 @@
                           <div class="form-group">
                             <label>Contra Number</label>
                             <input type="text" class="form-control" formControlName="contraNumber">
+                            <div [ngClass]="{'error': form.controls['contraNumber'].errors && !form.controls['contraNumber'].pristine}">
+                              <div *ngIf="form.controls['contraNumber'].errors && !form.controls['contraNumber'].pristine" class="error-msg">
+                                <small class="form-text text-muted danger" [hidden]="!form.controls['contraNumber'].errors.required">
+                                  filed is required.
+                                </small>
+                                <small class="form-text text-muted danger" [hidden]="!form.controls['contraNumber'].errors.patternInvalid">
+                                  Invalid filed.
+                                </small>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -56,11 +66,22 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <div class="input-group">
-                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" ngbDatepicker #ds1="ngbDatepicker" formControlName="date">
+                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" ngbDatepicker #ds1="ngbDatepicker" formControlName="date"
+                                    (ngModelChange)="SetDrawnOn($event)">
                                   <div class="input-group-append">
                                     <div class="input-group-text" (click)="ds1.toggle()">
                                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                                     </div>
+                                  </div>
+                                </div>
+                                <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
+                                  <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
+                                    <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
+                                      filed is required.
+                                    </small>
+                                    <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
+                                      Invalid filed.
+                                    </small>
                                   </div>
                                 </div>
                               </div>
@@ -76,23 +97,24 @@
                               <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New ledger</button>
                             </ng-template>
                           </ng-select>
-                        </div>
-                      </div>
-                      <div class="row mt-3">
-                        <div class="col-md-5 offset-md-3">
-                          <div class="form-group">
-                            <h5>Current balance</h5>
-                            <p>123456</p>
+                          <div [ngClass]="{'error': form.controls['account'].errors && !form.controls['account'].pristine}">
+                            <div *ngIf="form.controls['account'].errors && !form.controls['account'].pristine" class="error-msg">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['account'].errors.required">
+                                filed is required.
+                              </small>
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['account'].errors.patternInvalid">
+                                Invalid filed.
+                              </small>
+                            </div>
                           </div>
                         </div>
                       </div>
-
                       <div class="btn-group mt-3">
                         <button type="button" class="btn btn-secondary" nextStep>Continue</button>
                       </div>
                     </div>
                   </wizard-step>
-                  <wizard-step stepTitle="Steptitle 2" navigationSymbol="2" class="mt-3">
+                  <wizard-step stepTitle="Bank details" navigationSymbol="2" class="mt-3">
 
 
                     <div class="mt-3">
@@ -101,6 +123,13 @@
                           <div class="form-group">
                             <label>Cheque Number</label>
                             <input type="text" class="form-control" formControlName="chequeNumber">
+                            <div [ngClass]="{'error': form.controls['chequeNumber'].errors && !form.controls['chequeNumber'].pristine}">
+                              <div *ngIf="form.controls['chequeNumber'].errors && !form.controls['chequeNumber'].pristine" class="error-msg">
+                                <small class="form-text text-muted danger" [hidden]="!form.controls['chequeNumber'].errors.patternInvalid">
+                                  Invalid filed.
+                                </small>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -126,6 +155,14 @@
                                     </div>
                                   </div>
                                 </div>
+                                <div [ngClass]="{'error': form.controls['drawnOn'].errors && !form.controls['drawnOn'].pristine}">
+                                  <div *ngIf="form.controls['drawnOn'].errors && !form.controls['drawnOn'].pristine" class="error-msg">
+
+                                    <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.datevalidator">
+                                      Invalid filed.
+                                    </small>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -141,49 +178,57 @@
 
 
                   </wizard-step>
-                  <wizard-step stepTitle="Steptitle 3" navigationSymbol="3">
+                  <wizard-step stepTitle="Amount details" navigationSymbol="3">
                     <div class="col-md-10 offset-md-1">
-                      <h5 class="form-group-header">
-                        Particulars and Amount
-                      </h5>
+                      <table class="table table-responsive-md text-center">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Particulars
+                              <span class="danger">*</span>
+                            </th>
+                            <th>
+                              <th>Amount
+                                <span class="danger">*</span>
+                              </th>
 
-                      <div formArrayName="particularsData">
-                        <div *ngFor="let address of formData.controls; let i=index" class="form-group">
-                          <!-- <span>{{i + 1}}</span> -->
-                          <div [formGroupName]="i">
-                            <div class="block">
-                              <div class="content ">
-                                <div class="row">
-                                  <div class="col-md-1 mt-3">
-                                    <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
-                                  </div>
-                                  <div class="col-lg-4 col-xs-4">
-                                    <h6>Particulars</h6>
-                                    <!-- <input type="text" class="form-control" formControlName="particulars"> -->
-                                    <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
-                                      <ng-template ng-header-tmp>
-                                        <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
-                                      </ng-template>
-                                    </ng-select>
-                                    <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
-                                      class="text-danger">
-                                      <span> Particulars is required</span>
-                                    </small>
-                                  </div>
-                                  <div class="offset-lg-2 col-lg-4 offset-xs-2  col-xs-4 ">
-                                    <h6>Amount</h6>
-                                    <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
-                                    <small [hidden]="form.controls.particularsData.controls[i].controls.amount.untouched || form.controls.particularsData.controls[i].controls.amount.valid"
-                                      class="text-danger">
-                                      Amount is required
-                                    </small>
-                                  </div>
+                          </tr>
+                        </thead>
+                        <tbody formArrayName="particularsData">
+                          <tr *ngFor="let address of formData.controls; let i=index" class="form-group" [formGroupName]="i">
+                            <td>
+                              <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                            </td>
+                            <td width="45%">
+                              <!-- <input type="text" class="form-control" formControlName="particulars"> -->
+                              <ng-select [items]="accountList" formControlName="particulars" placeholder="Particulars">
+                                <ng-template ng-header-tmp>
+                                  <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
+                                </ng-template>
+                              </ng-select>
+                              <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.untouched || form.controls.particularsData.controls[i].controls.particulars.valid"
+                                class="text-danger">
+                                <span> Particulars is required</span>
+                              </small>
+                            </td>
+                            <td width="10%"></td>
+                            <td width="45%">
+                              <input type="text" required class="form-control" formControlName="amount" (input)="totalSum(i)">
+                              <div [ngClass]="{'error': form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine}">
+                                <div *ngIf="form.controls.particularsData.controls[i].controls.amount.errors && !form.controls.particularsData.controls[i].controls.amount.pristine"
+                                  class="error-msg">
+                                  <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.required">
+                                    filed is required.
+                                  </small>
+                                  <small class="form-text text-muted danger" [hidden]="!form.controls.particularsData.controls[i].controls.amount.errors.patternInvalid">
+                                    Invalid filed.
+                                  </small>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                       <br>
                       <div class="row">
                         <div class="offset-md-0 col-md-3">
@@ -226,7 +271,8 @@
                     <div class="btn-group  mt-3">
                       <button type="button" class="btn btn-secondary" previousStep>Back</button>
                       <button type="button" class="btn btn-secondary" resetWizard (click)="resetForm()">Reset</button>
-                      <button type="submit" class="btn btn-secondary" resetWizard>submit</button>
+                      <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" [disabled]="form.invalid" resetWizard>
+                        submit</button>
                     </div>
                   </wizard-step>
                 </div>

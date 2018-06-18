@@ -10,6 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ContraService } from './service/contra.service';
+import { patternValidator } from './../../../shared/validators/pattern-validator';
+import { DateValidator } from './../../../shared/validators/dateValidator';
 import { ToastrService } from './../../../utilities/toastr.service';
 
 declare var $: any;
@@ -32,7 +34,7 @@ export class ContraComponent implements OnInit {
   public attachmentError: Boolean = false;
   public fileName: String = 'No File Choosen.';
 
-  breadcrumbs = [{ name: 'Payment' }, { name: 'Dasboard', link: '/' }];
+  breadcrumbs = [{ name: 'Contra' }, { name: 'Dasboard', link: '/' }];
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;
@@ -49,13 +51,29 @@ export class ContraComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.getAccountNames();
-    this.getLedgerUGNames();
+    // this.getLedgerUGNames();
     this.form = this.fb.group({
-      account: [''],
-      chequeNumber: [''],
-      contraNumber: [''],
-      date: [''],
-      drawnOn: [null, Validators.required],
+      contraNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      account: new FormControl('', [Validators.required]),
+      chequeNumber: new FormControl('', [
+        patternValidator(/^\d+$/),
+        Validators.maxLength(20),
+      ]),
+      date: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator('2', '3'),
+        ])
+      ),
+      drawnOn: new FormControl(
+        '',
+        Validators.compose([DateValidator.datevalidator('2', '3')])
+      ),
       drawnBank: [''],
       attachment: [''],
       narration: [''],
@@ -78,12 +96,12 @@ export class ContraComponent implements OnInit {
     this.modalRef.result.then(
       result => {
         this.getAccountNames();
-        this.getLedgerUGNames();
+        // this.getLedgerUGNames();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
         this.getAccountNames();
-        this.getLedgerUGNames();
+        // this.getLedgerUGNames();
         this.closeResult = `Dismissed `;
       }
     );
@@ -92,7 +110,7 @@ export class ContraComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      amount: [''],
+      amount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
 
@@ -120,17 +138,27 @@ export class ContraComponent implements OnInit {
     }
   }
 
-  getLedgerUGNames() {
-    this.dataCopy = this._contraService
-      .getLedgerUGNames(this.paramId, this.ownerName)
-      .map(response => response.json())
-      .subscribe(data => {
-        if (data.success !== false) {
-          this.ledgerList = [];
-          this.ledgerList = this.ledgerList.concat(data.ledgerData);
-        }
+  SetDrawnOn(value) {
+    if (value !== null) {
+      const dateval = new Date(value.year, value.month, value.day);
+      this.form.controls['drawnOn'].setValue({
+        year: dateval.getFullYear(),
+        month: dateval.getMonth(),
+        day: dateval.getDate(),
       });
+    }
   }
+  // getLedgerUGNames() {
+  //   this.dataCopy = this._contraService
+  //     .getLedgerUGNames(this.paramId, this.ownerName)
+  //     .map(response => response.json())
+  //     .subscribe(data => {
+  //       if (data.success !== false) {
+  //         this.ledgerList = [];
+  //         this.ledgerList = this.ledgerList.concat(data.ledgerData);
+  //       }
+  //     });
+  // }
 
   getAccountNames() {
     this.dataCopy = this._contraService
