@@ -1,39 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
 import { ToastrService } from './../../../utilities/toastr.service';
+import { patternValidator } from './../../../shared/validators/pattern-validator';
+import { DateValidator } from './../../../shared/validators/dateValidator';
 
-declare var $: any;
 @Component({
   selector: 'app-journal-entry',
   templateUrl: './journalEntry.component.html',
   styleUrls: ['./journalEntry.component.scss'],
 })
 export class JournalEntryComponent implements OnInit {
-  closeResult: string;
-  form: FormGroup;
-  dataCopy: any;
-  paramId: string;
+  public closeResult: string;
+  public form: FormGroup;
+  public dataCopy: any;
+  public paramId: string;
   public ownerName: string;
-  totalAmount: number;
-  debitSum: number;
-  creditSum: number;
+  public totalAmount: number;
+  public debitSum: number;
+  public creditSum: number;
   public ledgerList: Array<string> = [];
-  public attachmentError: Boolean = false;
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
-
+  public breadcrumbs = [
+    { name: 'Journal  Entry' },
+    { name: 'Dashboard', link: '/' },
+  ];
   public value: any = {};
-  public _disabledV: String = '0';
-  public disabled: Boolean = false;
-  public fileName: String = 'No File Choosen.';
+  public attachmentError: Boolean = false;
+  public attachmentName: String = 'No File Choosen.';
+
   constructor(
     private route: ActivatedRoute,
     public _journalEntryService: JournalEntryService,
     public fb: FormBuilder,
-    private router: Router,
     public _toastrService: ToastrService
   ) {}
 
@@ -41,11 +47,21 @@ export class JournalEntryComponent implements OnInit {
     this.getRouteParam();
     this.getLedgerUGNames();
     this.form = this.fb.group({
-      journalNumber: [''],
-      date: [''],
+      journalNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      date: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator('2', '3'),
+        ])
+      ),
       narration: [''],
       particularsData: this.fb.array([]),
-      file: [''],
+      attachment: [''],
     });
     this.addParticular();
   }
@@ -61,9 +77,9 @@ export class JournalEntryComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      drcr: [''],
-      debitAmount: [''],
-      creditAmount: [''],
+      drcr: ['', Validators.required],
+      debitAmount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      creditAmount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
 
@@ -94,14 +110,13 @@ export class JournalEntryComponent implements OnInit {
   }
 
   public resetDrCr(value: any, indexValue): void {
-    // const particularsData = <FormArray>this.form.controls['particularsData'];
-    // const array = particularsData.at(indexValue);
-    // array.patchValue({
-    //   debitAmount: '',
-    //   creditAmount: '',
-    // });
+    const particularsData = <FormArray>this.form.controls['particularsData'];
+    const array = particularsData.at(indexValue);
+    array.patchValue({
+      debitAmount: 0,
+      creditAmount: 0,
+    });
   }
-
   totalSum() {
     const formControls = this.form.controls.particularsData['controls'];
     this.debitSum = 0;
@@ -122,14 +137,14 @@ export class JournalEntryComponent implements OnInit {
     this.attachmentError = false;
     const reader = new FileReader();
 
-    if (event.target.files[0].size < 400000) {
+    if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('file').setValue(event.target.files[0]);
-        this.fileName = event.target.files[0].name;
+        this.form.get('attachment').setValue(event.target.files[0]);
+        this.attachmentName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
-      this.fileName = 'No File choosen';
+      this.attachmentName = 'No File choosen';
     }
   }
 

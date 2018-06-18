@@ -120,10 +120,7 @@ export class PaymentComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      amount: new FormControl('', [
-        Validators.required,
-        patternValidator(/^\d+$/),
-      ]),
+      amount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
 
