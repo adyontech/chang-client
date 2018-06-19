@@ -32,7 +32,7 @@ export class ContraComponent implements OnInit {
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
-  public fileName: String = 'No File Choosen.';
+  public attachmentName: String = 'No File Choosen.';
 
   breadcrumbs = [{ name: 'Contra' }, { name: 'Dasboard', link: '/' }];
   public value: any = {};
@@ -183,11 +183,11 @@ export class ContraComponent implements OnInit {
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('attachment').setValue(event.target.files[0]);
-        this.fileName = event.target.files[0].name;
+        this.attachmentName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
-      this.fileName = 'No File choosen';
+      this.attachmentName = 'No File choosen';
     }
   }
 

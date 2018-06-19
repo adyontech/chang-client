@@ -46,7 +46,7 @@
                       <label class="col-md-3 label-control" for="userinput5">UNDER HEAD: </label>
                       <div class="col-md-9">
 
-                        <ng-select [items]="underHeadArray" (change)="setType($event, i)" placeholder="Select age" formControlName="underHead">
+                        <ng-select [items]="underHeadArray" (change)="setType($event)" placeholder="Select age" formControlName="underHead">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['underHead'].errors && !form.controls['underHead'].pristine}">
                           <div *ngIf="form.controls['underHead'].errors && !form.controls['underHead'].pristine" class="error-msg">

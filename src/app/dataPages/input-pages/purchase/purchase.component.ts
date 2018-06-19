@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -6,100 +6,123 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ToastrService } from './../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
-import {
-  NgbModal,
-  ModalDismissReasons,
-  NgbActiveModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { StateVaribles } from './../../../shared/forms/States';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './service/purchase.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
-declare var $: any;
+import { patternValidator } from './../../../shared/validators/pattern-validator';
+import { DateValidator } from './../../../shared/validators/dateValidator';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.scss'],
 })
 export class PurchaseComponent implements OnInit {
-  closeResult: string;
+  public closeResult: string;
   public form: FormGroup;
   public dataCopy: any;
+  public modalRef: any;
   public dataCopy1: any;
   public dataCopy2: any;
   private prsrData: any;
   public paramId: string;
   public ownerId: string;
   public subTotal: number;
+  public companyStateName: String;
   public totalAmount: number;
-  public selectedString: String;
   public attachmentError: Boolean = false;
+  public attachmentName: String = 'No File Choosen.';
+  public value: any = {};
 
   public ledgerList: Array<string> = [];
   public purchaseList: Array<string> = [];
   public prsrList: Array<string> = [];
-  breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
 
-  public items: Array<string> = ['Wrocław', 'Zagreb', 'Zaragoza', 'Łódź'];
-  public transportationModeArray = ['road', 'train', 'air', 'water'];
+  public stateList: Array<string> = [];
+  public additionalServiceList: Array<string> = [
+    'Discount',
+    'Freight',
+    'Shipping Charge',
+    'BY WATER',
+  ];
+  public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
   public purchaseTypeArray = [
-    'intrastate',
-    'interstate',
-    'outsidecountry',
-    'deemedexports',
-    'withinstate',
-    'outsidestate',
+    'Intra State',
+    'Inter State',
+    'Exports',
+    'Deemed Exports',
+    'Stock Transfer',
     'others',
   ];
-  public value: any = {};
-  public _disabledV: String = '0';
-  public disabled: Boolean = false;
+  public breadcrumbs = [{ name: 'Purchase' }, { name: 'Dashboard', link: '/' }];
 
   constructor(
-    private route: ActivatedRoute,
     public _purchaseService: PurchaseService,
+    private route: ActivatedRoute,
     public fb: FormBuilder,
-    private router: Router,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    public _stateVariables: StateVaribles,
+    public _globalCompanyService: GlobalCompanyService,
+    public _toastrService: ToastrService
+  ) {
+    this.stateList = this._stateVariables.stateListArray;
+  }
 
   ngOnInit() {
     this.getRouteParam();
     this.getPrsrList();
     this.getLedgerUGNames();
+    this.getGlobalCompanyData();
     this.getPurchaseUGNames();
     this.form = this.fb.group({
-      invoiceNumber: [''],
-      vehicleNumber: [''],
-      partyName: [''],
-      purchaseLedgerName: [''],
-      purchaseType: [''],
+      invoiceNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      vehicleNumber: new FormControl('', [
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      partyName: new FormControl('', [Validators.required]),
+      purchaseLedgerName: new FormControl('', [Validators.required]),
+      purchaseType: new FormControl('', [Validators.required]),
+      supplyPlace: new FormControl('', [Validators.required]),
       transportationMode: [''],
-      supplyPlace: [''],
       particularsData: this.fb.array([]),
       subParticularsData: this.fb.array([]),
       narration: [''],
       file: [''],
-      date: [null, Validators.required],
+      date: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          DateValidator.datevalidator('2', '3'),
+        ])
+      ),
       grandTotal: ['0'],
     });
     this.addParticular();
     this.addSubParticular();
   }
 
-  private set disabledV(value: string) {
-    this._disabledV = value;
-    this.disabled = this._disabledV === '1';
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id;
+      this.ownerId = params.owner;
+    });
   }
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' }).result.then(
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.modalRef.result.then(
       result => {
+        this.getLedgerUGNames();
+        this.getPurchaseUGNames();
+        this.getPrsrList();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
@@ -119,12 +142,6 @@ export class PurchaseComponent implements OnInit {
     }
   }
 
-  getRouteParam() {
-    this.route.params.subscribe(params => {
-      this.paramId = params.id;
-      this.ownerId = params.owner;
-    });
-  }
   public selectedprsr(value: any, indexValue): void {
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
@@ -151,18 +168,18 @@ export class PurchaseComponent implements OnInit {
   initParticular() {
     return this.fb.group({
       nameOfProduct: [''],
-      qty: [''],
+      qty: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
       units: [''],
-      rate: [''],
-      subAmount: [''],
-      gstRate: [''],
-      amount: [''],
+      rate: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      subAmount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      gstRate: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      amount: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
   initSubParticular() {
     return this.fb.group({
-      additionalService: [''],
-      percent: [''],
+      additionalService: [null],
+      percent: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
     });
   }
   addParticular() {
@@ -188,16 +205,43 @@ export class PurchaseComponent implements OnInit {
     cont.removeAt(i);
   }
 
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.companyStateName = data.state;
+      });
+  }
+
+  fillTypeOfPurchase(value) {
+    if (value === this.companyStateName) {
+      this.form.patchValue({
+        purchaseType: 'Intra state',
+      });
+    } else if (value === 'Others') {
+      this.form.patchValue({
+        purchaseType: '',
+      });
+    } else {
+      this.form.patchValue({
+        purchaseType: 'Inter state',
+      });
+    }
+  }
+
   onFileChange(event) {
     this.attachmentError = false;
     const reader = new FileReader();
 
-    if (event.target.files[0].size < 400000) {
+    if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('file').setValue(event.target.files[0]);
+        this.form.get('attachment').setValue(event.target.files[0]);
+        this.attachmentName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
+      this.attachmentName = 'No File choosen';
     }
   }
 
@@ -205,18 +249,32 @@ export class PurchaseComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.particularsData.map(el => {
-          if ((el.subAmountconst = '')) {
-            el.subAmount = el.qty * el.rate;
-            el.subAmount = el.subAmount.toString();
+          let subAmt;
+          if (el.subAmount === '') {
+            subAmt = el.qty * el.rate;
+            el.subAmount = (el.qty * el.rate).toString();
           }
-          if ((el.amountconst = '')) {
-            el.amount = el.qty * el.rate + el.qty * el.rate * el.gstRate;
-            el.amount = el.amount.toString();
+          if (el.amount === '') {
+            subAmt = el.qty * el.rate;
+            el.amount = ((subAmt * el.gstRate) / 100 + subAmt)
+              .toFixed(2)
+              .toString();
           }
         });
         this._purchaseService
           .createNewEntry(user, this.paramId, this.ownerId)
-          .subscribe(data => {});
+          .subscribe(data => {
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+            } else {
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
+      } else {
+        return;
       }
     });
   }
@@ -263,7 +321,8 @@ export class PurchaseComponent implements OnInit {
         subAmount = subAmount.toString();
       }
       if (amount === '') {
-        amount = qty * rate + qty * rate * gstRate;
+        const sub = qty * rate;
+        amount = ((sub * gstRate) / 100 + sub).toFixed(2);
         amount = amount.toString();
       }
       if (!isNaN(amount) && amount !== '') {
