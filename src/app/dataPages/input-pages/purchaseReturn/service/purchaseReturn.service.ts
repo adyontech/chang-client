@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class PurchaseReturnService {
-  private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
@@ -17,8 +13,6 @@ export class PurchaseReturnService {
 
   constructor(
     private http: Http,
-    private router: Router,
-    private route: ActivatedRoute,
     public _globalVariableService: GlobalVaribles
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
@@ -33,28 +27,53 @@ export class PurchaseReturnService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/purchaseReturn?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/purchaseReturn?token=${
       this.token
     }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, user).map((res: Response) => {
-      this.result = res.json();
+      return (this.result = res.json());
     });
   }
   getLedgerUGNames(compName, owner) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
   getPurchaseUGNames(compName, owner) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/purchaseLedgerList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/purchaseLedgerList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
+  getIvoiceNumbers(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/invoiceNumberspurchase?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.get(this._url);
+  }
 
+  getPurchaseInvoiceDataById(id, compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/getPurchaseInvoiceDataById?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}&&id=${id}`;
+    console.log(this._url);
+    return this.http.get(this._url);
+  }
   getprsrList(compName, owner) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/prsrList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/prsrList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);

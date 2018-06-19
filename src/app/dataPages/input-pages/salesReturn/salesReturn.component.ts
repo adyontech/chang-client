@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -10,11 +10,11 @@ import { ToastrService } from './../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { StateVaribles } from './../../../shared/forms/States';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { SalesReturnService } from './service/salesReturn.service';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { DateValidator } from './../../../shared/validators/dateValidator';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { SalesReturnService } from './service/salesReturn.service';
 
 @Component({
   selector: 'app-sales-return',
@@ -336,6 +336,7 @@ export class SalesReturnComponent implements OnInit {
       }
     }
   }
+
   totalSum() {
     this.form.patchValue({
       grandTotal: 0,
@@ -355,9 +356,9 @@ export class SalesReturnComponent implements OnInit {
       grandTotal: this.totalAmount,
     });
   }
+
   onFileChange(event) {
     this.attachmentError = false;
-    const reader = new FileReader();
 
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {

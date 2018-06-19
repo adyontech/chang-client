@@ -1,5 +1,5 @@
 <div class="row" matchHeight="card" [hidden]="true">
-  <!--Modal with Default options starts-->
+  <!-- Modal with Default options starts -->
   <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="card">
       <div class="card-body">
@@ -8,7 +8,7 @@
             <div class="modal-header">
               <h4 class="modal-title">Modal title</h4>
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
@@ -16,7 +16,9 @@
             </div>
           </ng-template>
 
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(ledger)">Launch demo modal</button>
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(ledger)">
+            Launch demo modal
+          </button>
 
           <hr>
         </div>
@@ -26,7 +28,7 @@
 </div>
 <!-- Modal for product service start -->
 <div class="row" matchHeight="card" [hidden]="true">
-  <!--Modal with Default options starts-->
+  <!-- Modal with Default options starts -->
   <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="card">
       <div class="card-body">
@@ -35,7 +37,7 @@
             <div class="modal-header">
               <h4 class="modal-title">Modal title</h4>
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
@@ -43,7 +45,9 @@
             </div>
           </ng-template>
 
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">Launch demo modal</button>
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">
+            Launch demo modal
+          </button>
 
           <hr>
         </div>
@@ -57,8 +61,7 @@
   </div>
   <div class="col-sm-5 mt-3">
     <h3>
-      <b> {{paramId | titlecase}}
-      </b>
+      <b>{{paramId | titlecase}}</b>
     </h3>
   </div>
 </div>
@@ -129,7 +132,9 @@
                         <label>Party Name</label>
                         <ng-select [items]="ledgerList" formControlName="partyName" placeholder="No party selected">
                           <ng-template ng-header-tmp>
-                            <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
+                            <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                              + New Ledger
+                            </button>
                           </ng-template>
                           <div [ngClass]="{'error': form.controls['partyName'].errors && !form.controls['partyName'].pristine}">
                             <div *ngIf="form.controls['partyName'].errors && !form.controls['partyName'].pristine" class="error-msg">
@@ -187,10 +192,12 @@
                       </div>
                     </div>
                     <div class="btn-group">
-                      <button type="button" class="btn btn-secondary" nextStep>Continue</button>
+                      <button type="button" class="btn btn-secondary" nextStep>
+                        Continue
+                      </button>
                     </div>
                   </wizard-step>
-                  <wizard-step stepTitle="Sales-details" navigationSymbol="2" class="mt-3">
+                  <wizard-step stepTitle="Purchase-details" navigationSymbol="2" class="mt-3">
                     <div class="centered-content">
                       <div class="form-row">
                         <div class="col-md-10 offset-lg -1 offset-md-1 offset-sm-1">
