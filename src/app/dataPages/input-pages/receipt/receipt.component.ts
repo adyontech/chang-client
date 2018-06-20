@@ -33,6 +33,28 @@ export class ReceiptComponent implements OnInit {
   public attachmentError: Boolean = false;
   public value: any = {};
   public attachmentName: String = 'No File Choosen.';
+  public showCheque = false;
+  public showInvoiceNumberField = false;
+  public allInvoiceNumberArray: Array<string> = [];
+  public receiptTypeArray: Array<string> = [
+    'General',
+    'Sales receipt',
+    'Advance receipt',
+    'Purchase refund',
+    'Others',
+  ];
+  public receiptThroughArray: Array<string> = [
+    'Cash',
+    'Cheque',
+    'E transfer',
+    'Others',
+  ];
+  public againstArray: Array<string> = [
+    'Against invoice',
+    'Against account',
+    'Against advance',
+    'others',
+  ];
 
   breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
 
@@ -66,6 +88,7 @@ export class ReceiptComponent implements OnInit {
       account: new FormControl('', [Validators.required]),
       receiptType: new FormControl('', [Validators.required]),
       receiptThrough: new FormControl('', [Validators.required]),
+      againstInvoiceNumber: [''],
       chequeNumber: [''],
       drawnOn: new FormControl(
         '',
@@ -159,6 +182,45 @@ export class ReceiptComponent implements OnInit {
       });
     }
   }
+  setAgainst(value) {
+    if (value === 'Sales receipt' || value === 'Advance receipt') {
+      this.againstArray = [...this.againstArray, 'Advance receipt'];
+      this.form.patchValue({
+        against: 'Advance receipt',
+      });
+    } else {
+      this.form.patchValue({
+        against: '',
+      });
+    }
+  }
+  showInvoiceNumber(value) {
+    if (value === 'Against invoice') {
+      this.showInvoiceNumberField = true;
+      this._receiptService
+        .getIvoiceNumbers(this.paramId, this.ownerName)
+        .map(response => response.json())
+        .subscribe(data => {
+          if (data.success === true) {
+            const originalInvoiceObj = data.sales;
+            const invoiceNumberArray = originalInvoiceObj.map(el => {
+              this.allInvoiceNumberArray = [
+                ...this.allInvoiceNumberArray,
+                el.invoiceNumber,
+              ];
+            });
+          }
+        });
+    }
+  }
+  toggleCheque(value) {
+    if (value === 'Cheque') {
+      this.showCheque = true;
+    } else {
+      this.showCheque = false;
+    }
+  }
+
   getLedgerNames() {
     this.dataCopy = this._receiptService
       .getLedgerNames(this.paramId, this.ownerName)

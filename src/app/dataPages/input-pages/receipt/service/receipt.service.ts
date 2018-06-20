@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class ReceiptService {
-  private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
@@ -26,7 +25,9 @@ export class ReceiptService {
   }
 
   getData(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&&companyName=${compName}`;
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/uglist?token=${this.token}&&companyName=${compName}`;
     return this.http.get(this._url);
   }
 
@@ -39,19 +40,33 @@ export class ReceiptService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/receipts?token=${this.token}&companyName=${compName}`;
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/receipts?token=${this.token}&companyName=${compName}`;
     return this.http.post(this._url, form).map((res: Response) => {
       return res.json();
     });
   }
+  getIvoiceNumbers(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/allSalesInvoiceNumbers?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.get(this._url);
+  }
   getLedgerNames(compName, owner) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
   getAccountNames(compName, owner) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/accountNameList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);

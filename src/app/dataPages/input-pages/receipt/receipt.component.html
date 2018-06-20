@@ -120,14 +120,8 @@
                       <div class="col-md-4 offset-md-2 form-group">
                         <label>Receipt type</label>
                         <span class="danger">*</span>
-                        <select class="form-control" formControlName="receiptType">
-                          <option value="general" selected>General</option>
-                          <option value="salesreceipt">Sales receipt</option>
-                          <option value="advancereceipt">Advance receipt</option>
-                          <option value="purchaserefund">Purchase refund</option>
-                          <option value="others">Others</option>
-                        </select>
-
+                        <ng-select [items]="receiptTypeArray" (change)="setAgainst($event)" formControlName="receiptType" placeholder="No particulars selected">
+                        </ng-select>
                         <div [ngClass]="{'error': form.controls['receiptType'].errors && !form.controls['receiptType'].pristine}">
                           <div *ngIf="form.controls['receiptType'].errors && !form.controls['receiptType'].pristine" class="error-msg">
                             <small class="form-text text-muted danger" [hidden]="!form.controls['receiptType'].errors.required">
@@ -142,12 +136,9 @@
                       <div class="col-md-4 form-group">
                         <label>Receipt Through</label>
                         <span class="danger">*</span>
-                        <select class="form-control" formControlName="receiptThrough">
-                          <option value="cash" selected>Cash</option>
-                          <option value="cheque">Cheque</option>
-                          <option value="etransfer">E transfer</option>
-                          <option value="others">Others</option>
-                        </select>
+                        <ng-select [items]="receiptThroughArray" (change)="toggleCheque($event)" formControlName="receiptThrough" placeholder="No particulars selected">
+                        </ng-select>
+
 
                         <div [ngClass]="{'error': form.controls['receiptThrough'].errors && !form.controls['receiptThrough'].pristine}">
                           <div *ngIf="form.controls['receiptThrough'].errors && !form.controls['receiptThrough'].pristine" class="error-msg">
@@ -162,7 +153,7 @@
                       </div>
                     </div>
                     <div class="form-row">
-                      <div class="col-md-4 offset-md-2" *ngIf=" form.get('receiptThrough').value =='cheque'">
+                      <div class="col-md-4 offset-md-2" *ngIf="showCheque">
                         <label>Cheque no.</label>
                         <span class="danger">*</span>
                         <input type="text" class="form-control" formControlName="chequeNumber">
@@ -178,7 +169,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4 form-group" [ngClass]="form.get('receiptThrough').value !== 'cheque' ? 'offset-md-2' : ''">
+                      <div class="col-md-4 form-group" [ngClass]="!showCheque ? 'offset-md-2' : ''">
                         <label>Drawn on</label>
                         <span class="danger">*</span>
                         <div class="card-body">
@@ -205,18 +196,11 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4 form-group" [ngClass]="form.get('receiptThrough').value === 'cheque' ? 'offset-md-2' : ''">
+                      <div class="col-md-4 form-group" [ngClass]="showCheque? 'offset-md-2' : ''">
                         <label>Against</label>
                         <span class="danger">*</span>
-                        <select class="form-control" formControlName="against">
-                          <option value="againstInvoice" selected>Against invoice</option>
-                          <option value="againstAccount ">Against account</option>
-                          <option value="againstAdvance" *ngIf=" form.get('receiptType').value =='salesreceipt'">Against advance</option>
-                          <option value="advancereceipt">Advance receipt</option>
-                          <option value="others" *ngIf=" form.get('receiptThrough').value =='cash'"> others</option>
-                        </select>
-
-
+                        <ng-select [items]="againstArray" (change)="showInvoiceNumber($event)" formControlName="against" placeholder="No particulars selected">
+                        </ng-select>
                         <div [ngClass]="{'error': form.controls['against'].errors && !form.controls['against'].pristine}">
                           <div *ngIf="form.controls['against'].errors && !form.controls['against'].pristine" class="error-msg">
                             <small class="form-text text-muted danger" [hidden]="!form.controls['against'].errors.required">
@@ -224,6 +208,19 @@
                             </small>
                             <small class="form-text text-muted danger" [hidden]="!form.controls['against'].errors.patternInvalid">
                               Invalid filed.
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 form-group" *ngIf="showInvoiceNumberField" [ngClass]="!showCheque? 'offset-md-2' : ''">
+                        <label>Against invoice number</label>
+                        <span class="danger">*</span>
+                        <ng-select [items]="allInvoiceNumberArray" formControlName="againstInvoiceNumber">
+                        </ng-select>
+                        <div [ngClass]="{'error': form.controls['againstInvoiceNumber'].errors && !form.controls['againstInvoiceNumber'].pristine}">
+                          <div *ngIf="form.controls['againstInvoiceNumber'].errors && !form.controls['againstInvoiceNumber'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['againstInvoiceNumber'].errors.required">
+                              filed is required.
                             </small>
                           </div>
                         </div>
