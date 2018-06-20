@@ -46,7 +46,7 @@ export class PurchaseReturnComponent implements OnInit {
   public stateList: Array<string> = [];
   public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
   public breadcrumbs = [
-    { name: 'Sales Return' },
+    { name: 'Purchase Return' },
     { name: 'Dashboard', link: '/' },
   ];
   public additionalServiceList: Array<string> = [
@@ -225,6 +225,7 @@ export class PurchaseReturnComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         if (data.success === true) {
+          console.log(data);
           this.originalInvoiceObj = data.purchase;
           this.originalInvoiceArray = this.originalInvoiceObj.map(
             el => el.invoiceNumber

@@ -373,7 +373,12 @@
                               </td>
                               <td width="55%">
 
-                                <ng-select [items]="additionalServiceList" formControlName="additionalService">
+                                <ng-select [items]="ledgerList" formControlName="additionalService" placeholder="No party selected">
+                                  <ng-template ng-header-tmp>
+                                    <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                                      + New Ledger
+                                    </button>
+                                  </ng-template>
                                 </ng-select>
                                 <small [hidden]="form.controls.subParticularsData.controls[i].controls.additionalService.untouched || form.controls.subParticularsData.controls[i].controls.additionalService.valid"
                                   class="text-danger">

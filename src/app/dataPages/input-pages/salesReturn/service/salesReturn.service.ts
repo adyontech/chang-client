@@ -34,6 +34,7 @@ export class SalesReturnService {
       return (this.result = res.json());
     });
   }
+
   getLedgerUGNames(compName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
@@ -42,6 +43,7 @@ export class SalesReturnService {
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
+
   getSalesUGNames(compName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
@@ -50,6 +52,7 @@ export class SalesReturnService {
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
+
   getIvoiceNumbers(compName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl

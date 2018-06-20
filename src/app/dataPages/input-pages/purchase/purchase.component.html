@@ -136,18 +136,23 @@
                               + New Ledger
                             </button>
                           </ng-template>
-                          <div [ngClass]="{'error': form.controls['partyName'].errors && !form.controls['partyName'].pristine}">
-                            <div *ngIf="form.controls['partyName'].errors && !form.controls['partyName'].pristine" class="error-msg">
-                              <small class="form-text text-muted danger" [hidden]="!form.controls['partyName'].errors.required">
-                                filed is required.
-                              </small>
-                            </div>
-                          </div>
                         </ng-select>
+                        <div [ngClass]="{'error': form.controls['partyName'].errors && !form.controls['partyName'].pristine}">
+                          <div *ngIf="form.controls['partyName'].errors && !form.controls['partyName'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['partyName'].errors.required">
+                              filed is required.
+                            </small>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Purchase ledger</label>
                         <ng-select [items]="purchaseList" formControlName="purchaseLedgerName" placeholder="No party selected">
+                          <ng-template ng-header-tmp>
+                            <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                              + New Ledger
+                            </button>
+                          </ng-template>
                         </ng-select>
 
                         <div [ngClass]="{'error': form.controls['purchaseLedgerName'].errors && !form.controls['purchaseLedgerName'].pristine}">
@@ -215,79 +220,6 @@
                                 <th>Amount</th>
                               </tr>
                             </thead>
-
-                            <!-- <div class="block">
-                                  <div class="content ">
-                                    <div class="form-row">
-                                      <div class="col-md-1 col-sm-12 mt-3">
-                                        <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
-                                      </div>
-                                      <div class="col-lg-4 col-sm-5 offset-sm-1 offset-md-0 text-center">
-                                        <h6 class="heading_height">Name of product service
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
-                                        </h6>
-                                        <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct"
-                                          placeholder="No city selected">
-                                          <ng-template ng-header-tmp>
-                                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(content)">+ PrSr</button>
-                                            </ng-template>
-                                        </ng-select>
-                                      </div>
-                                      <div class="col-lg-2 col-sm-5 offset-md-1 offset-lg-0 text-center">
-                                        <h6 class="heading_height"> Qty.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
-                                        </h6>
-                                        <div class="form-group">
-                                          <input type="text" class="form-control" (input)="subSum();  totalSum() " formControlName="qty">
-                                        </div>
-                                      </div>
-
-                                      <div class="col-lg-2 col-sm-5 offset-sm-1 offset-lg-0 text-center">
-                                        <h6 class="heading_height"> Units.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
-                                        </h6>
-                                        <div class="form-group">
-                                          <input type="text" class="form-control" formControlName="units">
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-3 d-none d-lg-block"></div>
-                                      <div class="col-lg-2 offset-lg-3 col-sm-5  offset-md-1 offset-lg-0 text-center">
-                                        <h6 class="heading_height">Rate.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
-                                        </h6>
-                                        <div class="form-group">
-                                          <input type="text" class="form-control" (input)="subSum(); totalSum() " formControlName="rate">
-                                        </div>
-                                      </div>
-
-                                      <div class="col-lg-2 col-sm-5 offset-sm-1 offset-lg-0 text-center">
-                                        <h6 class="heading_height">Sub. amt.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
-                                        </h6>
-                                        <div class="form-group">
-                                          <input type="text" class="form-control" (input)="subSum(); totalSum() " formControlName="subAmount" value=" {{(formDum.get('qty').value)*(formDum.get('rate').value) }}">
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-2 col-sm-5 offset-md-1 offset-lg-0 text-center">
-                                        <h6 class="heading_height"> GST Rate.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
-                                        </h6>
-                                        <div class="form-group">
-                                          <input type="text" class="form-control" (input)="subSum(); totalSum() " formControlName="gstRate">
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-2 col-sm-5 offset-sm-1 offset-lg-0  text-center">
-                                        <h6 class="heading_height"> Amount.
-                                          <span *ngIf="form.controls.particularsData.controls.length > 1">({{i + 1}})</span>
-                                        </h6>
-                                        <div class="form-group">
-                                          <input type="text" class="form-control" placeholder="Amount" (input)="subSum(); totalSum() " formControlName="amount" value=" {{((formDum.get('qty').value)*(formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*formDum.get('gstRate').value) }}">
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div> -->
-
                             <tbody formArrayName="particularsData">
                               <tr *ngFor="let formDum of formData.controls; let i=index" [formGroupName]="i">
                                 <td>
@@ -364,7 +296,12 @@
                               </td>
                               <td width="55%">
 
-                                <ng-select [items]="additionalServiceList" formControlName="additionalService">
+                                <ng-select [items]="ledgerList" formControlName="additionalService" placeholder="No party selected">
+                                  <ng-template ng-header-tmp>
+                                    <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                                      + New Ledger
+                                    </button>
+                                  </ng-template>
                                 </ng-select>
                                 <small [hidden]="form.controls.subParticularsData.controls[i].controls.additionalService.untouched || form.controls.subParticularsData.controls[i].controls.additionalService.valid"
                                   class="text-danger">

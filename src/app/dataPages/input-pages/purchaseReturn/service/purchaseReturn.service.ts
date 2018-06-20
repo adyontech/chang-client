@@ -32,7 +32,7 @@ export class PurchaseReturnService {
     }/api/purchaseReturn?token=${
       this.token
     }&companyName=${compName}&&ownerName=${owner}`;
-    return this.http.post(this._url, user).map((res: Response) => {
+    return this.http.post(this._url, form).map((res: Response) => {
       return (this.result = res.json());
     });
   }
@@ -55,7 +55,7 @@ export class PurchaseReturnService {
   getIvoiceNumbers(compName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/invoiceNumberspurchase?token=${
+    }/api/allPurchaseInvoiceNumbers?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);

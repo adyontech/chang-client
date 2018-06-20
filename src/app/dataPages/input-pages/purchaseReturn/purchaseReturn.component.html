@@ -201,11 +201,6 @@
                         <label>Type of purchase</label>
                         <ng-select [items]="purchaseTypeArray" formControlName="purchaseType" placeholder="No city selected">
                         </ng-select>
-                      </div>
-                      <div class="col-lg-5 col-sm-5 form-group">
-                        <label>Type of sales</label>
-                        <ng-select [items]="purchaseTypeArray" formControlName="purchaseType">
-                        </ng-select>
                         <div [ngClass]="{'error': form.controls['purchaseType'].errors && !form.controls['purchaseType'].pristine}">
                           <div *ngIf="form.controls['purchaseType'].errors && !form.controls['purchaseType'].pristine" class="error-msg">
                             <small class="form-text text-muted danger" [hidden]="!form.controls['purchaseType'].errors.required">
@@ -316,7 +311,12 @@
                               </td>
                               <td width="55%">
 
-                                <ng-select [items]="additionalServiceList" formControlName="additionalService">
+                                <ng-select [items]="ledgerList" formControlName="additionalService" placeholder="No party selected">
+                                  <ng-template ng-header-tmp>
+                                    <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                                      + New Ledger
+                                    </button>
+                                  </ng-template>
                                 </ng-select>
                                 <small [hidden]="form.controls.subParticularsData.controls[i].controls.additionalService.untouched || form.controls.subParticularsData.controls[i].controls.additionalService.valid"
                                   class="text-danger">

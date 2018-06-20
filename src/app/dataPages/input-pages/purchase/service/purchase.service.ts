@@ -22,14 +22,18 @@ export class PurchaseService {
   createNewEntry(user: any, compName, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      form.append(key, user[key]);
+      if (user[key] instanceof Array || user[key] instanceof Object) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
     }
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/purchaseReturn?token=${
+    }/api/purchase?token=${
       this.token
     }&companyName=${compName}&&ownerName=${ownerName}`;
-    return this.http.post(this._url, user).map((res: Response) => {
+    return this.http.post(this._url, form).map((res: Response) => {
       return (this.result = res.json());
     });
   }

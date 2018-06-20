@@ -284,6 +284,7 @@ export class PurchaseComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        this.ledgerList = [];
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
@@ -293,6 +294,7 @@ export class PurchaseComponent implements OnInit {
       .getPurchaseUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        this.purchaseList = [];
         this.purchaseList = this.purchaseList.concat(data.purchaseLedgerList);
       });
   }

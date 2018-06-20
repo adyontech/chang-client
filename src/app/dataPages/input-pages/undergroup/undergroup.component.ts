@@ -31,7 +31,7 @@ export class UnderGroupComponent implements OnInit {
     'revenue (CR)',
     'expenses (DR)',
     'sales (CR)',
-    ' purchases (DR)',
+    'purchases (DR)',
     'asset (DR)',
     'liabilities (CR)',
   ];
