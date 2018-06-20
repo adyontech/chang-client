@@ -56,6 +56,14 @@ export class PaymentService {
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
+  getIvoiceNumbers(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/allSalesInvoiceNumbers?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.get(this._url);
+  }
   getAccountNames(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl

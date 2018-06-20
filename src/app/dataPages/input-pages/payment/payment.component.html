@@ -73,7 +73,6 @@
                               </div>
                             </div>
                           </div>
-
                           <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
                             <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
                               <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
@@ -124,14 +123,8 @@
                       <div class="col-md-4 offset-md-2 form-group">
                         <label>Payment type</label>
                         <span class="danger">*</span>
-                        <select class="form-control" formControlName="paymentType">
-                          <option value="general" selected>General</option>
-                          <option value="purchasepayment">Purchase payment</option>
-                          <option value="advancepayment">Advance payment</option>
-                          <option value="salesrefund">Sales refund</option>
-                          <option value="creditnote">Credit Note</option>
-                          <option value="others">Others</option>
-                        </select>
+                        <ng-select [items]="paymentTypeArray" (change)="setAgainst($event)" formControlName="paymentType" placeholder="No particulars selected">
+                        </ng-select>
 
                         <div [ngClass]="{'error': form.controls['paymentType'].errors && !form.controls['paymentType'].pristine}">
                           <div *ngIf="form.controls['paymentType'].errors && !form.controls['paymentType'].pristine" class="error-msg">
@@ -147,12 +140,8 @@
                       <div class="col-md-4 form-group">
                         <label>Payment Through</label>
                         <span class="danger">*</span>
-                        <select class="form-control" formControlName="paymentThrough">
-                          <option value="cash" selected>Cash</option>
-                          <option value="cheque">Cheque</option>
-                          <option value="etransfer">E transfer</option>
-                          <option value="others">Others</option>
-                        </select>
+                        <ng-select [items]="paymentThroughArray" (change)="toggleCheque($event)" formControlName="paymentThrough" placeholder="No particulars selected">
+                        </ng-select>
 
                         <div [ngClass]="{'error': form.controls['paymentThrough'].errors && !form.controls['paymentThrough'].pristine}">
                           <div *ngIf="form.controls['paymentThrough'].errors && !form.controls['paymentThrough'].pristine" class="error-msg">
@@ -211,14 +200,8 @@
                       <div class="col-md-4 form-group" [ngClass]="form.get('paymentThrough').value === 'cheque' ? 'offset-md-2' : ''">
                         <label>Against</label>
                         <span class="danger">*</span>
-                        <select class="form-control" formControlName="against">
-                          <option value="againstinvoice" selected>Against invoice</option>
-                          <option value="againstaccount ">Against account</option>
-                          <option value="againstAdvance" *ngIf=" form.get('paymentType').value =='purchasepayment'">Against advance</option>
-                          <option value="advancepayment">Advance payment</option>
-                          <option value="others" *ngIf=" form.get('paymentThrough').value =='cash'"> others</option>
-                        </select>
-
+                        <ng-select [items]="againstArray" (change)="showInvoiceNumber($event)" formControlName="against" placeholder="No particulars selected">
+                        </ng-select>
                         <div [ngClass]="{'error': form.controls['against'].errors && !form.controls['against'].pristine}">
                           <div *ngIf="form.controls['against'].errors && !form.controls['against'].pristine" class="error-msg">
                             <small class="form-text text-muted danger" [hidden]="!form.controls['against'].errors.required">
@@ -226,6 +209,19 @@
                             </small>
                             <small class="form-text text-muted danger" [hidden]="!form.controls['against'].errors.patternInvalid">
                               Invalid filed.
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 form-group" *ngIf="showInvoiceNumberField" [ngClass]="!showCheque? 'offset-md-2' : ''">
+                        <label>Against invoice number</label>
+                        <span class="danger">*</span>
+                        <ng-select [items]="allInvoiceNumberArray" formControlName="againstInvoiceNumber">
+                        </ng-select>
+                        <div [ngClass]="{'error': form.controls['againstInvoiceNumber'].errors && !form.controls['againstInvoiceNumber'].pristine}">
+                          <div *ngIf="form.controls['againstInvoiceNumber'].errors && !form.controls['againstInvoiceNumber'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['againstInvoiceNumber'].errors.required">
+                              filed is required.
                             </small>
                           </div>
                         </div>
@@ -289,7 +285,6 @@
                           </tr>
                         </tbody>
                       </table>
-
                       <br>
                       <div class="row">
                         <div class="offset-md-0 col-md-3">

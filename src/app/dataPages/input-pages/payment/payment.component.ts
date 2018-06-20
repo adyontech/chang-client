@@ -33,6 +33,29 @@ export class PaymentComponent implements OnInit {
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
+  public showCheque = false;
+  public showInvoiceNumberField = false;
+  public allInvoiceNumberArray: Array<string> = [];
+  public paymentTypeArray: Array<string> = [
+    'General',
+    'Purchase payment',
+    'Sales refund',
+    'Credit Note',
+    'Others',
+  ];
+  public paymentThroughArray: Array<string> = [
+    'Cash',
+    'Cheque',
+    'E transfer',
+    'Others',
+  ];
+  public againstArray: Array<string> = [
+    'Against invoice',
+    'Against account',
+    'Against advance',
+    'others',
+  ];
+
   public value: any = {};
   public breadcrumbs = [{ name: 'Payment' }, { name: 'Dasboard', link: '/' }];
 
@@ -67,6 +90,7 @@ export class PaymentComponent implements OnInit {
       paymentType: new FormControl('', [Validators.required]),
       paymentThrough: new FormControl('', [Validators.required]),
       chequeNumber: [''],
+      againstInvoiceNumber: [''],
       drawnOn: new FormControl(
         '',
         Validators.compose([
@@ -159,6 +183,50 @@ export class PaymentComponent implements OnInit {
         month: dateval.getMonth(),
         day: dateval.getDate(),
       });
+    }
+  }
+
+  setAgainst(value) {
+    this.showInvoiceNumberField = false;
+    if (value === 'Purchase payment' || value === 'Sales refund') {
+      this.againstArray = [...this.againstArray, 'Sales refund'];
+      this.form.patchValue({
+        against: 'Sales refund',
+      });
+    } else {
+      this.showInvoiceNumberField = false;
+      this.form.patchValue({
+        against: '',
+      });
+    }
+  }
+  showInvoiceNumber(value) {
+    if (value === 'Against invoice') {
+      this.showInvoiceNumberField = true;
+      this._paymentService
+        .getIvoiceNumbers(this.paramId, this.ownerName)
+        .map(response => response.json())
+        .subscribe(data => {
+          if (data.success === true) {
+            const originalInvoiceObj = data.sales;
+            originalInvoiceObj.map(el => {
+              this.allInvoiceNumberArray = [
+                ...this.allInvoiceNumberArray,
+                el.invoiceNumber,
+              ];
+            });
+          }
+        });
+    } else {
+      this.showInvoiceNumberField = false;
+    }
+  }
+
+  toggleCheque(value) {
+    if (value === 'Cheque') {
+      this.showCheque = true;
+    } else {
+      this.showCheque = false;
     }
   }
 

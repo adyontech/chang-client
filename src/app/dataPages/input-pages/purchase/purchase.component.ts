@@ -42,6 +42,7 @@ export class PurchaseComponent implements OnInit {
   public prsrList: Array<string> = [];
 
   public stateList: Array<string> = [];
+  public addSubArray = ['Add(+)', 'Sub(-)'];
   public additionalServiceList: Array<string> = [
     'Discount',
     'Freight',
@@ -180,6 +181,7 @@ export class PurchaseComponent implements OnInit {
     return this.fb.group({
       additionalService: [null],
       percent: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      addSub: ['Add(+)'],
     });
   }
   addParticular() {
@@ -332,6 +334,11 @@ export class PurchaseComponent implements OnInit {
       }
     }
   }
+
+  totalSumBySwitch(value) {
+    console.log(value);
+    this.totalSum();
+  }
   totalSum() {
     this.form.patchValue({
       grandTotal: 0,
@@ -340,8 +347,13 @@ export class PurchaseComponent implements OnInit {
     this.totalAmount = 0;
     for (let i = 0; i < formControls.length; i++) {
       const percent = formControls[i].controls.percent.value;
+      const addSub = formControls[i].controls.addSub.value;
       if (!isNaN(percent) && percent !== '') {
-        this.totalAmount += parseFloat(percent);
+        if (addSub === 'Add(+)') {
+          this.totalAmount += parseFloat(percent);
+        } else if (addSub === 'Sub(-)') {
+          this.totalAmount -= parseFloat(percent);
+        }
       }
     }
     if (!isNaN(this.subTotal)) {

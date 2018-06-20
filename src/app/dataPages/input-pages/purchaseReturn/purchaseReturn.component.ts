@@ -55,6 +55,7 @@ export class PurchaseReturnComponent implements OnInit {
     'Shipping Charge',
     'BY WATER',
   ];
+  public addSubArray = ['Add(+)', 'Sub(-)'];
   public purchaseTypeArray = [
     'Intra State',
     'Inter State',
@@ -185,6 +186,7 @@ export class PurchaseReturnComponent implements OnInit {
     return this.fb.group({
       additionalService: [''],
       percent: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      addSub: ['Add(+)'],
     });
   }
   addParticular() {
@@ -237,13 +239,11 @@ export class PurchaseReturnComponent implements OnInit {
   updateFromOriginalInvoice(value) {
     this.originalInvoiceObj.map(el => {
       if (el.invoiceNumber === value) {
-        console.log(el);
         this._purchaseService
           .getPurchaseInvoiceDataById(el._id, this.paramId, this.ownerId)
           .map(response => response.json())
           .subscribe(data => {
             const originalDate = new Date(data.purchase.date);
-            console.log(data.purchase);
             this.form.controls['originalInvoiceDate'].setValue({
               year: originalDate.getFullYear(),
               month: originalDate.getMonth(),
@@ -381,6 +381,11 @@ export class PurchaseReturnComponent implements OnInit {
       }
     }
   }
+
+  totalSumBySwitch(value) {
+    console.log(value);
+    this.totalSum();
+  }
   totalSum() {
     this.form.patchValue({
       grandTotal: 0,
@@ -389,8 +394,13 @@ export class PurchaseReturnComponent implements OnInit {
     this.totalAmount = 0;
     for (let i = 0; i < formControls.length; i++) {
       const percent = formControls[i].controls.percent.value;
+      const addSub = formControls[i].controls.addSub.value;
       if (!isNaN(percent) && percent !== '') {
-        this.totalAmount += parseFloat(percent);
+        if (addSub === 'Add(+)') {
+          this.totalAmount += parseFloat(percent);
+        } else if (addSub === 'Sub(-)') {
+          this.totalAmount -= parseFloat(percent);
+        }
       }
     }
     if (!isNaN(this.subTotal)) {
