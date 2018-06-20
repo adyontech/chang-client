@@ -54,7 +54,7 @@
 <div class="row">
   <div class="col-sm-5">
     <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
-  </div>
+  </div>originalInvoiceArray
   <div class="col-sm-5 mt-3">
     <h3>
       <b> {{paramId | titlecase}}
@@ -75,6 +75,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Credit invoice Number</label>
+                        <span class="danger">*</span>
                         <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="creditInvoiceNumber">
                         <div [ngClass]="{'error': form.controls['creditInvoiceNumber'].errors && !form.controls['creditInvoiceNumber'].pristine}">
                           <div *ngIf="form.controls['creditInvoiceNumber'].errors && !form.controls['creditInvoiceNumber'].pristine" class="error-msg">
@@ -89,6 +90,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Original invoice number</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="originalInvoiceArray" (change)="updateFromOriginalInvoice($event)" formControlName="originalInvoiceNumber">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['originalInvoiceNumber'].errors && !form.controls['originalInvoiceNumber'].pristine}">
@@ -103,6 +105,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Date</label>
+                        <span class="danger">*</span>
                         <div class="card-body">
                           <div class="form-group">
                             <div class="input-group">
@@ -128,6 +131,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Original invoice date</label>
+                        <span class="danger">*</span>
                         <div class="card-body">
                           <div class="form-group">
                             <div class="input-group">
@@ -155,6 +159,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
                         <label>Party Name</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="ledgerList" formControlName="partyName">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
@@ -170,6 +175,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Purchase ledger</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="purchaseList" formControlName="purchaseLedgerName" placeholder="No party selected">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['purchaseLedgerName'].errors && !form.controls['purchaseLedgerName'].pristine}">
@@ -184,6 +190,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
                         <label>Place of supply</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="stateList" (change)="fillTypeOfPurchase($event)" formControlName="supplyPlace">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['supplyPlace'].errors && !form.controls['supplyPlace'].pristine}">
@@ -199,6 +206,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Type of purchase</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="purchaseTypeArray" formControlName="purchaseType" placeholder="No city selected">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['purchaseType'].errors && !form.controls['purchaseType'].pristine}">

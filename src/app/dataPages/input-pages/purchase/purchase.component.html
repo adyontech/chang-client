@@ -78,6 +78,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Invoice Number</label>
+                        <span class="danger">*</span>
                         <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="invoiceNumber">
                         <div [ngClass]="{'error': form.controls['invoiceNumber'].errors && !form.controls['invoiceNumber'].pristine}">
                           <div *ngIf="form.controls['invoiceNumber'].errors && !form.controls['invoiceNumber'].pristine" class="error-msg">
@@ -99,6 +100,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Date</label>
+                        <span class="danger">*</span>
                         <div class="card-body">
                           <div class="form-group">
                             <div class="input-group">
@@ -130,6 +132,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
                         <label>Party Name</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="ledgerList" formControlName="partyName" placeholder="No party selected">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
@@ -147,6 +150,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Purchase ledger</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="purchaseList" formControlName="purchaseLedgerName" placeholder="No party selected">
                           <ng-template ng-header-tmp>
                             <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
@@ -167,6 +171,7 @@
                     <div class="form-row">
                       <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
                         <label>Place of supply</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="stateList" (change)="fillTypeOfPurchase($event)" formControlName="supplyPlace">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['supplyPlace'].errors && !form.controls['supplyPlace'].pristine}">
@@ -182,6 +187,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Type of Purchase</label>
+                        <span class="danger">*</span>
                         <ng-select [items]="purchaseTypeArray" formControlName="purchaseType">
                         </ng-select>
                         <div [ngClass]="{'error': form.controls['purchaseType'].errors && !form.controls['purchaseType'].pristine}">
