@@ -183,12 +183,14 @@ export class ReceiptComponent implements OnInit {
     }
   }
   setAgainst(value) {
+    this.showInvoiceNumberField = false;
     if (value === 'Sales receipt' || value === 'Advance receipt') {
       this.againstArray = [...this.againstArray, 'Advance receipt'];
       this.form.patchValue({
         against: 'Advance receipt',
       });
     } else {
+      this.showInvoiceNumberField = false;
       this.form.patchValue({
         against: '',
       });
@@ -203,7 +205,7 @@ export class ReceiptComponent implements OnInit {
         .subscribe(data => {
           if (data.success === true) {
             const originalInvoiceObj = data.sales;
-            const invoiceNumberArray = originalInvoiceObj.map(el => {
+            originalInvoiceObj.map(el => {
               this.allInvoiceNumberArray = [
                 ...this.allInvoiceNumberArray,
                 el.invoiceNumber,
@@ -211,6 +213,8 @@ export class ReceiptComponent implements OnInit {
             });
           }
         });
+    } else {
+      this.showInvoiceNumberField = false;
     }
   }
   toggleCheque(value) {

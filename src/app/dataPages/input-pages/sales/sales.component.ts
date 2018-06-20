@@ -49,6 +49,7 @@ export class SalesComponent implements OnInit {
     'Shipping Charge',
     'BY WATER',
   ];
+  public addSubArray = ['Add(+)', 'Sub(-)'];
   public transportationModeArray = ['Road', 'Train', 'Air', 'Water'];
   public salesType = [
     'Intra State',
@@ -174,6 +175,7 @@ export class SalesComponent implements OnInit {
     return this.fb.group({
       additionalService: [null],
       percent: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      addSub: ['Add(+)'],
     });
   }
   get formData() {
@@ -282,6 +284,10 @@ export class SalesComponent implements OnInit {
       }
     }
   }
+  totalSumBySwitch(value) {
+    console.log(value);
+    this.totalSum();
+  }
   totalSum() {
     this.form.patchValue({
       grandTotal: 0,
@@ -290,8 +296,13 @@ export class SalesComponent implements OnInit {
     this.totalAmount = 0;
     for (let i = 0; i < formControls.length; i++) {
       const percent = formControls[i].controls.percent.value;
+      const addSub = formControls[i].controls.addSub.value;
       if (!isNaN(percent) && percent !== '') {
-        this.totalAmount += parseFloat(percent);
+        if (addSub === 'Add(+)') {
+          this.totalAmount += parseFloat(percent);
+        } else if (addSub === 'Sub(-)') {
+          this.totalAmount -= parseFloat(percent);
+        }
       }
     }
     if (!isNaN(this.subTotal)) {

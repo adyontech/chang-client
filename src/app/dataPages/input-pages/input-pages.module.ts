@@ -41,6 +41,7 @@ import { UnderGroupsService } from './undergroup/service/underGroup.service';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 import { StateVaribles } from './../../shared/forms/States';
 import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { GlobalCompanyService } from './../../shared/globalServices/oneCallvaria
     NgbModule,
     ArchwizardModule,
     NgSelectModule,
+    UiSwitchModule,
   ],
   declarations: [
     BreadcrumbsComponent,
