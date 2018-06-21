@@ -26,8 +26,7 @@
   </div>
   <div class="col-sm-5 mt-3">
     <h3>
-      <b> {{paramId | titlecase}}
-      </b>
+      <b>{{paramId | titlecase}}</b>
     </h3>
   </div>
 </div>
@@ -207,7 +206,7 @@
                   <!-- Step 3 -->
                   <wizard-step stepTitle="Other details" navigationSymbol="3">
                     <div class="row">
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4  offset-md-2">
                         <div class="form-group">
                           <label class="text-left" for="name">
                             Name
@@ -226,7 +225,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="text-left" for="email">
                             E-Mail
@@ -249,7 +248,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4  offset-md-2">
                         <div class="form-group">
                           <label class="text-left" for="address">
                             Address
@@ -269,7 +268,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label for="city">City</label>
                           <span class="danger">*</span>
@@ -288,7 +287,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4  offset-md-2">
                         <div class="form-group">
                           <label class="text-left" for="state">
                             State
@@ -309,7 +308,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="text-left" for="pinCode">
                             Pin Code
@@ -332,7 +331,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4  offset-md-2">
                         <div class="form-group">
                           <label for="country">Country</label>
                           <span class="danger">*</span>
@@ -350,7 +349,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-5  offset-md-1">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="text-left" for="phoneNumber">
                             Phone Number
@@ -375,11 +374,11 @@
                     </div>
                     <div class="row text-center">
                       <div class="col-md-5">
-                        <h6>Opening Balance:</h6>
+                        <h5>Opening Balance</h5>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-3  offset-md-1">
+                      <div class="col-md-2  offset-md-3">
                         <div class="form-group">
                           <label class="text-left" for="qty">
                             Quantity
@@ -388,7 +387,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-3  offset-md-1">
+                      <div class="col-md-2">
                         <div class="form-group">
                           <label class="text-left" for="rate">
                             Rate
@@ -397,7 +396,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-3  offset-md-1">
+                      <div class="col-md-2">
                         <div class="form-group">
                           <label class="text-left" for="total">
                             Total
@@ -414,7 +413,8 @@
                         Reset
                       </button>
                       <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" [disabled]="form.invalid" resetWizard>
-                        submit</button>
+                        submit
+                      </button>
                     </div>
                   </wizard-step>
                 </div>

@@ -285,6 +285,18 @@ export class ReceiptComponent implements OnInit {
       } else {
         return;
       }
+      user.date = new Date(user.date);
+      this.form.controls['date'].setValue({
+        year: user.date.getFullYear(),
+        month: user.date.getMonth(),
+        day: user.date.getDate(),
+      });
+      user.drawnOn = new Date(user.drawnOn);
+      this.form.controls['drawnOn'].setValue({
+        year: user.drawnOn.getFullYear(),
+        month: user.drawnOn.getMonth(),
+        day: user.drawnOn.getDate(),
+      });
     });
   }
 }

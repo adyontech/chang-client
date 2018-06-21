@@ -37,7 +37,6 @@ export class PaymentService {
         (user[key] instanceof Array || user[key] instanceof Object)
       ) {
         form.append(key, JSON.stringify(user[key]));
-        console.log(key);
       } else {
         form.append(key, user[key]);
       }
