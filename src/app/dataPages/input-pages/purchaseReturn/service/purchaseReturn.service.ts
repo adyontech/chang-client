@@ -21,7 +21,10 @@ export class PurchaseReturnService {
   createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      if (user[key] instanceof Array || user[key] instanceof Object) {
+      if (
+        key !== 'attachment' &&
+        (user[key] instanceof Array || user[key] instanceof Object)
+      ) {
         form.append(key, JSON.stringify(user[key]));
       } else {
         form.append(key, user[key]);

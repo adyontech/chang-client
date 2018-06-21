@@ -79,7 +79,7 @@
                       <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
                         <label>Invoice Number</label>
                         <span class="danger">*</span>
-                        <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="invoiceNumber">
+                        <input type="text" class="form-control" name="company_name" formControlName="invoiceNumber">
                         <div [ngClass]="{'error': form.controls['invoiceNumber'].errors && !form.controls['invoiceNumber'].pristine}">
                           <div *ngIf="form.controls['invoiceNumber'].errors && !form.controls['invoiceNumber'].pristine" class="error-msg">
                             <small class="form-text text-muted danger" [hidden]="!form.controls['invoiceNumber'].errors.required">
@@ -126,7 +126,7 @@
                       </div>
                       <div class="col-lg-5 col-sm-5 form-group">
                         <label>Vehicle Number</label>
-                        <input type="text" class="form-control" name="company_name" placeholder="Company Name" formControlName="vehicleNumber">
+                        <input type="text" class="form-control" name="company_name" formControlName="vehicleNumber">
                       </div>
                     </div>
                     <div class="form-row">
@@ -219,19 +219,19 @@
                                 <th>Name of product service
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Qty.
+                                <th>Qty
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Units.
+                                <th>Units
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Rate.
+                                <th>Rate
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Sub. amt.
+                                <th>Sub. amt
                                   <span class="danger">*</span>
                                 </th>
-                                <th>GST Rate.
+                                <th>GST Rate
                                   <span class="danger">*</span>
                                 </th>
                                 <th>Amount

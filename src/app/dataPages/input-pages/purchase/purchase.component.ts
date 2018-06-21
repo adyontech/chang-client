@@ -96,7 +96,7 @@ export class PurchaseComponent implements OnInit {
       particularsData: this.fb.array([]),
       subParticularsData: this.fb.array([]),
       narration: [''],
-      file: [''],
+      attachment: [''],
       date: new FormControl(
         '',
         Validators.compose([
@@ -248,6 +248,11 @@ export class PurchaseComponent implements OnInit {
   }
 
   onSubmit(user) {
+    user.date = new Date(
+      user.date.year,
+      user.date.month,
+      user.date.day
+    ).getTime();
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.particularsData.map(el => {
@@ -278,6 +283,12 @@ export class PurchaseComponent implements OnInit {
       } else {
         return;
       }
+      user.date = new Date(user.date);
+      this.form.controls['date'].setValue({
+        year: user.date.getFullYear(),
+        month: user.date.getMonth(),
+        day: user.date.getDate(),
+      });
     });
   }
 
