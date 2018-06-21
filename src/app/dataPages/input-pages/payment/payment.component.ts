@@ -251,8 +251,6 @@ export class PaymentComponent implements OnInit {
 
   onFileChange(event) {
     this.attachmentError = false;
-    const reader = new FileReader();
-
     if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
         this.form.get('attachment').setValue(event.target.files[0]);
@@ -265,6 +263,16 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(user) {
+    user.date = new Date(
+      user.date.year,
+      user.date.month,
+      user.date.day
+    ).getTime();
+    user.drawnOn = new Date(
+      user.drawnOn.year,
+      user.drawnOn.month,
+      user.drawnOn.day
+    ).getTime();
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.endtotal = this.totalAmount;

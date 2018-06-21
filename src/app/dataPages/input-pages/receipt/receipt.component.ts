@@ -101,6 +101,7 @@ export class ReceiptComponent implements OnInit {
       particularsData: this.fb.array([]),
       narration: [''],
       attachment: [''],
+      endtotal: [''],
     });
     this.addParticular();
   }
@@ -255,12 +256,23 @@ export class ReceiptComponent implements OnInit {
   }
 
   onSubmit(user) {
+    user.date = new Date(
+      user.date.year,
+      user.date.month,
+      user.date.day
+    ).getTime();
+    user.drawnOn = new Date(
+      user.drawnOn.year,
+      user.drawnOn.month,
+      user.drawnOn.day
+    ).getTime();
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.endtotal = this.totalAmount;
         this._receiptService
-          .createNewEntry(user, this.paramId)
+          .createNewEntry(user, this.paramId, this.ownerName)
           .subscribe(data => {
+            console.log(data);
             if (data.success) {
               this._toastrService.typeSuccess(
                 'success',

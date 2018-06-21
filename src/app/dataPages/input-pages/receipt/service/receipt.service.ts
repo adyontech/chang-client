@@ -16,8 +16,6 @@ export class ReceiptService {
 
   constructor(
     private http: Http,
-    private router: Router,
-    private route: ActivatedRoute,
     public _globalVariableService: GlobalVaribles
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
@@ -31,10 +29,13 @@ export class ReceiptService {
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any, compName) {
+  createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      if (user[key] instanceof Array || user[key] instanceof Object) {
+      if (
+        key !== 'attachment' &&
+        (user[key] instanceof Array || user[key] instanceof Object)
+      ) {
         form.append(key, JSON.stringify(user[key]));
       } else {
         form.append(key, user[key]);
@@ -42,7 +43,9 @@ export class ReceiptService {
     }
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/receipts?token=${this.token}&companyName=${compName}`;
+    }/api/receipts?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, form).map((res: Response) => {
       return res.json();
     });
