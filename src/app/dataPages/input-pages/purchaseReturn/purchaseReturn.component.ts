@@ -73,7 +73,9 @@ export class PurchaseReturnComponent implements OnInit {
     private modalService: NgbModal,
     public _globalCompanyService: GlobalCompanyService,
     public _toastrService: ToastrService
-  ) {}
+  ) {
+    this.stateList = this._stateVariables.stateListArray;
+  }
 
   ngOnInit() {
     this.getRouteParam();
@@ -243,7 +245,8 @@ export class PurchaseReturnComponent implements OnInit {
           .getPurchaseInvoiceDataById(el._id, this.paramId, this.ownerId)
           .map(response => response.json())
           .subscribe(data => {
-            const originalDate = new Date(data.purchase.date);
+            console.log(data.purchase);
+            const originalDate = new Date(parseInt(data.purchase.date, 0));
             this.form.controls['originalInvoiceDate'].setValue({
               year: originalDate.getFullYear(),
               month: originalDate.getMonth(),
@@ -288,6 +291,11 @@ export class PurchaseReturnComponent implements OnInit {
       user.date.month,
       user.date.day
     ).getTime();
+    user.originalInvoiceDate = new Date(
+      user.originalInvoiceDate.year,
+      user.originalInvoiceDate.month,
+      user.originalInvoiceDate.day
+    ).getTime();
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.particularsData.map(el => {
@@ -323,6 +331,12 @@ export class PurchaseReturnComponent implements OnInit {
         year: user.date.getFullYear(),
         month: user.date.getMonth(),
         day: user.date.getDate(),
+      });
+      user.originalInvoiceDate = new Date(user.originalInvoiceDate);
+      this.form.controls['originalInvoiceDate'].setValue({
+        year: user.originalInvoiceDate.getFullYear(),
+        month: user.originalInvoiceDate.getMonth(),
+        day: user.originalInvoiceDate.getDate(),
       });
     });
   }

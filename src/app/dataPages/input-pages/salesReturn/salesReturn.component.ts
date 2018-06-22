@@ -234,9 +234,11 @@ export class SalesReturnComponent implements OnInit {
       .subscribe(data => {
         if (data.success === true) {
           this.originalInvoiceObj = data.sales;
-          this.originalInvoiceArray = this.originalInvoiceObj.map(
-            el => el.invoiceNumber
-          );
+          this.originalInvoiceArray = this.originalInvoiceObj.map(el => {
+            if (el.invoiceNumber !== null || el.invoiceNumber !== undefined) {
+              return el.invoiceNumber;
+            }
+          });
         }
       });
   }
@@ -244,13 +246,11 @@ export class SalesReturnComponent implements OnInit {
   updateFromOriginalInvoice(value) {
     this.originalInvoiceObj.map(el => {
       if (el.invoiceNumber === value) {
-        console.log(el);
         this._salesService
           .getSalesInvoiceDataById(el._id, this.paramId, this.ownerId)
           .map(response => response.json())
           .subscribe(data => {
-            const originalDate = new Date(data.sales.date);
-            console.log(data.sales);
+            const originalDate = new Date(parseInt(data.sales.date, 0));
             this.form.controls['originalInvoiceDate'].setValue({
               year: originalDate.getFullYear(),
               month: originalDate.getMonth(),
@@ -387,6 +387,11 @@ export class SalesReturnComponent implements OnInit {
       user.date.month,
       user.date.day
     ).getTime();
+    user.originalInvoiceDate = new Date(
+      user.originalInvoiceDate.year,
+      user.originalInvoiceDate.month,
+      user.originalInvoiceDate.day
+    ).getTime();
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.particularsData.map(el => {
@@ -422,6 +427,12 @@ export class SalesReturnComponent implements OnInit {
         year: user.date.getFullYear(),
         month: user.date.getMonth(),
         day: user.date.getDate(),
+      });
+      user.originalInvoiceDate = new Date(user.originalInvoiceDate);
+      this.form.controls['originalInvoiceDate'].setValue({
+        year: user.originalInvoiceDate.getFullYear(),
+        month: user.originalInvoiceDate.getMonth(),
+        day: user.originalInvoiceDate.getDate(),
       });
     });
   }

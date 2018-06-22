@@ -30,7 +30,9 @@ export class SalesReturnService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/sales?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/salesReturn?token=${
       this.token
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, form).map((res: Response) => {
