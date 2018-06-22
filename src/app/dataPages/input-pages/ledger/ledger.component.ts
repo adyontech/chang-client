@@ -123,9 +123,9 @@ export class LedgerComponent implements OnInit {
       // this._dashboardSettingService.setParamId(this.paramId);
     });
     this.breadcrumbs = [
-      { name: 'Ledger Form' },
+      { name: 'Ledger' },
       {
-        name: 'Dasboard',
+        name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
       },
     ];

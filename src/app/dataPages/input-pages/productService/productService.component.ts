@@ -127,9 +127,9 @@ export class ProductServiceComponent implements OnInit {
       this.ownerName = params.owner;
     });
     this.breadcrumbs = [
-      { name: 'Ledger Form' },
+      { name: 'Product and Service' },
       {
-        name: 'Dasboard',
+        name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
       },
     ];

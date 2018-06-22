@@ -34,7 +34,7 @@ export class ContraComponent implements OnInit {
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
 
-  breadcrumbs = [{ name: 'Contra' }, { name: 'Dasboard', link: '/' }];
+  breadcrumbs = [{ name: 'Contra' }, { name: 'Dashboard', link: '/' }];
   public value: any = {};
   public _disabledV: String = '0';
   public disabled: Boolean = false;

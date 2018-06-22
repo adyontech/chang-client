@@ -66,7 +66,7 @@ export class UnderGroupComponent implements OnInit {
     this.breadcrumbs = [
       { name: 'Undergroup' },
       {
-        name: 'Dasboard',
+        name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
       },
     ];

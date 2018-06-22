@@ -57,7 +57,7 @@ export class PaymentComponent implements OnInit {
   ];
 
   public value: any = {};
-  public breadcrumbs = [{ name: 'Payment' }, { name: 'Dasboard', link: '/' }];
+  public breadcrumbs = [{ name: 'Payment' }, { name: 'Dashboard', link: '/' }];
 
   constructor(
     private route: ActivatedRoute,

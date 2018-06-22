@@ -101,7 +101,7 @@ export class ProductServiceComponent implements OnInit {
     this.breadcrumbs = [
       { name: 'Product and service' },
       {
-        name: 'Dasboard',
+        name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
       },
     ];
