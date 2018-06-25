@@ -34,6 +34,8 @@ export class PurchaseComponent implements OnInit {
   public companyStateName: String;
   public totalAmount: number;
   public attachmentError: Boolean = false;
+  public minNgbDate;
+  public maxNgbDate;
   public attachmentName: String = 'No File Choosen.';
   public value: any = {};
 
@@ -99,10 +101,7 @@ export class PurchaseComponent implements OnInit {
       attachment: [''],
       date: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       grandTotal: ['0'],
     });
@@ -212,6 +211,7 @@ export class PurchaseComponent implements OnInit {
       .getGlobalCompanyData(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
         this.companyStateName = data.state;
       });
   }
