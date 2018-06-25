@@ -54,10 +54,7 @@ export class JournalEntryComponent implements OnInit {
       ]),
       date: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       narration: [''],
       particularsData: this.fb.array([]),

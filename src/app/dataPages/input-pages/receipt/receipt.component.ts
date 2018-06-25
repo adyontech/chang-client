@@ -80,10 +80,7 @@ export class ReceiptComponent implements OnInit {
       ]),
       date: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('5', '4'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       account: new FormControl('', [Validators.required]),
       receiptType: new FormControl('', [Validators.required]),
@@ -92,10 +89,7 @@ export class ReceiptComponent implements OnInit {
       chequeNumber: [''],
       drawnOn: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('5', '4'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       against: new FormControl('', [Validators.required]),
       particularsData: this.fb.array([]),

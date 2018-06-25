@@ -1,6 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DeleteCompanyService } from './service/deleteCompany.service';
-import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+import {
+  Router,
+  CanActivate,
+  ActivatedRoute,
+  RouterStateSnapshot,
+} from '@angular/router';
 import * as alertFunctions from './../../shared/data/sweet-alerts';
 import { Routes, RouterModule } from '@angular/router';
 @Component({
@@ -39,8 +44,14 @@ export class DeleteCompanyComponent implements OnInit {
   deleteCompany() {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
-        this._dashboardSettingService.deleteCompany(this.paramId, this.ownerName).subscribe(res => {
-        });
+        this._dashboardSettingService
+          .deleteCompany(this.paramId, this.ownerName)
+          .subscribe(res => {
+            console.log(res);
+            if (res.success) {
+              this.router.navigate(['/gateway']);
+            }
+          });
       } else {
         return;
       }

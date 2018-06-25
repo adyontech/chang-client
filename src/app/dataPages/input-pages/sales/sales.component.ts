@@ -100,10 +100,7 @@ export class SalesComponent implements OnInit {
       attachment: [''],
       date: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       grandTotal: ['0'],
     });

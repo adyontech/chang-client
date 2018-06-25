@@ -11,6 +11,7 @@ import { ToastrService } from './../../../utilities/toastr.service';
 import { DateValidator } from '../../../shared/validators/dateValidator';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { StateVaribles } from './../../../shared/forms/States';
+import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 @Component({
   selector: 'app-add-company',
@@ -89,18 +90,12 @@ export class AddCompanyComponent implements OnInit {
 
       startDate: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
 
       endDate: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
 
       logo: [''],
@@ -110,36 +105,57 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log(user);
-    this._toastrService.typeWarning('Processing the data');
     if (this.logoError === true || this.signatureError === true) {
       return;
     }
-    user.pan = user.pan.toLowerCase();
-    user.gstin = user.gstin.toLowerCase();
     user.startDate = new Date(
       user.startDate.year,
       user.startDate.month,
       user.startDate.day
-    );
+    ).getTime();
     user.endDate = new Date(
       user.endDate.year,
       user.endDate.month,
       user.endDate.day
-    );
+    ).getTime();
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        this._toastrService.typeWarning('Processing the data');
 
-    this._gatewayService.createNewCompany(user).subscribe((data: IData) => {
-      this.allowClick = false;
-      if (data.success) {
-        this._toastrService.typeSuccess('success', 'Data successfully added');
-        this._toastrService.typeInfo('Redirecting to Gateway page', 'Info');
-        this.router.navigate(['/gateway']);
+        this._gatewayService.createNewCompany(user).subscribe((data: IData) => {
+          this.allowClick = false;
+          if (data.success) {
+            this._toastrService.typeSuccess(
+              'success',
+              'Data successfully added'
+            );
+            this._toastrService.typeInfo('Redirecting to Gateway page', 'Info');
+            this.router.navigate(['/gateway']);
+          } else {
+            this.resetDateFormat(user);
+            this._toastrService.typeError('Error', data.message);
+          }
+        });
       } else {
-        this._toastrService.typeError('Error', data.message);
+        this.resetDateFormat(user);
+        return;
       }
     });
   }
-
+  resetDateFormat(user) {
+    user.startDate = new Date(user.startDate);
+    this.form.controls['startDate'].setValue({
+      year: user.startDate.getFullYear(),
+      month: user.startDate.getMonth(),
+      day: user.startDate.getDate(),
+    });
+    user.endDate = new Date(user.endDate);
+    this.form.controls['endDate'].setValue({
+      year: user.endDate.getFullYear(),
+      month: user.endDate.getMonth(),
+      day: user.endDate.getDate(),
+    });
+  }
   // this.form.controls[fileField].setErrors({ incorrect: true });
   onFileChange(event, fileField) {
     fileField === 'logo'
