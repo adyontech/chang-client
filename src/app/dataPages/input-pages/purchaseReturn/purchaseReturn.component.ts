@@ -89,17 +89,11 @@ export class PurchaseReturnComponent implements OnInit {
       originalInvoiceNumber: new FormControl('', [Validators.required]),
       date: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       originalInvoiceDate: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       partyName: new FormControl('', [Validators.required]),
       purchaseLedgerName: new FormControl('', [Validators.required]),

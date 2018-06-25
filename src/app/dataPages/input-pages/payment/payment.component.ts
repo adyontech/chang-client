@@ -81,10 +81,7 @@ export class PaymentComponent implements OnInit {
       ]),
       date: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       account: new FormControl('', [Validators.required]),
       paymentType: new FormControl('', [Validators.required]),
@@ -93,10 +90,7 @@ export class PaymentComponent implements OnInit {
       againstInvoiceNumber: [''],
       drawnOn: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
       particularsData: this.fb.array([]),
       narration: [''],

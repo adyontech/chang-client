@@ -89,18 +89,12 @@ export class AddCompanyComponent implements OnInit {
 
       startDate: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
 
       endDate: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          DateValidator.datevalidator('2', '3'),
-        ])
+        Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
 
       logo: [''],
