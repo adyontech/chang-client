@@ -212,7 +212,20 @@ export class PurchaseComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
         this.companyStateName = data.state;
+        console.log(this.maxNgbDate);
       });
   }
 
