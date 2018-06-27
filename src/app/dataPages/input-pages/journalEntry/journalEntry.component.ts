@@ -49,6 +49,7 @@ export class JournalEntryComponent implements OnInit {
 
   ngOnInit() {
     this.getRouteParam();
+    this.getGlobalCompanyData();
     this.getLedgerUGNames();
     this.form = this.fb.group({
       journalNumber: new FormControl('', [
@@ -135,6 +136,25 @@ export class JournalEntryComponent implements OnInit {
     }
   }
 
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
+      });
+  }
   dateRangeValidator(arg) {
     let dateError;
     const dateVal = this.form.get(arg).value;

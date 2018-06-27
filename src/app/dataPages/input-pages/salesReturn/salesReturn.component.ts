@@ -15,7 +15,6 @@ import { patternValidator } from './../../../shared/validators/pattern-validator
 import { DateValidator } from './../../../shared/validators/dateValidator';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 import { SalesReturnService } from './service/salesReturn.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
   selector: 'app-sales-return',
@@ -184,6 +183,27 @@ export class SalesReturnComponent implements OnInit {
     });
   }
 
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
+        this.companyStateName = data.state;
+      });
+  }
+
   dateRangeValidator(arg) {
     let dateError;
     const dateVal = this.form.get(arg).value;
@@ -230,15 +250,6 @@ export class SalesReturnComponent implements OnInit {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     cont.removeAt(i);
-  }
-
-  getGlobalCompanyData() {
-    this.dataCopy = this._globalCompanyService
-      .getGlobalCompanyData(this.paramId, this.ownerId)
-      .map(response => response.json())
-      .subscribe(data => {
-        this.companyStateName = data.state;
-      });
   }
 
   getIvoiceNumbers() {

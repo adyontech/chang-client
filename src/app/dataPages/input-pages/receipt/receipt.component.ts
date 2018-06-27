@@ -75,6 +75,7 @@ export class ReceiptComponent implements OnInit {
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getAccountNames();
+    this.getGlobalCompanyData();
     this.getLedgerNames();
     this.form = this.fb.group({
       receiptNumber: new FormControl('', [
@@ -161,10 +162,31 @@ export class ReceiptComponent implements OnInit {
     return <FormArray>this.form.get('particularsData');
   }
 
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
+      });
+  }
+
   dateRangeValidator(arg) {
     let dateError;
     const dateVal = this.form.get(arg).value;
     if (typeof dateVal === 'object') {
+      console.log(dateVal);
       dateError = this._globalCompanyService.dateRangeValidator(
         dateVal,
         this.minNgbDate,

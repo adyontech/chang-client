@@ -76,6 +76,7 @@ export class PaymentComponent implements OnInit {
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getAccountNames();
+    this.getGlobalCompanyData();
     this.getLedgerUGNames();
     this.form = this.fb.group({
       paymentNumber: new FormControl('', [
@@ -161,6 +162,26 @@ export class PaymentComponent implements OnInit {
 
   get formData() {
     return <FormArray>this.form.get('particularsData');
+  }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
+      });
   }
 
   dateRangeValidator(arg) {
