@@ -109,7 +109,8 @@
                         <div class="card-body">
                           <div class="form-group">
                             <div class="input-group">
-                              <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker" formControlName="date">
+                              <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker" (input)="dateRangeValidator('date')"
+                                formControlName="date">
                               <div class="input-group-append">
                                 <div class="input-group-text" (click)="de.toggle()">
                                   <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -126,6 +127,9 @@
                             <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
                               Invalid filed.
                             </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.dateIncorrect && form.controls['drawnOn'].errors.datevalidator">
+                              Date should be between company period.
+                            </small>
                           </div>
                         </div>
                       </div>
@@ -135,7 +139,8 @@
                         <div class="card-body">
                           <div class="form-group">
                             <div class="input-group">
-                              <input class="form-control" placeholder="dd.mm.yyyy" name="de2" ngbDatepicker #de2="ngbDatepicker" formControlName="originalInvoiceDate">
+                              <input class="form-control" placeholder="dd.mm.yyyy" name="de2" ngbDatepicker #de2="ngbDatepicker" (input)="dateRangeValidator('originalInvoiceDate')"
+                                formControlName="originalInvoiceDate">
                               <div class="input-group-append">
                                 <div class="input-group-text" (click)="de2.toggle()">
                                   <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -151,6 +156,9 @@
                             </small>
                             <small class="form-text text-muted danger" [hidden]="!form.controls['originalInvoiceDate'].errors.datevalidator">
                               Invalid filed.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['originalInvoiceDate'].errors.dateIncorrect && form.controls['originalInvoiceDate'].errors.datevalidator">
+                              Date should be between company period.
                             </small>
                           </div>
                         </div>
