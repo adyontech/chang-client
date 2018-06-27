@@ -23,6 +23,7 @@ declare var $: any;
 export class LedgerComponent implements OnInit {
   @Input() statePop: string;
   @Input() modalReference: any;
+  public allUndergroupData: any;
   public paramId: string;
   public ownerName: string;
   public form: FormGroup;
@@ -31,7 +32,7 @@ export class LedgerComponent implements OnInit {
   public breadcrumbs = [];
   public applicableDummyModel: String = '';
   public stateList: Array<string>;
-  public drCrArray: Array<string> = ['Dr', 'Cr'];
+  public drCrArray: Array<string> = ['DR', 'CR'];
   public underGroupItems: Array<string> = [
     'cash in hand(DR)',
     'cash at bank(DR)',
@@ -135,6 +136,7 @@ export class LedgerComponent implements OnInit {
       .getUnderGroupList(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        this.allUndergroupData = data;
         data = data.ugData.map(item => item.groupName);
         this.underGroupItems = this.underGroupItems.concat(data);
       });
@@ -199,13 +201,37 @@ export class LedgerComponent implements OnInit {
         'Loans & advances(Asset)(DR)',
         'sundry debtors(DR)',
       ];
+      const ugCrArray = [
+        'sales(CR)',
+        'sundry creditors(CR)',
+        'current liabilities(CR)',
+        'non - current liabilities(CR)',
+        'capital(CR)',
+        'bank overdraft(CR)',
+        'duties and taxes(CR)',
+        'Direct Income(CR)',
+        'Indirect Income(CR)',
+        'Loans & advances(Asset)(DR)',
+        'Loans(liability)(CR)',
+        'Reserves and Surplus(CR)',
+        'Provisions(CR)',
+        'Suspense.',
+      ];
       if (ugDrArray.indexOf(ugName) !== -1) {
         this.form.patchValue({
-          type: 'Dr',
+          type: 'DR',
+        });
+      } else if (ugCrArray.indexOf(ugName) !== -1) {
+        this.form.patchValue({
+          type: 'CR',
         });
       } else {
-        this.form.patchValue({
-          type: 'Cr',
+        this.allUndergroupData.map(el => {
+          if (el.groupName === ugName) {
+            this.form.patchValue({
+              type: el.type,
+            });
+          }
         });
       }
     }
