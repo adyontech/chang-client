@@ -1,79 +1,87 @@
 <section>
   <div class="row">
-    <div class="col-sm-12">
-      <div style="float: left;">
-        <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
-      </div>
-      <div class="mt-2">
-        <p class="mt-2"> For:- {{paramId}}</p>
-      </div>
+    <div class="col-sm-5">
+      <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+    </div>
+    <div class="col-sm-5 mt-3">
+      <h3>
+        <b> {{paramId | titlecase}}
+        </b>
+      </h3>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <!-- <div class="card-header">
-            <h4 class="card-title" id="horz-layout-colored-controls">User Profile</h4>
-          </div> -->
-        <div class="card-body">
-          <div class="mt-3">
+      <div class="card text-center">
+        <div class="card-body centered-content">
+          <div class="card-block">
             <form class="form form-horizontal" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
-              <div class="form-body text-center">
-                <div class="row">
-                  <div class="col-md-6 offset-md-3">
-                    <div class="form-group row">
-                      <label class="col-md-3 label-control" for="userinput1">NAME OF GROUP: </label>
-                      <div class="col-md-9">
-                        <!-- pattern="^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$" -->
-                        <input type="text" class="form-control" placeholder="Full name" formControlName="groupName" />
 
-                        <div [ngClass]="{'error': form.controls['groupName'].errors && !form.controls['groupName'].pristine}">
-                          <div *ngIf="form.controls['groupName'].errors && !form.controls['groupName'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.required">Required field.</small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.patternInvalid">Invalid field entry.</small>
-                          </div>
-                        </div>
-                        <small class="text-muted">eg.
-                          <i>Sales @ gst 5%</i>
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 offset-md-3">
-                    <div class="form-group row">
-                      <label class="col-md-3 label-control" for="userinput5">UNDER HEAD: </label>
-                      <div class="col-md-9">
+              <div class="form-row">
+                <div class="col-lg-5 offset-lg-3 col-sm-5 offset-sm-1 form-group">
+                  <label>NAME OF GROUP</label>
+                  <span class="danger">*</span>
+                  <input type="text" class="form-control" formControlName="groupName">
 
-                        <ng-select [items]="underHeadArray" (change)="setType($event)" placeholder="Select age" formControlName="underHead">
-                        </ng-select>
-                        <div [ngClass]="{'error': form.controls['underHead'].errors && !form.controls['underHead'].pristine}">
-                          <div *ngIf="form.controls['underHead'].errors && !form.controls['underHead'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['underHead'].errors.required">Required field.</small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['underHead'].errors.patternInvalid">Invalid field entry.</small>
-                          </div>
-                        </div>
-                      </div>
+                  <small class="text-muted">eg.
+                    <i>Sales @ gst 5%</i>
+                  </small>
+                  <div [ngClass]="{'error': form.controls['groupName'].errors && !form.controls['groupName'].pristine}">
+                    <div *ngIf="form.controls['groupName'].errors && !form.controls['groupName'].pristine" class="error-msg">
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['groupName'].errors.required">
+                        filed is required.
+                      </small>
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['invoiceNumber'].errors.patternInvalid">
+                        Invalid filed.
+                      </small>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 offset-md-3">
-                    <div class="form-group row">
-                      <label class="col-md-3 label-control" for="userinput5">TYPE: </label>
-                      <div class="col-md-9">
-                        <input type="text" class="form-control" formControlName="type" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="btn-group">
-                  <button type="submit" class="btn btn-secondary">Submit</button>
                 </div>
               </div>
-            </form>
 
+              <div class="form-row">
+                <div class="col-lg-5 offset-lg-3 col-sm-5 offset-sm-1 form-group">
+                  <label>UNDER HEAD</label>
+                  <span class="danger">*</span>
+                  <ng-select [items]="underHeadArray" (change)="setType($event)" placeholder="Select age" formControlName="underHead">
+                  </ng-select>
+                  <div [ngClass]="{'error': form.controls['underHead'].errors && !form.controls['underHead'].pristine}">
+                    <div *ngIf="form.controls['underHead'].errors && !form.controls['underHead'].pristine" class="error-msg">
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['underHead'].errors.required">
+                        filed is required.
+                      </small>
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['invoiceNumber'].errors.patternInvalid">
+                        Invalid filed.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-lg-5 offset-lg-3 col-sm-5 offset-sm-1 form-group">
+                  <label>TYPE</label>
+                  <span class="danger">*</span>
+                  <input type="text" class="form-control" formControlName="type" />
+                  <div [ngClass]="{'error': form.controls['type'].errors && !form.controls['type'].pristine}">
+                    <div *ngIf="form.controls['type'].errors && !form.controls['type'].pristine" class="error-msg">
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['type'].errors.required">
+                        filed is required.
+                      </small>
+                      <small class="form-text text-muted danger" [hidden]="!form.controls['invoiceNumber'].errors.patternInvalid">
+                        Invalid filed.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-group">
+                <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary">
+                  submit
+                </button>
+              </div>
+
+            </form>
           </div>
         </div>
       </div>
