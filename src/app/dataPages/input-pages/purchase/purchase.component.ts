@@ -211,7 +211,6 @@ export class PurchaseComponent implements OnInit {
       .getGlobalCompanyData(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
@@ -225,7 +224,6 @@ export class PurchaseComponent implements OnInit {
           day: maxD.getDate(),
         };
         this.companyStateName = data.state;
-        console.log(this.maxNgbDate);
       });
   }
 
@@ -242,6 +240,22 @@ export class PurchaseComponent implements OnInit {
       this.form.patchValue({
         purchaseType: 'Inter state',
       });
+    }
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
     }
   }
 

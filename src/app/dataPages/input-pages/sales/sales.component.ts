@@ -32,6 +32,8 @@ export class SalesComponent implements OnInit {
   public paramId: string;
   public ownerId: string;
   public subTotal: number;
+  public minNgbDate;
+  public maxNgbDate;
   public companyStateName: String;
   public totalAmount: number;
   public attachmentError: Boolean = false;
@@ -141,6 +143,22 @@ export class SalesComponent implements OnInit {
     }
   }
 
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
+  }
+
   public selectedprsr(value: any, indexValue): void {
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
@@ -209,6 +227,18 @@ export class SalesComponent implements OnInit {
       .getGlobalCompanyData(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
         this.companyStateName = data.state;
       });
   }

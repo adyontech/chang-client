@@ -33,6 +33,8 @@ export class SalesReturnComponent implements OnInit {
   public ownerId: string;
   public subTotal: number;
   public companyStateName: String;
+  public minNgbDate;
+  public maxNgbDate;
   public totalAmount: number;
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
@@ -180,6 +182,44 @@ export class SalesReturnComponent implements OnInit {
       addSub: ['Add(+)'],
     });
   }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
+        this.companyStateName = data.state;
+      });
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
+  }
+
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
@@ -210,15 +250,6 @@ export class SalesReturnComponent implements OnInit {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     cont.removeAt(i);
-  }
-
-  getGlobalCompanyData() {
-    this.dataCopy = this._globalCompanyService
-      .getGlobalCompanyData(this.paramId, this.ownerId)
-      .map(response => response.json())
-      .subscribe(data => {
-        this.companyStateName = data.state;
-      });
   }
 
   getIvoiceNumbers() {

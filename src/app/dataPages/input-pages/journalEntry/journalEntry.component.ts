@@ -12,6 +12,7 @@ import { JournalEntryService } from './service/journalEntry.service';
 import { ToastrService } from './../../../utilities/toastr.service';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { DateValidator } from './../../../shared/validators/dateValidator';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
   selector: 'app-journal-entry',
@@ -27,6 +28,8 @@ export class JournalEntryComponent implements OnInit {
   public totalAmount: number;
   public debitSum: number;
   public creditSum: number;
+  public minNgbDate;
+  public maxNgbDate;
   public ledgerList: Array<string> = [];
   public breadcrumbs = [
     { name: 'Journal  Entry' },
@@ -40,11 +43,13 @@ export class JournalEntryComponent implements OnInit {
     private route: ActivatedRoute,
     public _journalEntryService: JournalEntryService,
     public fb: FormBuilder,
-    public _toastrService: ToastrService
+    public _toastrService: ToastrService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
     this.getRouteParam();
+    this.getGlobalCompanyData();
     this.getLedgerUGNames();
     this.form = this.fb.group({
       journalNumber: new FormControl('', [
@@ -130,6 +135,42 @@ export class JournalEntryComponent implements OnInit {
       }
     }
   }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
+      });
+  }
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
+  }
+
   onFileChange(event) {
     this.attachmentError = false;
     const reader = new FileReader();

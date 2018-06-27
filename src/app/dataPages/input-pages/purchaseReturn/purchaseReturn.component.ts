@@ -31,6 +31,8 @@ export class PurchaseReturnComponent implements OnInit {
   private prsrData: any;
   public paramId: string;
   public ownerId: string;
+  public minNgbDate;
+  public maxNgbDate;
   public subTotal: number;
   public companyStateName: String;
   public totalAmount: number;
@@ -208,11 +210,39 @@ export class PurchaseReturnComponent implements OnInit {
     cont.removeAt(i);
   }
 
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
+  }
+
   getGlobalCompanyData() {
     this.dataCopy = this._globalCompanyService
       .getGlobalCompanyData(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
         this.companyStateName = data.state;
       });
   }

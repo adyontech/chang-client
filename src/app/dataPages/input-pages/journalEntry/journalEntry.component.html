@@ -62,7 +62,7 @@
                     <div class="col-md-4 form-group">
                       <label>Date</label>
                       <div class="input-group-append">
-                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker" formControlName="date">
+                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')" #de="ngbDatepicker" formControlName="date">
                         <div class="input-group-text" (click)="de.toggle()">
                           <i class="fa fa-calendar" style="cursor: pointer;"></i>
                         </div>
@@ -75,6 +75,9 @@
                           <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
                             Invalid filed.
                           </small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.dateIncorrect && form.controls['date'].errors.datevalidator">
+                              Date should be between company period.
+                            </small>
                         </div>
                       </div>
                     </div>

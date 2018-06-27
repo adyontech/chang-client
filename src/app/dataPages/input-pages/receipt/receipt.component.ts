@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { ToastrService } from './../../../utilities/toastr.service';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 
@@ -28,6 +29,8 @@ export class ReceiptComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
   public totalAmount: number;
+  public minNgbDate;
+  public maxNgbDate;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = ['Cash'];
   public attachmentError: Boolean = false;
@@ -63,7 +66,8 @@ export class ReceiptComponent implements OnInit {
     public _receiptService: ReceiptService,
     public fb: FormBuilder,
     private modalService: NgbModal,
-    public _toastrService: ToastrService
+    public _toastrService: ToastrService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
@@ -71,6 +75,7 @@ export class ReceiptComponent implements OnInit {
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getAccountNames();
+    this.getGlobalCompanyData();
     this.getLedgerNames();
     this.form = this.fb.group({
       receiptNumber: new FormControl('', [
@@ -155,6 +160,43 @@ export class ReceiptComponent implements OnInit {
   }
   get formData() {
     return <FormArray>this.form.get('particularsData');
+  }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
+      });
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      console.log(dateVal);
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
   }
 
   totalSum() {
