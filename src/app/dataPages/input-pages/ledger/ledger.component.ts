@@ -31,33 +31,34 @@ export class LedgerComponent implements OnInit {
   public breadcrumbs = [];
   public applicableDummyModel: String = '';
   public stateList: Array<string>;
+  public drCrArray: Array<string> = ['Dr', 'Cr'];
   public underGroupItems: Array<string> = [
-    'cash in hand(dr)',
-    'cash at bank(dr)',
-    'sales(cr)',
-    'purchases(dr)',
-    'stock in hand(dr)',
-    'sundry debtors(dr)',
-    'sundry creditors(cr)',
-    'current asset(dr)',
-    'current liabilities(cr)',
-    'non - current assets(dr)',
-    'non - current liabilities(cr)',
-    'capital(cr)',
-    'bank overdraft(cr)',
-    'duties and taxes(cr)',
+    'cash in hand(DR)',
+    'cash at bank(DR)',
+    'purchases(DR)',
+    'stock in hand(DR)',
+    'non - current assets(DR)',
     'Deposit(asset)(DR)',
     'Direct expenses(DR)',
-    'Direct Income(CR)',
+    'current asset(DR)',
     'indirect expense(DR)',
-    'Indirect Income(CR)',
+    'Bad debt(DR)',
     'Fixed Asset(DR)',
     'Investments(DR)',
+    'sundry debtors(DR)',
+    'sales(CR)',
+    'sundry creditors(CR)',
+    'current liabilities(CR)',
+    'non - current liabilities(CR)',
+    'capital(CR)',
+    'bank overdraft(CR)',
+    'duties and taxes(CR)',
+    'Direct Income(CR)',
+    'Indirect Income(CR)',
     'Loans & advances(Asset)(DR)',
     'Loans(liability)(CR)',
     'Reserves and Surplus(CR)',
     'Provisions(CR)',
-    'Bad debt(DR)',
     'Suspense.',
   ];
   public applicableTaxItems = ['GST', 'Other', 'Not Applicable'];
@@ -105,9 +106,8 @@ export class LedgerComponent implements OnInit {
       pinCode: new FormControl('', [patternValidator(/^[1-9][0-9]{5}$/)]),
       country: [''],
       phoneNumber: new FormControl('', [patternValidator(/^[0]?[6789]\d{9}$/)]),
-      qty: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
-      rate: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
-      total: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      value: new FormControl('', [patternValidator(/^-?\d*(\.\d+)?$/)]),
+      type: [''],
     });
   }
   updateTotal() {
@@ -173,6 +173,41 @@ export class LedgerComponent implements OnInit {
       this.form.patchValue({
         country: '',
       });
+    }
+  }
+  changeType(arg) {
+    const arg2 = arg.target.value;
+    if (arg2.length === 0) {
+      this.form.patchValue({
+        type: '',
+      });
+    } else if (arg2.length === 1) {
+      const ugName = this.form.get('underGroup').value;
+      const ugDrArray = [
+        'cash in hand(DR)',
+        'cash at bank(DR)',
+        'purchases(DR)',
+        'stock in hand(DR)',
+        'non - current assets(DR)',
+        'Deposit(asset)(DR)',
+        'Direct expenses(DR)',
+        'current asset(DR)',
+        'indirect expense(DR)',
+        'Bad debt(DR)',
+        'Fixed Asset(DR)',
+        'Investments(DR)',
+        'Loans & advances(Asset)(DR)',
+        'sundry debtors(DR)',
+      ];
+      if (ugDrArray.indexOf(ugName) !== -1) {
+        this.form.patchValue({
+          type: 'Dr',
+        });
+      } else {
+        this.form.patchValue({
+          type: 'Cr',
+        });
+      }
     }
   }
   onSubmit(user) {

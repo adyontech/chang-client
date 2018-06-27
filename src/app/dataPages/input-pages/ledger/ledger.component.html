@@ -378,30 +378,22 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-2  offset-md-3">
-                        <div class="form-group">
-                          <label class="text-left" for="qty">
-                            Quantity
-                          </label>
-                          <input type="text" class="form-control" id="qty" formControlName="qty" (input)="updateTotal()">
-                        </div>
-                      </div>
-
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label class="text-left" for="rate">
-                            Rate
-                          </label>
-                          <input type="text" class="form-control" id="rate" formControlName="rate" (input)="updateTotal()">
-                        </div>
-                      </div>
-
-                      <div class="col-md-2">
+                      <div class="col-md-4  offset-md-2">
                         <div class="form-group">
                           <label class="text-left" for="total">
-                            Total
+                            Value
                           </label>
-                          <input type="text" class="form-control" id="total" formControlName="total">
+                          <input (input)="changeType($event)" type="text" class="form-control" id="total" formControlName="value">
+
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="text-left" for="total">
+                            Type
+                          </label>
+                          <ng-select [items]="drCrArray" placeholder="Select type" formControlName="type">
+                          </ng-select>
                         </div>
                       </div>
                     </div>

@@ -57,7 +57,6 @@ export class PaymentComponent implements OnInit {
     'Against invoice',
     'Against account',
     'Against advance',
-    'others',
   ];
 
   public value: any = {};
