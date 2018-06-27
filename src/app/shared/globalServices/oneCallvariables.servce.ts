@@ -10,6 +10,7 @@ import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/';
+import { VariableAst } from '@angular/compiler';
 @Injectable()
 export class GlobalCompanyService {
   result: {};
@@ -37,5 +38,24 @@ export class GlobalCompanyService {
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
+  }
+
+  dateRangeValidator(value, minD, maxD) {
+    console.log(value);
+    console.log(minD);
+    console.log(maxD);
+    if (value.year >= minD.year && value.year <= maxD.year) {
+      if (value.month >= minD.month && value.month <= maxD.month) {
+        if (value.day >= minD.day && value.day <= maxD.day) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
   }
 }
