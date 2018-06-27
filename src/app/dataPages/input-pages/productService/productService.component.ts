@@ -14,7 +14,6 @@ import {
 } from '@angular/router';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ToastrService } from './../../../utilities/toastr.service';
-
 import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from './service/productService.service';
 declare var $: any;
@@ -134,7 +133,6 @@ export class ProductServiceComponent implements OnInit {
       },
     ];
   }
-
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {

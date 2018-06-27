@@ -32,6 +32,8 @@ export class SalesComponent implements OnInit {
   public paramId: string;
   public ownerId: string;
   public subTotal: number;
+  public minNgbDate;
+  public maxNgbDate;
   public companyStateName: String;
   public totalAmount: number;
   public attachmentError: Boolean = false;
@@ -138,6 +140,22 @@ export class SalesComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
+    }
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
     }
   }
 

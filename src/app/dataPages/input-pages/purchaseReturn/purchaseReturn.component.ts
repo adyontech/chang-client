@@ -31,6 +31,8 @@ export class PurchaseReturnComponent implements OnInit {
   private prsrData: any;
   public paramId: string;
   public ownerId: string;
+  public minNgbDate;
+  public maxNgbDate;
   public subTotal: number;
   public companyStateName: String;
   public totalAmount: number;
@@ -206,6 +208,22 @@ export class PurchaseReturnComponent implements OnInit {
     this.subSum();
     const cont = <FormArray>this.form.controls['subParticularsData'];
     cont.removeAt(i);
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
   }
 
   getGlobalCompanyData() {

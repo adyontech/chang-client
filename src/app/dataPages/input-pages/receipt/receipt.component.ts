@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { ToastrService } from './../../../utilities/toastr.service';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 
@@ -28,6 +29,8 @@ export class ReceiptComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
   public totalAmount: number;
+  public minNgbDate;
+  public maxNgbDate;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = ['Cash'];
   public attachmentError: Boolean = false;
@@ -63,7 +66,8 @@ export class ReceiptComponent implements OnInit {
     public _receiptService: ReceiptService,
     public fb: FormBuilder,
     private modalService: NgbModal,
-    public _toastrService: ToastrService
+    public _toastrService: ToastrService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
@@ -155,6 +159,22 @@ export class ReceiptComponent implements OnInit {
   }
   get formData() {
     return <FormArray>this.form.get('particularsData');
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
   }
 
   totalSum() {

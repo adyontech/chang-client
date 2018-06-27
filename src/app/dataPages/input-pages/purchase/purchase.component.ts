@@ -34,8 +34,6 @@ export class PurchaseComponent implements OnInit {
   public companyStateName: String;
   public totalAmount: number;
   public attachmentError: Boolean = false;
-  public minD;
-  public maxD;
   public minNgbDate;
   public maxNgbDate;
   public attachmentName: String = 'No File Choosen.';
@@ -247,7 +245,7 @@ export class PurchaseComponent implements OnInit {
 
   dateRangeValidator(arg) {
     let dateError;
-    const dateVal = this.form.get('date').value;
+    const dateVal = this.form.get(arg).value;
     if (typeof dateVal === 'object') {
       dateError = this._globalCompanyService.dateRangeValidator(
         dateVal,
@@ -257,7 +255,7 @@ export class PurchaseComponent implements OnInit {
     }
     console.log(dateError);
     if (dateError) {
-      this.form.controls['date'].setErrors({ dateIncorrect: true });
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
     }
   }
 

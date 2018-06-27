@@ -13,6 +13,7 @@ import { ContraService } from './service/contra.service';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { DateValidator } from './../../../shared/validators/dateValidator';
 import { ToastrService } from './../../../utilities/toastr.service';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 
@@ -29,6 +30,8 @@ export class ContraComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
   public totalAmount: number;
+  public minNgbDate;
+  public maxNgbDate;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
@@ -45,7 +48,8 @@ export class ContraComponent implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private modalService: NgbModal,
-    public _toastrService: ToastrService
+    public _toastrService: ToastrService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
@@ -122,6 +126,22 @@ export class ContraComponent implements OnInit {
     this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
   }
 
   totalSum() {

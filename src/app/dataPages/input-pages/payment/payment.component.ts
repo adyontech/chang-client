@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
 import { ToastrService } from './../../../utilities/toastr.service';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 
@@ -34,6 +35,8 @@ export class PaymentComponent implements OnInit {
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
   public showCheque = false;
+  public minNgbDate;
+  public maxNgbDate;
   public showInvoiceNumberField = false;
   public allInvoiceNumberArray: Array<string> = [];
   public paymentTypeArray: Array<string> = [
@@ -64,7 +67,8 @@ export class PaymentComponent implements OnInit {
     public _paymentService: PaymentService,
     public fb: FormBuilder,
     private modalService: NgbModal,
-    public _toastrService: ToastrService
+    public _toastrService: ToastrService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
@@ -157,6 +161,22 @@ export class PaymentComponent implements OnInit {
 
   get formData() {
     return <FormArray>this.form.get('particularsData');
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    console.log(dateError);
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
   }
 
   totalSum() {
