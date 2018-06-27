@@ -230,6 +230,9 @@ export class ReceiptComponent implements OnInit {
       this.showAgainst = false;
     } else {
       this.showAgainst = true;
+      this.form.patchValue({
+        against: '',
+      });
     }
   }
   showInvoiceNumber(value) {

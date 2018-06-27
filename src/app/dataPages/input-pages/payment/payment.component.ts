@@ -35,6 +35,7 @@ export class PaymentComponent implements OnInit {
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
   public showCheque = false;
+  public showAgainst = true;
   public minNgbDate;
   public maxNgbDate;
   public showInvoiceNumberField = false;
@@ -223,13 +224,14 @@ export class PaymentComponent implements OnInit {
 
   setAgainst(value) {
     this.showInvoiceNumberField = false;
-    if (value === 'Purchase payment' || value === 'Sales refund') {
-      this.againstArray = [...this.againstArray, 'Sales refund'];
-      this.form.patchValue({
-        against: 'Sales refund',
-      });
+    if (
+      value === 'General' ||
+      value === 'Purchase refund' ||
+      value === 'Others'
+    ) {
+      this.showAgainst = false;
     } else {
-      this.showInvoiceNumberField = false;
+      this.showAgainst = true;
       this.form.patchValue({
         against: '',
       });
