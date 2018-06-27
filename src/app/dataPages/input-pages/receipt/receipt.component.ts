@@ -37,6 +37,7 @@ export class ReceiptComponent implements OnInit {
   public value: any = {};
   public attachmentName: String = 'No File Choosen.';
   public showCheque = false;
+  public showAgainst = true;
   public showInvoiceNumberField = false;
   public allInvoiceNumberArray: Array<string> = [];
   public receiptTypeArray: Array<string> = [
@@ -96,7 +97,7 @@ export class ReceiptComponent implements OnInit {
         '',
         Validators.compose([Validators.required, DateValidator.datevalidator])
       ),
-      against: new FormControl('', [Validators.required]),
+      against: [''],
       particularsData: this.fb.array([]),
       narration: [''],
       attachment: [''],
@@ -221,16 +222,14 @@ export class ReceiptComponent implements OnInit {
   }
   setAgainst(value) {
     this.showInvoiceNumberField = false;
-    if (value === 'Sales receipt' || value === 'Advance receipt') {
-      this.againstArray = [...this.againstArray, 'Advance receipt'];
-      this.form.patchValue({
-        against: 'Advance receipt',
-      });
+    if (
+      value === 'General' ||
+      value === 'Purchase refund' ||
+      value === 'Others'
+    ) {
+      this.showAgainst = false;
     } else {
-      this.showInvoiceNumberField = false;
-      this.form.patchValue({
-        against: '',
-      });
+      this.showAgainst = true;
     }
   }
   showInvoiceNumber(value) {

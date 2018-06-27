@@ -45,6 +45,7 @@
                         <div class="col-md-5 offset-md-3">
                           <div class="form-group">
                             <label>Contra Number</label>
+                            <span class="danger">*</span>
                             <input type="text" class="form-control" formControlName="contraNumber">
                             <div [ngClass]="{'error': form.controls['contraNumber'].errors && !form.controls['contraNumber'].pristine}">
                               <div *ngIf="form.controls['contraNumber'].errors && !form.controls['contraNumber'].pristine" class="error-msg">
@@ -63,11 +64,12 @@
                         <div class="col-md-5 offset-md-3">
                           <div class="form-group">
                             <label>Date</label>
+                            <span class="danger">*</span>
                             <div class="card-body">
                               <div class="form-group">
                                 <div class="input-group">
-                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" (input)="dateRangeValidator('date')" ngbDatepicker #ds1="ngbDatepicker" formControlName="date"
-                                    (ngModelChange)="SetDrawnOn($event)">
+                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" (input)="dateRangeValidator('date')" ngbDatepicker #ds1="ngbDatepicker"
+                                    formControlName="date" (ngModelChange)="SetDrawnOn($event)">
                                   <div class="input-group-append">
                                     <div class="input-group-text" (click)="ds1.toggle()">
                                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -83,8 +85,8 @@
                                       Invalid filed.
                                     </small>
                                     <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.dateIncorrect && form.controls['date'].errors.datevalidator">
-                              Date should be between company period.
-                            </small>
+                                      Date should be between company period.
+                                    </small>
                                   </div>
                                 </div>
                               </div>
@@ -95,6 +97,7 @@
                       <div class="row">
                         <div class="col-md-5 offset-md-3">
                           <label>account</label>
+                          <span class="danger">*</span>
                           <ng-select [items]="accountList" formControlName="account" placeholder="No particulars selected">
                             <ng-template ng-header-tmp>
                               <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New ledger</button>
@@ -151,7 +154,8 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <div class="input-group">
-                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds2" ngbDatepicker (input)="dateRangeValidator('drawnOn')" #ds2="ngbDatepicker" formControlName="drawnOn">
+                                  <input class="form-control" placeholder="dd.mm.yyyy" name="ds2" ngbDatepicker (input)="dateRangeValidator('drawnOn')" #ds2="ngbDatepicker"
+                                    formControlName="drawnOn">
                                   <div class="input-group-append">
                                     <div class="input-group-text" (click)="ds2.toggle()">
                                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -165,8 +169,8 @@
                                       Invalid filed.
                                     </small>
                                     <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.dateIncorrect && form.controls['drawnOn'].errors.datevalidator">
-                              Date should be between company period.
-                            </small>
+                                      Date should be between company period.
+                                    </small>
                                   </div>
                                 </div>
                               </div>
@@ -260,7 +264,7 @@
                             <div class="card-body" style=" margin-left: 35px;">
                               <div class="input-group">
                                 <div class="upload-btnF-wrapper">
-                                  <button type="button" class="btnF">Upload Logo</button>
+                                  <button type="button" class="btnF">Upload File</button>
                                   <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                                 </div>
                               </div>

@@ -47,6 +47,7 @@
                   <div class="form-row">
                     <div class="col-md-4 offset-md-2 form-group">
                       <label>Journal Number</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" formControlName="journalNumber">
                       <div [ngClass]="{'error': form.controls['journalNumber'].errors && !form.controls['journalNumber'].pristine}">
                         <div *ngIf="form.controls['journalNumber'].errors && !form.controls['journalNumber'].pristine" class="error-msg">
@@ -61,8 +62,10 @@
                     </div>
                     <div class="col-md-4 form-group">
                       <label>Date</label>
+                      <span class="danger">*</span>
                       <div class="input-group-append">
-                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')" #de="ngbDatepicker" formControlName="date">
+                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')" #de="ngbDatepicker"
+                          formControlName="date">
                         <div class="input-group-text" (click)="de.toggle()">
                           <i class="fa fa-calendar" style="cursor: pointer;"></i>
                         </div>
@@ -76,8 +79,8 @@
                             Invalid filed.
                           </small>
                           <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.dateIncorrect && form.controls['date'].errors.datevalidator">
-                              Date should be between company period.
-                            </small>
+                            Date should be between company period.
+                          </small>
                         </div>
                       </div>
                     </div>
@@ -167,7 +170,7 @@
                           <div class="card-body" style=" margin-left: 35px;">
                             <div class="input-group">
                               <div class="upload-btnF-wrapper">
-                                <button type="button" class="btnF">Upload Logo</button>
+                                <button type="button" class="btnF">Upload File</button>
                                 <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                               </div>
                             </div>

@@ -156,6 +156,7 @@ export class JournalEntryComponent implements OnInit {
       });
   }
   dateRangeValidator(arg) {
+    console.log(arg);
     let dateError;
     const dateVal = this.form.get(arg).value;
     if (typeof dateVal === 'object') {
