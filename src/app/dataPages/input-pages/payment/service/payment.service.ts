@@ -75,4 +75,12 @@ export class PaymentService {
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
+  getParticularNames(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameRmHandBank?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
 }

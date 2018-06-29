@@ -32,6 +32,7 @@ export class PaymentComponent implements OnInit {
   public totalAmount: number;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
+  public particularList: Array<string> = [];
   public attachmentError: Boolean = false;
   public attachmentName: String = 'No File Choosen.';
   public showCheque = false;
@@ -75,6 +76,7 @@ export class PaymentComponent implements OnInit {
     $.getScript('./assets/js/jquery.steps.min.js');
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
+    this.getParticularNames();
     this.getAccountNames();
     this.getGlobalCompanyData();
     this.getLedgerUGNames();
@@ -271,6 +273,7 @@ export class PaymentComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data.ledgerData);
         this.ledgerList = [];
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
@@ -282,6 +285,15 @@ export class PaymentComponent implements OnInit {
       .subscribe(data => {
         this.accountList = [];
         this.accountList = this.accountList.concat(data.accountNameList);
+      });
+  }
+
+  getParticularNames() {
+    this.dataCopy = this._paymentService
+      .getParticularNames(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.particularList = data.ledgerData;
       });
   }
 
