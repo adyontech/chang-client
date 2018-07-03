@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AddCompanyComponent } from './addCompany/addCompany.component';
+import { EditCompanyComponent } from './editCompany/editCompany.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'editcompany',
-        component: AddCompanyComponent,
+        path: 'company',
+        component: EditCompanyComponent,
         data: {
-          title: 'addcompany Page',
+          title: 'editcompany Page',
         },
       },
     ],

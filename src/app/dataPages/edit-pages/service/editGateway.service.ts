@@ -52,10 +52,12 @@ export class GatewayService {
     });
   }
 
-  getCompanyList() {
+  getCompanyData(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/gatewaylist?token=${this.token}`;
+    }/api/companyData?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 

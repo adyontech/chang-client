@@ -5,8 +5,8 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { GatewayService } from './../service/gateway.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { GatewayService } from '../service/editGateway.service';
 import { ToastrService } from './../../../utilities/toastr.service';
 import { DateValidator } from '../../../shared/validators/dateValidator';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
@@ -14,13 +14,17 @@ import { StateVaribles } from './../../../shared/forms/States';
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 
 @Component({
-  selector: 'app-add-company',
-  templateUrl: './addCompany.component.html',
-  styleUrls: ['./addCompany.component.scss'],
+  selector: 'app-edit-company',
+  templateUrl: './editCompany.component.html',
+  styleUrls: ['./editCompany.component.scss'],
 })
-export class AddCompanyComponent implements OnInit {
+export class EditCompanyComponent implements OnInit {
   public form: FormGroup;
   public allowClick: Boolean = true;
+  public dataCopy: any;
+  public companyData: any;
+  public paramId: string;
+  public ownerName: string;
   public stateList: Array<string>;
   public logoError: Boolean = false;
   public signatureError: Boolean = false;
@@ -31,6 +35,7 @@ export class AddCompanyComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(
+    private route: ActivatedRoute,
     public _gatewayService: GatewayService,
     public fb: FormBuilder,
     private router: Router,
@@ -41,6 +46,8 @@ export class AddCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRouteParam();
+    this.getCompanyData();
     this.form = this.fb.group({
       companyName: new FormControl('', [
         Validators.required,
@@ -102,6 +109,55 @@ export class AddCompanyComponent implements OnInit {
 
       signature: [''],
     });
+  }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
+    });
+  }
+  getCompanyData() {
+    this.dataCopy = this._gatewayService
+      .getCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        if (data.success !== false) {
+          console.log(data);
+          this.companyData = data.companyData;
+          this.companyData.startDate = new Date(
+            parseInt(this.companyData.startDate, 0)
+          );
+          this.companyData.endDate = new Date(
+            parseInt(this.companyData.endDate, 0)
+          );
+          this.form.controls['companyName'].setValue(
+            this.companyData.companyName
+          );
+          this.form.controls['address'].setValue(this.companyData.address);
+          this.form.controls['city'].setValue(this.companyData.city);
+          this.form.controls['state'].setValue(this.companyData.state);
+          this.form.controls['gstin'].setValue(this.companyData.gstin);
+          this.form.controls['phoneNo'].setValue(this.companyData.phoneNo);
+          this.form.controls['language'].setValue(this.companyData.language);
+          this.form.controls['email'].setValue(this.companyData.email);
+          this.form.controls['natureOfBuisness'].setValue(
+            this.companyData.natureOfBuisness
+          );
+          this.form.controls['currency'].setValue(this.companyData.currency);
+          this.form.controls['pan'].setValue(this.companyData.pan);
+          this.form.controls['startDate'].setValue({
+            year: this.companyData.startDate.getFullYear(),
+            month: this.companyData.startDate.getMonth(),
+            day: this.companyData.startDate.getDate(),
+          });
+          this.form.controls['endDate'].setValue({
+            year: this.companyData.endDate.getFullYear(),
+            month: this.companyData.endDate.getMonth(),
+            day: this.companyData.endDate.getDate(),
+          });
+        }
+      });
   }
 
   onSubmit(user) {
