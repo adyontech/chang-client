@@ -37,7 +37,7 @@ export class GatewayService {
       this.token = this.windowStorage.token;
     }
   }
-  createNewCompany(user: any) {
+  editCompanyDetails(user: any, compName, owner) {
     console.log(user);
     const form = new FormData();
     for (const key of Object.keys(user)) {
@@ -45,7 +45,9 @@ export class GatewayService {
     }
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/gateway?token=${this.token}`;
+    }/api/editCompanyDetails?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
       return (this.result = res.json());

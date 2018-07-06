@@ -28,6 +28,7 @@ export class EditCompanyComponent implements OnInit {
   public stateList: Array<string>;
   public logoError: Boolean = false;
   public signatureError: Boolean = false;
+  public companyDataId: any;
 
   public sigFileName: String = 'No File Choosen.';
   public logoFileName: String = 'No File Choosen.';
@@ -124,6 +125,7 @@ export class EditCompanyComponent implements OnInit {
       .subscribe(data => {
         if (data.success !== false) {
           console.log(data);
+          this.companyDataId = data.companyData._id;
           this.companyData = data.companyData;
           this.companyData.startDate = new Date(
             parseInt(this.companyData.startDate, 0)
@@ -177,21 +179,27 @@ export class EditCompanyComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._toastrService.typeWarning('Processing the data');
+        user['companyDataId'] = this.companyDataId;
 
-        this._gatewayService.createNewCompany(user).subscribe((data: IData) => {
-          this.allowClick = false;
-          if (data.success) {
-            this._toastrService.typeSuccess(
-              'success',
-              'Data successfully added'
-            );
-            this._toastrService.typeInfo('Redirecting to Gateway page', 'Info');
-            this.router.navigate(['/gateway']);
-          } else {
-            this.resetDateFormat(user);
-            this._toastrService.typeError('Error', data.message);
-          }
-        });
+        this._gatewayService
+          .editCompanyDetails(user, this.paramId, this.ownerName)
+          .subscribe((data: IData) => {
+            this.allowClick = false;
+            if (data.success) {
+              this._toastrService.typeSuccess(
+                'success',
+                'Data successfully added'
+              );
+              this._toastrService.typeInfo(
+                'Redirecting to Gateway page',
+                'Info'
+              );
+              this.router.navigate(['/gateway']);
+            } else {
+              this.resetDateFormat(user);
+              this._toastrService.typeError('Error', data.message);
+            }
+          });
       } else {
         this.resetDateFormat(user);
         return;
