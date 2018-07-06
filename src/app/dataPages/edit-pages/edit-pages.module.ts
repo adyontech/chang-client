@@ -8,7 +8,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EditCompanyComponent } from './editCompany/editCompany.component';
-
+import { InputPagesModule } from './../input-pages/input-pages.module';
 import { GatewayService } from './editCompany/service/editGateway.service';
 import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
 import { ToastrService } from './../../utilities/toastr.service';
@@ -26,6 +26,7 @@ import { StateVaribles } from './../../shared/forms/States';
     ChartistModule,
     AgmCoreModule,
     NgbModule,
+    InputPagesModule,
   ],
   declarations: [EditCompanyComponent],
   providers: [GatewayService, GlobalVaribles, ToastrService, StateVaribles],

@@ -44,6 +44,7 @@ import { GlobalCompanyService } from './../../shared/globalServices/oneCallvaria
 import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
+  exports: [LedgerComponent, UnderGroupComponent],
   imports: [
     HttpModule,
     RouterModule,
