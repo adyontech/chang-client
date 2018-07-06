@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GatewayService } from '../service/editGateway.service';
+import { GatewayService } from './service/editGateway.service';
 import { ToastrService } from './../../../utilities/toastr.service';
 import { DateValidator } from '../../../shared/validators/dateValidator';
 import { patternValidator } from './../../../shared/validators/pattern-validator';
