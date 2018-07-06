@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { EditCompanyComponent } from './editCompany/editCompany.component';
+import { EditLedgerComponent } from './editLedger/editLedger.component';
+import { EditProductServiceComponent } from './editProductService/editProductService.component';
+import { EditUnderGroupComponent } from './editUndergroup/editUndergroup.component';
 
 const routes: Routes = [
   {
@@ -16,21 +19,21 @@ const routes: Routes = [
       },
       {
         path: 'ledger',
-        component: EditCompanyComponent,
+        component: EditLedgerComponent,
         data: {
           title: 'Ledger edit Page',
         },
       },
       {
         path: 'undergroup',
-        component: EditCompanyComponent,
+        component: EditUnderGroupComponent,
         data: {
           title: 'Ledger edit Page',
         },
       },
       {
         path: 'productservice',
-        component: EditCompanyComponent,
+        component: EditProductServiceComponent,
         data: {
           title: 'editcompany Page',
         },

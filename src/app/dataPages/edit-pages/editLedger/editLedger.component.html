@@ -1,157 +1,160 @@
-<!-- Basic Elements start -->
-<section class="basic-elements">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="content-header">Gateway Of Companies </div>
+<div class="row" matchHeight="card" [hidden]="true">
+  <!-- Modal with Default options starts -->
+  <div class="col-sm-12 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <ng-template #underGroup let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <app-undergroup></app-undergroup>
+            </div>
+          </ng-template>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<!-- Wizard -->
+<div class="row">
+  <div class="col-sm-5">
+    <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <h3>
+      <b>{{paramId | titlecase}}</b>
+    </h3>
+  </div>
+</div>
+<section id="icon-tabs">
   <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title mb-0">Enter Company details</h4>
-        </div>
+    <div class="col-12">
+      <div class="card text-center">
         <div class="card-body">
-          <div class="px-3">
+          <div class="card-block">
+            <form class="icons-tab-steps wizard-circle" [formGroup]="form" novalidate class="mt-3">
+              <wizard #wizard navBarLayout="large-empty-symbols">
+                <div class="centered-content" style="margin-top:6%; width: 100%;">
+                  <wizard-step stepTitle="Ledger Info" navigationSymbol="1">
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="ledgerName">
+                            Name of Ledger
+                            <span class="danger">*</span>
+                          </label>
+                          <input type="text" class="form-control" id="ledgerName" formControlName="ledgerName" (input)="fillName($event.target.value)">
+                          <div [ngClass]="{'error': form.controls['ledgerName'].errors && !form.controls['ledgerName'].pristine}">
+                            <div *ngIf="form.controls['ledgerName'].errors && !form.controls['ledgerName'].pristine" class="error-msg">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['ledgerName'].errors.required">
+                                filed is required.
+                              </small>
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['ledgerName'].errors.patternInvalid">
+                                Invalid filed.
+                              </small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- {{!form.controls['ledgerName'].errors.patternInvalid}} -->
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="underGroup">
+                            Under Group
+                            <span class="danger">*</span>
+                          </label>
+                          <ng-select [items]="underGroupItems" id="underGroup" placeholder="Select group" formControlName="underGroup">
+                            <ng-template ng-header-tmp>
+                              <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(underGroup)">
+                                + New Ledger
+                              </button>
 
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div [ngClass]="{'error': form.controls['underGroup'].errors && !form.controls['underGroup'].pristine}">
+                      <div *ngIf="form.controls['underGroup'].errors && !form.controls['underGroup'].pristine" class="error-msg">
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['underGroup'].errors.required">
+                          filed is required.
+                        </small>
+                        <small class="form-text text-muted danger" [hidden]="!form.controls['underGroup'].errors.patternInvalid">
+                          Invalid filed.
+                        </small>
+                      </div>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary" nextStep [disabled]="!form.controls['ledgerName'].errors&&
+                                                 !form.controls['underGroup'].errors? null: true">
+                        Next
+                      </button>
+                    </div>
+                  </wizard-step>
+                  <!-- Step 2 -->
+                  <wizard-step stepTitle="Tax Details" navigationSymbol="2">
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="applicableTax">
+                            Applicable Tax
+                            <span class="danger">*</span>
+                          </label>
+                          <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax"></ng-select>
+                        </div>
+                      </div>
 
-            <form class="form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
-              <div class="form-body">
-                <div class="row">
-                  <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="basicInput">Name of company</label>
-                      <span class="danger">*</span>
-                      <input type="text" class="form-control" id="basicInput" placeholder="Company Name" formControlName="companyName">
-                      <div [ngClass]="{'error': form.controls['companyName'].errors && !form.controls['companyName'].pristine}">
-                        <div *ngIf="form.controls['companyName'].errors && !form.controls['companyName'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['companyName'].errors.required">
+                      <div [ngClass]="{'error': form.controls['applicableTax'].errors && !form.controls['applicableTax'].pristine}">
+                        <div *ngIf="form.controls['applicableTax'].errors && !form.controls['applicableTax'].pristine" class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['applicableTax'].errors.required">
                             filed is required.
                           </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['companyName'].errors.patternInvalid">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['applicableTax'].errors.patternInvalid">
                             Invalid filed.
                           </small>
                         </div>
                       </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="helpInputTop">Company Pan</label>
-                      <span class="danger">*</span>
-                      <input type="text" class="form-control" id="helpInputTop" placeholder="Pan" formControlName="pan">
-                      <small class="text-muted">eg.
-                        <i>DXPDC2184T</i>
-                      </small>
-                      <div [ngClass]="{'error': form.controls['pan'].errors && !form.controls['pan'].pristine}">
-                        <div *ngIf="form.controls['pan'].errors && !form.controls['pan'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['pan'].errors.required">
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="businessType">
+                            Business Type
+                            <span class="danger">*</span>
+                          </label>
+                          <ng-select [items]="businessTypeItems" id="businessType" placeholder="Select type" formControlName="businessType"></ng-select>
+                        </div>
+                      </div>
+                      <div [ngClass]="{'error': form.controls['businessType'].errors && !form.controls['businessType'].pristine}">
+                        <div *ngIf="form.controls['businessType'].errors && !form.controls['businessType'].pristine" class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['businessType'].errors.required">
                             filed is required.
                           </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['pan'].errors.patternInvalid">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['businessType'].errors.patternInvalid">
                             Invalid filed.
                           </small>
                         </div>
                       </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="disabledInput">Email</label>
-                      <span class="danger">*</span>
-                      <input type="email" class="form-control" id="basicInput" placeholder="Email" formControlName="email">
-                      <div [ngClass]="{'error': form.controls['email'].errors && !form.controls['email'].pristine}">
-                        <div *ngIf="form.controls['email'].errors && !form.controls['email'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['email'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['email'].errors.patternInvalid">
-                            Invalid filed.
+                    </div>
+                    <div class="row" *ngIf="form.get('applicableTax').value === 'GST'">
+                      <div class="col-md-5  offset-md-3">
+                        <div class="form-group">
+                          <label class="text-left" for="gstin">
+                            GSTIN
+                          </label>
+                          <input type="text" class="form-control" required id="gstin" formControlName="gstin">
+                          <small class="text-muted">
+                            eg.
+                            <i>36XXXXK2104P1Z4</i>
                           </small>
                         </div>
                       </div>
-                      <small class="text-muted">
-                        eg.
-                        <i>abc@gmail.com</i>
-                      </small>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="disabledInput">Address</label>
-                      <span class="danger">*</span>
-                      <input type="text" class="form-control" id="basicInput" placeholder="Company address" formControlName="address">
-                      <div [ngClass]="{'error': form.controls['address'].errors && !form.controls['address'].pristine}">
-                        <div *ngIf="form.controls['address'].errors && !form.controls['address'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['address'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['address'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="basicInput">city</label>
-                      <span class="danger">*</span>
-                      <input type="text" class="form-control" id="basicInput" placeholder="Your city name" formControlName="city">
-                      <div [ngClass]="{'error': form.controls['city'].errors && !form.controls['city'].pristine}">
-                        <div *ngIf="form.controls['city'].errors && !form.controls['city'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['city'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['city'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="helpInputTop">State</label>
-                      <span class="danger">*</span>
-                      <ng-select [items]="stateList" id="state" placeholder="Select type" formControlName="state"></ng-select>
-
-                      <div [ngClass]="{'error': form.controls['state'].errors && !form.controls['state'].pristine}">
-                        <div *ngIf="form.controls['state'].errors && !form.controls['state'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['state'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['state'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="disabledInput">Phone Number</label>
-                      <span class="danger">*</span>
-                      <input type="text" class="form-control" id="basicInput" placeholder="Phone number" formControlName="phoneNo">
-                      <div [ngClass]="{'error': form.controls['phoneNo'].errors && !form.controls['phoneNo'].pristine}">
-                        <div *ngIf="form.controls['phoneNo'].errors && !form.controls['phoneNo'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['phoneNo'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['phoneNo'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
-                        </div>
-                      </div>
-                      <!-- <small class="form-text text-muted danger" *ngIf="!regularForm.get('password').valid && (regularForm.get('password').dirty || regularForm.get('password').touched)">Password characters length must be between 4 and 24 !</small> -->
-
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                    <fieldset class="form-group">
-                      <label for="helpInputTop">Gstin</label>
-                      <span class="danger">*</span>
-                      <input type="text" class="form-control" id="helpInputTop" placeholder="Gstin number" formControlName="gstin">
                       <div [ngClass]="{'error': form.controls['gstin'].errors && !form.controls['gstin'].pristine}">
                         <div *ngIf="form.controls['gstin'].errors && !form.controls['gstin'].pristine" class="error-msg">
                           <small class="form-text text-muted danger" [hidden]="!form.controls['gstin'].errors.required">
@@ -162,177 +165,252 @@
                           </small>
                         </div>
                       </div>
-                      <small class="text-muted">eg.
-                        <i>22AAAAA0000A1Z5</i>
-                      </small>
-                      <!-- <small class="form-text text-muted danger" *ngIf="!regularForm.get('password').valid && (regularForm.get('password').dirty || regularForm.get('password').touched)">Password characters length must be between 4 and 24 !</small> -->
+                    </div>
+                    <div class="row">
 
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                    <fieldset class="form-group">
-                      <label for="basicSelect">Nature of business:</label>
-                      <span class="danger">*</span>
-                      <input type="text" class="form-control" id="helpInputTop" placeholder="Your buisness nature" formControlName="natureOfBuisness">
-                      <div [ngClass]="{'error': form.controls['natureOfBuisness'].errors && !form.controls['natureOfBuisness'].pristine}">
-                        <div *ngIf="form.controls['natureOfBuisness'].errors && !form.controls['natureOfBuisness'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['natureOfBuisness'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['natureOfBuisness'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                    <fieldset class="form-group">
-                      <label for="basicSelect">Currency:</label>
-                      <span class="danger">*</span>
-                      <select class="form-control" id="basicSelect" name="currency" formControlName="currency">
-                        <option value="inr" selected>₹ - INR</option>
-                        <option value="usd">$ - USD</option>
-                      </select>
-                      <div [ngClass]="{'error': form.controls['currency'].errors && !form.controls['currency'].pristine}">
-                        <div *ngIf="form.controls['currency'].errors && !form.controls['currency'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['currency'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['currency'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                    <fieldset class="form-group">
-                      <label for="basicSelect">Preferred language:</label>
-                      <span class="danger">*</span>
-                      <select class="form-control" id="basicSelect" name="language" formControlName="language">
-                        <option value="english" selected>English</option>
-                        <option value="hindi">Hindi</option>
-                      </select>
-                      <div [ngClass]="{'error': form.controls['language'].errors && !form.controls['language'].pristine}">
-                        <div *ngIf="form.controls['language'].errors && !form.controls['language'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['language'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['language'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                    <fieldset class="form-group">
-                      <label for="basicSelect">Starting Date:</label>
-                      <span class="danger">*</span>
-                      <div class="card-body">
+                      <div class="col-md-5  offset-md-3">
                         <div class="form-group">
-                          <div class="input-group">
-                            <input class="form-control" placeholder="dd.mm.yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker" formControlName="startDate">
-                            <div class="input-group-append">
-                              <div class="input-group-text" (click)="ds.toggle()">
-                                <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                              </div>
-                            </div>
-                          </div>
+                          <label class="text-left" for="pan">
+                            PAN
+                          </label>
+                          <input type="text" class="form-control" id="pan" formControlName="pan">
+                          <small class="text-muted">
+                            eg.
+                            <i>XXXXK2104P</i>
+                          </small>
                         </div>
-                        <div [ngClass]="{'error': form.controls['startDate'].errors && !form.controls['startDate'].pristine}">
-                          <div *ngIf="form.controls['startDate'].errors && !form.controls['startDate'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['startDate'].errors.required">
+
+                        <div [ngClass]="{'error': form.controls['pan'].errors && !form.controls['pan'].pristine}">
+                          <div *ngIf="form.controls['pan'].errors && !form.controls['pan'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['pan'].errors.required">
                               filed is required.
                             </small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['startDate'].errors.datevalidator">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['pan'].errors.patternInvalid">
                               Invalid filed.
                             </small>
                           </div>
                         </div>
                       </div>
-                    </fieldset>
-                  </div>
+                    </div>
 
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                    <fieldset class="form-group">
-                      <label for="basicSelect">End Date:</label>
-                      <span class="danger">*</span>
-                      <div class="card-body">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary" previousStep>
+                        Back
+                      </button>
+                      <button type="button" class="btn btn-secondary" nextStep>
+                        Next
+                      </button>
+                    </div>
+
+                  </wizard-step>
+                  <!-- Step 3 -->
+                  <wizard-step stepTitle="Other details" navigationSymbol="3">
+                    <div class="row">
+                      <div class="col-md-4  offset-md-2">
                         <div class="form-group">
-                          <div class="input-group">
-                            <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker" formControlName="endDate">
-                            <div class="input-group-append">
-                              <div class="input-group-text" (click)="de.toggle()">
-                                <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                              </div>
+                          <label class="text-left" for="name">
+                            Name
+                          </label>
+                          <span class="danger">*</span>
+                          <input type="text" class="form-control" id="name" formControlName="name" required>
+                          <div [ngClass]="{'error': form.controls['name'].errors && !form.controls['name'].pristine}">
+                            <div *ngIf="form.controls['name'].errors && !form.controls['name'].pristine" class="error-msg">
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['name'].errors.required">
+                                filed is required.
+                              </small>
+                              <small class="form-text text-muted danger" [hidden]="!form.controls['name'].errors.patternInvalid">
+                                Invalid filed..
+                              </small>
                             </div>
                           </div>
                         </div>
-                        <div [ngClass]="{'error': form.controls['endDate'].errors && !form.controls['endDate'].pristine}">
-                          <div *ngIf="form.controls['endDate'].errors && !form.controls['endDate'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['endDate'].errors.required">
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="text-left" for="email">
+                            E-Mail
+                          </label>
+                          <input type="email" class="form-control" id="email" formControlName="email">
+                          <small class="text-muted">
+                            eg.
+                            <i>abc@gmail.com</i>
+                          </small>
+                        </div>
+                        <div [ngClass]="{'error': form.controls['email'].errors && !form.controls['email'].pristine}">
+                          <div *ngIf="form.controls['email'].errors && !form.controls['email'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['email'].errors.required">
                               filed is required.
                             </small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['endDate'].errors.datevalidator">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['email'].errors.patternInvalid">
                               Invalid filed.
                             </small>
                           </div>
                         </div>
                       </div>
-                    </fieldset>
-                  </div>
-                  <!-- <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
-                    <fieldset class="form-group">
-                      <small class="text-muted">
-                        <i>Please select file having size below 200kb.</i>
-                      </small>
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                    <fieldset class="form-group">
-                      <label for="basicSelect">Logo:</label>
-                      <div class="card-body">
-                        <div class="input-group">
-                          <div class="upload-btnF-wrapper">
-                            <button type="button" class="btnF">Upload Logo</button>
-                            <input type="file" id="avatar" (change)="onFileChange($event, 'logo')" #fileInput>
+
+                      <div class="col-md-4  offset-md-2">
+                        <div class="form-group">
+                          <label class="text-left" for="address">
+                            Address
+                          </label>
+                          <span class="danger">*</span>
+                          <input type="text" class="form-control" id="address" formControlName="address">
+                        </div>
+                        <div [ngClass]="{'error': form.controls['address'].errors && !form.controls['address'].pristine}">
+                          <div *ngIf="form.controls['address'].errors && !form.controls['address'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['address'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['address'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
                           </div>
                         </div>
-                        <div>{{logoFileName}}</div>
-                        <div *ngIf="logoError" style="color: red">Max file size exceeded.</div>
-
                       </div>
 
-                    </fieldset>
-                  </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                    <fieldset class="form-group">
-                      <label for="basicSelect">Signature:</label>
-                      <div class="card-body">
-                        <div class="input-group">
-                          <div class="upload-btnF-wrapper">
-                            <button type="button" class="btnF">Upload signature</button>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="city">City</label>
+                          <span class="danger">*</span>
+                          <input type="text" class="form-control" id="city" formControlName="city">
 
-                            <input type="file" id="avatar" (change)="onFileChange($event, 'signature')" #fileInput>
+                        </div>
+                        <div [ngClass]="{'error': form.controls['city'].errors && !form.controls['city'].pristine}">
+                          <div *ngIf="form.controls['city'].errors && !form.controls['city'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['city'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['city'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
                           </div>
                         </div>
-                        <div>{{sigFileName}}</div>
-
-                        <div *ngIf="signatureError" style="color: red">Max file size exceeded.</div>
-
                       </div>
 
-                    </fieldset>
-                  </div> -->
+                      <div class="col-md-4  offset-md-2">
+                        <div class="form-group">
+                          <label class="text-left" for="state">
+                            State
+                          </label>
+                          <span class="danger">*</span>
+                          <ng-select [items]="stateList" id="state" placeholder="Select type" formControlName="state" (change)="fillCountry($event)"></ng-select>
+
+                        </div>
+                        <div [ngClass]="{'error': form.controls['state'].errors && !form.controls['state'].pristine}">
+                          <div *ngIf="form.controls['state'].errors && !form.controls['state'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['state'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['state'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="text-left" for="pinCode">
+                            Pin Code
+                          </label>
+                          <input type="text" class="form-control" id="pinCode" formControlName="pinCode">
+                          <small class="text-muted">
+                            eg.
+                            <i>302036</i>
+                          </small>
+                        </div>
+                        <div [ngClass]="{'error': form.controls['pinCode'].errors && !form.controls['pinCode'].pristine}">
+                          <div *ngIf="form.controls['pinCode'].errors && !form.controls['pinCode'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['pinCode'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['pinCode'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4  offset-md-2">
+                        <div class="form-group">
+                          <label for="country">Country</label>
+                          <span class="danger">*</span>
+                          <input type="text" class="form-control" id="country" formControlName="country">
+                        </div>
+                        <div [ngClass]="{'error': form.controls['country'].errors && !form.controls['country'].pristine}">
+                          <div *ngIf="form.controls['country'].errors && !form.controls['country'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['country'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['country'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="text-left" for="phoneNumber">
+                            Phone Number
+                          </label>
+                          <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+                          <small class="text-muted">
+                            eg.
+                            <i>7897897897</i>
+                          </small>
+                        </div>
+                        <div [ngClass]="{'error': form.controls['phoneNumber'].errors && !form.controls['phoneNumber'].pristine}">
+                          <div *ngIf="form.controls['phoneNumber'].errors && !form.controls['phoneNumber'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['phoneNumber'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['phoneNumber'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col-md-5">
+                        <h5>Opening Balance</h5>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4  offset-md-2">
+                        <div class="form-group">
+                          <label class="text-left" for="total">
+                            Value
+                          </label>
+                          <input (input)="changeType($event)" type="text" class="form-control" id="total" formControlName="value">
+
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="text-left" for="total">
+                            Type
+                          </label>
+                          <ng-select [items]="drCrArray" placeholder="Select type" formControlName="type">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary" previousStep>
+                        Back
+                      </button>
+                      <button type="button" class="btn btn-secondary" resetWizard>
+                        Reset
+                      </button>
+                      <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" [disabled]="form.invalid" resetWizard>
+                        submit
+                      </button>
+                    </div>
+                  </wizard-step>
                 </div>
-              </div>
-              <div class="row text-center">
-                <button type="submit" class="btn btn-raised btn-lg pull-center btn-success" style="color: white; margin: 35px 40%">Edit details</button>
-              </div>
+              </wizard>
             </form>
           </div>
         </div>
@@ -340,4 +418,3 @@
     </div>
   </div>
 </section>
-<!-- Basic Inputs end -->

@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
-// import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
-export class GatewayService {
+export class EditProductServiceService {
+  private paramCompanyName: string;
   result: {};
   token: string;
   windowStorage: any;
@@ -21,51 +17,27 @@ export class GatewayService {
 
   constructor(
     private http: Http,
-    public _globalVariableService: GlobalVaribles,
-    public _activatedRoute: ActivatedRoute,
+    private router: Router,
     private route: ActivatedRoute,
-    private router: Router
+    public _globalVariableService: GlobalVaribles
   ) {
-    this.setToken();
-  }
-
-  setToken() {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
-    if (this.windowStorage === null || this.windowStorage === undefined) {
-      this.router.navigate(['/app/login']);
-    } else {
-      this.token = this.windowStorage.token;
-    }
-  }
-  editCompanyDetails(user: any, compName, owner) {
-    console.log(user);
-    const form = new FormData();
-    for (const key of Object.keys(user)) {
-      form.append(key, user[key]);
-    }
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/editCompanyDetails?token=${
-      this.token
-    }&&companyName=${compName}&&ownerName=${owner}`;
-    return this.http.post(this._url, form).map((res: Response) => {
-      this.result = res.json();
-      return (this.result = res.json());
-    });
+    this.token = this.windowStorage.token;
   }
 
-  getCompanyData(compName, owner) {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/companyData?token=${
+  getprsrList(compName, ownerName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${
       this.token
-    }&&companyName=${compName}&&ownerName=${owner}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
-  removeCompany(id) {
-    return this.http
-      .delete(this._url + '/' + id)
-      .map((res: Response) => res.json());
+  createNewPrsr(user: any, compName, ownerName) {
+    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, user).map((res: Response) => {
+      return res.json();
+    });
   }
 }

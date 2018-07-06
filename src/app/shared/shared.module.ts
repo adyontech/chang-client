@@ -5,7 +5,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LivePreviewComponent } from './livePreview/livePreview.component';
@@ -19,6 +19,7 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
 import { GlobalVaribles } from './globalVariables/globalVariable';
 import { NavbarService } from './navbar/navbar.service';
 import { LivePreviewService } from './livePreview/livePreview.service';
+import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 @NgModule({
   exports: [
     CommonModule,
@@ -30,6 +31,7 @@ import { LivePreviewService } from './livePreview/livePreview.service';
     NotificationSidebarComponent,
     SettingSidebarComponent,
     ToggleFullscreenDirective,
+    BreadcrumbsComponent,
     NgbModule,
     // NgbDateCustomParserFormatter,
   ],
@@ -41,6 +43,7 @@ import { LivePreviewService } from './livePreview/livePreview.service';
     NgSelectModule,
   ],
   declarations: [
+    BreadcrumbsComponent,
     FooterComponent,
     NavbarComponent,
     LivePreviewComponent,
@@ -50,6 +53,11 @@ import { LivePreviewService } from './livePreview/livePreview.service';
     NotificationSidebarComponent,
     ToggleFullscreenDirective,
   ],
-  providers: [NavbarService, GlobalVaribles, LivePreviewService],
+  providers: [
+    NavbarService,
+    GlobalVaribles,
+    BreadcrumbsService,
+    LivePreviewService,
+  ],
 })
 export class SharedModule {}
