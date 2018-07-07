@@ -32,6 +32,25 @@ export class EditLedgerService {
     return this.http.get(this._url);
   }
 
+  getLedgerNamesId(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+
+  autoFillData(ledgerName, compName, owner) {
+    console.log(ledgerName);
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/autoFillData?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}&&ledgerName=${ledgerName}`;
+    return this.http.get(this._url);
+  }
+
   editNewLedger(user: any, companyName, ownerName) {
     const form = new FormData();
     for (const key of Object.keys(user)) {

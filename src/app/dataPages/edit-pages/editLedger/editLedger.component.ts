@@ -31,6 +31,7 @@ export class EditLedgerComponent implements OnInit {
   public closeResult: string;
   public breadcrumbs = [];
   public applicableDummyModel: String = '';
+  public autoFillLedgerName: Array<string> = [];
   public stateList: Array<string>;
   public drCrArray: Array<string> = ['DR', 'CR'];
   public underGroupItems: Array<string> = [
@@ -79,7 +80,9 @@ export class EditLedgerComponent implements OnInit {
     // $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
     this.getUnderGroupList();
+    this.getLedgerNamesId();
     this.form = this.fb.group({
+      selectedLedgerName: ['', Validators.required],
       ledgerName: new FormControl('', [
         Validators.required,
         patternValidator(/^[a-zA-Z\d- _]+$/),
@@ -131,6 +134,45 @@ export class EditLedgerComponent implements OnInit {
       },
     ];
   }
+
+  getLedgerNamesId() {
+    this.dataCopy = this._ledgerService
+      .getLedgerNamesId(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.autoFillLedgerName = data.ledgerData;
+      });
+  }
+  autoFillData(value) {
+    this.dataCopy = this._ledgerService
+      .autoFillData(value, this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data.ledgerData);
+        this.form.controls['ledgerName'].setValue(data.ledgerData.ledgerName);
+        this.form.controls['underGroup'].setValue(data.ledgerData.underGroup);
+        this.form.controls['applicableTax'].setValue(
+          data.ledgerData.applicableTax
+        );
+        this.form.controls['businessType'].setValue(
+          data.ledgerData.businessType
+        );
+        this.form.controls['gstin'].setValue(data.ledgerData.gstin);
+        this.form.controls['name'].setValue(data.ledgerData.name);
+        this.form.controls['email'].setValue(data.ledgerData.email);
+        this.form.controls['pan'].setValue(data.ledgerData.pan);
+        this.form.controls['address'].setValue(data.ledgerData.address);
+        this.form.controls['city'].setValue(data.ledgerData.city);
+        this.form.controls['state'].setValue(data.ledgerData.state);
+        this.form.controls['pinCode'].setValue(data.ledgerData.pinCode);
+        this.form.controls['country'].setValue(data.ledgerData.country);
+        this.form.controls['phoneNumber'].setValue(data.ledgerData.phoneNumber);
+        this.form.controls['value'].setValue(data.ledgerData.value);
+        this.form.controls['type'].setValue(data.ledgerData.type);
+      });
+  }
+
   getUnderGroupList() {
     this.dataCopy = this._ledgerService
       .getUnderGroupList(this.paramId, this.ownerName)
@@ -141,6 +183,7 @@ export class EditLedgerComponent implements OnInit {
         this.underGroupItems = this.underGroupItems.concat(data);
       });
   }
+
   open(content) {
     this.modalService.open(content, { size: 'lg' }).result.then(
       result => {
@@ -151,6 +194,7 @@ export class EditLedgerComponent implements OnInit {
       }
     );
   }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -166,6 +210,7 @@ export class EditLedgerComponent implements OnInit {
       name: value,
     });
   }
+
   fillCountry(value) {
     if (value !== 'Others') {
       this.form.patchValue({
@@ -177,6 +222,7 @@ export class EditLedgerComponent implements OnInit {
       });
     }
   }
+
   changeType(arg) {
     const arg2 = arg.target.value;
     if (arg2.length === 0) {
@@ -236,11 +282,12 @@ export class EditLedgerComponent implements OnInit {
       }
     }
   }
+
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._ledgerService
-          .createNewLedger(user, this.paramId, this.ownerName)
+          .editNewLedger(user, this.paramId, this.ownerName)
           .subscribe(data => {
             if (data.success) {
               this._toastrService.typeSuccess(
