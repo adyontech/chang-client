@@ -2,7 +2,7 @@
 <section class="basic-elements">
   <div class="row">
     <div class="col-sm-12">
-      <div class="content-header">Gateway Of Companies </div>
+      <div class="content-header">Gateway Of Companies</div>
     </div>
   </div>
   <div class="row">
@@ -14,7 +14,6 @@
         <div class="card-body">
           <div class="px-3">
 
-
             <form class="form" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
               <div class="form-body">
                 <div class="row">
@@ -22,7 +21,7 @@
                     <fieldset class="form-group">
                       <label for="basicInput">Name of company</label>
                       <span class="danger">*</span>
-                      <input type="text" class="form-control" id="basicInput" placeholder="Company Name" formControlName="companyName">
+                      <input type="text" disabled class="form-control" id="basicInput" placeholder="Company Name" formControlName="companyName">
                       <div [ngClass]="{'error': form.controls['companyName'].errors && !form.controls['companyName'].pristine}">
                         <div *ngIf="form.controls['companyName'].errors && !form.controls['companyName'].pristine" class="error-msg">
                           <small class="form-text text-muted danger" [hidden]="!form.controls['companyName'].errors.required">
@@ -40,7 +39,8 @@
                       <label for="helpInputTop">Company Pan</label>
                       <span class="danger">*</span>
                       <input type="text" class="form-control" id="helpInputTop" placeholder="Pan" formControlName="pan">
-                      <small class="text-muted">eg.
+                      <small class="text-muted">
+                        eg.
                         <i>DXPDC2184T</i>
                       </small>
                       <div [ngClass]="{'error': form.controls['pan'].errors && !form.controls['pan'].pristine}">
@@ -162,7 +162,8 @@
                           </small>
                         </div>
                       </div>
-                      <small class="text-muted">eg.
+                      <small class="text-muted">
+                        eg.
                         <i>22AAAAA0000A1Z5</i>
                       </small>
                       <!-- <small class="form-text text-muted danger" *ngIf="!regularForm.get('password').valid && (regularForm.get('password').dirty || regularForm.get('password').touched)">Password characters length must be between 4 and 24 !</small> -->
@@ -191,7 +192,9 @@
                       <label for="basicSelect">Currency:</label>
                       <span class="danger">*</span>
                       <select class="form-control" id="basicSelect" name="currency" formControlName="currency">
-                        <option value="inr" selected>₹ - INR</option>
+                        <option value="inr" selected>
+                          ₹ - INR
+                        </option>
                         <option value="usd">$ - USD</option>
                       </select>
                       <div [ngClass]="{'error': form.controls['currency'].errors && !form.controls['currency'].pristine}">
@@ -212,7 +215,9 @@
                       <label for="basicSelect">Preferred language:</label>
                       <span class="danger">*</span>
                       <select class="form-control" id="basicSelect" name="language" formControlName="language">
-                        <option value="english" selected>English</option>
+                        <option value="english" selected>
+                          English
+                        </option>
                         <option value="hindi">Hindi</option>
                       </select>
                       <div [ngClass]="{'error': form.controls['language'].errors && !form.controls['language'].pristine}">
@@ -331,7 +336,9 @@
                 </div>
               </div>
               <div class="row text-center">
-                <button type="submit" class="btn btn-raised btn-lg pull-center btn-success" style="color: white; margin: 35px 40%">Edit details</button>
+                <button type="submit" class="btn btn-raised btn-lg pull-center btn-success" style="color: white; margin: 35px 40%">
+                  Edit details
+                </button>
               </div>
             </form>
           </div>

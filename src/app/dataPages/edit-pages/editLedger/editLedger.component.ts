@@ -124,6 +124,7 @@ export class EditLedgerComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
+      console.log(this.paramId);
       // this._dashboardSettingService.setParamId(this.paramId);
     });
     this.breadcrumbs = [

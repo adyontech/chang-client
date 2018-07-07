@@ -58,7 +58,7 @@ export class EditLedgerService {
     }
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/ledger?token=${
+    }/api/editLedger?token=${
       this.token
     }&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
