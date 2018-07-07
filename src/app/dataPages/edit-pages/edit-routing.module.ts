@@ -5,13 +5,20 @@ import { EditCompanyComponent } from './editCompany/editCompany.component';
 import { EditLedgerComponent } from './editLedger/editLedger.component';
 import { EditProductServiceComponent } from './editProductService/editProductService.component';
 import { EditUnderGroupComponent } from './editUndergroup/editUndergroup.component';
-
+import { EditCompanyNameComponent } from './editCompanyName/editCompanyName.component';
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'company',
+        path: 'gateway',
+        component: EditCompanyComponent,
+        data: {
+          title: 'edit company Page',
+        },
+      },
+      {
+        path: 'companyname',
         component: EditCompanyComponent,
         data: {
           title: 'edit company Page',
