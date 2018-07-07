@@ -19,9 +19,9 @@ const routes: Routes = [
       },
       {
         path: 'companyname',
-        component: EditCompanyComponent,
+        component: EditCompanyNameComponent,
         data: {
-          title: 'edit company Page',
+          title: 'edit company name Page',
         },
       },
       {

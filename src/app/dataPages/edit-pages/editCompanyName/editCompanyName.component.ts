@@ -8,15 +8,13 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { EditCompanyNameService } from './service/editCompanyName.service';
 import { ToastrService } from '../../../utilities/toastr.service';
-import { DateValidator } from '../../../shared/validators/dateValidator';
-import { patternValidator } from '../../../shared/validators/pattern-validator';
 import { StateVaribles } from '../../../shared/forms/States';
 import * as alertFunctions from '../../../shared/data/sweet-alerts';
 
 @Component({
   selector: 'app-edit-company',
-  templateUrl: './editCompany.component.html',
-  styleUrls: ['./editCompany.component.scss'],
+  templateUrl: './editCompanyName.component.html',
+  styleUrls: ['./editCompanyName.component.scss'],
 })
 export class EditCompanyNameComponent implements OnInit {
   public paramId: string;
@@ -54,7 +52,7 @@ export class EditCompanyNameComponent implements OnInit {
           .subscribe(res => {
             console.log(res);
             if (res.success) {
-              this.router.navigate(['/gateway']);
+              // this.router.navigate(['/gateway']);
             }
           });
       } else {

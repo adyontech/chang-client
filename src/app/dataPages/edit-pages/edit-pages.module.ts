@@ -17,10 +17,14 @@ import { EditCompanyComponent } from './editCompany/editCompany.component';
 import { EditLedgerComponent } from './editLedger/editLedger.component';
 import { EditProductServiceComponent } from './editProductService/editProductService.component';
 import { EditUnderGroupComponent } from './editUndergroup/editUndergroup.component';
+import { EditCompanyNameComponent } from './editCompanyName/editCompanyName.component';
+
 import { GatewayService } from './editCompany/service/editGateway.service';
 import { EditLedgerService } from './editLedger/service/editLedger.service';
 import { EditProductServiceService } from './editProductService/service/editProductService.service';
 import { EditUnderGroupsService } from './editUndergroup/service/editUndergroup.service';
+import { EditCompanyNameService } from './editCompanyName/service/editCompanyName.service';
+
 @NgModule({
   imports: [
     HttpModule,
@@ -42,12 +46,14 @@ import { EditUnderGroupsService } from './editUndergroup/service/editUndergroup.
     EditProductServiceComponent,
     EditUnderGroupComponent,
     EditLedgerComponent,
+    EditCompanyNameComponent,
   ],
   providers: [
     GatewayService,
     EditLedgerService,
     EditProductServiceService,
     EditUnderGroupsService,
+    EditCompanyNameService,
     GlobalVaribles,
     ToastrService,
     StateVaribles,
