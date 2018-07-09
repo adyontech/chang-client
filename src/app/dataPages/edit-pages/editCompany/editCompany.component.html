@@ -22,9 +22,9 @@
                     <fieldset class="form-group">
                       <label for="basicInput">Name of company</label>
                       <span class="danger">*</span>
-                      <input type="text" disabled class="form-control" id="basicInput" placeholder="Company Name" formControlName="companyName">
+                      <input type="text" class="form-control" id="basicInput" placeholder="Company Name" formControlName="companyName">
                       <small class="form-text text-muted">
-                        <a [routerLink]="['#']"> Click here </a>a to edit company name.
+                        <a routerLink="/{{paramId}}/{{ownerName}}/edit/companyname"> Click here </a>a to edit company name.
                       </small>
                     </fieldset>
                   </div>

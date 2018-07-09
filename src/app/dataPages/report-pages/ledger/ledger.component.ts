@@ -1,26 +1,26 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   FormArray,
   FormBuilder,
-  Validators
-} from "@angular/forms";
-import { DatePipe } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { LedgerService } from "./service/ledger.service";
+  Validators,
+} from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { LedgerService } from './service/ledger.service';
 import {
   NgbDateStruct,
   NgbDatepickerI18n,
-  NgbCalendar
-} from "@ng-bootstrap/ng-bootstrap";
+  NgbCalendar,
+} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $: any;
 
 @Component({
-  selector: "app-ledger-out",
-  templateUrl: "./ledger.component.html",
-  styleUrls: ["./ledger.component.scss"]
+  selector: 'app-ledger-out',
+  templateUrl: './ledger.component.html',
+  styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
   // Models
@@ -62,8 +62,8 @@ export class LedgerComponent implements OnInit {
   }
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id.split("%20").join(" ");
-      this.ownerName = params.owner.split("%20").join(" ");
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
@@ -90,9 +90,12 @@ export class LedgerComponent implements OnInit {
       .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.defaultLedgerSelect = data.ledgerData[0];
-        this.items = this.items.concat(data.ledgerData);
-        this.onAdd(this.defaultLedgerSelect);
+        console.log(data);
+        if (data.success === true) {
+          this.defaultLedgerSelect = data.ledgerData[0];
+          this.items = this.items.concat(data.ledgerData);
+          this.onAdd(this.defaultLedgerSelect);
+        }
       });
   }
 
@@ -103,6 +106,5 @@ export class LedgerComponent implements OnInit {
     this.endingDate = value;
   }
 
-  deleteEntry(entryId) {
-  }
+  deleteEntry(entryId) {}
 }

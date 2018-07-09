@@ -50,7 +50,10 @@ export class EditCompanyComponent implements OnInit {
     this.getRouteParam();
     this.getCompanyData();
     this.form = this.fb.group({
-      companyName: [''],
+      companyName: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
 
       pan: new FormControl('', [
         patternValidator(/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/),

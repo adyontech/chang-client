@@ -29,8 +29,13 @@ export class EditLedgerComponent implements OnInit {
   public form: FormGroup;
   public dataCopy: any;
   public closeResult: string;
+  public showGst: Boolean = false;
   public breadcrumbs = [];
   public applicableDummyModel: String = '';
+
+  public oldLedgerName: string;
+  public editLedgerId: any;
+
   public autoFillLedgerName: Array<string> = [];
   public stateList: Array<string>;
   public drCrArray: Array<string> = ['DR', 'CR'];
@@ -151,6 +156,8 @@ export class EditLedgerComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data.ledgerData);
+        this.editLedgerId = data.ledgerData._id;
+        this.oldLedgerName = data.ledgerData.ledgerName;
         this.form.controls['ledgerName'].setValue(data.ledgerData.ledgerName);
         this.form.controls['underGroup'].setValue(data.ledgerData.underGroup);
         this.form.controls['applicableTax'].setValue(
@@ -171,6 +178,15 @@ export class EditLedgerComponent implements OnInit {
         this.form.controls['phoneNumber'].setValue(data.ledgerData.phoneNumber);
         this.form.controls['value'].setValue(data.ledgerData.value);
         this.form.controls['type'].setValue(data.ledgerData.type);
+        if (
+          this.form.get('name').value === '' ||
+          this.form.get('name').value === undefined
+        ) {
+          this.form.controls['name'].setValue(data.ledgerData.ledgerName);
+        }
+        if (this.form.get('applicableTax').value === 'GST') {
+          this.showGst = true;
+        }
       });
   }
 
@@ -194,6 +210,13 @@ export class EditLedgerComponent implements OnInit {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
+  }
+  toggleGst(value) {
+    if (value === 'GST') {
+      this.showGst = true;
+    } else {
+      this.showGst = false;
+    }
   }
 
   private getDismissReason(reason: any): string {
@@ -287,6 +310,11 @@ export class EditLedgerComponent implements OnInit {
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
+        user['_idValue'] = this.editLedgerId;
+        console.log(this.oldLedgerName);
+        user['oldLedgerName'] = this.oldLedgerName;
+        console.log(user);
+        // adding ledger id to body for easy backend retrival
         this._ledgerService
           .editNewLedger(user, this.paramId, this.ownerName)
           .subscribe(data => {

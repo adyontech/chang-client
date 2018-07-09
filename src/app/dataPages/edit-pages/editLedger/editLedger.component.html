@@ -125,7 +125,7 @@
                             Applicable Tax
                             <span class="danger">*</span>
                           </label>
-                          <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax"></ng-select>
+                          <ng-select [items]="applicableTaxItems" id="applicableTax" placeholder="Select type" formControlName="applicableTax" (change)="toggleGst($event)"></ng-select>
                         </div>
                       </div>
 
@@ -161,7 +161,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row" *ngIf="form.get('applicableTax').value === 'GST'">
+                    <div class="row" *ngIf="showGst">
                       <div class="col-md-5  offset-md-3">
                         <div class="form-group">
                           <label class="text-left" for="gstin">
