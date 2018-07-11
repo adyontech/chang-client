@@ -30,7 +30,7 @@ export class EditProductServiceComponent implements OnInit {
   paramId: string;
   ownerName: string;
   breadcrumbs = [{ name: 'Receipt' }, { name: 'Dashboard', link: '/' }];
-
+  public autoFillPrsrName: Array<string> = [];
   public items: Array<string> = [
     'BAG-BAGS ',
     'BAL-BALE',
@@ -77,7 +77,8 @@ export class EditProductServiceComponent implements OnInit {
     'YDS - YARDS',
     'OTH - OTHERS',
   ];
-
+  public oldPrsrName: string;
+  public editPrsrId: any;
   constructor(
     private route: ActivatedRoute,
     public _productServiceService: EditProductServiceService,
@@ -88,6 +89,7 @@ export class EditProductServiceComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.form = this.fb.group({
+      selectedPrsrName: ['', Validators.required],
       prsrName: new FormControl('', [
         Validators.required,
         patternValidator(/^[a-zA-Z\d-_]+$/),
@@ -126,16 +128,51 @@ export class EditProductServiceComponent implements OnInit {
       this.ownerName = params.owner;
     });
     this.breadcrumbs = [
-      { name: 'Product and Service' },
+      { name: 'Edit Product and Service' },
       {
         name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
       },
     ];
   }
+
+  getPrsrNamesId() {
+    this.dataCopy = this._productServiceService
+      .getLedgerNamesId(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.autoFillPrsrName = data.ledgerData;
+      });
+  }
+
+  autoFillData(value) {
+    this.dataCopy = this._productServiceService
+      .autoFillData(value, this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data.ledgerData);
+        this.editPrsrId = data.ledgerData._id;
+        this.oldPrsrName = data.ledgerData.ledgerName;
+        this.form.controls['prsrName'].setValue(data.ledgerData.prsrName);
+        this.form.controls['type'].setValue(data.ledgerData.type);
+        this.form.controls['units'].setValue(data.ledgerData.units);
+        this.form.controls['prsrRate'].setValue(data.ledgerData.prsrRate);
+        this.form.controls['gstRate'].setValue(data.ledgerData.gstRate);
+        this.form.controls['hsnaCode'].setValue(data.ledgerData.hsnaCode);
+        this.form.controls['qty'].setValue(data.ledgerData.qty);
+        this.form.controls['rate'].setValue(data.ledgerData.rate);
+        this.form.controls['val'].setValue(data.ledgerData.val);
+      });
+  }
+
   onSubmit(user) {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
+        user['_idValue'] = this.editPrsrId;
+        console.log(this.oldPrsrName);
+        user['oldLedgerName'] = this.oldPrsrName;
+
         if (user.val === '') {
           user.val = user.qty * user.rate;
         }
@@ -157,6 +194,8 @@ export class EditProductServiceComponent implements OnInit {
               this._toastrService.typeError('Error', data.message);
             }
           });
+      } else {
+        return;
       }
     });
   }

@@ -32,6 +32,25 @@ export class EditProductServiceService {
     return this.http.get(this._url);
   }
 
+  getPrsrNamesId(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/prsrNameList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+
+  autoFillData(ledgerName, compName, owner) {
+    console.log(ledgerName);
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/autoFillPrsrEditData?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}&&ledgerName=${ledgerName}`;
+    return this.http.get(this._url);
+  }
+
   createNewPrsr(user: any, compName, ownerName) {
     this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${
       this.token
