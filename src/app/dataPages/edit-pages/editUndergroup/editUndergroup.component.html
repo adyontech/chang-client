@@ -15,7 +15,20 @@
       <div class="card text-center">
         <div class="card-body centered-content">
           <div class="card-block">
-            <form class="form form-horizontal" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+            <form class="mt-2 form form-horizontal" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+
+              <div class="row">
+                <div class="col-md-5 offset-md-3">
+                  <div class="form-group">
+                    <label class="text-left" for="ledgerName">
+                      Select Ledger
+                      <span class="danger">*</span>
+                    </label>
+                    <ng-select [items]="autoFillUgName" placeholder="Select ledger to edit" formControlName="selectedLedgerName" (change)="autoFillData($event)">
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
 
               <div class="form-row">
                 <div class="col-lg-5 offset-lg-3 col-sm-5 offset-sm-1 form-group">

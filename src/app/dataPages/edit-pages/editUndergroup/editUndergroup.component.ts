@@ -6,12 +6,7 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+
 import * as alertFunctions from './../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { EditUnderGroupsService } from './service/editUndergroup.service';
@@ -26,6 +21,12 @@ export class EditUnderGroupComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
   public form: FormGroup;
+  public dataCopy: any;
+
+  public oldUndergroupName: string;
+  public editUndergroupId: any;
+
+  public autoFillUgName: Array<string> = [];
   public underHeadArray = [
     'revenue (CR)',
     'expenses (DR)',
@@ -46,6 +47,7 @@ export class EditUnderGroupComponent implements OnInit {
   ngOnInit() {
     this.getRouteParam();
     this.form = this.fb.group({
+      selectedLedgerName: ['', Validators.required],
       underHead: new FormControl('', [Validators.required]),
       groupName: new FormControl('', [
         Validators.required,
@@ -62,13 +64,24 @@ export class EditUnderGroupComponent implements OnInit {
       // this._dashboardSettingService.setParamId(this.paramId);
     });
     this.breadcrumbs = [
-      { name: 'Undergroup' },
+      { name: 'Edit Undergroup' },
       {
         name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
       },
     ];
   }
+
+  getUgNamesId() {
+    this.dataCopy = this._underGroupsService
+      .getUgNamesId(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.autoFillUgName = data.ugData;
+      });
+  }
+
   setType(value) {
     console.log(value);
     let types = '';
@@ -86,22 +99,42 @@ export class EditUnderGroupComponent implements OnInit {
     });
   }
 
+  autoFillData(value) {
+    this.dataCopy = this._underGroupsService
+      .autoFillData(value, this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data.ledgerData);
+        this.editUndergroupId = data.ledgerData._id;
+        this.oldUndergroupName = data.ledgerData.ledgerName;
+        this.form.controls['groupName'].setValue(data.ledgerData.groupName);
+        this.form.controls['type'].setValue(data.ledgerData.type);
+        this.form.controls['underHead'].setValue(data.ledgerData.underHead);
+      });
+  }
+
   onSubmit(user) {
     console.log(user);
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
+        user['_idValue'] = this.editUndergroupId;
+        console.log(this.oldUndergroupName);
+        user['oldUndergroupName'] = this.oldUndergroupName;
         this._underGroupsService
-          .createNewUnderGroup(user, this.paramId, this.ownerName)
+          .editNewUnderGroup(user, this.paramId, this.ownerName)
           .subscribe(data => {
             if (data.success) {
               this._toastrService.typeSuccess(
                 'success',
                 'Data successfully added'
               );
+              this.form.reset();
             } else {
               this._toastrService.typeError('Error', data.message);
             }
           });
+      } else {
+        return;
       }
     });
   }

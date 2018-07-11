@@ -25,10 +25,29 @@ export class EditUnderGroupsService {
     this.token = this.windowStorage.token;
   }
 
-  createNewUnderGroup(user: any, compName, owner) {
+  getUgNamesId(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/uglist?token=${
+    }/api/ugNameList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+
+  autoFillData(ledgerName, compName, owner) {
+    console.log(ledgerName);
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/autoFillUndergoupEditData?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}&&ledgerName=${ledgerName}`;
+    return this.http.get(this._url);
+  }
+
+  editNewUnderGroup(user: any, compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/editUg?token=${
       this.token
     }&companyName=${compName}&&ownerName=${owner}`;
     return this.http.post(this._url, user).map((res: Response) => {

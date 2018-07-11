@@ -45,7 +45,7 @@ export class EditLedgerService {
     console.log(ledgerName);
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/autoFillData?token=${
+    }/api/autoFillLedgerEditData?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}&&ledgerName=${ledgerName}`;
     return this.http.get(this._url);

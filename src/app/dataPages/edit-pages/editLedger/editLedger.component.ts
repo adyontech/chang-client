@@ -133,7 +133,7 @@ export class EditLedgerComponent implements OnInit {
       // this._dashboardSettingService.setParamId(this.paramId);
     });
     this.breadcrumbs = [
-      { name: 'Ledger' },
+      { name: 'Edit sLedger' },
       {
         name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
@@ -150,6 +150,7 @@ export class EditLedgerComponent implements OnInit {
         this.autoFillLedgerName = data.ledgerData;
       });
   }
+
   autoFillData(value) {
     this.dataCopy = this._ledgerService
       .autoFillData(value, this.paramId, this.ownerName)
