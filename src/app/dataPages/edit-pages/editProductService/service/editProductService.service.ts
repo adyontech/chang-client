@@ -41,18 +41,20 @@ export class EditProductServiceService {
     return this.http.get(this._url);
   }
 
-  autoFillData(ledgerName, compName, owner) {
-    console.log(ledgerName);
+  autoFillData(prsrName, compName, owner) {
+    console.log(prsrName);
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/autoFillPrsrEditData?token=${
       this.token
-    }&&companyName=${compName}&&ownerName=${owner}&&ledgerName=${ledgerName}`;
+    }&&companyName=${compName}&&ownerName=${owner}&&prsrName=${prsrName}`;
     return this.http.get(this._url);
   }
 
-  createNewPrsr(user: any, compName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/prsr?token=${
+  editNewPrsr(user: any, compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/editPrsr?token=${
       this.token
     }&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {

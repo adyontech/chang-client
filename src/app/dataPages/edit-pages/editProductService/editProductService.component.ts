@@ -88,6 +88,7 @@ export class EditProductServiceComponent implements OnInit {
 
   ngOnInit() {
     this.getRouteParam();
+    this.getPrsrNamesId();
     this.form = this.fb.group({
       selectedPrsrName: ['', Validators.required],
       prsrName: new FormControl('', [
@@ -122,10 +123,13 @@ export class EditProductServiceComponent implements OnInit {
       ]),
     });
   }
+
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id;
-      this.ownerName = params.owner;
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      console.log(this.paramId);
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
     this.breadcrumbs = [
       { name: 'Edit Product and Service' },
@@ -142,7 +146,7 @@ export class EditProductServiceComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
-        this.autoFillPrsrName = data.ledgerData;
+        this.autoFillPrsrName = data.prsrData;
       });
   }
 
@@ -151,18 +155,18 @@ export class EditProductServiceComponent implements OnInit {
       .autoFillData(value, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.ledgerData);
-        this.editPrsrId = data.ledgerData._id;
-        this.oldPrsrName = data.ledgerData.ledgerName;
-        this.form.controls['prsrName'].setValue(data.ledgerData.prsrName);
-        this.form.controls['type'].setValue(data.ledgerData.type);
-        this.form.controls['units'].setValue(data.ledgerData.units);
-        this.form.controls['prsrRate'].setValue(data.ledgerData.prsrRate);
-        this.form.controls['gstRate'].setValue(data.ledgerData.gstRate);
-        this.form.controls['hsnaCode'].setValue(data.ledgerData.hsnaCode);
-        this.form.controls['qty'].setValue(data.ledgerData.qty);
-        this.form.controls['rate'].setValue(data.ledgerData.rate);
-        this.form.controls['val'].setValue(data.ledgerData.val);
+        console.log(data);
+        this.editPrsrId = data.prsrData._id;
+        this.oldPrsrName = data.prsrData.prsrName;
+        this.form.controls['prsrName'].setValue(data.prsrData.prsrName);
+        this.form.controls['type'].setValue(data.prsrData.type);
+        this.form.controls['units'].setValue(data.prsrData.units);
+        this.form.controls['prsrRate'].setValue(data.prsrData.prsrRate);
+        this.form.controls['gstRate'].setValue(data.prsrData.gstRate);
+        this.form.controls['hsnaCode'].setValue(data.prsrData.hsnaCode);
+        this.form.controls['qty'].setValue(data.prsrData.qty);
+        this.form.controls['rate'].setValue(data.prsrData.rate);
+        this.form.controls['val'].setValue(data.prsrData.val);
       });
   }
 
@@ -171,13 +175,13 @@ export class EditProductServiceComponent implements OnInit {
       if (datsa) {
         user['_idValue'] = this.editPrsrId;
         console.log(this.oldPrsrName);
-        user['oldLedgerName'] = this.oldPrsrName;
+        user['oldPrsrName'] = this.oldPrsrName;
 
         if (user.val === '') {
           user.val = user.qty * user.rate;
         }
         this._productServiceService
-          .createNewPrsr(user, this.paramId, this.ownerName)
+          .editNewPrsr(user, this.paramId, this.ownerName)
           .subscribe(data => {
             if (data.success) {
               this._toastrService.typeSuccess(

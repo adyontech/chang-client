@@ -168,7 +168,7 @@
                       <div class="form-group">
                         <label>Value</label>
                         <span class="danger">*</span>
-                        <input type="text" class="form-control" formControlName="val" value=" {{(form.get('qty').value)*(form.get('rate').value) }}">
+                        <input type="text" class="form-control" formControlName="val" value=" {{(form.get('qty').value)*(form.get('rate').value)}}">
 
                         <div [ngClass]="{'error': form.controls['val'].errors && !form.controls['val'].pristine}">
                           <div *ngIf="form.controls['val'].errors && !form.controls['val'].pristine" class="error-msg">
