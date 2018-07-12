@@ -14,6 +14,8 @@ import {
   NgbDatepickerI18n,
   NgbCalendar,
 } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { max } from 'date-fns';
 
 declare var $: any;
 
@@ -24,7 +26,7 @@ declare var $: any;
 })
 export class LedgerComponent implements OnInit {
   // Models
-  boxHidden: Boolean = false;
+  // boxHidden: Boolean = false;
   haveData: Boolean = true;
   defaultLedgerSelect: String;
   totalNet: number;
@@ -37,6 +39,8 @@ export class LedgerComponent implements OnInit {
   public dropdFilter: string;
   startingDate;
   endingDate;
+  public minNgbDate;
+  public maxNgbDate;
 
   LedgerData: Array<string>;
   form: FormGroup;
@@ -47,25 +51,36 @@ export class LedgerComponent implements OnInit {
 
   dropdownList = [];
   selectedItems = [];
+  public breadcrumbs = [];
   dropdownSettings = {};
-  public items: Array<string> = [];
+  public ledgerContent: Array<string> = [];
 
   constructor(
     private route: ActivatedRoute,
     public _ledgerService: LedgerService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
     this.getRouteParam();
     this.getLedgerNames();
+    this.getGlobalCompanyData();
   }
+
   getRouteParam() {
     this.route.params.subscribe(params => {
       this.paramId = params.id.split('%20').join(' ');
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
     });
+    this.breadcrumbs = [
+      { name: 'Ledger' },
+      {
+        name: 'Dashboard',
+        link: `/${this.ownerName}/${this.paramId}/dashboard`,
+      },
+    ];
   }
 
   public onAdd(value: any): void {
@@ -92,10 +107,31 @@ export class LedgerComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         if (data.success === true) {
-          this.defaultLedgerSelect = data.ledgerData[0];
-          this.items = this.items.concat(data.ledgerData);
-          this.onAdd(this.defaultLedgerSelect);
+          // this.defaultLedgerSelect = data.ledgerData[0];
+          this.ledgerContent = this.ledgerContent.concat(data.ledgerData);
+          // this.onAdd(this.defaultLedgerSelect);
         }
+      });
+  }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth(),
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        console.log(data.endDate);
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth(),
+          day: maxD.getDate(),
+        };
       });
   }
 

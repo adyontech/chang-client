@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ArchwizardModule } from 'ng2-archwizard';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { SharedModule } from './../../shared/shared.module';
 
 import { CashAtBankComponent } from './cashAtBank/cashAtBank.component';
 import { CashInHandsComponent } from './cashInHands/cashInHands.component';
@@ -62,6 +63,7 @@ import { PopReceiptService } from './_popComponent/popReceipt/service/receipt.se
 import { PopSalesService } from './_popComponent/popSales/service/sales.service';
 import { PopSalesReturnService } from './_popComponent/popSalesReturn/service/salesReturn.service';
 
+import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
 @NgModule({
   imports: [
     HttpModule,
@@ -76,6 +78,7 @@ import { PopSalesReturnService } from './_popComponent/popSalesReturn/service/sa
     NgSelectModule,
     ArchwizardModule,
     UiSwitchModule,
+    SharedModule,
   ],
   declarations: [
     CashAtBankComponent,
@@ -100,7 +103,7 @@ import { PopSalesReturnService } from './_popComponent/popSalesReturn/service/sa
     PopPurchaseReturnComponent,
     PopReceiptComponent,
     PopSalesComponent,
-    PopSalesReturnComponent
+    PopSalesReturnComponent,
   ],
   providers: [
     GlobalVaribles,
@@ -127,7 +130,9 @@ import { PopSalesReturnService } from './_popComponent/popSalesReturn/service/sa
     PopPurchaseReturnService,
     PopReceiptService,
     PopSalesService,
-    PopSalesReturnService
+    PopSalesReturnService,
+
+    GlobalCompanyService,
   ],
 })
 export class ReportPagesModule {}
