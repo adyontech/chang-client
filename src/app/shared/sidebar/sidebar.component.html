@@ -70,11 +70,11 @@
           <li *ngFor="let menuSubItem of menuItem.submenu" [routerLinkActive]="menuSubItem.submenu.length > 0 ? '' : 'active'" [ngClass]="[menuSubItem.class]">
             <a [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
               <i [ngClass]="[menuSubItem.icon]"></i>
-              <span class="menu-title">{{menuSubItem.title }}</span>
+              <span class="menu-title">{{menuSubItem.title }} </span>
               <!-- <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span> -->
               <span *ngIf=" !this.showIconBar">
                 <b>
-                  <span *ngIf="menuSubItem.navInfo != '' " style="font-size: 12px;color: #F44F6F">{{menuSubItem.navInfo}}</span>
+                  <span *ngIf="menuSubItem.navInfo != '' " style="font-size: 12px;color: #F44F6F"> {{menuSubItem.navInfo}}</span>
                 </b>
               </span>
             </a>
