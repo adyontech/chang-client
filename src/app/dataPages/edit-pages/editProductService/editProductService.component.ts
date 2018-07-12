@@ -138,7 +138,7 @@ export class EditProductServiceComponent implements OnInit {
 
   getPrsrNamesId() {
     this.dataCopy = this._productServiceService
-      .getLedgerNamesId(this.paramId, this.ownerName)
+      .getPrsrNamesId(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);

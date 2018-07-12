@@ -237,6 +237,7 @@ export class LedgerComponent implements OnInit {
     }
   }
   onSubmit(user) {
+    console.log(user);
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._ledgerService

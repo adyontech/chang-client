@@ -46,8 +46,9 @@ export class EditUnderGroupComponent implements OnInit {
 
   ngOnInit() {
     this.getRouteParam();
+    this.getUgNamesId();
     this.form = this.fb.group({
-      selectedLedgerName: ['', Validators.required],
+      selectedUnderGroupName: ['', Validators.required],
       underHead: new FormControl('', [Validators.required]),
       groupName: new FormControl('', [
         Validators.required,
@@ -104,12 +105,12 @@ export class EditUnderGroupComponent implements OnInit {
       .autoFillData(value, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.ledgerData);
-        this.editUndergroupId = data.ledgerData._id;
-        this.oldUndergroupName = data.ledgerData.ledgerName;
-        this.form.controls['groupName'].setValue(data.ledgerData.groupName);
-        this.form.controls['type'].setValue(data.ledgerData.type);
-        this.form.controls['underHead'].setValue(data.ledgerData.underHead);
+        console.log(data.ugData);
+        this.editUndergroupId = data.ugData._id;
+        this.oldUndergroupName = data.ugData.groupName;
+        this.form.controls['groupName'].setValue(data.ugData.groupName);
+        this.form.controls['type'].setValue(data.ugData.type);
+        this.form.controls['underHead'].setValue(data.ugData.underHead);
       });
   }
 

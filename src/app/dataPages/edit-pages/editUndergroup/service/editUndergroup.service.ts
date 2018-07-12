@@ -28,19 +28,19 @@ export class EditUnderGroupsService {
   getUgNamesId(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/ugNameList?token=${
+    }/api/ugEditNameList?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 
-  autoFillData(ledgerName, compName, owner) {
-    console.log(ledgerName);
+  autoFillData(ugName, compName, owner) {
+    console.log(ugName);
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/autoFillUndergoupEditData?token=${
       this.token
-    }&&companyName=${compName}&&ownerName=${owner}&&ledgerName=${ledgerName}`;
+    }&&companyName=${compName}&&ownerName=${owner}&&ugName=${ugName}`;
     return this.http.get(this._url);
   }
 

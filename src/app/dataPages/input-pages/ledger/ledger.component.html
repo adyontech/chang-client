@@ -182,9 +182,7 @@
 
                         <div [ngClass]="{'error': form.controls['pan'].errors && !form.controls['pan'].pristine}">
                           <div *ngIf="form.controls['pan'].errors && !form.controls['pan'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['pan'].errors.required">
-                              filed is required.
-                            </small>
+
                             <small class="form-text text-muted danger" [hidden]="!form.controls['pan'].errors.patternInvalid">
                               Invalid filed.
                             </small>
@@ -238,9 +236,7 @@
                         </div>
                         <div [ngClass]="{'error': form.controls['email'].errors && !form.controls['email'].pristine}">
                           <div *ngIf="form.controls['email'].errors && !form.controls['email'].pristine" class="error-msg">
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['email'].errors.required">
-                              filed is required.
-                            </small>
+
                             <small class="form-text text-muted danger" [hidden]="!form.controls['email'].errors.patternInvalid">
                               Invalid filed.
                             </small>
