@@ -149,12 +149,12 @@ export class EditCompanyComponent implements OnInit {
           this.form.controls['pan'].setValue(this.companyData.pan);
           this.form.controls['startDate'].setValue({
             year: this.companyData.startDate.getFullYear(),
-            month: this.companyData.startDate.getMonth(),
+            month: this.companyData.startDate.getMonth() + 1,
             day: this.companyData.startDate.getDate(),
           });
           this.form.controls['endDate'].setValue({
             year: this.companyData.endDate.getFullYear(),
-            month: this.companyData.endDate.getMonth(),
+            month: this.companyData.endDate.getMonth() + 1,
             day: this.companyData.endDate.getDate(),
           });
         }
@@ -167,12 +167,13 @@ export class EditCompanyComponent implements OnInit {
     }
     user.startDate = new Date(
       user.startDate.year,
-      user.startDate.month,
+      user.startDate.month - 1,
       user.startDate.day
     ).getTime();
+    console.log(user.endDate);
     user.endDate = new Date(
       user.endDate.year,
-      user.endDate.month,
+      user.endDate.month - 1,
       user.endDate.day
     ).getTime();
     alertFunctions.SaveData().then(datsa => {
@@ -215,8 +216,8 @@ export class EditCompanyComponent implements OnInit {
     user.endDate = new Date(user.endDate);
     this.form.controls['endDate'].setValue({
       year: user.endDate.getFullYear(),
-      month: user.endDate.getMonth(),
-      day: user.endDate.getDate(),
+      month: user.endDate.getMonth() + 1,
+      day: user.endDate.getDate() + 1,
     });
   }
   // this.form.controls[fileField].setErrors({ incorrect: true });

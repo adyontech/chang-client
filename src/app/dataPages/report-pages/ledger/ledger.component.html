@@ -21,15 +21,19 @@
             <div class="col-xs-12 col-md-3">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker" [ngModel]="startingDate"
+                  <input class="form-control" placeholder="Start Date" name="ds1" ngbDatepicker #ds1="ngbDatepicker" [ngModel]="startingDate"
                     (ngModelChange)="startDate($event)">
+
                   <div class="input-group-append">
-                    <div class="input-group-text" (click)="ds.toggle()">
+                    <div class="input-group-text" (click)="ds1.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
                 </div>
               </div>
+              <small class="form-text text-muted danger">
+                {{startingDate | date}} - {{endingDate|date}}
+              </small>
             </div>
             <div class="col-xs-12 col-md-3">
               <div class="form-group">
@@ -45,13 +49,13 @@
             </div>
           </div>
 
-          <div class="row" [hidden]="haveData === null ? true: null">
-            <div class="col-12">
-              <p>No data present</p>
+          <div class="row my-3" *ngIf="LedgerData?.length<=0">
+            <div class="col-12 text-center my-3">
+              <h1>No data present</h1>
             </div>
           </div>
 
-          <div class="content table-responsive table-full-width" [hidden]="haveData">
+          <div class="content table-responsive table-full-width" *ngIf="LedgerData?.length>0">
             <table class="table table-responsive-md text-center">
               <thead>
                 <tr>
@@ -69,7 +73,7 @@
                 </tr>
 
               </thead>
-              <tbody [hidden]="haveData">
+              <tbody>
                 <tr *ngFor="let list of LedgerData">
                   <td>
                     <a class="success p-0" data-original-title="" title="">
@@ -86,14 +90,14 @@
                   <td>{{list.debitAmount}}</td>
                   <td>{{list.creditAmount}}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="LedgerData?.length>0">
                   <td></td>
                   <td></td>
                   <td></td>
                   <td>{{netDebitAmount}}</td>
                   <td>{{netCreditAmount}}</td>
                 </tr>
-                <tr style="color: rgb(128, 0, 49)">
+                <tr style="color: rgb(128, 0, 49)" *ngIf="LedgerData?.length>0">
                   <td></td>
                   <td></td>
                   <td>Closing Balance</td>
@@ -102,7 +106,7 @@
                   <td [hidden]="totalNet < 0">-</td>
                   <td [hidden]="totalNet < 0 ">{{netDebitAmount-netCreditAmount}}</td>
                 </tr>
-                <tr style="color: green">
+                <tr style="color: green" *ngIf="LedgerData?.length>0">
                   <td></td>
                   <td></td>
                   <td>Total</td>
@@ -110,7 +114,7 @@
                   <td>{{newTotalNet}}</td>
                   <!-- <td>{{netDebitAmount netCreditAmount?netDebitAmount+accountBalance:netCreditAmount+accountBalance }}</td> -->
                 </tr>
-                <tr style="color: rebeccapurple">
+                <tr style="color: rebeccapurple" *ngIf="LedgerData?.length>0">
                   <td></td>
                   <td></td>
                   <td>Account Balance</td>

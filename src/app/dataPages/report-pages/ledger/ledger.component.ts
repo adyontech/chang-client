@@ -15,7 +15,6 @@ import {
   NgbCalendar,
 } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
-import { max } from 'date-fns';
 
 declare var $: any;
 
@@ -39,10 +38,13 @@ export class LedgerComponent implements OnInit {
   public dropdFilter: string;
   startingDate;
   endingDate;
+  showStartDateError: Boolean = false;
+  showEndDateError: Boolean = false;
   public minNgbDate;
   public maxNgbDate;
 
-  LedgerData: Array<string>;
+  LedgerData = [];
+  mainLedgerData = [];
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
@@ -89,9 +91,11 @@ export class LedgerComponent implements OnInit {
       .getIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        data.formData.length === 0
-          ? (this.haveData = true)
-          : (this.haveData = null);
+        console.log(data);
+        // data.formData.length === 0
+        //   ? (this.haveData = true)
+        //   : (this.haveData = null);
+        this.mainLedgerData = data.formData;
         this.LedgerData = data.formData;
         this.totalNet = data.amountObj.totalNet;
         this.newTotalNet = Math.abs(this.totalNet);
@@ -105,11 +109,8 @@ export class LedgerComponent implements OnInit {
       .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         if (data.success === true) {
-          // this.defaultLedgerSelect = data.ledgerData[0];
           this.ledgerContent = this.ledgerContent.concat(data.ledgerData);
-          // this.onAdd(this.defaultLedgerSelect);
         }
       });
   }
@@ -119,27 +120,78 @@ export class LedgerComponent implements OnInit {
       .getGlobalCompanyData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        this.startingDate = data.startDate;
+        this.endingDate = data.endDate;
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth(),
+          month: minD.getMonth() + 1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         console.log(data.endDate);
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth(),
+          month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
       });
   }
 
+  dateRangeValidator(arg) {
+    const dateVal = new Date(arg.year, arg.month, arg.day).getTime();
+    if (dateVal >= this.startingDate && dateVal <= this.endingDate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   startDate(value) {
-    this.startingDate = value;
+    this.showStartDateError = this.dateRangeValidator(value);
+    // console.log(this.showStartDateError);
+    if (
+      value !== null &&
+      typeof value === 'object' &&
+      this.mainLedgerData.length !== 0
+    ) {
+      // if(value.yea)
+      const newStartingDate = new Date(
+        value.year,
+        value.month - 1,
+        value.day
+      ).getTime();
+      this.LedgerData = this.mainLedgerData.filter(el => {
+        if (el.date > newStartingDate && newStartingDate > this.minNgbDate) {
+          console.log(el);
+          return el;
+        }
+      });
+    }
+    console.log(this.LedgerData);
   }
   endDate(value) {
-    this.endingDate = value;
+    this.dateRangeValidator(value);
+    console.log(value);
+    if (
+      value !== null &&
+      typeof value === 'object' &&
+      this.mainLedgerData.length !== 0
+    ) {
+      // if(value.yea)
+      const newStartingDate = new Date(
+        value.year,
+        value.month,
+        value.day
+      ).getTime();
+      this.LedgerData = this.mainLedgerData.filter(el => {
+        if (el.date > newStartingDate && newStartingDate > this.minNgbDate) {
+          console.log(el);
+          return el;
+        }
+      });
+    }
+    console.log(this.LedgerData);
   }
 
   deleteEntry(entryId) {}
