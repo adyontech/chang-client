@@ -15,7 +15,7 @@
         <div class="card-header">
           <div class="row mb-2">
             <div class="col-xs-12 col-md-4">
-              <ng-select [items]="ledgerContent" placeholder="Select ledger" (add)="onAdd($event)" [(ngModel)]="defaultLedgerSelect">
+              <ng-select [items]="ledgerNameArray" placeholder="Select ledger" (add)="onAdd($event)" [(ngModel)]="defaultLedgerSelect">
               </ng-select>
             </div>
             <div class="col-xs-12 col-md-3">

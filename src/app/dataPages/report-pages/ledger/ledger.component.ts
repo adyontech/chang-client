@@ -26,36 +26,39 @@ declare var $: any;
 export class LedgerComponent implements OnInit {
   // Models
   // boxHidden: Boolean = false;
-  haveData: Boolean = true;
-  defaultLedgerSelect: String;
-  totalNet: number;
-  newTotalNet: number;
-  accountBalance: number;
-  netDebitAmount: number;
-  netCreditAmount: number;
-  public dateFrom: Date;
-  public dateTo: Date;
-  public dropdFilter: string;
-  startingDate;
-  endingDate;
-  showStartDateError: Boolean = false;
-  showEndDateError: Boolean = false;
+  // haveData: Boolean = true;
+  // defaultLedgerSelect: String;
+  // public accountBalance: number;
+  // public dateFrom: Date;
+  // public dateTo: Date;
+  // public dropdFilter: string;
+  public totalNet: number;
+  public newTotalNet: number;
+  public netDebitAmount: number;
+  public netCreditAmount: number;
+
+  public companyStartingDate;
+  public companyEndingDate;
+
+  public choosenStartDate;
+  public choosenEndDate;
+  public showStartDateError: Boolean = false;
+  public showEndDateError: Boolean = false;
   public minNgbDate;
   public maxNgbDate;
 
-  LedgerData = [];
-  mainLedgerData = [];
+  public LedgerData = [];
+  public mainLedgerData = [];
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
   public ownerName: string;
-  public closeResult: string;
 
-  dropdownList = [];
-  selectedItems = [];
+  // dropdownList = [];
+  // selectedItems = [];
+  // dropdownSettings = {};
   public breadcrumbs = [];
-  dropdownSettings = {};
-  public ledgerContent: Array<string> = [];
+  public ledgerNameArray: Array<string> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -91,10 +94,6 @@ export class LedgerComponent implements OnInit {
       .getIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
-        // data.formData.length === 0
-        //   ? (this.haveData = true)
-        //   : (this.haveData = null);
         this.mainLedgerData = data.formData;
         this.LedgerData = data.formData;
         this.totalNet = data.amountObj.totalNet;
@@ -110,7 +109,7 @@ export class LedgerComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         if (data.success === true) {
-          this.ledgerContent = this.ledgerContent.concat(data.ledgerData);
+          this.ledgerNameArray = this.ledgerNameArray.concat(data.ledgerData);
         }
       });
   }
@@ -120,8 +119,8 @@ export class LedgerComponent implements OnInit {
       .getGlobalCompanyData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.startingDate = data.startDate;
-        this.endingDate = data.endDate;
+        this.companyStartingDate = data.startDate;
+        this.companyEndingDate = data.endDate;
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
@@ -129,7 +128,6 @@ export class LedgerComponent implements OnInit {
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
-        console.log(data.endDate);
         this.maxNgbDate = {
           year: maxD.getFullYear(),
           month: maxD.getMonth() + 1,
@@ -139,59 +137,107 @@ export class LedgerComponent implements OnInit {
   }
 
   dateRangeValidator(arg) {
-    const dateVal = new Date(arg.year, arg.month, arg.day).getTime();
-    if (dateVal >= this.startingDate && dateVal <= this.endingDate) {
-      return true;
+    if (arg !== null && typeof arg === 'object') {
+      const dateVal = new Date(arg.year, arg.month - 1, arg.day).getTime();
+      console.log(dateVal);
+      console.log(this.companyStartingDate);
+      console.log(this.companyEndingDate);
+      if (
+        dateVal > 0 &&
+        dateVal >= this.companyStartingDate &&
+        dateVal <= this.companyEndingDate
+      ) {
+        return { allow: true, date: dateVal };
+      } else {
+        return { allow: false };
+      }
     } else {
-      return false;
+      return { allow: false };
     }
   }
 
+  // startDate(value) {
+  //   this.showStartDateError = this.dateRangeValidator(value);
+  //   if (
+  //     value !== null &&
+  //     typeof value === 'object' &&
+  //     this.mainLedgerData.length !== 0
+  //   ) {
+  //     const selectedcompanyStartingDate = new Date(
+  //       value.year,
+  //       value.month,
+  //       value.day
+  //     ).getTime();
+  //     this.LedgerData = this.mainLedgerData.filter(el => {
+  //       if (
+  //         el.date >= selectedcompanyStartingDate &&
+  //         selectedcompanyStartingDate > this.companyStartingDate
+  //         // &&          el.date <= this.showEndDateError
+  //       ) {
+  //         return el;
+  //       }
+  //     });
+  //   }
+  // }
+  // endDate(value) {
+  //   console.log(value);
+  //   this.showStartDateError = this.dateRangeValidator(value);
+  //   if (
+  //     value !== null &&
+  //     typeof value === 'object' &&
+  //     this.mainLedgerData.length !== 0
+  //   ) {
+  //     const selectedEndDate = new Date(
+  //       value.year,
+  //       value.month,
+  //       value.day
+  //     ).getTime();
+  //     console.log(selectedEndDate);
+  //     this.LedgerData = this.mainLedgerData.filter(el => {
+  //       if (
+  //         el.date <= selectedEndDate &&
+  //         selectedEndDate < this.companyEndingDate
+  //         // &&          el.date <= this.showEndDateError
+  //       ) {
+  //         return el;
+  //       }
+  //     });
+  //   }
+  // }
+
   startDate(value) {
-    this.showStartDateError = this.dateRangeValidator(value);
-    // console.log(this.showStartDateError);
-    if (
-      value !== null &&
-      typeof value === 'object' &&
-      this.mainLedgerData.length !== 0
-    ) {
-      // if(value.yea)
-      const newStartingDate = new Date(
-        value.year,
-        value.month - 1,
-        value.day
-      ).getTime();
-      this.LedgerData = this.mainLedgerData.filter(el => {
-        if (el.date > newStartingDate && newStartingDate > this.minNgbDate) {
-          console.log(el);
-          return el;
-        }
-      });
+    const dateReturn = this.dateRangeValidator(value);
+    console.log(this.showStartDateError);
+    if (dateReturn.allow) {
+      this.showStartDateError = false;
+      this.choosenStartDate = dateReturn.date;
+    } else {
+      this.showStartDateError = true;
+      this.choosenStartDate = this.companyStartingDate;
     }
-    console.log(this.LedgerData);
   }
   endDate(value) {
-    this.dateRangeValidator(value);
-    console.log(value);
-    if (
-      value !== null &&
-      typeof value === 'object' &&
-      this.mainLedgerData.length !== 0
-    ) {
-      // if(value.yea)
-      const newStartingDate = new Date(
-        value.year,
-        value.month,
-        value.day
-      ).getTime();
-      this.LedgerData = this.mainLedgerData.filter(el => {
-        if (el.date > newStartingDate && newStartingDate > this.minNgbDate) {
-          console.log(el);
-          return el;
-        }
-      });
+    const dateReturn = this.dateRangeValidator(value);
+    console.log(this.showStartDateError);
+    if (dateReturn.allow) {
+      this.showEndDateError = false;
+      this.choosenStartDate = dateReturn.date;
+      this.setDateFilter();
+    } else {
+      this.showEndDateError = true;
+      this.choosenEndDate = this.companyEndingDate;
     }
-    console.log(this.LedgerData);
+  }
+
+  setDateFilter() {
+    this.LedgerData = this.mainLedgerData.filter(el => {
+      if (
+        el.date <= this.choosenStartDate &&
+        el.date < this.companyEndingDate
+      ) {
+        return el;
+      }
+    });
   }
 
   deleteEntry(entryId) {}
