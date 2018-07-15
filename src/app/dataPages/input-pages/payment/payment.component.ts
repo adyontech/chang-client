@@ -314,12 +314,12 @@ export class PaymentComponent implements OnInit {
     console.log(user.date);
     user.date = new Date(
       user.date.year,
-      user.date.month,
+      user.date.month - 1,
       user.date.day
     ).getTime();
     user.drawnOn = new Date(
       user.drawnOn.year,
-      user.drawnOn.month,
+      user.drawnOn.month - 1,
       user.drawnOn.day
     ).getTime();
     alertFunctions.SaveData().then(datsa => {

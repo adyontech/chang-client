@@ -133,15 +133,14 @@ export class LedgerComponent implements OnInit {
           month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
+        this.dateFilterRefresh();
       });
   }
 
   dateRangeValidator(arg) {
     if (arg !== null && typeof arg === 'object') {
       const dateVal = new Date(arg.year, arg.month - 1, arg.day).getTime();
-      console.log(dateVal);
-      console.log(this.companyStartingDate);
-      console.log(this.companyEndingDate);
+
       if (
         dateVal > 0 &&
         dateVal >= this.companyStartingDate &&
@@ -149,68 +148,21 @@ export class LedgerComponent implements OnInit {
       ) {
         return { allow: true, date: dateVal };
       } else {
+        this.LedgerData = [];
         return { allow: false };
       }
     } else {
+      this.LedgerData = [];
+
       return { allow: false };
     }
   }
-
-  // startDate(value) {
-  //   this.showStartDateError = this.dateRangeValidator(value);
-  //   if (
-  //     value !== null &&
-  //     typeof value === 'object' &&
-  //     this.mainLedgerData.length !== 0
-  //   ) {
-  //     const selectedcompanyStartingDate = new Date(
-  //       value.year,
-  //       value.month,
-  //       value.day
-  //     ).getTime();
-  //     this.LedgerData = this.mainLedgerData.filter(el => {
-  //       if (
-  //         el.date >= selectedcompanyStartingDate &&
-  //         selectedcompanyStartingDate > this.companyStartingDate
-  //         // &&          el.date <= this.showEndDateError
-  //       ) {
-  //         return el;
-  //       }
-  //     });
-  //   }
-  // }
-  // endDate(value) {
-  //   console.log(value);
-  //   this.showStartDateError = this.dateRangeValidator(value);
-  //   if (
-  //     value !== null &&
-  //     typeof value === 'object' &&
-  //     this.mainLedgerData.length !== 0
-  //   ) {
-  //     const selectedEndDate = new Date(
-  //       value.year,
-  //       value.month,
-  //       value.day
-  //     ).getTime();
-  //     console.log(selectedEndDate);
-  //     this.LedgerData = this.mainLedgerData.filter(el => {
-  //       if (
-  //         el.date <= selectedEndDate &&
-  //         selectedEndDate < this.companyEndingDate
-  //         // &&          el.date <= this.showEndDateError
-  //       ) {
-  //         return el;
-  //       }
-  //     });
-  //   }
-  // }
-
   startDate(value) {
     const dateReturn = this.dateRangeValidator(value);
-    console.log(this.showStartDateError);
     if (dateReturn.allow) {
       this.showStartDateError = false;
       this.choosenStartDate = dateReturn.date;
+      this.setDateFilter();
     } else {
       this.showStartDateError = true;
       this.choosenStartDate = this.companyStartingDate;
@@ -218,10 +170,9 @@ export class LedgerComponent implements OnInit {
   }
   endDate(value) {
     const dateReturn = this.dateRangeValidator(value);
-    console.log(this.showStartDateError);
     if (dateReturn.allow) {
       this.showEndDateError = false;
-      this.choosenStartDate = dateReturn.date;
+      this.choosenEndDate = dateReturn.date;
       this.setDateFilter();
     } else {
       this.showEndDateError = true;
@@ -232,12 +183,19 @@ export class LedgerComponent implements OnInit {
   setDateFilter() {
     this.LedgerData = this.mainLedgerData.filter(el => {
       if (
-        el.date <= this.choosenStartDate &&
-        el.date < this.companyEndingDate
+        el.date >= this.choosenStartDate &&
+        el.date <= this.choosenEndDate &&
+        el.date >= this.companyStartingDate &&
+        el.date <= this.companyEndingDate
       ) {
         return el;
       }
     });
+  }
+
+  dateFilterRefresh() {
+    this.choosenStartDate = this.companyStartingDate;
+    this.choosenEndDate = this.companyEndingDate;
   }
 
   deleteEntry(entryId) {}

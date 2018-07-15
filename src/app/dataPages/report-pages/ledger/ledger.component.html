@@ -31,8 +31,8 @@
                   </div>
                 </div>
               </div>
-              <small class="form-text text-muted danger">
-                {{startingDate | date}} - {{endingDate|date}}
+              <small *ngIf="showStartDateError" class="form-text text-muted danger">
+                Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
               </small>
             </div>
             <div class="col-xs-12 col-md-3">
@@ -47,7 +47,11 @@
                 </div>
               </div>
             </div>
+            <small *ngIf="showEndDateError" class="form-text text-muted danger">
+              Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
+            </small>
           </div>
+          <!-- <div class="col-xs"></div> -->
 
           <div class="row my-3" *ngIf="LedgerData?.length<=0">
             <div class="col-12 text-center my-3">
@@ -59,8 +63,6 @@
             <table class="table table-responsive-md text-center">
               <thead>
                 <tr>
-                  <th> Actions </th>
-
                   <th> Date </th>
 
                   <th> Particulars</th>
@@ -70,11 +72,19 @@
                   <th> Debit Amount</th>
 
                   <th> Creit Amount </th>
+
+                  <th> Actions </th>
                 </tr>
 
               </thead>
               <tbody>
                 <tr *ngFor="let list of LedgerData">
+
+                  <td>{{list.date|date}}</td>
+                  <td>{{list.ledgerName}}</td>
+                  <td>{{list.voucherType}}</td>
+                  <td>{{list.debitAmount}}</td>
+                  <td>{{list.creditAmount}}</td>
                   <td>
                     <a class="success p-0" data-original-title="" title="">
                       <i class="ft-edit-2 font-medium-3 mr-2"></i>
@@ -83,12 +93,6 @@
                       <i class="ft-x font-medium-3 mr-2"></i>
                     </a>
                   </td>
-
-                  <td>{{list.date|date}}</td>
-                  <td>{{list.ledgerName}}</td>
-                  <td>{{list.voucherType}}</td>
-                  <td>{{list.debitAmount}}</td>
-                  <td>{{list.creditAmount}}</td>
                 </tr>
                 <tr *ngIf="LedgerData?.length>0">
                   <td></td>
