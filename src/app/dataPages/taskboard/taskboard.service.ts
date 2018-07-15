@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { Task } from "./taskboard.model";
-import { Http, Response, RequestOptions, Headers } from "@angular/http";
-import { GlobalVaribles } from "./../../../app/shared/globalVariables/globalVariable";
+import { Injectable } from '@angular/core';
+import { Task } from './taskboard.model';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { GlobalVaribles } from './../../../app/shared/globalVariables/globalVariable';
 import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
-import { Routes, RouterModule, ActivatedRoute } from "@angular/router";
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class TaskBoardService {
@@ -24,122 +24,122 @@ export class TaskBoardService {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.creator = JSON.parse(window.localStorage.getItem("user")).userName;
+    this.creator = JSON.parse(window.localStorage.getItem('user')).userName;
     this.setToken();
   }
 
   public todo: Task[] = [
     new Task(
-      "Responsive",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Responsive',
+      'Etiam porta sem malesuada magna mollis euismod.',
       87979,
-      "Elizabeth Elliott",
-      "assets/img/portrait/small/avatar-s-3.png",
-      "New"
+      'Elizabeth Elliott',
+      'assets/img/portrait/small/avatar-s-3.png',
+      'New'
     ),
     new Task(
-      "QA Testing",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'QA Testing',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Elizabeth Elliott",
-      "assets/img/portrait/small/avatar-s-3.png",
-      "New"
+      'Elizabeth Elliott',
+      'assets/img/portrait/small/avatar-s-3.png',
+      'New'
     ),
     new Task(
-      "Budget",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Budget',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Elizabeth Elliott",
-      "assets/img/portrait/small/avatar-s-3.png",
-      "New"
-    )
+      'Elizabeth Elliott',
+      'assets/img/portrait/small/avatar-s-3.png',
+      'New'
+    ),
   ];
 
   public inProcess: Task[] = [
     new Task(
-      "checklist",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'checklist',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Bruce Reid",
-      "assets/img/portrait/small/avatar-s-1.png",
-      "In Process"
+      'Bruce Reid',
+      'assets/img/portrait/small/avatar-s-1.png',
+      'In Process'
     ),
     new Task(
-      "Navigation",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Navigation',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Bruce Reid",
-      "assets/img/portrait/small/avatar-s-1.png",
-      "In Process"
+      'Bruce Reid',
+      'assets/img/portrait/small/avatar-s-1.png',
+      'In Process'
     ),
     new Task(
-      "Bootstrap 4",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Bootstrap 4',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Bruce Reid",
-      "assets/img/portrait/small/avatar-s-1.png",
-      "In Process"
-    )
+      'Bruce Reid',
+      'assets/img/portrait/small/avatar-s-1.png',
+      'In Process'
+    ),
   ];
 
   public backLog: Task[] = [
     new Task(
-      "Assessment",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Assessment',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Kelly Reyes",
-      "assets/img/portrait/small/avatar-s-5.png",
-      "Pending"
+      'Kelly Reyes',
+      'assets/img/portrait/small/avatar-s-5.png',
+      'Pending'
     ),
     new Task(
-      "Schedule",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Schedule',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Kelly Reyes",
-      "assets/img/portrait/small/avatar-s-5.png",
-      "Pending"
+      'Kelly Reyes',
+      'assets/img/portrait/small/avatar-s-5.png',
+      'Pending'
     ),
     new Task(
-      "Unit tests",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Unit tests',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Kelly Reyes",
-      "assets/img/portrait/small/avatar-s-5.png",
-      "Pending"
-    )
+      'Kelly Reyes',
+      'assets/img/portrait/small/avatar-s-5.png',
+      'Pending'
+    ),
   ];
 
   public completed: Task[] = [
     new Task(
-      "Angular 5",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Angular 5',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Sara Ali",
-      "assets/img/portrait/small/avatar-s-7.png",
-      "Completed"
+      'Sara Ali',
+      'assets/img/portrait/small/avatar-s-7.png',
+      'Completed'
     ),
     new Task(
-      "Fields",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Fields',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Sara Ali",
-      "assets/img/portrait/small/avatar-s-7.png",
-      "Completed"
+      'Sara Ali',
+      'assets/img/portrait/small/avatar-s-7.png',
+      'Completed'
     ),
     new Task(
-      "Task board",
-      "Etiam porta sem malesuada magna mollis euismod.",
+      'Task board',
+      'Etiam porta sem malesuada magna mollis euismod.',
       4564,
-      "Sara Ali",
-      "assets/img/portrait/small/avatar-s-7.png",
-      "Completed"
-    )
+      'Sara Ali',
+      'assets/img/portrait/small/avatar-s-7.png',
+      'Completed'
+    ),
   ];
 
   setToken() {
-    this.windowStorage = JSON.parse(window.localStorage.getItem("user"));
+    this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     if (this.windowStorage === null || this.windowStorage === undefined) {
-      this.router.navigate(["/app/login"]);
+      this.router.navigate(['/app/login']);
     } else {
       this.token = this.windowStorage.token;
     }
@@ -152,15 +152,14 @@ export class TaskBoardService {
       message: message,
       date: Date.now(),
       creator: this.creator,
-      assignedto: "aadii",
-      status: "status"
+      assignedto: 'aadii',
+      status: 'status',
     };
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/task/addTask?token=${this.token}`;
 
-    this.http.post(this._url, todoObj)
-    .subscribe((res: Response) => {
+    this.http.post(this._url, todoObj).subscribe((res: Response) => {
       this.result = res.json();
       return this.result;
     });
