@@ -149,12 +149,12 @@ export class LedgerComponent implements OnInit {
         return { allow: true, date: dateVal };
       } else {
         this.LedgerData = [];
-        return { allow: false };
+        return { allow: false, date: null };
       }
     } else {
       this.LedgerData = [];
 
-      return { allow: false };
+      return { allow: false, date: null };
     }
   }
   startDate(value) {
