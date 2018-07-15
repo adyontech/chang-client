@@ -17,16 +17,6 @@ export class TaskBoardService {
   _url: string;
   token: string;
   public creator: string;
-  constructor(
-    private http: Http,
-    public _globalVariableService: GlobalVaribles,
-    public _activatedRoute: ActivatedRoute,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.creator = JSON.parse(window.localStorage.getItem('user')).userName;
-    this.setToken();
-  }
 
   public todo: Task[] = [
     new Task(
@@ -35,7 +25,8 @@ export class TaskBoardService {
       87979,
       'Elizabeth Elliott',
       'assets/img/portrait/small/avatar-s-3.png',
-      'New'
+      'New',
+      1
     ),
     new Task(
       'QA Testing',
@@ -43,7 +34,8 @@ export class TaskBoardService {
       4564,
       'Elizabeth Elliott',
       'assets/img/portrait/small/avatar-s-3.png',
-      'New'
+      'New',
+      2
     ),
     new Task(
       'Budget',
@@ -51,7 +43,8 @@ export class TaskBoardService {
       4564,
       'Elizabeth Elliott',
       'assets/img/portrait/small/avatar-s-3.png',
-      'New'
+      'New',
+      3
     ),
   ];
 
@@ -62,7 +55,8 @@ export class TaskBoardService {
       4564,
       'Bruce Reid',
       'assets/img/portrait/small/avatar-s-1.png',
-      'In Process'
+      'In Process',
+      1
     ),
     new Task(
       'Navigation',
@@ -70,7 +64,8 @@ export class TaskBoardService {
       4564,
       'Bruce Reid',
       'assets/img/portrait/small/avatar-s-1.png',
-      'In Process'
+      'In Process',
+      2
     ),
     new Task(
       'Bootstrap 4',
@@ -78,7 +73,8 @@ export class TaskBoardService {
       4564,
       'Bruce Reid',
       'assets/img/portrait/small/avatar-s-1.png',
-      'In Process'
+      'In Process',
+      3
     ),
   ];
 
@@ -89,7 +85,8 @@ export class TaskBoardService {
       4564,
       'Kelly Reyes',
       'assets/img/portrait/small/avatar-s-5.png',
-      'Pending'
+      'Pending',
+      1
     ),
     new Task(
       'Schedule',
@@ -97,7 +94,8 @@ export class TaskBoardService {
       4564,
       'Kelly Reyes',
       'assets/img/portrait/small/avatar-s-5.png',
-      'Pending'
+      'Pending',
+      2
     ),
     new Task(
       'Unit tests',
@@ -105,7 +103,8 @@ export class TaskBoardService {
       4564,
       'Kelly Reyes',
       'assets/img/portrait/small/avatar-s-5.png',
-      'Pending'
+      'Pending',
+      3
     ),
   ];
 
@@ -116,7 +115,8 @@ export class TaskBoardService {
       4564,
       'Sara Ali',
       'assets/img/portrait/small/avatar-s-7.png',
-      'Completed'
+      'Completed',
+      1
     ),
     new Task(
       'Fields',
@@ -124,7 +124,8 @@ export class TaskBoardService {
       4564,
       'Sara Ali',
       'assets/img/portrait/small/avatar-s-7.png',
-      'Completed'
+      'Completed',
+      2
     ),
     new Task(
       'Task board',
@@ -132,9 +133,21 @@ export class TaskBoardService {
       4564,
       'Sara Ali',
       'assets/img/portrait/small/avatar-s-7.png',
-      'Completed'
+      'Completed',
+      3
     ),
   ];
+
+  constructor(
+    private http: Http,
+    public _globalVariableService: GlobalVaribles,
+    public _activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.creator = JSON.parse(window.localStorage.getItem('user')).userName;
+    this.setToken();
+  }
 
   setToken() {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));

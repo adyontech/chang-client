@@ -15,9 +15,9 @@
             <div class="col-md-3 col-12">
               <h4 class="ml-2 mt-2 text-bold-500">
                 <i class="ft-list mr-1"></i> To Dos</h4>
-              <div class='dragdrop-container' [dragula]='"task-group"' [dragulaModel]='todo'>
+              <div class='dragdrop-container'>
                 <div *ngFor='let todo of todo'>
-                  <div class="card">
+                  <div class="card" dnd-draggable [dragEnabled]="true" [dragData]="todo">
                     <div class="card-block pt-3">
                       <div class="clearfix">
                         <h5 class="text-bold-500 primary float-left">{{todo.taskTitle}}</h5>
@@ -39,7 +39,7 @@
             <div class="col-md-3 col-12">
               <h4 class="ml-2 mt-2 text-bold-500">
                 <i class="ft-trending-up mr-1"></i> In Progress</h4>
-              <div class='dragdrop-container' [dragula]='"task-group"' [dragulaModel]='inProcess'>
+              <div class='dragdrop-container' dnd-droppable (onDropSuccess)="transferDataSuccess($event)">
                 <div *ngFor='let inProcess of inProcess'>
                   <div class="card">
                     <div class="card-block pt-3">
