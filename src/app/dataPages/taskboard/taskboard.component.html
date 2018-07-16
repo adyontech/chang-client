@@ -69,6 +69,7 @@
   </div>
 </div>
 <!-- Taskboard Starts -->
+
 <section id="taskboard">
 
   <div class="row">
@@ -114,8 +115,8 @@
                     <div class="clearfix">
                       <h5 class="text-bold-500 primary float-left">{{inProcessItem.title}}</h5>
                       <div class="actions float-right">
-                        <i class="ft-edit mr-1 info"></i>
-                        <i class="ft-trash-2 danger"></i>
+                        <i class="ft-edit mr-1 info" (click)="open(content, inProcessItem)"></i>
+                        <i class="ft-trash-2 danger" (click)="deleteTodo(inProcessItem._id)"></i>
                       </div>
                     </div>
                     <span class="primary">{{inProcessItem.createdAt | date}}</span>
@@ -142,8 +143,8 @@
                     <div class="clearfix">
                       <h5 class="text-bold-500 primary float-left">{{completedItem.title}}</h5>
                       <div class="actions float-right">
-                        <i class="ft-edit mr-1 info"></i>
-                        <i class="ft-trash-2 danger"></i>
+                        <i class="ft-edit mr-1 info" (click)="open(content, completedItem)"></i>
+                        <i class="ft-trash-2 danger" (click)="deleteTodo(completedItem._id)"></i>
                       </div>
                     </div>
                     <span class="primary">{{completedItem.createdAt | date}}</span>
@@ -171,8 +172,8 @@
                     <div class="clearfix">
                       <h5 class="text-bold-500 primary float-left">{{backLogItem.title}}</h5>
                       <div class="actions float-right">
-                        <i class="ft-edit mr-1 info"></i>
-                        <i class="ft-trash-2 danger"></i>
+                        <i class="ft-edit mr-1 info" (click)="open(content, backLogItem)"></i>
+                        <i class="ft-trash-2 danger" (click)="deleteTodo(backLogItem._id)"></i>
                       </div>
                     </div>
                     <span class="primary">{{backLogItem.createdAt | date}}</span>
@@ -191,50 +192,45 @@
       </div>
     </div>
   </div>
+</section>
+<!-- Taskboard Ends -->
 
-  <section class="taskboard-app-form bg-blue-grey bg-lighten-5">
-    <div class="card">
-      <div class="card-block pt-3">
-        <h5 class="text-bold-500">Create new Task</h5>
-        <div class="taskboard-app-input row">
-          <div class="row" style="width: 100%">
-            <div class="col-sm-3">
-              <div class="form-group position-relative has-icon-left">
+<section class="taskboard-app-form bg-blue-grey bg-lighten-5 ">
+  <div class="card">
+    <div class="card-block pt-3 pl-3">
+      <h5 class="text-bold-500">Create new task</h5>
+      <div class="taskboard-app-input row">
+        <div class="row" style="width: 100%">
+          <div class="col-sm-3">
+            <div class="form-group position-relative has-icon-left">
 
-                <input type="text" class="form-control" id="todoTitle" placeholder="Title" [(ngModel)]="todoTitle">
+              <input type="text" class="form-control" id="todoTitle" placeholder="Title" [(ngModel)]="todoTitle">
 
-              </div>
             </div>
-            <div class="col-sm-3">
-              <div class="form-group position-relative has-icon-left">
-
-                <input type="text" class="form-control" id="todoMessage" placeholder="Message" [(ngModel)]="todoMessage">
-
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <ng-select [items]="helperArray" [(ngModel)]="todoAssigned" placeholder="No helper selected">
-
-              </ng-select>
-            </div>
-            <div class="col-sm-2">
-              <div class="form-group position-relative has-icon-left">
-                <button type="button" class="btn btn-raised btn-primary" (click)="onAddTask()">
-                  <i class="fa fa-paper-plane-o hidden-lg-up"></i>
-                  Create
-                </button>
-              </div>
-            </div>
-
           </div>
-          <div class="row" style="width: 100%">
+          <div class="col-sm-4">
+            <div class="form-group position-relative has-icon-left">
 
+              <input type="text" class="form-control" id="todoMessage" placeholder="Message" [(ngModel)]="todoMessage">
+
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <ng-select [items]="helperArray" [(ngModel)]="todoAssigned" placeholder="No helper selected">
+
+            </ng-select>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group position-relative has-icon-left">
+              <button type="button" class="btn btn-raised btn-primary" (click)="onAddTask()">
+                <i class="fa fa-paper-plane-o hidden-lg-up"></i>
+                Create
+              </button>
+            </div>
           </div>
 
         </div>
       </div>
     </div>
-  </section>
-
+  </div>
 </section>
-<!-- Taskboard Ends -->

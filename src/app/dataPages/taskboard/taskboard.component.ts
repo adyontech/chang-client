@@ -34,7 +34,7 @@ export class TaskboardComponent implements OnInit {
   public todoId;
   public todoMessage;
   public todoTitle;
-  public todoAssigned;
+  public todoAssigned = '';
   public todoStatus;
 
   public todo = [];
