@@ -1,40 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~@ng-select/ng-select/themes/default.theme.css";
-.form-group-header{
-    line-height: 1.5em;
-    font-weight: 500;
-    text-align: left;
+.form-group-header {
+  line-height: 1.5em;
+  font-weight: 500;
+  text-align: left;
 }
 
-.input-group{
-    margin-bottom: 0;
+.input-group {
+  margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
-    .form-group-header {
-        text-align: center;
-    }
+  .form-group-header {
+    text-align: center;
+  }
 }
+
 .upload-btnF-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-  }
-  
-  .btnF {
-    border: 2px solid gray;
-    color: gray;
-    background-color: white;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .upload-btnF-wrapper input[type=file] {
-    font-size: 20px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-  }
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btnF {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btnF-wrapper input[type=file] {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}

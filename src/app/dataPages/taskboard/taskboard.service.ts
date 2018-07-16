@@ -187,6 +187,17 @@ export class TaskBoardService {
     });
   }
 
+  updateTask(todoObj, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/updateTask?token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, todoObj).map((res: Response) => {
+      return res.json();
+    });
+  }
+
   changeStatus(todoObj, companyName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
@@ -198,8 +209,16 @@ export class TaskBoardService {
     });
   }
 
-  gettodo() {
-    return this.todo;
+  deleteTodo(deleteId, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/deleteTodo?deleteId=${deleteId}&&token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+
+    return this.http
+      .delete(this._url)
+      .map((response: Response) => response.json());
   }
 }
 // don't be so rude
