@@ -1,173 +1,267 @@
 <div class="row">
-  <div class="col-sm-12">
-    <div class="content-header">Task Board</div>
-    <p class="content-sub-header"></p>
-  </div>
+    <div class="col-sm-12">
+        <div class="content-header">Task Board</div>
+        <p class="content-sub-header"></p>
+    </div>
 </div>
 <!-- Taskboard Starts -->
 <section id="taskboard">
 
-  <div class="row">
-    <div class="col-md-12 col-lg-12">
-      <div class="parent">
-        <div class="dragdrop-wrapper">
-          <div class="row">
-            <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500">
-                <i class="ft-list mr-1"></i>
-                To Dos
-              </h4>
-              <div class="dragdrop-container" dnd-droppable (onDropSuccess)="transferDataSuccess($event, 'todo')">
-                <div *ngFor="let todoItem of todo">
-                  <div class="card" dnd-draggable [dragEnabled]="true" [dragData]="todoItem">
-                    <div class="card-block pt-3">
-                      <div class="clearfix">
-                        <h5 class="text-bold-500 primary float-left">{{todoItem.taskTitle}}</h5>
-                        <div class="actions float-right">
-                          <i class="ft-edit mr-1 info"></i>
-                          <i class="ft-trash-2 danger"></i>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="parent">
+                <div class="dragdrop-wrapper">
+                    <div class="row">
+                        <div class="col-md-3 col-12">
+                            <h4 class="ml-2 mt-2 text-bold-500">
+                                <i class="ft-list mr-1"></i>
+                                To Dos
+                            </h4>
+                            <div
+                                class="dragdrop-container"
+                                dnd-droppable
+                                (onDropSuccess)="transferDataSuccess($event, 'todo')"
+                            >
+                                <div *ngFor="let todoItem of todo">
+                                    <div
+                                        class="card"
+                                        dnd-draggable
+                                        [dragEnabled]="true"
+                                        [dragData]="todoItem"
+                                    >
+                                        <div class="card-block pt-3">
+                                            <div class="clearfix">
+                                                <h5 class="text-bold-500 primary float-left">{{todoItem.title}}</h5>
+                                                <div class="actions float-right">
+                                                    <i class="ft-edit mr-1 info"></i>
+                                                    <i class="ft-trash-2 danger"></i>
+                                                </div>
+                                            </div>
+                                            <span class="primary">{{todoItem.createdAt | date}}</span>
+                                            <p>{{todoItem.message}}</p>
+                                            <div style="float: left;">
+                                                <ngx-avatar
+                                                    name="{{todoItem.assignedTo}}"
+                                                    value="28%"
+                                                    bgColor="#333d4f"
+                                                    fgColor="white"
+                                                    size="40"
+                                                    textSizeRatio="2.5"
+                                                    [round]="true"
+                                                ></ngx-avatar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <span class="primary">{{todoItem.createdOn | date}}</span>
-                      <p>{{todoItem.taskMessage}}</p>
-                      <div style="float: left;">
-                        <ngx-avatar name="creator" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500">
-                <i class="ft-trending-up mr-1"></i>
-                In Progress
-              </h4>
-              <div class="dragdrop-container" dnd-droppable (onDropSuccess)="transferDataSuccess($event, 'inProcess')">
-                <div *ngFor="let inProcessItem of inProcess">
-                  <div class="card" dnd-draggable [dragEnabled]="true" [dragData]="inProcessItem">
-                    <div class="card-block pt-3">
-                      <div class="clearfix">
-                        <h5 class="text-bold-500 info float-left">{{inProcessItem.taskTitle}}</h5>
-                        <div class="actions float-right">
-                          <i class="ft-edit mr-1 info"></i>
-                          <i class="ft-trash-2 danger"></i>
+                        <div class="col-md-3 col-12">
+                            <h4 class="ml-2 mt-2 text-bold-500">
+                                <i class="ft-trending-up mr-1"></i>
+                                In Progress
+                            </h4>
+                            <div
+                                class="dragdrop-container"
+                                dnd-droppable
+                                (onDropSuccess)="transferDataSuccess($event, 'inProcess')"
+                            >
+                                <div *ngFor="let inProcessItem of inProcess">
+                                    <div
+                                        class="card"
+                                        dnd-draggable
+                                        [dragEnabled]="true"
+                                        [dragData]="inProcessItem"
+                                    >
+                                        <div class="card-block pt-3">
+                                            <div class="clearfix">
+                                                <h5 class="text-bold-500 primary float-left">{{inProcessItem.title}}</h5>
+                                                <div class="actions float-right">
+                                                    <i class="ft-edit mr-1 info"></i>
+                                                    <i class="ft-trash-2 danger"></i>
+                                                </div>
+                                            </div>
+                                            <span class="primary">{{inProcessItem.createdAt | date}}</span>
+                                            <p>{{inProcessItem.message}}</p>
+                                            <div style="float: left;">
+                                                <ngx-avatar
+                                                    name="{{inProcessItem.assignedTo}}"
+                                                    value="28%"
+                                                    bgColor="#333d4f"
+                                                    fgColor="white"
+                                                    size="40"
+                                                    textSizeRatio="2.5"
+                                                    [round]="true"
+                                                ></ngx-avatar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <span class="info">{{inProcessItem.createdOn | date}}</span>
-                      <p>{{inProcessItem.taskMessage}}</p>
-                      <div style="float: left;">
-                        <ngx-avatar name="creator" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500">
-                <i class="ft-thumbs-up mr-1"></i>
-                Completed
-              </h4>
-              <div class="dragdrop-container" dnd-droppable (onDropSuccess)="transferDataSuccess($event, 'completed')">
-                <div *ngFor="let completedItem of completed">
-                  <div class="card" dnd-draggable [dragEnabled]="true" [dragData]="completedItem">
-                    <div class="card-block pt-3">
-                      <div class="clearfix">
-                        <h5 class="text-bold-500 success float-left">{{completedItem.taskTitle}}</h5>
-                        <div class="actions float-right">
-                          <i class="ft-edit mr-1 info"></i>
-                          <i class="ft-trash-2 danger"></i>
-                        </div>
-                      </div>
-                      <span class="success">{{completedItem.createdOn | date}}</span>
-                      <p>{{completedItem.taskMessage}}</p>
-                      <div style="float: left;">
-                        <ngx-avatar name="creator" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                        <div class="col-md-3 col-12">
+                            <h4 class="ml-2 mt-2 text-bold-500">
+                                <i class="ft-thumbs-up mr-1"></i>
+                                Completed
+                            </h4>
+                            <div
+                                class="dragdrop-container"
+                                dnd-droppable
+                                (onDropSuccess)="transferDataSuccess($event, 'completed')"
+                            >
+                                <div *ngFor="let completedItem of completed">
+                                    <div
+                                        class="card"
+                                        dnd-draggable
+                                        [dragEnabled]="true"
+                                        [dragData]="completedItem"
+                                    >
+                                        <div class="card-block pt-3">
+                                            <div class="clearfix">
+                                                <h5 class="text-bold-500 primary float-left">{{completedItem.title}}</h5>
+                                                <div class="actions float-right">
+                                                    <i class="ft-edit mr-1 info"></i>
+                                                    <i class="ft-trash-2 danger"></i>
+                                                </div>
+                                            </div>
+                                            <span class="primary">{{completedItem.createdAt | date}}</span>
+                                            <p>{{completedItem.message}}</p>
+                                            <div style="float: left;">
+                                                <ngx-avatar
+                                                    name="{{completedItem.assignedTo}}"
+                                                    value="28%"
+                                                    bgColor="#333d4f"
+                                                    fgColor="white"
+                                                    size="40"
+                                                    textSizeRatio="2.5"
+                                                    [round]="true"
+                                                ></ngx-avatar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            </div>
-
-            <div class="col-md-3 col-12">
-              <h4 class="ml-2 mt-2 text-bold-500">
-                <i class="ft-alert-octagon mr-1"></i>
-                On Hold
-              </h4>
-              <div class="dragdrop-container" dnd-droppable (onDropSuccess)="transferDataSuccess($event, 'backLog')">
-                <div *ngFor="let backLogItem of backLog">
-                  <div class="card" dnd-draggable [dragEnabled]="true" [dragData]="backLogItem">
-                    <div class="card-block pt-3">
-                      <div class="clearfix">
-                        <h5 class="text-bold-500 warning float-left">{{backLogItem.taskTitle}}</h5>
-                        <div class="actions float-right">
-                          <i class="ft-edit mr-1 info"></i>
-                          <i class="ft-trash-2 danger"></i>
                         </div>
-                      </div>
-                      <span class="warning">{{backLogItem.createdOn | date}}</span>
-                      <p>{{backLogItem.taskMessage}}</p>
-                      <div style="float: left;">
-                        <ngx-avatar name="creator" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
-                      </div>
+
+                        <div class="col-md-3 col-12">
+                            <h4 class="ml-2 mt-2 text-bold-500">
+                                <i class="ft-alert-octagon mr-1"></i>
+                                On Hold
+                            </h4>
+                            <div
+                                class="dragdrop-container"
+                                dnd-droppable
+                                (onDropSuccess)="transferDataSuccess($event, 'backLog')"
+                            >
+                                <div *ngFor="let backLogItem of backLog">
+                                    <div
+                                        class="card"
+                                        dnd-draggable
+                                        [dragEnabled]="true"
+                                        [dragData]="backLogItem"
+                                    >
+                                        <div class="card-block pt-3">
+                                            <div class="clearfix">
+                                                <h5 class="text-bold-500 primary float-left">{{backLogItem.title}}</h5>
+                                                <div class="actions float-right">
+                                                    <i class="ft-edit mr-1 info"></i>
+                                                    <i class="ft-trash-2 danger"></i>
+                                                </div>
+                                            </div>
+                                            <span class="primary">{{backLogItem.createdAt | date}}</span>
+                                            <p>{{backLogItem.message}}</p>
+                                            <div style="float: left;">
+                                                <ngx-avatar
+                                                    name="{{backLogItem.assignedTo}}"
+                                                    value="28%"
+                                                    bgColor="#333d4f"
+                                                    fgColor="white"
+                                                    size="40"
+                                                    textSizeRatio="2.5"
+                                                    [round]="true"
+                                                ></ngx-avatar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <section class="taskboard-app-form bg-blue-grey bg-lighten-5">
-    <div class="card">
-      <div class="card-block pt-3">
-        <h5 class="text-bold-500">Create new Task</h5>
-        <div class="taskboard-app-input row">
-          <div class="row" style="width: 100%">
-            <div class="col-sm-3">
-              <div class="form-group position-relative has-icon-left">
+    <section class="taskboard-app-form bg-blue-grey bg-lighten-5">
+        <div class="card">
+            <div class="card-block pt-3">
+                <h5 class="text-bold-500">Create new Task</h5>
+                <div class="taskboard-app-input row">
+                    <div
+                        class="row"
+                        style="width: 100%"
+                    >
+                        <div class="col-sm-3">
+                            <div class="form-group position-relative has-icon-left">
 
-                <input type="text" class="form-control" id="todoTitle" placeholder="Title" [(ngModel)]="todoTitle">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="todoTitle"
+                                    placeholder="Title"
+                                    [(ngModel)]="todoTitle"
+                                >
 
-              </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group position-relative has-icon-left">
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="todoMessage"
+                                    placeholder="Message"
+                                    [(ngModel)]="todoMessage"
+                                >
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ng-select
+                                [items]="helperArray"
+                                [(ngModel)]="todoAssigned"
+                                placeholder="No helper selected"
+                            >
+
+                            </ng-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group position-relative has-icon-left">
+                                <button
+                                    type="button"
+                                    class="btn btn-raised btn-primary"
+                                    (click)="onAddTask()"
+                                >
+                                    <i class="fa fa-paper-plane-o hidden-lg-up"></i>
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div
+                        class="row"
+                        style="width: 100%"
+                    >
+
+                    </div>
+
+                </div>
             </div>
-            <div class="col-sm-3">
-              <div class="form-group position-relative has-icon-left">
-
-                <input type="text" class="form-control" id="todoMessage" placeholder="Message" [(ngModel)]="todoMessage">
-
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <ng-select [items]="helperArray" [(ngModel)]="todoAssigned" placeholder="No helper selected">
-
-              </ng-select>
-            </div>
-            <div class="col-sm-2">
-              <div class="form-group position-relative has-icon-left">
-                <button type="button" class="btn btn-raised btn-primary" (click)="onAddTask()">
-                  <i class="fa fa-paper-plane-o hidden-lg-up"></i>
-                  Create
-                </button>
-              </div>
-            </div>
-
-          </div>
-          <div class="row" style="width: 100%">
-
-          </div>
-
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
 </section>
 <!-- Taskboard Ends -->

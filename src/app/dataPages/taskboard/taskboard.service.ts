@@ -167,6 +167,15 @@ export class TaskBoardService {
     return this.http.get(this._url);
   }
 
+  getAllTasks(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/alltasks?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+
   addTask(todoObj, companyName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl

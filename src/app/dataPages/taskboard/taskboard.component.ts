@@ -28,10 +28,10 @@ export class TaskboardComponent implements OnInit {
   public todoTitle;
   public todoAssigned;
 
-  public todo: Task[];
-  public inProcess: Task[];
-  public completed: Task[];
-  public backLog: Task[];
+  public todo = [];
+  public inProcess = [];
+  public completed = [];
+  public backLog = [];
   public helperArray = [];
 
   constructor(
@@ -40,14 +40,11 @@ export class TaskboardComponent implements OnInit {
     public _toastrService: ToastrService
   ) {
     this.creator = JSON.parse(window.localStorage.getItem('user')).userName;
-    this.todo = _taskBoardService.todo;
-    this.inProcess = _taskBoardService.inProcess;
-    this.backLog = _taskBoardService.backLog;
-    this.completed = _taskBoardService.completed;
   }
 
   ngOnInit() {
     this.getRouteParam();
+    this.getAllTasks();
     this.getHelpersName();
   }
   getRouteParam() {
@@ -73,6 +70,20 @@ export class TaskboardComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.helperArray = data.helperList;
+      });
+  }
+
+  getAllTasks() {
+    this.dataCopy = this._taskBoardService
+      .getAllTasks(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.todo = data.todoArray;
+        this.inProcess = data.inprogressArray;
+        this.backLog = data.backlogArray;
+        this.completed = data.completedArray;
+        // this.helperArray = data.helperList;
       });
   }
 
