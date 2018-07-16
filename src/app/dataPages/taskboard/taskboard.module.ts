@@ -9,6 +9,7 @@ import { TaskboardComponent } from './taskboard.component';
 import { GlobalVaribles } from './../../../app/shared/globalVariables/globalVariable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DndModule } from 'ng2-dnd';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     DndModule,
@@ -16,6 +17,7 @@ import { DndModule } from 'ng2-dnd';
     TaskboardRoutingModule,
     DragulaModule,
     AvatarModule,
+    NgSelectModule,
     FormsModule,
   ],
   declarations: [TaskboardComponent],

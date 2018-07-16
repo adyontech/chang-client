@@ -158,26 +158,27 @@ export class TaskBoardService {
     }
   }
 
-  addNewTask(title: string, message: string) {
-    let todoObj = new Object();
-    todoObj = {
-      title: title,
-      message: message,
-      date: Date.now(),
-      creator: this.creator,
-      assignedto: 'aadii',
-      status: 'status',
-    };
+  getHelpersName(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/task/addTask?token=${this.token}`;
+    }/api/companyCollabList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
 
-    this.http.post(this._url, todoObj).subscribe((res: Response) => {
-      this.result = res.json();
-      return this.result;
+  addTask(todoObj, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/addTask?token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, todoObj).map((res: Response) => {
+      return res.json();
     });
   }
   gettodo() {
     return this.todo;
   }
 }
+// don't be so rude
