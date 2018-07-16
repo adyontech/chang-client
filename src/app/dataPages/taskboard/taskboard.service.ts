@@ -20,12 +20,12 @@ export class TaskBoardService {
 
   public todo: Task[] = [
     new Task(
-      'Responsive',
+      'todo  ',
       'Etiam porta sem malesuada magna mollis euismod.',
       87979,
       'Elizabeth Elliott',
       'assets/img/portrait/small/avatar-s-3.png',
-      'New',
+      'todo',
       1
     ),
     new Task(
@@ -34,7 +34,7 @@ export class TaskBoardService {
       4564,
       'Elizabeth Elliott',
       'assets/img/portrait/small/avatar-s-3.png',
-      'New',
+      'todo',
       2
     ),
     new Task(
@@ -43,19 +43,19 @@ export class TaskBoardService {
       4564,
       'Elizabeth Elliott',
       'assets/img/portrait/small/avatar-s-3.png',
-      'New',
+      'todo',
       3
     ),
   ];
 
   public inProcess: Task[] = [
     new Task(
-      'checklist',
+      'inProcess',
       'Etiam porta sem malesuada magna mollis euismod.',
       4564,
       'Bruce Reid',
       'assets/img/portrait/small/avatar-s-1.png',
-      'In Process',
+      'inProcess',
       1
     ),
     new Task(
@@ -64,7 +64,7 @@ export class TaskBoardService {
       4564,
       'Bruce Reid',
       'assets/img/portrait/small/avatar-s-1.png',
-      'In Process',
+      'inProcess',
       2
     ),
     new Task(
@@ -73,19 +73,19 @@ export class TaskBoardService {
       4564,
       'Bruce Reid',
       'assets/img/portrait/small/avatar-s-1.png',
-      'In Process',
+      'inProcess',
       3
     ),
   ];
 
   public backLog: Task[] = [
     new Task(
-      'Assessment',
+      'backLog',
       'Etiam porta sem malesuada magna mollis euismod.',
       4564,
       'Kelly Reyes',
       'assets/img/portrait/small/avatar-s-5.png',
-      'Pending',
+      'backLog',
       1
     ),
     new Task(
@@ -94,7 +94,7 @@ export class TaskBoardService {
       4564,
       'Kelly Reyes',
       'assets/img/portrait/small/avatar-s-5.png',
-      'Pending',
+      'backLog',
       2
     ),
     new Task(
@@ -103,7 +103,7 @@ export class TaskBoardService {
       4564,
       'Kelly Reyes',
       'assets/img/portrait/small/avatar-s-5.png',
-      'Pending',
+      'backLog',
       3
     ),
   ];
@@ -115,7 +115,7 @@ export class TaskBoardService {
       4564,
       'Sara Ali',
       'assets/img/portrait/small/avatar-s-7.png',
-      'Completed',
+      'completed',
       1
     ),
     new Task(
@@ -124,16 +124,16 @@ export class TaskBoardService {
       4564,
       'Sara Ali',
       'assets/img/portrait/small/avatar-s-7.png',
-      'Completed',
+      'completed',
       2
     ),
     new Task(
-      'Task board',
+      'completed',
       'Etiam porta sem malesuada magna mollis euismod.',
       4564,
       'Sara Ali',
       'assets/img/portrait/small/avatar-s-7.png',
-      'Completed',
+      'completed',
       3
     ),
   ];

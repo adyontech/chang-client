@@ -19,21 +19,49 @@ export class TaskboardComponent {
 
   public todo: Task[];
   public inProcess: Task[];
-  public backLog: Task[];
   public completed: Task[];
+  public backLog: Task[];
 
-  constructor(
-    private elRef: ElementRef,
-    private taskBoardService: TaskBoardService
-  ) {
+  constructor(private taskBoardService: TaskBoardService) {
     this.todo = taskBoardService.todo;
     this.inProcess = taskBoardService.inProcess;
     this.backLog = taskBoardService.backLog;
     this.completed = taskBoardService.completed;
   }
-  transferDataSuccess($event: any) {
-    console.log($event);
-    this.inProcess.push($event.dragData);
-    console.log(this.inProcess);
+
+  transferDataSuccess($event: any, to) {
+    const from = $event.dragData.status;
+    console.log(to + from);
+    if (to === from) {
+      return;
+    }
+    // entering in the row
+    if (to === 'todo') {
+      this.todo.push($event.dragData);
+    } else if (to === 'inProcess') {
+      this.inProcess.push($event.dragData);
+    } else if (to === 'completed') {
+      this.completed.push($event.dragData);
+    } else if (to === 'backLog') {
+      this.backLog.push($event.dragData);
+    }
+
+    // deleting for the row
+    if (from === 'New') {
+      this.todo = this.todo.filter(el => el.taskId !== $event.dragData.taskId);
+    } else if (from === 'inProcess') {
+      console.log(this.inProcess);
+      this.inProcess = this.inProcess.filter(
+        el => el.taskId !== $event.dragData.taskId
+      );
+    } else if (from === 'completed') {
+      this.completed = this.completed.filter(
+        el => el.taskId !== $event.dragData.taskId
+      );
+    } else if (from === 'backLog') {
+      this.backLog = this.backLog.filter(
+        el => el.taskId !== $event.dragData.taskId
+      );
+    }
   }
 }
