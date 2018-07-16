@@ -117,7 +117,7 @@ export class TaskboardComponent implements OnInit {
     taskData = {
       message: this.todoMessage,
       title: this.todoTitle,
-      assignedto: this.todoAssigned,
+      assignedTo: this.todoAssigned,
       date: Date.now(),
       status: 'todo',
       creator: this.creator,
