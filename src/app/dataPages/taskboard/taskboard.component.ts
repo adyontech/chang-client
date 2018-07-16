@@ -68,7 +68,7 @@ export class TaskboardComponent implements OnInit {
       .getHelpersName(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.helperArray = data.helperList;
       });
   }
@@ -78,7 +78,7 @@ export class TaskboardComponent implements OnInit {
       .getAllTasks(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.todo = data.todoArray;
         this.inProcess = data.inprogressArray;
         this.backLog = data.backlogArray;
@@ -87,16 +87,41 @@ export class TaskboardComponent implements OnInit {
       });
   }
 
+  changeStatus(value, to) {
+    let taskData = new Object();
+    taskData = {
+      _id: value._id,
+      status: to,
+    };
+    this._taskBoardService
+      .changeStatus(taskData, this.paramId, this.ownerName)
+      .subscribe(data => {
+        if (data.success) {
+          this._toastrService.typeSuccess('success', 'Todo status updated');
+          this.todoMessage = '';
+          this.todoTitle = '';
+          this.todoAssigned = '';
+          // the code is to check whether the window is a pop-up
+          // or not, if pop-up then it will close it.
+        } else {
+          this._toastrService.typeError('Error', data.message);
+        }
+      });
+  }
+
   transferDataSuccess($event: any, to) {
     const from = $event.dragData.status;
-    console.log(to + from);
+    this.changeStatus($event.dragData, to);
+    console.log($event.dragData);
     if (to === from) {
       return;
     }
+    $event.dragData.status = to;
     // entering in the row
     if (to === 'todo') {
       this.todo.unshift($event.dragData);
     } else if (to === 'inProcess') {
+      console.log(this.todo);
       this.inProcess.unshift($event.dragData);
     } else if (to === 'completed') {
       this.completed.unshift($event.dragData);
@@ -106,20 +131,21 @@ export class TaskboardComponent implements OnInit {
 
     // deleting for the row
     if (from === 'todo') {
-      this.todo = this.todo.filter(el => el.taskId !== $event.dragData.taskId);
+      console.log($event.dragData);
+      this.todo = this.todo.filter(el => el._id !== $event.dragData._id);
+
+      console.log(this.todo);
     } else if (from === 'inProcess') {
       console.log(this.inProcess);
       this.inProcess = this.inProcess.filter(
-        el => el.taskId !== $event.dragData.taskId
+        el => el._id !== $event.dragData._id
       );
     } else if (from === 'completed') {
       this.completed = this.completed.filter(
-        el => el.taskId !== $event.dragData.taskId
+        el => el._id !== $event.dragData._id
       );
     } else if (from === 'backLog') {
-      this.backLog = this.backLog.filter(
-        el => el.taskId !== $event.dragData.taskId
-      );
+      this.backLog = this.backLog.filter(el => el._id !== $event.dragData._id);
     }
   }
 
@@ -145,6 +171,7 @@ export class TaskboardComponent implements OnInit {
                 'success',
                 'Todo successfully added'
               );
+              this.todo.unshift(taskData);
               this.todoMessage = '';
               this.todoTitle = '';
               this.todoAssigned = '';

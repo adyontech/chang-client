@@ -186,6 +186,18 @@ export class TaskBoardService {
       return res.json();
     });
   }
+
+  changeStatus(todoObj, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/changeStatus?token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, todoObj).map((res: Response) => {
+      return res.json();
+    });
+  }
+
   gettodo() {
     return this.todo;
   }
