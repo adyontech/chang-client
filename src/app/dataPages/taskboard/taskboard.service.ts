@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { Task } from "./taskboard.model";
-import { Http, Response, RequestOptions, Headers } from "@angular/http";
-import { GlobalVaribles } from "./../../../app/shared/globalVariables/globalVariable";
+import { Injectable } from '@angular/core';
+import { Task } from './taskboard.model';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { GlobalVaribles } from './../../../app/shared/globalVariables/globalVariable';
 import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
-import { Routes, RouterModule, ActivatedRoute } from "@angular/router";
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class TaskBoardService {
@@ -17,6 +17,127 @@ export class TaskBoardService {
   _url: string;
   token: string;
   public creator: string;
+
+  public todo: Task[] = [
+    new Task(
+      'todo  ',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      87979,
+      'Elizabeth Elliott',
+      'assets/img/portrait/small/avatar-s-3.png',
+      'todo',
+      1
+    ),
+    new Task(
+      'QA Testing',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Elizabeth Elliott',
+      'assets/img/portrait/small/avatar-s-3.png',
+      'todo',
+      2
+    ),
+    new Task(
+      'Budget',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Elizabeth Elliott',
+      'assets/img/portrait/small/avatar-s-3.png',
+      'todo',
+      3
+    ),
+  ];
+
+  public inProcess: Task[] = [
+    new Task(
+      'inProcess',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Bruce Reid',
+      'assets/img/portrait/small/avatar-s-1.png',
+      'inProcess',
+      1
+    ),
+    new Task(
+      'Navigation',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Bruce Reid',
+      'assets/img/portrait/small/avatar-s-1.png',
+      'inProcess',
+      2
+    ),
+    new Task(
+      'Bootstrap 4',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Bruce Reid',
+      'assets/img/portrait/small/avatar-s-1.png',
+      'inProcess',
+      3
+    ),
+  ];
+
+  public backLog: Task[] = [
+    new Task(
+      'backLog',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Kelly Reyes',
+      'assets/img/portrait/small/avatar-s-5.png',
+      'backLog',
+      1
+    ),
+    new Task(
+      'Schedule',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Kelly Reyes',
+      'assets/img/portrait/small/avatar-s-5.png',
+      'backLog',
+      2
+    ),
+    new Task(
+      'Unit tests',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Kelly Reyes',
+      'assets/img/portrait/small/avatar-s-5.png',
+      'backLog',
+      3
+    ),
+  ];
+
+  public completed: Task[] = [
+    new Task(
+      'Angular 5',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Sara Ali',
+      'assets/img/portrait/small/avatar-s-7.png',
+      'completed',
+      1
+    ),
+    new Task(
+      'Fields',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Sara Ali',
+      'assets/img/portrait/small/avatar-s-7.png',
+      'completed',
+      2
+    ),
+    new Task(
+      'completed',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      4564,
+      'Sara Ali',
+      'assets/img/portrait/small/avatar-s-7.png',
+      'completed',
+      3
+    ),
+  ];
+
   constructor(
     private http: Http,
     public _globalVariableService: GlobalVaribles,
@@ -24,148 +145,80 @@ export class TaskBoardService {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.creator = JSON.parse(window.localStorage.getItem("user")).userName;
+    this.creator = JSON.parse(window.localStorage.getItem('user')).userName;
     this.setToken();
   }
 
-  public todo: Task[] = [
-    new Task(
-      "Responsive",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      87979,
-      "Elizabeth Elliott",
-      "assets/img/portrait/small/avatar-s-3.png",
-      "New"
-    ),
-    new Task(
-      "QA Testing",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Elizabeth Elliott",
-      "assets/img/portrait/small/avatar-s-3.png",
-      "New"
-    ),
-    new Task(
-      "Budget",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Elizabeth Elliott",
-      "assets/img/portrait/small/avatar-s-3.png",
-      "New"
-    )
-  ];
-
-  public inProcess: Task[] = [
-    new Task(
-      "checklist",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Bruce Reid",
-      "assets/img/portrait/small/avatar-s-1.png",
-      "In Process"
-    ),
-    new Task(
-      "Navigation",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Bruce Reid",
-      "assets/img/portrait/small/avatar-s-1.png",
-      "In Process"
-    ),
-    new Task(
-      "Bootstrap 4",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Bruce Reid",
-      "assets/img/portrait/small/avatar-s-1.png",
-      "In Process"
-    )
-  ];
-
-  public backLog: Task[] = [
-    new Task(
-      "Assessment",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Kelly Reyes",
-      "assets/img/portrait/small/avatar-s-5.png",
-      "Pending"
-    ),
-    new Task(
-      "Schedule",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Kelly Reyes",
-      "assets/img/portrait/small/avatar-s-5.png",
-      "Pending"
-    ),
-    new Task(
-      "Unit tests",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Kelly Reyes",
-      "assets/img/portrait/small/avatar-s-5.png",
-      "Pending"
-    )
-  ];
-
-  public completed: Task[] = [
-    new Task(
-      "Angular 5",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Sara Ali",
-      "assets/img/portrait/small/avatar-s-7.png",
-      "Completed"
-    ),
-    new Task(
-      "Fields",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Sara Ali",
-      "assets/img/portrait/small/avatar-s-7.png",
-      "Completed"
-    ),
-    new Task(
-      "Task board",
-      "Etiam porta sem malesuada magna mollis euismod.",
-      4564,
-      "Sara Ali",
-      "assets/img/portrait/small/avatar-s-7.png",
-      "Completed"
-    )
-  ];
-
   setToken() {
-    this.windowStorage = JSON.parse(window.localStorage.getItem("user"));
+    this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     if (this.windowStorage === null || this.windowStorage === undefined) {
-      this.router.navigate(["/app/login"]);
+      this.router.navigate(['/app/login']);
     } else {
       this.token = this.windowStorage.token;
     }
   }
 
-  addNewTask(title: string, message: string) {
-    let todoObj = new Object();
-    todoObj = {
-      title: title,
-      message: message,
-      date: Date.now(),
-      creator: this.creator,
-      assignedto: "aadii",
-      status: "status"
-    };
+  getHelpersName(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/task/addTask?token=${this.token}`;
+    }/api/companyCollabList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
 
-    this.http.post(this._url, todoObj)
-    .subscribe((res: Response) => {
-      this.result = res.json();
-      return this.result;
+  getAllTasks(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/alltasks?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+
+  addTask(todoObj, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/addTask?token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, todoObj).map((res: Response) => {
+      return res.json();
     });
   }
-  gettodo() {
-    return this.todo;
+
+  updateTask(todoObj, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/updateTask?token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, todoObj).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  changeStatus(todoObj, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/changeStatus?token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, todoObj).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  deleteTodo(deleteId, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/task/deleteTodo?deleteId=${deleteId}&&token=${
+      this.token
+    }&companyName=${companyName}&&ownerName=${ownerName}`;
+
+    return this.http
+      .delete(this._url)
+      .map((response: Response) => response.json());
   }
 }
+// don't be so rude

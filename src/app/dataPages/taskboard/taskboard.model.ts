@@ -5,6 +5,7 @@ export class Task {
   public createdBy: string;
   public assignedTo: string;
   public status: string;
+  public taskId: number;
 
   constructor(
     taskTitle: string,
@@ -12,7 +13,8 @@ export class Task {
     createdOn: number,
     createdBy: string,
     assignedTo: string,
-    status: string
+    status: string,
+    taskId: number
   ) {
     this.taskTitle = taskTitle;
     this.taskMessage = taskMessage;
@@ -20,5 +22,6 @@ export class Task {
     this.createdBy = createdBy;
     this.assignedTo = assignedTo;
     this.status = status;
+    this.taskId = taskId;
   }
 }

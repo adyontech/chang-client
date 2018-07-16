@@ -1,0 +1,7 @@
+.ng-select.custom {
+  width: 100% !important;
+}
+
+.ng-select.custom .ng-control {
+  width: 100% !important;
+}

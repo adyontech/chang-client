@@ -1,7 +1,22 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { ContraService } from './service/contra.service';
@@ -24,7 +39,11 @@ export class ContraComponent implements OnInit {
 
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
 
-  constructor(private route: ActivatedRoute, private modalService: NgbModal, public _contraService: ContraService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    public _contraService: ContraService
+  ) {}
 
   ngOnInit() {
     this.getRouteParam();
@@ -57,16 +76,14 @@ export class ContraComponent implements OnInit {
   }
   open(content, editId) {
     this.editContentId = editId;
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   getIncomingData(selectionValue, compaName) {
@@ -91,7 +108,6 @@ export class ContraComponent implements OnInit {
     this._contraService
       .deleteEntry(id, this.paramId)
       // .map(response => response.json())
-      .subscribe(data => {
-      });
+      .subscribe(data => {});
   }
 }

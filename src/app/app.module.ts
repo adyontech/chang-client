@@ -29,7 +29,7 @@ import { AuthGuard } from './shared/auth/auth-guard.service';
 import { ToastrService } from './utilities/toastr.service';
 import { NgbDateCustomParserFormatter } from './shared/globalVariables/datePipe';
 import * as $ from 'jquery';
-
+import { DndModule } from 'ng2-dnd';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +41,7 @@ import * as $ from 'jquery';
     AvatarModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
+    DndModule.forRoot(),
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
