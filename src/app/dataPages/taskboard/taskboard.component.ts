@@ -93,6 +93,9 @@ export class TaskboardComponent implements OnInit {
   }
 
   updateTask() {
+    if (this.todoMessage === '' || this.todoTitle === '') {
+      return;
+    }
     let taskData = new Object();
     taskData = {
       _id: this.todoId,
@@ -217,6 +220,9 @@ export class TaskboardComponent implements OnInit {
   }
 
   onAddTask() {
+    if (this.todoMessage === '' || this.todoTitle === '') {
+      return;
+    }
     let taskData = new Object();
     taskData = {
       message: this.todoMessage,

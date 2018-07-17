@@ -67,7 +67,7 @@
                         <div class="card-body">
                           <div class="input-group">
                             <input class="form-control" placeholder="dd.mm.yyyy" name="ds" (input)="dateRangeValidator('date')" ngbDatepicker #ds="ngbDatepicker"
-                              formControlName="date" (ngModelChange)="SetDrawnOn($event)">
+                              formControlName="date" [minDate]="minNgbDate" [maxDate]="maxNgbDate" (ngModelChange)="SetDrawnOn($event)">
                             <div class="input-group-append">
                               <div class="input-group-text" (click)="ds.toggle()">
                                 <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -181,7 +181,7 @@
                         <span class="danger">*</span>
                         <div class="card-body">
                           <div class="input-group">
-                            <input class="form-control" placeholder="dd.mm.yyyy" name="ds2" ngbDatepicker #ds2="ngbDatepicker" (input)="dateRangeValidator('drawnOn')"
+                            <input class="form-control" placeholder="dd.mm.yyyy" name="ds2" ngbDatepicker #ds2="ngbDatepicker" [minDate]="minNgbDate" [maxDate]="maxNgbDate" (input)="dateRangeValidator('drawnOn')"
                               formControlName="drawnOn">
                             <div class="input-group-append">
                               <div class="input-group-text" (click)="ds2.toggle()">

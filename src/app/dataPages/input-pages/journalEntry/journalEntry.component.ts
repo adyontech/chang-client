@@ -144,13 +144,13 @@ export class JournalEntryComponent implements OnInit {
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth(),
+          month: minD.getMonth()+1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth(),
+          month: maxD.getMonth()+1,
           day: maxD.getDate(),
         };
       });

@@ -64,7 +64,7 @@
                       <label>Date</label>
                       <span class="danger">*</span>
                       <div class="input-group-append">
-                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')" #de="ngbDatepicker"
+                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')"  [minDate]="minNgbDate" [maxDate]="maxNgbDate" #de="ngbDatepicker"
                           formControlName="date">
                         <div class="input-group-text" (click)="de.toggle()">
                           <i class="fa fa-calendar" style="cursor: pointer;"></i>

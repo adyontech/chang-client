@@ -109,7 +109,7 @@
                         <div class="card-body">
                           <div class="form-group">
                             <div class="input-group">
-                              <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker" (input)="dateRangeValidator('date')"
+                              <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker"  [minDate]="minNgbDate" [maxDate]="maxNgbDate" (input)="dateRangeValidator('date')"
                                 formControlName="date">
                               <div class="input-group-append">
                                 <div class="input-group-text" (click)="de.toggle()">
@@ -140,7 +140,7 @@
                           <div class="form-group">
                             <div class="input-group">
                               <input class="form-control" placeholder="dd.mm.yyyy" name="de2" ngbDatepicker #de2="ngbDatepicker" (input)="dateRangeValidator('originalInvoiceDate')"
-                                formControlName="originalInvoiceDate">
+                                [minDate]="minNgbDate" [maxDate]="maxNgbDate" formControlName="originalInvoiceDate">
                               <div class="input-group-append">
                                 <div class="input-group-text" (click)="de2.toggle()">
                                   <i class="fa fa-calendar" style="cursor: pointer;"></i>
