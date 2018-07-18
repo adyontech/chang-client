@@ -1,7 +1,22 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
@@ -36,21 +51,26 @@ export class PaymentComponent implements OnInit {
   public paramId: string;
   public ownerId: string;
 
-  chooseItem = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
-  chooseItemBox = [];
+  public accountTypeModel = 'All';
+  public chooseItem = [
+    'Payment Type',
+    'Payment Through',
+    'Cheque Number',
+    'Against',
+  ];
+  public chooseItemBox = [];
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
   public incomingData: Array<string> = [];
 
   constructor(
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    public _paymentService: PaymentService,
-  ) { }
+    public _paymentService: PaymentService
+  ) {}
   ngOnInit() {
     this.getRouteParam();
     this.onAccSelect('All');
   }
-
 
   // This function is used in open
   private getDismissReason(reason: any): string {
@@ -101,8 +121,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onRemove(item: any) {
-    console.log(item);
-    console.log(item === this.VColPaymentType);
     switch (item.label) {
       case this.VColPaymentType:
         this.ColPaymentType = false;
@@ -125,7 +143,12 @@ export class PaymentComponent implements OnInit {
     this.ColPaymentThrough = true;
     this.ColChequeNO = true;
     this.ColAgainst = true;
-    this.chooseItemBox = ['Payment Type', 'Payment Through', 'Cheque Number', 'Against'];
+    this.chooseItemBox = [
+      'Payment Type',
+      'Payment Through',
+      'Cheque Number',
+      'Against',
+    ];
   }
 
   onDeSelectAll() {
@@ -137,19 +160,16 @@ export class PaymentComponent implements OnInit {
     this.chooseItemBox = [];
   }
 
-
   open(content, editId) {
     this.editContentId = editId;
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // real date picker active from here
@@ -170,9 +190,7 @@ export class PaymentComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
-        console.log(data.paymentData);
         this.incomingData = data.paymentData;
-        console.log(data.totalSum);
       });
   }
 
@@ -185,5 +203,4 @@ export class PaymentComponent implements OnInit {
         console.log(data);
       });
   }
-
 }

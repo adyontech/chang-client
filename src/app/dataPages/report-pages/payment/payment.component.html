@@ -21,7 +21,6 @@
 <div class="row">
   <div class="col-12">
     <div class="content-header">Payment Page</div>
-    <p class="content-sub-header">Manage the ledger with with sorting, filtering, pagination & add/edit/delete functions.</p>
   </div>
 </div>
 <section id="icon-tabs">
@@ -30,18 +29,12 @@
       <div class="card">
         <div class="card-header">
 
-          <div class="row mb-2">
-            <div class="col-5">
-              <h4 style="float:left" class="card-title ">Account: </h4>
-            </div>
+          <div class="row">
             <div class="col-4">
-              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)" >
+              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)" [(ngModel)]="accountTypeModel">
               </ng-select>
             </div>
-          </div>
-          <br>
-          <div class="row mt-3">
-            <div class="col-3">
+            <div class="col-4">
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-append">
@@ -53,7 +46,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-append">
@@ -65,81 +58,84 @@
                 </div>
               </div>
             </div>
-            <div class="col-5">
+          </div>
+          <br>
+          <div class="row ml-2 mb-1">
+            <div class="col-12">
               <div class="row">
                 <div class="input-group-append">
                   <div class="input-group-text" (click)="onSelectAll()">
                     <i class="fa fa-calendar" style="cursor: pointer;"></i>
                   </div>
                 </div>
-                <ng-select [items]="chooseItem" [markFirst]="true" placeholder="Select Filter" [multiple]="true"  [(ngModel)]="chooseItemBox" [closeOnSelect]="false"
-                  (add)="onAdd($event)" (remove)="onRemove($event)" (clear)="onDeSelectAll()">
+                <ng-select [items]="chooseItem" #select [markFirst]="true" placeholder="Select Filter" [multiple]="true" [(ngModel)]="chooseItemBox"
+                  [closeOnSelect]="false" (add)="onAdd($event)" (remove)="onRemove($event)" (clear)="onDeSelectAll()">
                 </ng-select>
               </div>
             </div>
           </div>
-          <!-- [hidden]="haveData === null ? true: null" -->
-          <div class="row">
-            <div class="col-12">
-              <p>No data present</p>
+          <!-- [hidden]="haveData===n ull ? true: null " -->
+          <div class="row my-3 " *ngIf="incomingData?.length<=0 ">
+            <div class="col-12 text-center my-3 ">
+              <h1>No data present</h1>
             </div>
           </div>
 
-          <div class="content table-responsive table-full-width">
-            <table class="table table-hover">
+          <div class="content table-responsive table-full-width " *ngIf="incomingData?.length>0 ">
+            <table class="table table-hover ">
               <thead>
                 <tr>
 
-                  <th class="text-center">Options</th>
+                  <th class="text-center ">Options</th>
 
-                  <th class="text-center">Date </th>
+                  <th class="text-center ">Date </th>
 
-                  <th class="text-center"> Payment No.</th>
+                  <th class="text-center "> Payment No.</th>
 
-                  <th class="text-center"> Particular.</th>
+                  <th class="text-center "> Particular.</th>
 
-                  <th class="text-center"> Total Amount</th>
+                  <th class="text-center "> Total Amount</th>
 
-                  <th class="text-center" [hidden]="!ColPaymentType">Payment Type </th>
+                  <th class="text-center " [hidden]="!ColPaymentType ">Payment Type </th>
 
-                  <th class="text-center" [hidden]="!ColPaymentThrough"> Payment Through</th>
+                  <th class="text-center " [hidden]="!ColPaymentThrough "> Payment Through</th>
 
-                  <th class="text-center" [hidden]="!ColChequeNO">Cheque No </th>
+                  <th class="text-center " [hidden]="!ColChequeNO ">Cheque No </th>
 
-                  <th class="text-center" [hidden]="!ColAgainst">Against </th>
+                  <th class="text-center " [hidden]="!ColAgainst ">Against </th>
 
                 </tr>
 
               </thead>
               <tbody>
-                <tr *ngFor="let list of incomingData">
+                <tr *ngFor="let list of incomingData ">
                   <td>
-                    <a class="success p-0" data-original-title="" title="" (click)="open(content, list._id)">
-                      <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                    <a class="success p-0 " data-original-title=" " title=" " (click)="open(content, list._id) ">
+                      <i class="ft-edit-2 font-medium-3 mr-2 "></i>
                     </a>
-                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list._id)">
-                      <i class="ft-x font-medium-3 mr-2"></i>
+                    <a class="danger p-0 " data-original-title=" " title=" " (click)="deleteEntry(list._id) ">
+                      <i class="ft-x font-medium-3 mr-2 "></i>
                     </a>
                   </td>
                   <td> {{list.date | date}}</td>
                   <td> {{list.paymentNumber}}</td>
                   <td>
-                    <tr *ngFor="let parti of list.particularsData">
-                      <td>{{parti.particulars}}</td>
+                    <tr *ngFor="let parti of list.particularsData ">
+                      <td style="border:0">{{parti.particulars}}</td>
 
                     </tr>
 
                   </td>
                   <td>
-                    <tr *ngFor="let parti of list.particularsData">
+                    <tr *ngFor="let parti of list.particularsData ">
 
-                      <td>{{parti.amount}}</td>
+                      <td style="border:0">{{parti.amount}}</td>
                     </tr>
                   </td>
-                  <td [hidden]="!ColPaymentType"> {{list.paymentType}}</td>
-                  <td [hidden]="!ColPaymentThrough"> {{list.paymentThrough}}</td>
-                  <td [hidden]="!ColChequeNO"> {{list.chequeNumber}}</td>
-                  <td [hidden]="!ColAgainst"> {{list.against}}</td>
+                  <td [hidden]="!ColPaymentType "> {{list.paymentType}}</td>
+                  <td [hidden]="!ColPaymentThrough "> {{list.paymentThrough}}</td>
+                  <td [hidden]="!ColChequeNO "> {{list.chequeNumber}}</td>
+                  <td [hidden]="!ColAgainst "> {{list.against}}</td>
                 </tr>
                 <tr>
                 </tr>
@@ -154,4 +150,3 @@
   </div>
 </section>
 <!-- Wizard Ends -->
-

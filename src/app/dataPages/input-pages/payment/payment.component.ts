@@ -343,13 +343,14 @@ export class PaymentComponent implements OnInit {
       user.date = new Date(user.date);
       this.form.controls['date'].setValue({
         year: user.date.getFullYear(),
-        month: user.date.getMonth(),
+        month: user.date.getMonth() + 1,
         day: user.date.getDate(),
       });
+      console.log(user.date)
       user.drawnOn = new Date(user.drawnOn);
       this.form.controls['drawnOn'].setValue({
         year: user.drawnOn.getFullYear(),
-        month: user.drawnOn.getMonth(),
+        month: user.drawnOn.getMonth() + 1,
         day: user.drawnOn.getDate(),
       });
     });
