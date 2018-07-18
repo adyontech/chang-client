@@ -32,7 +32,7 @@ export class ReceiptComponent implements OnInit {
   public minNgbDate;
   public maxNgbDate;
   public ledgerList: Array<string> = [];
-  public accountList: Array<string> = ['Cash'];
+  public accountList: Array<string> = [];
   public attachmentError: Boolean = false;
   public value: any = {};
   public attachmentName: String = 'No File Choosen.';
@@ -171,13 +171,13 @@ export class ReceiptComponent implements OnInit {
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth()+1,
+          month: minD.getMonth() + 1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth()+1,
+          month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
       });
@@ -296,12 +296,12 @@ export class ReceiptComponent implements OnInit {
   onSubmit(user) {
     user.date = new Date(
       user.date.year,
-      user.date.month,
+      user.date.month - 1,
       user.date.day
     ).getTime();
     user.drawnOn = new Date(
       user.drawnOn.year,
-      user.drawnOn.month,
+      user.drawnOn.month - 1,
       user.drawnOn.day
     ).getTime();
     alertFunctions.SaveData().then(datsa => {
@@ -326,13 +326,13 @@ export class ReceiptComponent implements OnInit {
       user.date = new Date(user.date);
       this.form.controls['date'].setValue({
         year: user.date.getFullYear(),
-        month: user.date.getMonth(),
+        month: user.date.getMonth() + 1,
         day: user.date.getDate(),
       });
       user.drawnOn = new Date(user.drawnOn);
       this.form.controls['drawnOn'].setValue({
         year: user.drawnOn.getFullYear(),
-        month: user.drawnOn.getMonth(),
+        month: user.drawnOn.getMonth() + 1,
         day: user.drawnOn.getDate(),
       });
     });
