@@ -230,6 +230,7 @@ export class ContraComponent implements OnInit {
   }
 
   onSubmit(user) {
+    console.log(user.date);
     user.date = new Date(
       user.date.year,
       user.date.month - 1,
@@ -246,7 +247,7 @@ export class ContraComponent implements OnInit {
         this._contraService
           .createNewEntry(user, this.paramId, this.ownerName)
           .subscribe(data => {
-            this.form.reset();
+            // this.form.reset();
             if (data.success) {
               this._toastrService.typeSuccess(
                 'success',
@@ -255,21 +256,28 @@ export class ContraComponent implements OnInit {
             } else {
               this._toastrService.typeError('Error', data.message);
             }
-
-            user.date = new Date(user.date);
-            this.form.controls['date'].setValue({
-              year: user.date.getFullYear(),
-              month: user.date.getMonth() + 1,
-              day: user.date.getDate(),
-            });
-            user.drawnOn = new Date(user.drawnOn);
-            this.form.controls['drawnOn'].setValue({
-              year: user.drawnOn.getFullYear(),
-              month: user.drawnOn.getMonth() + 1,
-              day: user.drawnOn.getDate(),
-            });
           });
+        this.dateRefresh(user);
+      } else {
+        this.dateRefresh(user);
+        return;
       }
+    });
+  }
+
+  dateRefresh(user) {
+    user.date = new Date(user.date);
+    this.form.controls['date'].setValue({
+      year: user.date.getFullYear(),
+      month: user.date.getMonth() + 1,
+      day: user.date.getDate(),
+    });
+    console.log(user.date);
+    user.drawnOn = new Date(user.drawnOn);
+    this.form.controls['drawnOn'].setValue({
+      year: user.drawnOn.getFullYear(),
+      month: user.drawnOn.getMonth() + 1,
+      day: user.drawnOn.getDate(),
     });
   }
   resetForm() {

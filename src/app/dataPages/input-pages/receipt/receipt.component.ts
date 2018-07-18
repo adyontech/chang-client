@@ -320,21 +320,26 @@ export class ReceiptComponent implements OnInit {
               this._toastrService.typeError('Error', data.message);
             }
           });
+        this.dateRefresh(user);
       } else {
+        this.dateRefresh(user);
         return;
       }
-      user.date = new Date(user.date);
-      this.form.controls['date'].setValue({
-        year: user.date.getFullYear(),
-        month: user.date.getMonth() + 1,
-        day: user.date.getDate(),
-      });
-      user.drawnOn = new Date(user.drawnOn);
-      this.form.controls['drawnOn'].setValue({
-        year: user.drawnOn.getFullYear(),
-        month: user.drawnOn.getMonth() + 1,
-        day: user.drawnOn.getDate(),
-      });
+    });
+  }
+  dateRefresh(user) {
+    user.date = new Date(user.date);
+    this.form.controls['date'].setValue({
+      year: user.date.getFullYear(),
+      month: user.date.getMonth() + 1,
+      day: user.date.getDate(),
+    });
+
+    user.drawnOn = new Date(user.drawnOn);
+    this.form.controls['drawnOn'].setValue({
+      year: user.drawnOn.getFullYear(),
+      month: user.drawnOn.getMonth() + 1,
+      day: user.drawnOn.getDate(),
     });
   }
 }

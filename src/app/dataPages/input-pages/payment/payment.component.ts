@@ -311,12 +311,12 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log(user.date);
     user.date = new Date(
       user.date.year,
       user.date.month - 1,
       user.date.day
     ).getTime();
+
     user.drawnOn = new Date(
       user.drawnOn.year,
       user.drawnOn.month - 1,
@@ -325,6 +325,7 @@ export class PaymentComponent implements OnInit {
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         user.endtotal = this.totalAmount;
+
         this._paymentService
           .createNewEntry(user, this.paramId, this.ownerName)
           .subscribe(data => {
@@ -337,22 +338,28 @@ export class PaymentComponent implements OnInit {
               this._toastrService.typeError('Error', data.message);
             }
           });
+        this.dateRefresh(user);
       } else {
+        this.dateRefresh(user);
         return;
       }
-      user.date = new Date(user.date);
-      this.form.controls['date'].setValue({
-        year: user.date.getFullYear(),
-        month: user.date.getMonth() + 1,
-        day: user.date.getDate(),
-      });
-      console.log(user.date)
-      user.drawnOn = new Date(user.drawnOn);
-      this.form.controls['drawnOn'].setValue({
-        year: user.drawnOn.getFullYear(),
-        month: user.drawnOn.getMonth() + 1,
-        day: user.drawnOn.getDate(),
-      });
+    });
+    // do not define date here, as it will run before alert model action.
+  }
+
+  dateRefresh(user) {
+    user.date = new Date(user.date);
+    this.form.controls['date'].setValue({
+      year: user.date.getFullYear(),
+      month: user.date.getMonth() + 1,
+      day: user.date.getDate(),
+    });
+
+    user.drawnOn = new Date(user.drawnOn);
+    this.form.controls['drawnOn'].setValue({
+      year: user.drawnOn.getFullYear(),
+      month: user.drawnOn.getMonth() + 1,
+      day: user.drawnOn.getDate(),
     });
   }
 }
