@@ -23,7 +23,7 @@ import { PaymentService } from './service/payment.service';
 declare var $: any;
 
 @Component({
-  selector: 'app-payment',
+  selector: 'app-payment-report',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
 })
@@ -58,6 +58,7 @@ export class PaymentComponent implements OnInit {
     'Cheque Number',
     'Against',
   ];
+
   public chooseItemBox = [];
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
   public incomingData: Array<string> = [];
@@ -111,15 +112,6 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  onAccSelect(item: any): void {
-    console.log(item);
-    if (item === 'All') {
-      this.getAllIncomingData(this.paramId);
-    } else {
-      this.getIncomingData(item, this.paramId);
-    }
-  }
-
   onRemove(item: any) {
     switch (item.label) {
       case this.VColPaymentType:
@@ -134,6 +126,15 @@ export class PaymentComponent implements OnInit {
       case this.VColAgainst:
         this.ColAgainst = false;
         break;
+    }
+  }
+
+  onAccSelect(item: any): void {
+    console.log(item);
+    if (item === 'All') {
+      this.getAllIncomingData(this.paramId);
+    } else {
+      this.getIncomingData(item, this.paramId);
     }
   }
 

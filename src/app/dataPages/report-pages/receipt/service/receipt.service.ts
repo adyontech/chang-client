@@ -9,12 +9,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/';
 @Injectable()
 export class ReceiptService {
-  private paramCompanyName: string;
-  result: {};
   token: string;
   windowStorage: any;
   _url: string;
-  contentId: string;
+  editContentId: string;
 
   constructor(
     private http: Http,
@@ -26,10 +24,30 @@ export class ReceiptService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData() {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/receiptStored?token=${this.token}&&companyName=${
-      this.paramCompanyName
-    }`;
+  getIncomingData(selectionValue, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/receiptStored?token=${
+      this.token
+    }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
     return this.http.get(this._url);
+  }
+
+  getAllIncomingData(companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/allReceiptStored?token=${this.token}&&companyName=${companyName}`;
+    return this.http.get(this._url);
+    // return 0;
+  }
+
+  deleteEntry(id, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/deleteReceiptEntry?token=${
+      this.token
+    }&&companyName=${companyName}&&deleteId=${id}&&ownerName=${ownerName}`;
+    return this.http.delete(this._url);
+    //
   }
 }

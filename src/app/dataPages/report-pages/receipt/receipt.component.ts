@@ -1,68 +1,98 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-receipt',
+  selector: 'app-receipt-report',
   templateUrl: './receipt.component.html',
   styleUrls: ['./receipt.component.scss'],
 })
 export class ReceiptComponent implements OnInit {
   // Models
-  contentId: String = '';
+  closeResult: string;
+  editContentId: String = '';
   public dateFrom: Date;
   public dateTo: Date;
-  public dropdFilter: String;
-
+  // public dropdFilter: String;
 
   VColReceiptType: String = 'ColReceiptType';
   VColReceiptThrough: String = 'ColReceiptThrough';
   VColChequeNO: String = 'ColChequeNO';
   VColAgainst: String = 'ColAgainst';
 
-
   @Input() public ColReceiptType: Boolean = false;
   public ColReceiptThrough: Boolean = false;
   public ColChequeNO: Boolean = false;
   public ColAgainst: Boolean = false;
 
-  incomingData: Array<String>;
+  // incomingData: Array<String>;
   form: FormGroup;
   public dataCopy: any;
   public paramId: String;
-  public closeResult: String;
+  public ownerId: string;
 
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings = {};
+  public accountTypeModel = 'All';
+  public chooseItem = [
+    'Receipt Type',
+    'Receipt Through',
+    'Cheque Number',
+    'Against',
+  ];
 
-  constructor(private route: ActivatedRoute, public _receiptService: ReceiptService, public fb: FormBuilder) {}
+  public chooseItemBox = [];
+  public accountType: Array<string> = ['All', 'Cash', 'Bank'];
+  public incomingData: Array<string> = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    public _receiptService: ReceiptService,
+    private modalService: NgbModal
+  ) {}
   ngOnInit() {
-    this.getIncomingData();
-    this.dropdownList = [
-      { id: 'ColReceiptType', itemName: 'Receipt Type' },
-      { id: 'ColReceiptThrough', itemName: 'Receipt Through' },
-      { id: 'ColChequeNO', itemName: 'Cheque Number' },
-      { id: 'ColAgainst', itemName: 'Against' },
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      text: 'Select filter',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      enableSearchFilter: false,
-      classes: 'myclass custom-class',
-    };
-
+    this.getRouteParam();
+    this.onAccSelect('All');
   }
 
-  onItemSelect(item: any): void {
-    switch (item.id) {
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      // console.log(params.id);
+      this.paramId = params.id;
+      this.ownerId = params.owner;
+    });
+  }
+
+  onAdd(item: any): void {
+    switch (item) {
       case this.VColReceiptType:
         this.ColReceiptType = true;
         break;
@@ -78,8 +108,8 @@ export class ReceiptComponent implements OnInit {
     }
   }
 
-  OnItemDeSelect(item: any) {
-    switch (item.id) {
+  onRemove(item: any) {
+    switch (item.label) {
       case this.VColReceiptType:
         this.ColReceiptType = false;
         break;
@@ -94,37 +124,79 @@ export class ReceiptComponent implements OnInit {
         break;
     }
   }
-  onSelectAll(items: any) {
+
+  onAccSelect(item: any): void {
+    console.log(item);
+    if (item === 'All') {
+      this.getAllIncomingData(this.paramId);
+    } else {
+      this.getIncomingData(item, this.paramId);
+    }
+  }
+
+  onSelectAll() {
+    // console.log(items);
     this.ColReceiptType = true;
     this.ColReceiptThrough = true;
     this.ColChequeNO = true;
     this.ColAgainst = true;
+    this.chooseItemBox = [
+      'Receipt Type',
+      'Receipt Through',
+      'Cheque Number',
+      'Against',
+    ];
   }
-  onDeSelectAll(items: any) {
+
+  onDeSelectAll() {
+    // console.log(items);
     this.ColReceiptType = false;
     this.ColReceiptThrough = false;
     this.ColChequeNO = false;
     this.ColAgainst = false;
-  }
-  onClose() {
-    this.contentId = '';
+    this.chooseItemBox = [];
   }
 
-  getIncomingData() {
+  open(content, editId) {
+    this.editContentId = editId;
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  getIncomingData(selectionValue, compaName) {
     this.dataCopy = this._receiptService
-      .getIncomingData()
+      .getIncomingData(selectionValue, compaName, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
+        this.incomingData = data.receiptData;
+        console.log(data);
+      });
+  }
+
+  getAllIncomingData(compName) {
+    this.dataCopy = this._receiptService
+      .getAllIncomingData(compName, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
         this.incomingData = data.receiptData;
       });
   }
 
-  editData(id) {
-    this.contentId = id;
-    this._receiptService.contentId = id;
+  deleteEntry(id) {
+    console.log(id);
+    this._receiptService
+      .deleteEntry(id, this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+      });
   }
-
-  deleteData(id) {}
-
-  copyData(id) {}
 }
