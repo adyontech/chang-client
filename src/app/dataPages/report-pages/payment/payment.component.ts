@@ -93,9 +93,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onAdd(item: any): void {
-    // console.log(item)
-    // console.log(item === this.VColPaymentType);
-    // console.log(this.VColAgainst);
     switch (item) {
       case this.VColPaymentType:
         this.ColPaymentType = true;

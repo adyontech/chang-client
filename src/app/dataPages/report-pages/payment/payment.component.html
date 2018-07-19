@@ -83,32 +83,48 @@
 
           <div class="content table-responsive table-full-width " *ngIf="incomingData?.length>0 ">
             <table class="table table-hover ">
-              <thead>
+              <thead class="text-center">
                 <tr>
 
-                  <th class="text-center ">Options</th>
+                  <th>Date </th>
 
-                  <th class="text-center ">Date </th>
+                  <th> Payment No.</th>
 
-                  <th class="text-center "> Payment No.</th>
+                  <th> Particular.</th>
 
-                  <th class="text-center "> Particular.</th>
+                  <th> Total Amount</th>
 
-                  <th class="text-center "> Total Amount</th>
+                  <th [hidden]="!ColPaymentType ">Payment Type </th>
 
-                  <th class="text-center " [hidden]="!ColPaymentType ">Payment Type </th>
+                  <th [hidden]="!ColPaymentThrough "> Payment Through</th>
 
-                  <th class="text-center " [hidden]="!ColPaymentThrough "> Payment Through</th>
+                  <th [hidden]="!ColChequeNO ">Cheque No </th>
 
-                  <th class="text-center " [hidden]="!ColChequeNO ">Cheque No </th>
+                  <th [hidden]="!ColAgainst ">Against </th>
 
-                  <th class="text-center " [hidden]="!ColAgainst ">Against </th>
+                  <th>Options</th>
 
                 </tr>
 
               </thead>
-              <tbody>
+              <tbody class="text-center">
                 <tr *ngFor="let list of incomingData ">
+                  <td> {{list.date | date}}</td>
+                  <td> {{list.paymentNumber}}</td>
+                  <td>
+                    <tr *ngFor="let parti of list.particularsData ">
+                      <td style="border:0">{{parti.particulars}}</td>
+                    </tr>
+                  </td>
+                  <td>
+                    <tr class="ml-2" *ngFor="let parti of list.particularsData ">
+                      <td style="border:0">{{parti.amount}}</td>
+                    </tr>
+                  </td>
+                  <td [hidden]="!ColPaymentType "> {{list.paymentType}}</td>
+                  <td [hidden]="!ColPaymentThrough "> {{list.paymentThrough}}</td>
+                  <td [hidden]="!ColChequeNO "> {{list.chequeNumber}}</td>
+                  <td [hidden]="!ColAgainst "> {{list.against}}</td>
                   <td>
                     <a class="success p-0 " data-original-title=" " title=" " (click)="open(content, list._id) ">
                       <i class="ft-edit-2 font-medium-3 mr-2 "></i>
@@ -117,25 +133,6 @@
                       <i class="ft-x font-medium-3 mr-2 "></i>
                     </a>
                   </td>
-                  <td> {{list.date | date}}</td>
-                  <td> {{list.paymentNumber}}</td>
-                  <td>
-                    <tr *ngFor="let parti of list.particularsData ">
-                      <td style="border:0">{{parti.particulars}}</td>
-
-                    </tr>
-
-                  </td>
-                  <td>
-                    <tr *ngFor="let parti of list.particularsData ">
-
-                      <td style="border:0">{{parti.amount}}</td>
-                    </tr>
-                  </td>
-                  <td [hidden]="!ColPaymentType "> {{list.paymentType}}</td>
-                  <td [hidden]="!ColPaymentThrough "> {{list.paymentThrough}}</td>
-                  <td [hidden]="!ColChequeNO "> {{list.chequeNumber}}</td>
-                  <td [hidden]="!ColAgainst "> {{list.against}}</td>
                 </tr>
                 <tr>
                 </tr>

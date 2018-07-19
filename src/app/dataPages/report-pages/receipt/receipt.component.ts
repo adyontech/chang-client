@@ -35,10 +35,10 @@ export class ReceiptComponent implements OnInit {
   public dateTo: Date;
   // public dropdFilter: String;
 
-  VColReceiptType: String = 'ColReceiptType';
-  VColReceiptThrough: String = 'ColReceiptThrough';
-  VColChequeNO: String = 'ColChequeNO';
-  VColAgainst: String = 'ColAgainst';
+  VColReceiptType: String = 'Receipt Type';
+  VColReceiptThrough: String = 'Receipt Through';
+  VColChequeNO: String = 'Cheque Number';
+  VColAgainst: String = 'Against';
 
   @Input() public ColReceiptType: Boolean = false;
   public ColReceiptThrough: Boolean = false;
@@ -92,6 +92,7 @@ export class ReceiptComponent implements OnInit {
   }
 
   onAdd(item: any): void {
+    console.log(item);
     switch (item) {
       case this.VColReceiptType:
         this.ColReceiptType = true;
