@@ -91,7 +91,7 @@
                   <!-- <td> {{list.journalNumber}}</td> -->
                   <td>
                     <tr *ngFor="let parti of list.particularsData">
-                      <td>{{parti.particulars}}</td>
+                      <td style="border:0">{{parti.particulars}}</td>
 
                     </tr>
 
@@ -99,14 +99,14 @@
                   <td>
                     <tr *ngFor="let parti of list.particularsData">
 
-                      <td [hidden]="parti.debitAmount=== null? null: true"> - </td>
-                      <td>{{parti.debitAmount}}</td>
+                      <td style="border:0" [hidden]="parti.debitAmount=== null? null: true"> - </td>
+                      <td style="border:0">{{parti.debitAmount}}</td>
                     </tr>
                   </td>
                   <td>
                     <tr *ngFor="let parti of list.particularsData">
-                      <td [hidden]="parti.creditAmount=== null? null: true"> - </td>
-                      <td>{{parti.creditAmount}}</td>
+                      <td style="border:0" [hidden]="parti.creditAmount=== null? null: true"> - </td>
+                      <td style="border:0">{{parti.creditAmount}}</td>
                     </tr>
                   </td>
                   <td>

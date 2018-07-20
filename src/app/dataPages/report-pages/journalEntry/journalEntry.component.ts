@@ -22,7 +22,6 @@ export class JournalEntryComponent implements OnInit {
   public dateTo: Date;
 
   public accountTypeModel = 'All';
-  public compeleteData: Array<string> = [];
   public incomingData: Array<string> = [];
   public dataCopy: any;
   public paramId: string;
@@ -80,10 +79,10 @@ export class JournalEntryComponent implements OnInit {
 
   getIncomingData(selectionValue) {
     this.dataCopy = this._journalEntryService
-      .getIncomingData(selectionValue, this.ownerId)
+      .getIncomingData(selectionValue, this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        this.compeleteData = data.journalData;
+        this.incomingData = data.journalData;
         this.onAccSelect('All');
       });
   }
@@ -94,7 +93,7 @@ export class JournalEntryComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
-        this.incomingData = data.paymentData;
+        this.incomingData = data.journalData;
       });
   }
 

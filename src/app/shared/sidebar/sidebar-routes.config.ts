@@ -25,6 +25,17 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       navInfo: '',
     },
     {
+      path: `/${ownerId}/${companyId}/task`,
+      title: 'Task',
+      icon: 'ft-monitor',
+      class: '',
+      badge: '',
+      badgeClass: '',
+      isExternalLink: false,
+      submenu: [],
+      navInfo: '',
+    },
+    {
       path: `/${ownerId}/${companyId}/form/ledger`,
       title: 'Ledger',
       icon: 'ft-edit',
