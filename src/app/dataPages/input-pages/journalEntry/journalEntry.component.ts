@@ -144,13 +144,13 @@ export class JournalEntryComponent implements OnInit {
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth()+1,
+          month: minD.getMonth() + 1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth()+1,
+          month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
       });
@@ -188,6 +188,13 @@ export class JournalEntryComponent implements OnInit {
   }
 
   onSubmit(user) {
+    if (this.debitSum !== this.creditSum) {
+      this._toastrService.typeError(
+        'Error',
+        'Debit and credit sum are not equal.'
+      );
+      return;
+    }
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._journalEntryService

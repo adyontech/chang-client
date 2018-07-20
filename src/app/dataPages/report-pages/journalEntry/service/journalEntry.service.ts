@@ -12,6 +12,7 @@ export class JournalEntryService {
   token: string;
   windowStorage: any;
   _url: string;
+  editContentId: string;
 
   constructor(
     private http: Http,
@@ -23,20 +24,31 @@ export class JournalEntryService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData(companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/alljournalStored?token=${
+  getIncomingData(selectionValue, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/journalStored?token=${
       this.token
-    }&&companyName=${companyName}`;
+    }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
+    return this.http.get(this._url);
+    // return 0;
+  }
+
+  getAllIncomingData(companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/alljournalStored?token=${this.token}&&companyName=${companyName}`;
     return this.http.get(this._url);
     // return 0;
   }
 
   deleteEntry(id, companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteJournalEntry?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/deleteJournalEntry?token=${
       this.token
     }&&companyName=${companyName}&&deleteId=${id}`;
     return this.http.delete(this._url);
     // return 0;
   }
-
 }

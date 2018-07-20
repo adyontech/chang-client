@@ -1,23 +1,9 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import {
-  FormGroup,
-  FormControl,
-  FormArray,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import {
   NgbModal,
   ModalDismissReasons,
   NgbActiveModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 declare var $: any;
@@ -46,7 +32,6 @@ export class PaymentComponent implements OnInit {
   public ColChequeNO: Boolean = false;
   public ColAgainst: Boolean = false;
 
-  form: FormGroup;
   public dataCopy: any;
   public paramId: string;
   public ownerId: string;
@@ -129,9 +114,9 @@ export class PaymentComponent implements OnInit {
   onAccSelect(item: any): void {
     console.log(item);
     if (item === 'All') {
-      this.getAllIncomingData(this.paramId);
+      this.getAllIncomingData();
     } else {
-      this.getIncomingData(item, this.paramId);
+      this.getIncomingData(item);
     }
   }
 
@@ -171,9 +156,9 @@ export class PaymentComponent implements OnInit {
   }
 
   // real date picker active from here
-  getIncomingData(selectionValue, compaName) {
+  getIncomingData(selectionValue) {
     this.dataCopy = this._paymentService
-      .getIncomingData(selectionValue, compaName, this.ownerId)
+      .getIncomingData(selectionValue, this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
@@ -182,9 +167,9 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  getAllIncomingData(compName) {
+  getAllIncomingData() {
     this.dataCopy = this._paymentService
-      .getAllIncomingData(compName, this.ownerId)
+      .getAllIncomingData(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);

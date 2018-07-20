@@ -1,8 +1,10 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/Observable';
+
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
 
@@ -19,29 +21,30 @@ export class JournalEntryComponent implements OnInit {
   public dateFrom: Date;
   public dateTo: Date;
 
-  compeleteData: Array<string> = [];
-  incomingData: Array<string> = [];
-  form: FormGroup;
+  public accountTypeModel = 'All';
+  public compeleteData: Array<string> = [];
+  public incomingData: Array<string> = [];
   public dataCopy: any;
   public paramId: string;
+  public ownerId: string;
 
   public accountType: Array<string> = ['All', 'Dr', 'Cr'];
 
   constructor(
     private route: ActivatedRoute,
     public _journalEntryService: JournalEntryService,
-    public fb: FormBuilder,
     private modalService: NgbModal
   ) {}
   ngOnInit() {
     this.getRouteParam();
-    this.getIncomingData(this.paramId);
+    this.onAccSelect('All');
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
+      // console.log(params.id);
       this.paramId = params.id;
-      //   this._cashAtBankService.setParamId(this.paramId)
+      this.ownerId = params.owner;
     });
   }
 
@@ -57,28 +60,27 @@ export class JournalEntryComponent implements OnInit {
 
   onAccSelect(item: any): void {
     if (item === 'All') {
-      this.incomingData = this.compeleteData;
-    } else if (item === 'Dr') {
+      this.getAllIncomingData();
+    } else {
       // type Activity = typeof Mydata;
+      this.getIncomingData(item);
     }
   }
   open(content, editId) {
     this.editContentId = editId;
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalService.open(content, { size: 'lg' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
-  getIncomingData(compName) {
+  getIncomingData(selectionValue) {
     this.dataCopy = this._journalEntryService
-      .getIncomingData(compName)
+      .getIncomingData(selectionValue, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         this.compeleteData = data.journalData;
@@ -86,12 +88,21 @@ export class JournalEntryComponent implements OnInit {
       });
   }
 
+  getAllIncomingData() {
+    this.dataCopy = this._journalEntryService
+      .getAllIncomingData(this.paramId, this.ownerId)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.incomingData = data.paymentData;
+      });
+  }
+
   deleteEntry(id) {
     this._journalEntryService
       .deleteEntry(id, this.paramId)
       // .map(response => response.json())
-      .subscribe(data => {
-      });
+      .subscribe(data => {});
   }
 }
 interface MyData {
