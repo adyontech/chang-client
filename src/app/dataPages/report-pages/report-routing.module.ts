@@ -14,14 +14,14 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'cashatback',
+        path: 'cashatbank',
         component: CashAtBankComponent,
         data: {
           title: 'cashatback',
         },
       },
       {
-        path: 'Cashinhands',
+        path: 'cashinhand',
         component: CashInHandsComponent,
         data: {
           title: 'Cashinhands',

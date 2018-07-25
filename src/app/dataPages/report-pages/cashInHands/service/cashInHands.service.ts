@@ -26,17 +26,21 @@ export class CashInHandsService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData(ledgerName, compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/cashInHand?token=${
+  getIncomingData(ledgerName, compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/cashInHand?token=${
       this.token
-    }&&companyName=${compName}&&ledgerSelect=${ledgerName}`;
+    }&&companyName=${compName}&&ledgerSelect=${ledgerName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
-  getLedgerNameData(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameCashInHand?token=${
+  getLedgerNameData(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameCashInHand?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 }

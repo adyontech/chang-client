@@ -1,6 +1,17 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 import { ActivatedRoute } from '@angular/router';
 import { CashInHandsService } from './service/cashInHands.service';
@@ -24,40 +35,45 @@ export class CashInHandsComponent implements OnInit {
   form: FormGroup;
   public dataCopy: any;
   public paramId: string;
+  public ownerId: string;
+
   public closeResult: string;
   public ledgerList: Array<string> = [];
 
-  constructor(private route: ActivatedRoute, public _cashInHandsService: CashInHandsService, public fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    public _cashInHandsService: CashInHandsService,
+    public fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.getRouteParam();
     this.getLedgerNameData();
   }
 
-  // hotkeys(event) {
-  //   if (event.keyCode == 76 && event.ctrlKey) {
-  //     this.modal.open();
-  //   }
-  // }
   getRouteParam() {
     this.route.params.subscribe(params => {
+      // console.log(params.id);
       this.paramId = params.id;
-      //   this._cashAtBankService.setParamId(this.paramId)
+      this.ownerId = params.owner;
     });
   }
+
   getLedgerNameData() {
     this.dataCopy = this._cashInHandsService
-      .getLedgerNameData(this.paramId )
+      .getLedgerNameData(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
 
         this.getIncomingData(this.ledgerList[0]);
       });
   }
+
   getIncomingData(value) {
     this.dataCopy = this._cashInHandsService
-      .getIncomingData(value, this.paramId )
+      .getIncomingData(value, this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         this.caseThrough(data.formData);

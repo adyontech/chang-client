@@ -129,9 +129,9 @@ export class ReceiptComponent implements OnInit {
   onAccSelect(item: any): void {
     console.log(item);
     if (item === 'All') {
-      this.getAllIncomingData(this.paramId);
+      this.getAllIncomingData();
     } else {
-      this.getIncomingData(item, this.paramId);
+      this.getIncomingData(item);
     }
   }
 
@@ -170,9 +170,9 @@ export class ReceiptComponent implements OnInit {
     );
   }
 
-  getIncomingData(selectionValue, compaName) {
+  getIncomingData(selectionValue) {
     this.dataCopy = this._receiptService
-      .getIncomingData(selectionValue, compaName, this.ownerId)
+      .getIncomingData(selectionValue, this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
@@ -181,9 +181,9 @@ export class ReceiptComponent implements OnInit {
       });
   }
 
-  getAllIncomingData(compName) {
+  getAllIncomingData() {
     this.dataCopy = this._receiptService
-      .getAllIncomingData(compName, this.ownerId)
+      .getAllIncomingData(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
