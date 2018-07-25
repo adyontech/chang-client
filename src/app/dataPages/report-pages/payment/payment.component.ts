@@ -95,7 +95,6 @@ export class PaymentComponent implements OnInit {
       });
   }
   startDate(value) {
-    console.log(value);
     const dateReturn = this.dateRangeValidator(value);
     if (dateReturn.allow) {
       this.showStartDateError = false;
@@ -140,7 +139,6 @@ export class PaymentComponent implements OnInit {
     }
   }
   setDateFilter() {
-    console.log(this.mainIncomingData);
     this.incomingData = this.mainIncomingData.filter(el => {
       if (
         el.date >= this.choosenStartDate &&
@@ -151,7 +149,6 @@ export class PaymentComponent implements OnInit {
         return el;
       }
     });
-    console.log(this.incomingData);
   }
 
   dateFilterRefresh() {
@@ -171,7 +168,6 @@ export class PaymentComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       this.ownerName = params.owner;
     });
@@ -212,7 +208,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
-    console.log(item);
     if (item === 'All') {
       this.getAllIncomingData();
     } else {
@@ -221,7 +216,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onSelectAll() {
-    // console.log(items);
     this.ColPaymentType = true;
     this.ColPaymentThrough = true;
     this.ColChequeNO = true;
@@ -235,7 +229,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onDeSelectAll() {
-    // console.log(items);
     this.ColPaymentType = false;
     this.ColPaymentThrough = false;
     this.ColChequeNO = false;
@@ -261,9 +254,8 @@ export class PaymentComponent implements OnInit {
       .getIncomingData(selectionValue, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.incomingData = data.paymentData;
-        console.log(this.incomingData);
+        this.mainIncomingData = data.paymentData;
       });
   }
 
@@ -272,18 +264,16 @@ export class PaymentComponent implements OnInit {
       .getAllIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.incomingData = data.paymentData;
+        this.mainIncomingData = data.paymentData;
       });
   }
 
   deleteEntry(id) {
-    console.log(id);
     this._paymentService
       .deleteEntry(id, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
       });
   }
 }
