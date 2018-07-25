@@ -151,7 +151,9 @@ export class LedgerComponent implements OnInit {
       return { allow: false, date: null };
     }
   }
+
   startDate(value) {
+    console.log(value);
     const dateReturn = this.dateRangeValidator(value);
     if (dateReturn.allow) {
       this.showStartDateError = false;
@@ -162,6 +164,7 @@ export class LedgerComponent implements OnInit {
       this.choosenStartDate = this.companyStartingDate;
     }
   }
+
   endDate(value) {
     const dateReturn = this.dateRangeValidator(value);
     if (dateReturn.allow) {
@@ -175,6 +178,7 @@ export class LedgerComponent implements OnInit {
   }
 
   setDateFilter() {
+    console.log(this.mainLedgerData);
     this.LedgerData = this.mainLedgerData.filter(el => {
       if (
         el.date >= this.choosenStartDate &&
@@ -185,6 +189,7 @@ export class LedgerComponent implements OnInit {
         return el;
       }
     });
+    console.log(this.LedgerData);
   }
 
   dateFilterRefresh() {

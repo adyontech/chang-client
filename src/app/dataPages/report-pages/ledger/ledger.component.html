@@ -21,7 +21,8 @@
             <div class="col-xs-12 col-md-3">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="Start Date" name="ds1" ngbDatepicker #ds1="ngbDatepicker" (ngModelChange)="startDate($event)">
+                  <input class="form-control" placeholder="Start Date" name="ds1" [(ngModel)]="choosenStartDate" ngbDatepicker #ds1="ngbDatepicker"
+                    (ngModelChange)="startDate($event)">
 
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds1.toggle()">
@@ -37,7 +38,8 @@
             <div class="col-xs-12 col-md-3">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker" (ngModelChange)="endDate($event)">
+                  <input class="form-control" placeholder="End date" name="ds2" [(ngModel)]="choosenEndDate" ngbDatepicker #ds2="ngbDatepicker"
+                    (ngModelChange)="endDate($event)">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds2.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>

@@ -110,12 +110,12 @@ export class AddCompanyComponent implements OnInit {
     }
     user.startDate = new Date(
       user.startDate.year,
-      user.startDate.month,
+      user.startDate.month - 1,
       user.startDate.day
     ).getTime();
     user.endDate = new Date(
       user.endDate.year,
-      user.endDate.month,
+      user.endDate.month - 1,
       user.endDate.day
     ).getTime();
     alertFunctions.SaveData().then(datsa => {
@@ -146,13 +146,13 @@ export class AddCompanyComponent implements OnInit {
     user.startDate = new Date(user.startDate);
     this.form.controls['startDate'].setValue({
       year: user.startDate.getFullYear(),
-      month: user.startDate.getMonth(),
+      month: user.startDate.getMonth() + 1,
       day: user.startDate.getDate(),
     });
     user.endDate = new Date(user.endDate);
     this.form.controls['endDate'].setValue({
       year: user.endDate.getFullYear(),
-      month: user.endDate.getMonth(),
+      month: user.endDate.getMonth() + 1,
       day: user.endDate.getDate(),
     });
   }
