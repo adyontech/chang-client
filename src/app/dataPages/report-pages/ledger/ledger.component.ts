@@ -35,7 +35,9 @@ export class LedgerComponent implements OnInit {
   public companyEndingDate;
 
   public choosenStartDate;
+  public csd;
   public choosenEndDate;
+  public ced;
   public showStartDateError: Boolean = false;
   public showEndDateError: Boolean = false;
   public minNgbDate;
