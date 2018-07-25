@@ -42,7 +42,7 @@
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
+                  <input class="form-control" placeholder="Start Date" [minDate]="minNgbDate" [maxDate]="maxNgbDate" name="ds" ngbDatepicker #ds="ngbDatepicker">
                 </div>
               </div>
             </div>
@@ -54,7 +54,7 @@
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
+                  <input class="form-control" placeholder="End date" [minDate]="minNgbDate" [maxDate]="maxNgbDate" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
                 </div>
               </div>
             </div>
