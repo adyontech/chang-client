@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
-declare var $: any;
 
 @Component({
   selector: 'app-payment-report',
