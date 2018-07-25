@@ -20,7 +20,6 @@
 <div class="row">
   <div class="col-12">
     <div class="content-header">Contra Page</div>
-    <p class="content-sub-header">Manage the ledger with with sorting, filtering, pagination & add/edit/delete functions.</p>
   </div>
 </div>
 <section id="icon-tabs">
@@ -29,48 +28,48 @@
       <div class="card">
         <div class="card-header">
 
-          <div class="row mb-2">
-            <div class="col-5">
-              <h4 style="float:left" class="card-title ">Account: </h4>
-            </div>
+          <div class="row">
             <div class="col-4">
-              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)">
+              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)" [(ngModel)]="accountTypeModel">
               </ng-select>
             </div>
-          </div>
-          <br>
-          <div class="row mt-3">
-            <div class="col-3">
+            <div class="col-4">
               <div class="form-group">
                 <div class="input-group">
+                  <input class="form-control" placeholder="Start Date" [minDate]="minNgbDate" [maxDate]="maxNgbDate" name="ds" ngbDatepicker #ds="ngbDatepicker" [(ngModel)]="csd"  (ngModelChange)="startDate($event)">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="Start Date" placeholder="dd.mm.yyyy" name="ds" ngbDatepicker #ds="ngbDatepicker">
                 </div>
               </div>
+              <small *ngIf="showStartDateError" class="form-text text-muted danger">
+                Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
+              </small>
             </div>
-            <div class="col-3">
+            <div class="col-4">
               <div class="form-group">
                 <div class="input-group">
+                  <input class="form-control" placeholder="End date" [minDate]="minNgbDate" [maxDate]="maxNgbDate" name="ds2" ngbDatepicker #ds2="ngbDatepicker" [(ngModel)]="ced"  (ngModelChange)="endDate($event)">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds2.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
                 </div>
               </div>
+              <small *ngIf="showEndDateError" class="form-text text-muted danger">
+                Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
+              </small>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <p>No data present</p>
+   <div class="row my-3 " *ngIf="incomingData?.length<=0 ">
+            <div class="col-12 text-center my-3 ">
+              <h1>No data present</h1>
             </div>
           </div>
-          <div class="content table-responsive table-full-width">
+          <div class="content table-responsive table-full-width"  *ngIf="incomingData?.length>0 ">
             <table class="table table-hover">
               <thead class="text-center">
                 <tr>

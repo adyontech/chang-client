@@ -19,6 +19,7 @@ export class ReceiptComponent implements OnInit {
   // Models
   closeResult: string;
   editContentId: String = '';
+  
   public companyStartingDate;
   public companyEndingDate;
   public choosenStartDate;
@@ -44,7 +45,6 @@ export class ReceiptComponent implements OnInit {
   public paramId: String;
   public ownerName: string;
 
-  public accountTypeModel = 'All';
   public chooseItem = [
     'Receipt Type',
     'Receipt Through',
@@ -53,6 +53,7 @@ export class ReceiptComponent implements OnInit {
   ];
 
   public chooseItemBox = [];
+  public accountTypeModel = 'All';
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
     public mainIncomingData = [];
     public incomingData: Array<string> = [];
