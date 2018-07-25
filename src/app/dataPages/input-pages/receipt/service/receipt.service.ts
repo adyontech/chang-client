@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 
 import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
 
@@ -70,6 +68,14 @@ export class ReceiptService {
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/accountNameList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+  getParticularNames(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameRmHandBank?token=${
       this.token
     }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);

@@ -121,11 +121,13 @@ export class PaymentComponent implements OnInit {
       result => {
         this.getAccountNames();
         this.getLedgerUGNames();
+        this.getParticularNames();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
         this.getAccountNames();
         this.getLedgerUGNames();
+        this.getParticularNames();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );

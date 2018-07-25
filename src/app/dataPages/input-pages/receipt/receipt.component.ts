@@ -33,6 +33,7 @@ export class ReceiptComponent implements OnInit {
   public maxNgbDate;
   public ledgerList: Array<string> = [];
   public accountList: Array<string> = [];
+  public particularList: Array<string> = [];
   public attachmentError: Boolean = false;
   public value: any = {};
   public attachmentName: String = 'No File Choosen.';
@@ -75,6 +76,7 @@ export class ReceiptComponent implements OnInit {
     $.getScript('./assets/js/jquery.steps.min.js');
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
+    this.getParticularNames();
     this.getAccountNames();
     this.getGlobalCompanyData();
     this.getLedgerNames();
@@ -118,11 +120,13 @@ export class ReceiptComponent implements OnInit {
       result => {
         this.getAccountNames();
         this.getLedgerNames();
+        this.getParticularNames();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
         this.getAccountNames();
         this.getLedgerNames();
+        this.getParticularNames();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
@@ -278,6 +282,14 @@ export class ReceiptComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.accountList = this.accountList.concat(data.accountNameList);
+      });
+  }
+  getParticularNames() {
+    this.dataCopy = this._receiptService
+      .getParticularNames(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.particularList = data.ledgerData;
       });
   }
   onFileChange(event) {

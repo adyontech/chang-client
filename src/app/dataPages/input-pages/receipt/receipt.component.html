@@ -64,7 +64,7 @@
                         <div class="card-body">
                           <div class="input-group">
                             <input class="form-control" placeholder="dd.mm.yyyy" name="ds1" (input)="dateRangeValidator('date')" ngbDatepicker #ds1="ngbDatepicker"
-                             [minDate]="minNgbDate" [maxDate]="maxNgbDate"  formControlName="date" (ngModelChange)="SetDrawnOn($event)">
+                              [minDate]="minNgbDate" [maxDate]="maxNgbDate" formControlName="date" (ngModelChange)="SetDrawnOn($event)">
                             <div class="input-group-append">
                               <div class="input-group-text" (click)="ds1.toggle()">
                                 <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -261,7 +261,7 @@
                             </td>
                             <td width="45%">
                               <!-- <input type="text" class="form-control" formControlName="particulars"> -->
-                              <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
+                              <ng-select [items]="particularList" formControlName="particulars" placeholder="Particulars">
                                 <ng-template ng-header-tmp>
                                   <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New Ledger</button>
                                 </ng-template>
