@@ -18,125 +18,13 @@ export class TaskBoardService {
   token: string;
   public creator: string;
 
-  public todo: Task[] = [
-    new Task(
-      'todo  ',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      87979,
-      'Elizabeth Elliott',
-      'assets/img/portrait/small/avatar-s-3.png',
-      'todo',
-      1
-    ),
-    new Task(
-      'QA Testing',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Elizabeth Elliott',
-      'assets/img/portrait/small/avatar-s-3.png',
-      'todo',
-      2
-    ),
-    new Task(
-      'Budget',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Elizabeth Elliott',
-      'assets/img/portrait/small/avatar-s-3.png',
-      'todo',
-      3
-    ),
-  ];
+  public todo: Task[] = [];
 
-  public inProcess: Task[] = [
-    new Task(
-      'inProcess',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Bruce Reid',
-      'assets/img/portrait/small/avatar-s-1.png',
-      'inProcess',
-      1
-    ),
-    new Task(
-      'Navigation',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Bruce Reid',
-      'assets/img/portrait/small/avatar-s-1.png',
-      'inProcess',
-      2
-    ),
-    new Task(
-      'Bootstrap 4',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Bruce Reid',
-      'assets/img/portrait/small/avatar-s-1.png',
-      'inProcess',
-      3
-    ),
-  ];
+  public inProcess: Task[] = [];
 
-  public backLog: Task[] = [
-    new Task(
-      'backLog',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Kelly Reyes',
-      'assets/img/portrait/small/avatar-s-5.png',
-      'backLog',
-      1
-    ),
-    new Task(
-      'Schedule',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Kelly Reyes',
-      'assets/img/portrait/small/avatar-s-5.png',
-      'backLog',
-      2
-    ),
-    new Task(
-      'Unit tests',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Kelly Reyes',
-      'assets/img/portrait/small/avatar-s-5.png',
-      'backLog',
-      3
-    ),
-  ];
+  public backLog: Task[] = [];
 
-  public completed: Task[] = [
-    new Task(
-      'Angular 5',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Sara Ali',
-      'assets/img/portrait/small/avatar-s-7.png',
-      'completed',
-      1
-    ),
-    new Task(
-      'Fields',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Sara Ali',
-      'assets/img/portrait/small/avatar-s-7.png',
-      'completed',
-      2
-    ),
-    new Task(
-      'completed',
-      'Etiam porta sem malesuada magna mollis euismod.',
-      4564,
-      'Sara Ali',
-      'assets/img/portrait/small/avatar-s-7.png',
-      'completed',
-      3
-    ),
-  ];
+  public completed: Task[] = [];
 
   constructor(
     private http: Http,

@@ -6,7 +6,7 @@
           <ng-template #content let-c="close" let-d="dismiss">
             <div class="modal-body">
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">×</span>
               </button>
               <div class="row">
                 <div class="col-sm-12">
@@ -54,13 +54,14 @@
               </div>
             </div>
           </ng-template>
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">Launch demo modal</button>
+          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true">
+            Launch demo modal
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="row">
   <div class="col-sm-12">
@@ -95,7 +96,7 @@
                     </div>
                     <span class="primary">{{todoItem.createdAt | date}}</span>
                     <p>{{todoItem.message}}</p>
-                    <div style="float: left;">
+                    <div style="float: left;" *ngIf="todoItem.assignedTo">
                       <ngx-avatar name="{{todoItem.assignedTo}}" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
                     </div>
                   </div>
@@ -121,7 +122,7 @@
                     </div>
                     <span class="primary">{{inProcessItem.createdAt | date}}</span>
                     <p>{{inProcessItem.message}}</p>
-                    <div style="float: left;">
+                    <div style="float: left;" *ngIf="inProcessItem.assignedTo">
                       <ngx-avatar name="{{inProcessItem.assignedTo}}" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5"
                         [round]="true"></ngx-avatar>
                     </div>
@@ -149,7 +150,7 @@
                     </div>
                     <span class="primary">{{completedItem.createdAt | date}}</span>
                     <p>{{completedItem.message}}</p>
-                    <div style="float: left;">
+                    <div style="float: left;" *ngIf="completedItem.assignedTo">
                       <ngx-avatar name="{{completedItem.assignedTo}}" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5"
                         [round]="true"></ngx-avatar>
                     </div>
@@ -178,7 +179,7 @@
                     </div>
                     <span class="primary">{{backLogItem.createdAt | date}}</span>
                     <p>{{backLogItem.message}}</p>
-                    <div style="float: left;">
+                    <div style="float: left;" *ngIf="backLogItem.assignedTo">
                       <ngx-avatar name="{{backLogItem.assignedTo}}" value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5"
                         [round]="true"></ngx-avatar>
                     </div>
@@ -195,7 +196,7 @@
 </section>
 <!-- Taskboard Ends -->
 
-<section class="taskboard-app-form bg-blue-grey bg-lighten-5 ">
+<section class="taskboard-app-form bg-blue-grey bg-lighten-5">
   <div class="card">
     <div class="card-block pt-3 pl-3">
       <h5 class="text-bold-500">Create new task</h5>

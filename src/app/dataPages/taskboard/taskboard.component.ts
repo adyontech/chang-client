@@ -228,7 +228,7 @@ export class TaskboardComponent implements OnInit {
       message: this.todoMessage,
       title: this.todoTitle,
       assignedTo: this.todoAssigned,
-      date: Date.now(),
+      createdAt: Date.now(),
       status: 'todo',
       creator: this.creator,
     };
@@ -244,10 +244,12 @@ export class TaskboardComponent implements OnInit {
                 'success',
                 'Todo successfully added'
               );
-              this.todo.unshift(taskData);
+              // this.todo.unshift(taskData);
               this.todoMessage = '';
               this.todoTitle = '';
+              this.todoTitle = '';
               this.todoAssigned = '';
+              this.getAllTasks();
               // the code is to check whether the window is a pop-up
               // or not, if pop-up then it will close it.
             } else {
