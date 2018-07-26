@@ -1,9 +1,5 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import {
-  NgbModal,
-  ModalDismissReasons,
-  NgbActiveModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
@@ -15,8 +11,8 @@ import { GlobalCompanyService } from './../../../shared/globalServices/oneCallva
 })
 export class PaymentComponent implements OnInit {
   // Models
-  closeResult: string;
-  editContentId: String = '';
+  public closeResult: string;
+  public editContentId: String = '';
 
   public companyStartingDate;
   public companyEndingDate;
@@ -53,8 +49,8 @@ export class PaymentComponent implements OnInit {
     'Against',
   ];
 
-  public chooseItemBox = [];
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
+  public chooseItemBox = [];
   public mainIncomingData = [];
   public incomingData = [];
 
@@ -92,6 +88,7 @@ export class PaymentComponent implements OnInit {
         this.dateFilterRefresh();
       });
   }
+
   startDate(value) {
     const dateReturn = this.dateRangeValidator(value);
     if (dateReturn.allow) {

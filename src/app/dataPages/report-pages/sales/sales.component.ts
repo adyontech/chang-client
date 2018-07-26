@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { SalesService } from './service/sales.service';
-declare var $: any;
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
   selector: 'app-sales',
@@ -12,11 +11,19 @@ declare var $: any;
 })
 export class SalesComponent implements OnInit {
   // Models
-  contentId: String = '';
-  editContentId: String = '';
-  public dateFrom: Date;
-  public dateTo: Date;
-  public dropdFilter: String;
+  public contentId: String = '';
+  public editContentId: String = '';
+
+  public companyStartingDate;
+  public companyEndingDate;
+  public choosenStartDate;
+  public csd;
+  public choosenEndDate;
+  public ced;
+  public showStartDateError: Boolean = false;
+  public showEndDateError: Boolean = false;
+  public minNgbDate;
+  public maxNgbDate;
 
   VColTransportationMode: String = 'Transportation Mode';
   VColSaleType: String = 'Type of sale';
@@ -30,35 +37,136 @@ export class SalesComponent implements OnInit {
   public ColVehicleNo: Boolean = false;
   // public ColGstRate: Boolean = false;
 
-  form: FormGroup;
   public dataCopy: any;
   public paramId: String;
-  public ownerId: string;
+  public ownerName: string;
   public closeResult: String;
-  incomingData: Array<String>;
-  chooseItem = [
+
+  public accountType: Array<string> = ['All', 'Cash', 'Bank'];
+  public chooseItemBox = [];
+  public mainIncomingData = [];
+  public incomingData = [];
+  public chooseItem = [
     'Transportation Mode',
     'Type of sale',
     'Place of supply',
     'Vehicle No',
   ];
-  chooseItemBox = [];
 
   constructor(
     private route: ActivatedRoute,
     public _salesService: SalesService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
     this.getRouteParam();
-    this.getIncomingData(this.paramId);
+    this.getIncomingData();
+    this.getGlobalCompanyData();
+  }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.companyStartingDate = data.startDate;
+        this.companyEndingDate = data.endDate;
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth() + 1,
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth() + 1,
+          day: maxD.getDate(),
+        };
+        this.dateFilterRefresh();
+      });
+  }
+
+  startDate(value) {
+    const dateReturn = this.dateRangeValidator(value);
+    if (dateReturn.allow) {
+      this.showStartDateError = false;
+      this.choosenStartDate = dateReturn.date;
+      this.setDateFilter();
+    } else {
+      this.showStartDateError = true;
+      this.choosenStartDate = this.companyStartingDate;
+    }
+  }
+
+  endDate(value) {
+    const dateReturn = this.dateRangeValidator(value);
+    if (dateReturn.allow) {
+      this.showEndDateError = false;
+      this.choosenEndDate = dateReturn.date;
+      this.setDateFilter();
+    } else {
+      this.showEndDateError = true;
+      this.choosenEndDate = this.companyEndingDate;
+    }
+  }
+
+  dateRangeValidator(arg) {
+    if (arg !== null && typeof arg === 'object') {
+      const dateVal = new Date(arg.year, arg.month - 1, arg.day).getTime();
+
+      if (
+        dateVal > 0 &&
+        dateVal >= this.companyStartingDate &&
+        dateVal <= this.companyEndingDate
+      ) {
+        return { allow: true, date: dateVal };
+      } else {
+        this.incomingData = [];
+        return { allow: false, date: null };
+      }
+    } else {
+      this.incomingData = [];
+
+      return { allow: false, date: null };
+    }
+  }
+
+  setDateFilter() {
+    this.incomingData = this.mainIncomingData.filter(el => {
+      if (
+        el.date >= this.choosenStartDate &&
+        el.date <= this.choosenEndDate &&
+        el.date >= this.companyStartingDate &&
+        el.date <= this.companyEndingDate
+      ) {
+        return el;
+      }
+    });
+  }
+
+  dateFilterRefresh() {
+    this.choosenStartDate = this.companyStartingDate;
+    this.choosenEndDate = this.companyEndingDate;
+  }
+
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   getRouteParam() {
     this.route.params.subscribe(params => {
       this.paramId = params.id;
-      this.ownerId = params.owner;
+      this.ownerName = params.owner;
     });
   }
 
@@ -114,6 +222,7 @@ export class SalesComponent implements OnInit {
       'Against',
     ];
   }
+
   onDeSelectAll() {
     this.ColTransportationMode = false;
     this.ColSaleType = false;
@@ -138,18 +247,19 @@ export class SalesComponent implements OnInit {
     this.contentId = '';
   }
 
-  getIncomingData(compName) {
+  getIncomingData() {
     this.dataCopy = this._salesService
-      .getIncomingData(compName, this.ownerId)
+      .getIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
         this.incomingData = data.salesData;
       });
   }
 
   deleteEntry(id) {
     this._salesService
-      .deleteEntry(id, this.paramId, this.ownerId)
+      .deleteEntry(id, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {});
   }

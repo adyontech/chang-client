@@ -20,8 +20,7 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="content-header">Slaes Report Page</div>
-    <p class="content-sub-header">Manage the ledger with with sorting, filtering, pagination & add/edit/delete functions.</p>
+    <div class="content-header">Sales Page</div>
   </div>
 </div>
 <section id="icon-tabs">
@@ -29,56 +28,65 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <div class="row mt-3">
-            <div class="col-3">
+
+          <div class="row">
+            <div class="col-4">
               <div class="form-group">
                 <div class="input-group">
+                  <input class="form-control" placeholder="Start Date" [minDate]="minNgbDate" [maxDate]="maxNgbDate" name="ds" ngbDatepicker
+                    #ds="ngbDatepicker" [(ngModel)]="csd" (ngModelChange)="startDate($event)">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="Start Date" name="ds" ngbDatepicker #ds="ngbDatepicker">
                 </div>
               </div>
+              <small *ngIf="showStartDateError" class="form-text text-muted danger">
+                Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
+              </small>
             </div>
-            <div class="col-3">
+            <div class="col-4">
               <div class="form-group">
                 <div class="input-group">
+                  <input class="form-control" placeholder="End date" [minDate]="minNgbDate" [maxDate]="maxNgbDate" name="ds2" ngbDatepicker
+                    #ds2="ngbDatepicker" [(ngModel)]="ced" (ngModelChange)="endDate($event)">
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="ds2.toggle()">
                       <i class="fa fa-calendar" style="cursor: pointer;"></i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="End date" name="ds2" ngbDatepicker #ds2="ngbDatepicker">
                 </div>
               </div>
+              <small *ngIf="showEndDateError" class="form-text text-muted danger">
+                Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
+              </small>
             </div>
-            <div class="col-5">
+          </div>
+          <div class="row ml-3 mb-1" *ngIf="incomingData?.length>0 ">
+            <div class="col-12">
               <div class="row">
                 <div class="input-group-append">
                   <div class="input-group-text" (click)="onSelectAll()">
                     <i class="fa fa-calendar" style="cursor: pointer;"></i>
                   </div>
                 </div>
-                <ng-select [items]="chooseItem" [markFirst]="true" placeholder="Select Filter" [multiple]="true"  [(ngModel)]="chooseItemBox" [closeOnSelect]="false"
-                  (add)="onAdd($event)" (remove)="onRemove($event)" (clear)="onDeSelectAll()">
+                <ng-select [items]="chooseItem" #select [markFirst]="true" placeholder="Select Filter" [multiple]="true" [(ngModel)]="chooseItemBox"
+                  [closeOnSelect]="false" (add)="onAdd($event)" (remove)="onRemove($event)" (clear)="onDeSelectAll()">
                 </ng-select>
               </div>
             </div>
           </div>
           <!-- [hidden]="haveData === null ? true: null" -->
-          <div class="row">
-            <div class="col-12">
-              <p>No data present</p>
+          <div class="row my-3 " *ngIf="incomingData?.length<=0 ">
+            <div class="col-12 text-center my-3 ">
+              <h1>No data present</h1>
             </div>
           </div>
-          <div class="content table-responsive table-full-width">
+          <div class="content table-responsive table-full-width" *ngIf="incomingData?.length>0">
             <table class="table table-hover">
               <thead>
                 <tr>
-
-                  <th class="text-center">Options</th>
 
                   <th class="text-center">Date </th>
 
@@ -100,6 +108,7 @@
 
                   <th class="text-center" [hidden]="!ColVehicleNo">Vehicle No </th>
 
+                  <th class="text-center">Options</th>
                   <!-- <th class="text-center" [hidden]="!ColGstRate">Gst Rate </th> -->
 
                 </tr>
@@ -107,14 +116,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let list of incomingData">
-                  <td>
-                    <a class="success p-0" data-original-title="" title="" (click)="open(content, list._id)">
-                      <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                    </a>
-                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list._id)">
-                      <i class="ft-x font-medium-3 mr-2"></i>
-                    </a>
-                  </td>
+
                   <td class="text-center"> {{list.date | date}}</td>
                   <td class="text-center"> {{list.invoiceNumber}}</td>
                   <td class="text-center"> {{list.partyName}}</td>
@@ -126,7 +128,14 @@
                   <td class="text-center" [hidden]="!ColSupplyPlace"> {{list.supplyPlace}}</td>
                   <td class="text-center" [hidden]="!ColVehicleNo"> {{list.vehicleNumber}}</td>
                   <!-- <td [hidden]="!ColGstRate"> {{list.against}}</td> -->
-
+                  <td>
+                    <a class="success p-0" data-original-title="" title="" (click)="open(content, list._id)">
+                      <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                    </a>
+                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list._id)">
+                      <i class="ft-x font-medium-3 mr-2"></i>
+                    </a>
+                  </td>
                 </tr>
                 <tr>
 
