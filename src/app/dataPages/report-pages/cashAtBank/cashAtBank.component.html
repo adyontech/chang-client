@@ -1,122 +1,150 @@
-
-<div class="main-content" style="scroll-behavior: hidden">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <!-- heading here -->
-                    <div class="header">
-                        <h2 class="title text-center">Cash-At-Bank</h2>
-                    </div>
-                    <div class="text-center">
-                        <ng-select [items]="ledgerList" placeholder="No particulars selected">
-                        </ng-select>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 title text-center ">
-                            <p> Select Period:</p>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="title text-center">From</label>
-                        </div>
-                        <div class="col-md-2">
-                            <!-- <!-- <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker> --> -->
-                        </div>
-                        <div class="col-md-1">
-                            <label class="title text-center">To</label>
-                        </div>
-                        <div class="col-md-2">
-                            <!-- <my-date-picker name="ydate" [options]="myDatePickerOptions"></my-date-picker> -->
-                        </div>
-                    </div>
-                    <div class="content table-responsive table-full-width">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-
-                                    <th class="text-center">Options</th>
-
-                                    <th class="text-center">Date </th>
-
-                                    <th class="text-center">Reference No. </th>
-
-                                    <th class="text-center"> Particular.</th>
-
-                                    <th class="text-center">Debit Amount</th>
-
-                                    <th class="text-center">Credit Amount</th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let list of incomingData">
-                                    <td class="opt text-center">
-                                        <button type="button" class="btn btn-simple" (click)="editData(list._id); modal.open();">
-                                            <i class="fa fa-bars"></i>
-                                        </button>
-                                    </td>
-                                    <td class="text-center"> {{list.date | date}}</td>
-                                    <td class="text-center"> {{list.paymentNumber}}</td>
-                                    <td>
-                                        <tr *ngFor="let parti of list.particularsData">
-                                            <td>{{parti.particulars[0].id}}</td>
-
-                                        </tr>
-
-                                    </td>
-                                    <td>
-                                        <tr *ngFor="let parti of list.particularsData">
-
-                                            <td class="text-center">{{parti.debitAmount}}</td>
-                                        </tr>
-                                    </td>
-                                    <td>
-                                        <tr *ngFor="let parti of list.particularsData">
-
-                                            <td class="text-center">{{parti.creditAmount}}</td>
-                                        </tr>
-                                    </td>
-
-                                </tr>
-                                <tr>
-
-                                </tr>
-
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Total</td>
-                                    <td>{{debSum}}</td>
-                                    <td>{{credSum}}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Closing</td>
-                                    <td *ngIf="credSum > debSum">{{sumTotal}}</td>
-                                    <td *ngIf="debSum > credSum">{{sumTotal}}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Total</td>
-                                    <td *ngIf="debSum > credSum">{{sumTotal}}</td>
-                                    <td *ngIf="credSum > debSum">{{sumTotal}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row">
+  <div class="col-sm-5">
+    <app-breadcrumbs [steps]="breadcrumbs"></app-breadcrumbs>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <h3>
+      <b>{{paramId | titlecase}}</b>
+    </h3>
+  </div>
 </div>
+
+<section id="icon-tabs">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row mb-2">
+            <div class="col-xs-12 col-md-4">
+              <ng-select [items]="ledgerList" placeholder="Select ledger" (add)="onAccSelect($event)">
+              </ng-select>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="Start Date" name="ds1" [minDate]="minNgbDate" [maxDate]="maxNgbDate" [(ngModel)]="csd"
+                    ngbDatepicker #ds1="ngbDatepicker" (ngModelChange)="startDate($event)">
+
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds1.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <small *ngIf="showStartDateError" class="form-text text-muted danger">
+                Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
+              </small>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="End date" name="ds2" [minDate]="minNgbDate" [maxDate]="maxNgbDate" [(ngModel)]="ced"
+                    ngbDatepicker #ds2="ngbDatepicker" (ngModelChange)="endDate($event)">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="ds2.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <small *ngIf="showEndDateError" class="form-text text-muted danger">
+              Choose between {{companyStartingDate | date}} - {{companyEndingDate|date}}
+            </small>
+          </div>
+          <!-- <div class="col-xs"></div> -->
+
+          <div class="row my-3" *ngIf="incomingData?.length<=0">
+            <div class="col-12 text-center my-3">
+              <h1>No data present</h1>
+            </div>
+          </div>
+          <div class="content table-responsive table-full-width" *ngIf="incomingData?.length>0 ">
+            <table class="table table-responsive-md text-center">
+              <thead>
+                <tr>
+
+                  <th>Date </th>
+
+                  <th>Reference No. </th>
+
+                  <th> Particular.</th>
+
+                  <th>Debit Amount</th>
+
+                  <th>Credit Amount</th>
+
+                  <th>Action</th>
+
+                </tr>
+
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of incomingData">
+
+                  <td> {{list.date | date}}</td>
+
+                  <td> {{list.referenceNumber}}</td>
+
+                  <td>
+                    <tr *ngFor="let parti of list.particularsData">
+                      <td style="border:0">{{parti.particulars}}</td>
+                    </tr>
+                  </td>
+
+                  <td>
+                    <tr *ngFor="let parti of list.particularsData">
+
+                      <td style="border:0">{{parti.debitAmount}}</td>
+                    </tr>
+                  </td>
+
+                  <td>
+                    <tr *ngFor="let parti of list.particularsData">
+
+                      <td style="border:0">{{parti.creditAmount}}</td>
+                    </tr>
+                  </td>
+
+                  <td>
+                    <a class="success p-0" data-original-title="" title="">
+                      <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                    </a>
+                    <a class="danger p-0" data-original-title="" title="" (click)="deleteEntry(list.paymentdocId)">
+                      <i class="ft-x font-medium-3 mr-2"></i>
+                    </a>
+                  </td>
+
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>Total</td>
+                  <td>{{debSum}}</td>
+                  <td>{{credSum}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>Closing</td>
+                  <td *ngIf="credSum > debSum">{{sumTotal}}</td>
+                  <td *ngIf="debSum > credSum">{{sumTotal}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>Total</td>
+                  <td *ngIf="debSum > credSum">{{sumTotal}}</td>
+                  <td *ngIf="credSum > debSum">{{sumTotal}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -198,7 +198,6 @@ export class ReceiptComponent implements OnInit {
         this.maxNgbDate
       );
     }
-    console.log(dateError);
     if (dateError) {
       this.form.controls[arg].setErrors({ dateIncorrect: true });
     }

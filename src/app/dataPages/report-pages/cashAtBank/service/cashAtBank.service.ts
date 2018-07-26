@@ -24,17 +24,21 @@ export class CashAtBankService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData(ledgerName, compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/cashAtBank?token=${
+  getIncomingData(ledgerName, compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/cashAtBank?token=${
       this.token
-    }&&companyName=${compName}&&ledgerSelect=${ledgerName}`;
+    }&&companyName=${compName}&&ledgerSelect=${ledgerName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
-  getLedgerNameData(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNamecashAtBank?token=${
+  getLedgerNameData(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNamecashAtBank?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 }

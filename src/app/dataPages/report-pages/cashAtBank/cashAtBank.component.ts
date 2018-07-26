@@ -74,17 +74,17 @@ export class CashAtBankComponent implements OnInit {
 
   getLedgerNameData() {
     this.dataCopy = this._cashAtBankService
-      .getLedgerNameData(this.paramId)
+      .getLedgerNameData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
 
-        this.getIncomingData(this.ledgerList[0]);
+        // this.getIncomingData(this.ledgerList[0]);
       });
   }
   getIncomingData(value) {
     this.dataCopy = this._cashAtBankService
-      .getIncomingData(value, this.paramId)
+      .getIncomingData(value, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.caseThrough(data.formData);
