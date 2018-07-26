@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { CashInHandsService } from './service/cashInHands.service';
+import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 
@@ -12,29 +13,51 @@ declare var $: any;
 })
 export class CashInHandsComponent implements OnInit {
   contentId: String = '';
-  public dateFrom: Date;
-  public dateTo: Date;
+  public closeResult: string;
 
-  debSum: number;
-  credSum: number;
-  sumTotal: number;
-  incomingData: Array<string>;
+  public companyStartingDate;
+  public companyEndingDate;
+  public choosenStartDate;
+  public csd;
+  public choosenEndDate;
+  public ced;
+  public showStartDateError: Boolean = false;
+  public showEndDateError: Boolean = false;
+  public minNgbDate;
+  public maxNgbDate;
+
+  public debSum: number;
+  public credSum: number;
+  public sumTotal: number;
   public dataCopy: any;
   public paramId: string;
   public ownerName: string;
 
   public breadcrumbs = [];
-  public closeResult: string;
+  public incomingData = [];
+  public mainIncomingData = [];
   public ledgerList: Array<string> = [];
 
   constructor(
     private route: ActivatedRoute,
-    public _cashInHandsService: CashInHandsService
+    public _cashInHandsService: CashInHandsService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
     this.getRouteParam();
     this.getLedgerNameData();
+    this.getGlobalCompanyData();
+  }
+
+  onAccSelect(item: any): void {
+    this.csd = null;
+    this.ced = null;
+    if (item === 'All') {
+      // this.getAllIncomingData();
+    } else {
+      this.getIncomingData(item);
+    }
   }
 
   getRouteParam() {
@@ -59,8 +82,6 @@ export class CashInHandsComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
-
-        this.getIncomingData(this.ledgerList[0]);
       });
   }
 
@@ -69,75 +90,154 @@ export class CashInHandsComponent implements OnInit {
       .getIncomingData(value, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.formData);
-        // this.caseThrough(data.formData);
+        // this.incomingData = data.formData;
+        this.caseThrough(data.formData);
       });
   }
-  caseThrough(arg) {
-    console.log(arg);
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.companyStartingDate = data.startDate;
+        this.companyEndingDate = data.endDate;
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth() + 1,
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth() + 1,
+          day: maxD.getDate(),
+        };
+        this.dateFilterRefresh();
+      });
   }
 
-  // caseThrough(arg) {
-  //   this.debSum = 0;
-  //   this.credSum = 0;
-  //   console.log(arg);
-  //   arg.map(el => {
-  //     switch (el.source.toLowerCase()) {
-  //       case 'payment': {
-  //         el.data.map(elm =>
-  //           elm.particularsData.map(ele => {
-  //             if (elm.account.toLowerCase() === 'cash') {
-  //               ele['creditAmount'] = ele.amount;
-  //               this.credSum += ele.amount;
-  //               ele['debitAmount'] = 0;
-  //             } else {
-  //               ele['debitAmount'] = ele.amount;
-  //               this.debSum += ele.amount;
-  //               ele['creditAmount'] = 0;
-  //             }
-  //           })
-  //         );
-  //         break;
-  //       }
-  //       case 'receipt': {
-  //         el.data.map(elm =>
-  //           elm.particularsData.map(ele => {
-  //             if (elm.account.toLowerCase() === 'cash') {
-  //               ele['debitAmount'] = ele.amount;
-  //               this.debSum += ele.amount;
-  //               ele['creditAmount'] = 0;
-  //             } else {
-  //               ele['creditAmount'] = ele.amount;
-  //               this.credSum += ele.amount;
-  //               ele['debitAmount'] = 0;
-  //             }
-  //           })
-  //         );
-  //         break;
-  //       }
-  //       case 'conta': {
-  //         el.data.map(elm =>
-  //           elm.particularsData.map(ele => {
-  //             if (elm.account.toLowerCase() === 'cash') {
-  //               ele['debitAmount'] = ele.amount;
-  //               this.debSum += ele.amount;
-  //               ele['creditAmount'] = 0;
-  //             } else {
-  //               ele['creditAmount'] = ele.amount;
-  //               this.credSum += ele.amount;
-  //               ele['debitAmount'] = 0;
-  //             }
-  //           })
-  //         );
-  //         break;
-  //       }
-  //     }
-  //   });
+  startDate(value) {
+    const dateReturn = this.dateRangeValidator(value);
+    if (dateReturn.allow) {
+      this.showStartDateError = false;
+      this.choosenStartDate = dateReturn.date;
+      this.setDateFilter();
+    } else {
+      this.showStartDateError = true;
+      this.choosenStartDate = this.companyStartingDate;
+    }
+  }
 
-  //   this.sumTotal = Math.abs(this.debSum - this.credSum);
-  //   this.incomingData = arg.map(el => el.data)[0];
-  //   console.log(this.incomingData);
-  // }
+  endDate(value) {
+    const dateReturn = this.dateRangeValidator(value);
+    if (dateReturn.allow) {
+      this.showEndDateError = false;
+      this.choosenEndDate = dateReturn.date;
+      this.setDateFilter();
+    } else {
+      this.showEndDateError = true;
+      this.choosenEndDate = this.companyEndingDate;
+    }
+  }
+
+  dateRangeValidator(arg) {
+    if (arg !== null && typeof arg === 'object') {
+      const dateVal = new Date(arg.year, arg.month - 1, arg.day).getTime();
+
+      if (
+        dateVal > 0 &&
+        dateVal >= this.companyStartingDate &&
+        dateVal <= this.companyEndingDate
+      ) {
+        return { allow: true, date: dateVal };
+      } else {
+        this.incomingData = [];
+        return { allow: false, date: null };
+      }
+    } else {
+      this.incomingData = [];
+
+      return { allow: false, date: null };
+    }
+  }
+
+  setDateFilter() {
+    this.incomingData = this.mainIncomingData.filter(el => {
+      if (
+        el.date >= this.choosenStartDate &&
+        el.date <= this.choosenEndDate &&
+        el.date >= this.companyStartingDate &&
+        el.date <= this.companyEndingDate
+      ) {
+        return el;
+      }
+    });
+  }
+
+  dateFilterRefresh() {
+    this.choosenStartDate = this.companyStartingDate;
+    this.choosenEndDate = this.companyEndingDate;
+  }
+
+  caseThrough(arg) {
+    // console.log(arg);
+    this.debSum = 0;
+    this.credSum = 0;
+    arg.map(el => {
+      // console.log(el);
+      switch (el.voucherType.toLowerCase()) {
+        case 'payment': {
+          el.particularsData.map(elm => {
+            if (elm.particulars.toLowerCase() !== 'cash') {
+              elm['creditAmount'] = elm.amount;
+              this.credSum += elm.amount;
+              elm['debitAmount'] = 0;
+            } else {
+              elm['debitAmount'] = elm.amount;
+              this.debSum += elm.amount;
+              elm['creditAmount'] = 0;
+            }
+          });
+          break;
+        }
+        case 'receipt': {
+          el.particularsData.map(elm => {
+            if (elm.particulars.toLowerCase() !== 'cash') {
+              elm['debitAmount'] = elm.amount;
+              this.debSum += elm.amount;
+              elm['creditAmount'] = 0;
+            } else {
+              elm['creditAmount'] = elm.amount;
+              this.credSum += elm.amount;
+              elm['debitAmount'] = 0;
+            }
+          });
+          break;
+        }
+        case 'contra': {
+          el.particularsData.map(elm => {
+            console.log(elm);
+            if (elm.particulars.toLowerCase() !== 'cash') {
+              elm['debitAmount'] = elm.amount;
+              this.debSum += elm.amount;
+              elm['creditAmount'] = 0;
+            } else {
+              elm['creditAmount'] = elm.amount;
+              this.credSum += elm.amount;
+              elm['debitAmount'] = 0;
+            }
+          });
+          break;
+        }
+      }
+    });
+    this.sumTotal = Math.abs(this.debSum - this.credSum);
+    this.incomingData = arg;
+    this.mainIncomingData = arg;
+    console.log(this.incomingData);
+  }
 
   editData(id) {
     this.contentId = id;

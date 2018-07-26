@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
 import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
 
-
 @Component({
   selector: 'app-payment-report',
   templateUrl: './payment.component.html',
@@ -137,7 +136,7 @@ export class PaymentComponent implements OnInit {
       return { allow: false, date: null };
     }
   }
-  
+
   setDateFilter() {
     this.incomingData = this.mainIncomingData.filter(el => {
       if (
@@ -155,6 +154,7 @@ export class PaymentComponent implements OnInit {
     this.choosenStartDate = this.companyStartingDate;
     this.choosenEndDate = this.companyEndingDate;
   }
+
   // This function is used in open
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -208,6 +208,8 @@ export class PaymentComponent implements OnInit {
   }
 
   onAccSelect(item: any): void {
+    this.csd = null;
+    this.ced = null;
     if (item === 'All') {
       this.getAllIncomingData();
     } else {
@@ -273,7 +275,6 @@ export class PaymentComponent implements OnInit {
     this._paymentService
       .deleteEntry(id, this.paramId, this.ownerName)
       .map(response => response.json())
-      .subscribe(data => {
-      });
+      .subscribe(data => {});
   }
 }
