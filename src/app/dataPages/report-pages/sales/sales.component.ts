@@ -145,6 +145,7 @@ export class SalesComponent implements OnInit {
         return el;
       }
     });
+    console.log(this.mainIncomingData);
   }
 
   dateFilterRefresh() {
@@ -209,6 +210,7 @@ export class SalesComponent implements OnInit {
       //     break;
     }
   }
+
   onSelectAll() {
     this.ColTransportationMode = true;
     this.ColSaleType = true;
@@ -252,7 +254,8 @@ export class SalesComponent implements OnInit {
       .getIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
+        this.mainIncomingData = data.salesData;
+        console.log(this.mainIncomingData);
         this.incomingData = data.salesData;
       });
   }

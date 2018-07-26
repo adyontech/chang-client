@@ -230,13 +230,13 @@ export class SalesComponent implements OnInit {
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth()+1,
+          month: minD.getMonth() + 1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth()+1,
+          month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
         this.companyStateName = data.state;
@@ -357,7 +357,7 @@ export class SalesComponent implements OnInit {
   onSubmit(user) {
     user.date = new Date(
       user.date.year,
-      user.date.month,
+      user.date.month - 1,
       user.date.day
     ).getTime();
     alertFunctions.SaveData().then(datsa => {
@@ -393,7 +393,7 @@ export class SalesComponent implements OnInit {
       user.date = new Date(user.date);
       this.form.controls['date'].setValue({
         year: user.date.getFullYear(),
-        month: user.date.getMonth(),
+        month: user.date.getMonth() + 1,
         day: user.date.getDate(),
       });
     });
