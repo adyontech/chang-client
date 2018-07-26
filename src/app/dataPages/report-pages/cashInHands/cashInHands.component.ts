@@ -70,69 +70,74 @@ export class CashInHandsComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         console.log(data.formData);
-        this.caseThrough(data.formData);
+        // this.caseThrough(data.formData);
       });
   }
-
   caseThrough(arg) {
-    this.debSum = 0;
-    this.credSum = 0;
-    arg.map(el => {
-      switch (el.source.toLowerCase()) {
-        case 'payment': {
-          el.data.map(elm =>
-            elm.particularsData.map(ele => {
-              if (elm.account.toLowerCase() === 'cash') {
-                ele['creditAmount'] = ele.amount;
-                this.credSum += ele.amount;
-                ele['debitAmount'] = 0;
-              } else {
-                ele['debitAmount'] = ele.amount;
-                this.debSum += ele.amount;
-                ele['creditAmount'] = 0;
-              }
-            })
-          );
-          break;
-        }
-        case 'receipt': {
-          el.data.map(elm =>
-            elm.particularsData.map(ele => {
-              if (elm.account.toLowerCase() === 'cash') {
-                ele['debitAmount'] = ele.amount;
-                this.debSum += ele.amount;
-                ele['creditAmount'] = 0;
-              } else {
-                ele['creditAmount'] = ele.amount;
-                this.credSum += ele.amount;
-                ele['debitAmount'] = 0;
-              }
-            })
-          );
-          break;
-        }
-        case 'conta': {
-          el.data.map(elm =>
-            elm.particularsData.map(ele => {
-              if (elm.account.toLowerCase() === 'cash') {
-                ele['debitAmount'] = ele.amount;
-                this.debSum += ele.amount;
-                ele['creditAmount'] = 0;
-              } else {
-                ele['creditAmount'] = ele.amount;
-                this.credSum += ele.amount;
-                ele['debitAmount'] = 0;
-              }
-            })
-          );
-          break;
-        }
-      }
-    });
-
-    this.sumTotal = Math.abs(this.debSum - this.credSum);
-    this.incomingData = arg.map(el => el.data)[0];
+    console.log(arg);
   }
+
+  // caseThrough(arg) {
+  //   this.debSum = 0;
+  //   this.credSum = 0;
+  //   console.log(arg);
+  //   arg.map(el => {
+  //     switch (el.source.toLowerCase()) {
+  //       case 'payment': {
+  //         el.data.map(elm =>
+  //           elm.particularsData.map(ele => {
+  //             if (elm.account.toLowerCase() === 'cash') {
+  //               ele['creditAmount'] = ele.amount;
+  //               this.credSum += ele.amount;
+  //               ele['debitAmount'] = 0;
+  //             } else {
+  //               ele['debitAmount'] = ele.amount;
+  //               this.debSum += ele.amount;
+  //               ele['creditAmount'] = 0;
+  //             }
+  //           })
+  //         );
+  //         break;
+  //       }
+  //       case 'receipt': {
+  //         el.data.map(elm =>
+  //           elm.particularsData.map(ele => {
+  //             if (elm.account.toLowerCase() === 'cash') {
+  //               ele['debitAmount'] = ele.amount;
+  //               this.debSum += ele.amount;
+  //               ele['creditAmount'] = 0;
+  //             } else {
+  //               ele['creditAmount'] = ele.amount;
+  //               this.credSum += ele.amount;
+  //               ele['debitAmount'] = 0;
+  //             }
+  //           })
+  //         );
+  //         break;
+  //       }
+  //       case 'conta': {
+  //         el.data.map(elm =>
+  //           elm.particularsData.map(ele => {
+  //             if (elm.account.toLowerCase() === 'cash') {
+  //               ele['debitAmount'] = ele.amount;
+  //               this.debSum += ele.amount;
+  //               ele['creditAmount'] = 0;
+  //             } else {
+  //               ele['creditAmount'] = ele.amount;
+  //               this.credSum += ele.amount;
+  //               ele['debitAmount'] = 0;
+  //             }
+  //           })
+  //         );
+  //         break;
+  //       }
+  //     }
+  //   });
+
+  //   this.sumTotal = Math.abs(this.debSum - this.credSum);
+  //   this.incomingData = arg.map(el => el.data)[0];
+  //   console.log(this.incomingData);
+  // }
 
   editData(id) {
     this.contentId = id;

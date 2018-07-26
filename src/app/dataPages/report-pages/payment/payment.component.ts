@@ -137,6 +137,7 @@ export class PaymentComponent implements OnInit {
       return { allow: false, date: null };
     }
   }
+  
   setDateFilter() {
     this.incomingData = this.mainIncomingData.filter(el => {
       if (
