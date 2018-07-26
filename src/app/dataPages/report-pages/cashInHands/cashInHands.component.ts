@@ -1,17 +1,4 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  FormArray,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
 
 import { ActivatedRoute } from '@angular/router';
 import { CashInHandsService } from './service/cashInHands.service';
@@ -32,18 +19,17 @@ export class CashInHandsComponent implements OnInit {
   credSum: number;
   sumTotal: number;
   incomingData: Array<string>;
-  form: FormGroup;
   public dataCopy: any;
   public paramId: string;
-  public ownerId: string;
+  public ownerName: string;
 
+  public breadcrumbs = [];
   public closeResult: string;
   public ledgerList: Array<string> = [];
 
   constructor(
     private route: ActivatedRoute,
-    public _cashInHandsService: CashInHandsService,
-    public fb: FormBuilder
+    public _cashInHandsService: CashInHandsService
   ) {}
 
   ngOnInit() {
@@ -55,13 +41,20 @@ export class CashInHandsComponent implements OnInit {
     this.route.params.subscribe(params => {
       // console.log(params.id);
       this.paramId = params.id;
-      this.ownerId = params.owner;
+      this.ownerName = params.owner;
     });
+    this.breadcrumbs = [
+      { name: 'Ledger' },
+      {
+        name: 'Dashboard',
+        link: `/${this.ownerName}/${this.paramId}/dashboard`,
+      },
+    ];
   }
 
   getLedgerNameData() {
     this.dataCopy = this._cashInHandsService
-      .getLedgerNameData(this.paramId, this.ownerId)
+      .getLedgerNameData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data);
@@ -73,9 +66,10 @@ export class CashInHandsComponent implements OnInit {
 
   getIncomingData(value) {
     this.dataCopy = this._cashInHandsService
-      .getIncomingData(value, this.paramId, this.ownerId)
+      .getIncomingData(value, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data.formData);
         this.caseThrough(data.formData);
       });
   }
