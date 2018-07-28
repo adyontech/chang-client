@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ChatService } from './chat.service';
 import { Chat } from './chat.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
@@ -22,7 +22,10 @@ export class ChatComponent implements OnInit {
   dataCopy: any;
   public paramId: string;
   public ownerName: string;
-  public roomArray = [];
+  public roomId;
+  public messageArray = [];
+
+  public message;
 
   @ViewChild('messageInput') messageInputRef: ElementRef;
 
@@ -30,11 +33,11 @@ export class ChatComponent implements OnInit {
   item: Number = 0;
   constructor(
     private elRef: ElementRef,
-    private chatService: ChatService,
+    private _chatService: ChatService,
     private route: ActivatedRoute,
     public _globalCompanyService: GlobalCompanyService
   ) {
-    this.chat = chatService.chat1;
+    this._chatService.newMessageReceived().subscribe(data => console.log(data));
   }
 
   ngOnInit() {
@@ -56,55 +59,23 @@ export class ChatComponent implements OnInit {
       .getGlobalCompanyData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
-        this.roomArray = [
-          {
-            roomId: data.companyId,
-            roomName: this.paramId,
-          },
-        ];
+        this.roomId = data.companyId;
+        this.join();
       });
   }
-  // send button function calls
-  onAddMessage() {
-    if (this.messageInputRef.nativeElement.value != '') {
-      this.messages.push(this.messageInputRef.nativeElement.value);
-    }
-    this.messageInputRef.nativeElement.value = '';
-    this.messageInputRef.nativeElement.focus();
+
+  join() {
+    this._chatService.joinRoom(this.roomId);
   }
 
-  //chat user list click event function
-  SetActive(event, chatId: string) {
-    var hElement: HTMLElement = this.elRef.nativeElement;
-    //now you can simply get your elements with their class name
-    var allAnchors = hElement.getElementsByClassName('list-group-item');
-    //do something with selected elements
-    [].forEach.call(allAnchors, function(item: HTMLElement) {
-      item.setAttribute('class', 'list-group-item no-border');
-    });
-    //set active class for selected item
-    event.currentTarget.setAttribute(
-      'class',
-      'list-group-item bg-blue-grey bg-lighten-5 border-right-primary border-right-2'
-    );
+  // newUserJoin() {
+  //   this._chatService
+  //     .newUserJoined()
+  //     .subscribe(data => this.messageArray.push(data));
+  // }
 
-    this.messages = [];
-
-    if (chatId === 'chat1') {
-      this.chat = this.chatService.chat1;
-    } else if (chatId === 'chat2') {
-      this.chat = this.chatService.chat2;
-    } else if (chatId === 'chat3') {
-      this.chat = this.chatService.chat3;
-    } else if (chatId === 'chat4') {
-      this.chat = this.chatService.chat4;
-    } else if (chatId === 'chat5') {
-      this.chat = this.chatService.chat5;
-    } else if (chatId === 'chat6') {
-      this.chat = this.chatService.chat6;
-    } else if (chatId === 'chat7') {
-      this.chat = this.chatService.chat7;
-    }
+  // send button function calls
+  onAddMessage() {
+    this._chatService.onAddMessage(this.roomId, this.message);
   }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { VgCoreModule } from 'videogular2/core';
 import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
@@ -19,6 +19,7 @@ import { ChatComponent } from './chat.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    FormsModule,
   ],
   declarations: [ChatComponent],
   providers: [GlobalCompanyService],
