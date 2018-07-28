@@ -1,35 +1,76 @@
-import { Component, ViewChild, ElementRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ChatService } from './chat.service';
 import { Chat } from './chat.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./chat.component.scss'],
-  providers: [ChatService]
+  providers: [ChatService],
 })
 export class ChatComponent implements OnInit {
-
   chat: Chat[];
+  dataCopy: any;
+  public paramId: string;
+  public ownerName: string;
+  public roomArray = [];
+
   @ViewChild('messageInput') messageInputRef: ElementRef;
 
   messages = new Array();
-  item: number = 0;
-  constructor(private elRef: ElementRef, private chatService: ChatService) {
+  item: Number = 0;
+  constructor(
+    private elRef: ElementRef,
+    private chatService: ChatService,
+    private route: ActivatedRoute,
+    public _globalCompanyService: GlobalCompanyService
+  ) {
     this.chat = chatService.chat1;
   }
 
   ngOnInit() {
+    this.getRouteParam();
+    this.getGlobalCompanyData();
     $.getScript('./assets/js/chat.js');
   }
 
-  //send button function calls
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
+    });
+  }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        console.log(data);
+        this.roomArray = [
+          {
+            roomId: data.companyId,
+            roomName: this.paramId,
+          },
+        ];
+      });
+  }
+  // send button function calls
   onAddMessage() {
-    if (this.messageInputRef.nativeElement.value != "") {
+    if (this.messageInputRef.nativeElement.value != '') {
       this.messages.push(this.messageInputRef.nativeElement.value);
     }
-    this.messageInputRef.nativeElement.value = "";
+    this.messageInputRef.nativeElement.value = '';
     this.messageInputRef.nativeElement.focus();
   }
 
@@ -39,36 +80,31 @@ export class ChatComponent implements OnInit {
     //now you can simply get your elements with their class name
     var allAnchors = hElement.getElementsByClassName('list-group-item');
     //do something with selected elements
-    [].forEach.call(allAnchors, function (item: HTMLElement) {
+    [].forEach.call(allAnchors, function(item: HTMLElement) {
       item.setAttribute('class', 'list-group-item no-border');
     });
-    //set active class for selected item 
-    event.currentTarget.setAttribute('class', 'list-group-item bg-blue-grey bg-lighten-5 border-right-primary border-right-2');
+    //set active class for selected item
+    event.currentTarget.setAttribute(
+      'class',
+      'list-group-item bg-blue-grey bg-lighten-5 border-right-primary border-right-2'
+    );
 
     this.messages = [];
 
     if (chatId === 'chat1') {
       this.chat = this.chatService.chat1;
-    }
-    else if (chatId === 'chat2') {
+    } else if (chatId === 'chat2') {
       this.chat = this.chatService.chat2;
-    }
-    else if (chatId === 'chat3') {
+    } else if (chatId === 'chat3') {
       this.chat = this.chatService.chat3;
-    }
-    else if (chatId === 'chat4') {
+    } else if (chatId === 'chat4') {
       this.chat = this.chatService.chat4;
-    }
-    else if (chatId === 'chat5') {
+    } else if (chatId === 'chat5') {
       this.chat = this.chatService.chat5;
-    }
-    else if (chatId === 'chat6') {
+    } else if (chatId === 'chat6') {
       this.chat = this.chatService.chat6;
-    }
-    else if (chatId === 'chat7') {
+    } else if (chatId === 'chat7') {
       this.chat = this.chatService.chat7;
     }
-
   }
-
 }
