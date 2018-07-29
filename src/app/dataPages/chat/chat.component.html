@@ -8,38 +8,44 @@
     </h3>
   </div>
 </div>
-<section id="icon-tabs">
-  <div class="row">
-    <div class="col-12">
-      <div class="card text-center">
-        <div class="card-body">
-          <div class="card-block">
-            <div class="chat-application py-3">
-              <section class="chat-app-window">
-                <div class="badge badge-dark mb-1">Load more ?</div>
-                <div class="chats">
+<div class="chat-application">
+  <section id="icon-tabs">
+    <div class="row">
+      <div class="col-12">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="card-block">
+              <div class="chat-application py-3">
+                <div class="chat-sidebar float-left d-none d-sm-none d-md-block d-lg-block">
+                  <div class="chat-sidebar-content">
+                    <app-chat-sidebar></app-chat-sidebar>
+                  </div>
+                </div>
+                <section class="chat-app-window">
+                  <div class="badge badge-dark mb-1">Load more ?</div>
                   <div class="chats">
-                    <div [ngClass]="[chats.sender === userName? 'chat': 'chat chat-left']" *ngFor="let chats of messageArray">
-                      <p class="time">
-                        {{chats.date| date: 'medium'}}
-                      </p>
-                      <div class="chat-avatar">
-                        <!-- <a class="avatar" data-toggle="tooltip" data-placement="[chat.avatar]" title data-original-title>
+                    <div class="chats">
+                      <div [ngClass]="[chats.sender === userName? 'chat': 'chat chat-left']" *ngFor="let chats of messageArray">
+                        <p class="time">
+                          {{chats.date| date: 'medium'}}
+                        </p>
+                        <div class="chat-avatar">
+                          <!-- <a class="avatar" data-toggle="tooltip" data-placement="[chat.avatar]" title data-original-title>
                           <img [src]="[chat.imagePath]" class="width-50" alt="avatar">
                         </a> -->
-                        <ngx-avatar class="avatar" name={{chats.sender}} value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5"
-                          [round]="true"></ngx-avatar>
+                          <ngx-avatar class="avatar" name={{chats.sender}} value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5"
+                            [round]="true"></ngx-avatar>
 
-                      </div>
-                      <div class="chat-body">
-                        <div class="chat-content">
-                          <p>{{ chats.message }}</p>
                         </div>
+                        <div class="chat-body">
+                          <div class="chat-content">
+                            <p>{{ chats.message }}</p>
+                          </div>
+                        </div>
+
                       </div>
 
-                    </div>
-
-                    <!-- <div class="chat" *ngIf="messages.length > 0">
+                      <!-- <div class="chat" *ngIf="messages.length > 0">
                       <div class="chat-avatar">
                         <a class="avatar" data-toggle="tooltip" data-placement="right" title="" data-original-title="">
                           <img src="assets/img/portrait/small/avatar-s-1.png" class="width-50" alt="avatar" />
@@ -52,33 +58,33 @@
                       </div>
                     </div> -->
 
+                    </div>
                   </div>
-                </div>
-              </section>
-              <section class="chat-app-form bg-blue-grey bg-lighten-5">
-                <div class="chat-app-input row">
-                  <fieldset class="form-group position-relative has-icon-left col-xl-10 col-lg-8 col-8 m-0 mb-1">
-                    <!-- <div class="form-control-position">
+                </section>
+                <section class="chat-app-form bg-blue-grey bg-lighten-5">
+                  <div class="chat-app-input row">
+                    <fieldset class="form-group position-relative has-icon-left col-xl-10 col-lg-8 col-8 m-0 mb-1">
+                      <!-- <div class="form-control-position">
                       <i class="icon-emoticon-smile"></i>
                     </div> -->
-                    <input type="text" class="form-control" id="iconLeft4" placeholder="Type your message" (keydown.enter)="onAddMessage();$event.preventDefault()"
-                      [(ngModel)]="message">
-                    <!-- <div class="form-control-position control-position-right">
+                      <input type="text" class="form-control" id="iconLeft4" placeholder="Type your message" (keydown.enter)="onAddMessage();$event.preventDefault()"
+                        [(ngModel)]="message">
+                      <!-- <div class="form-control-position control-position-right">
                       <i class="ft-image"></i>
                     </div> -->
-                  </fieldset>
-                  <fieldset class="form-group position-relative has-icon-left col-xl-2 col-lg-4 col-4 m-0 mb-1">
-                    <button type="button" class="btn btn-raised btn-primary" (click)="onAddMessage()">
-                      <i class="fa fa-paper-plane-o hidden-lg-up"></i>
-                      Send
-                    </button>
-                  </fieldset>
-                </div>
-              </section>
+                    </fieldset>
+                    <fieldset class="form-group position-relative has-icon-left col-xl-2 col-lg-4 col-4 m-0 mb-1">
+                      <button type="button" class="btn btn-raised btn-primary" (click)="onAddMessage()">
+                        <i class="fa fa-paper-plane-o hidden-lg-up"></i>
+                        Send
+                      </button>
+                    </fieldset>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>

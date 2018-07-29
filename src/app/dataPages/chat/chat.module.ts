@@ -11,7 +11,8 @@ import { ChatRoutingModule } from './chat-routing.module';
 
 import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
 import { ChatComponent } from './chat.component';
-
+import { ChatSidebarComponent } from './sideBar/chatSidebar.component';
+import { ChatSidebarService } from './sideBar/chatSidebar.service';
 @NgModule({
   imports: [
     AvatarModule,
@@ -23,7 +24,7 @@ import { ChatComponent } from './chat.component';
     VgBufferingModule,
     FormsModule,
   ],
-  declarations: [ChatComponent],
-  providers: [GlobalCompanyService],
+  declarations: [ChatComponent, ChatSidebarComponent],
+  providers: [GlobalCompanyService, ChatSidebarService],
 })
 export class ChatModule {}
