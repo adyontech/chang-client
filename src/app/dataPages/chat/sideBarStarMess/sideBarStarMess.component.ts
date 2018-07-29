@@ -22,6 +22,7 @@ export class ChatSidebarMessageComponent implements OnInit {
   public roomId;
   public userName = JSON.parse(window.localStorage.getItem('user')).userName;
   public message;
+  public deleteAllow: Boolean = false;
 
   messages = new Array();
   item: Number = 0;
@@ -39,6 +40,10 @@ export class ChatSidebarMessageComponent implements OnInit {
     this.getRouteParam();
     this.getGlobalCompanyData();
     $.getScript('./assets/js/chat.js');
+  }
+
+  deleteToggle() {
+    this.deleteAllow = !this.deleteAllow;
   }
 
   getRouteParam() {
