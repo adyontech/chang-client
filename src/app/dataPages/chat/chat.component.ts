@@ -9,6 +9,7 @@ import { ChatService } from './chat.service';
 import { Chat } from './chat.model';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chat',
@@ -70,11 +71,14 @@ export class ChatComponent implements OnInit {
   messages = new Array();
   item: Number = 0;
   constructor(
+    config: NgbTabsetConfig,
     private elRef: ElementRef,
     private _chatService: ChatService,
     private route: ActivatedRoute,
     public _globalCompanyService: GlobalCompanyService
   ) {
+    config.justify = 'center';
+    config.type = 'pills';
     this.newMessageReceived();
     this.oldMessages();
   }

@@ -18,7 +18,24 @@
               <div class="chat-application py-3">
                 <div class="chat-sidebar float-left d-none d-sm-none d-md-block d-lg-block">
                   <div class="chat-sidebar-content">
-                    <app-chat-sidebar></app-chat-sidebar>
+                    <ngb-tabset>
+                      <ngb-tab>
+                        <ng-template ngbTabTitle>
+                          <b>Stared Message</b>
+                        </ng-template>
+                        <ng-template ngbTabContent>
+                          <app-chat-starmess></app-chat-starmess>
+                        </ng-template>
+                      </ngb-tab>
+                      <ngb-tab>
+                        <ng-template ngbTabTitle>
+                          <b>People</b>
+                        </ng-template>
+                        <ng-template ngbTabContent>
+                          <app-chat-sidebar></app-chat-sidebar>
+                        </ng-template>
+                      </ngb-tab>
+                    </ngb-tabset>
                   </div>
                 </div>
                 <section class="chat-app-window">
