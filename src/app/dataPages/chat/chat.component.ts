@@ -128,11 +128,13 @@ export class ChatComponent implements OnInit {
   }
 
   newMessageReceived() {
-    this._chatService.newMessageReceived().subscribe(data => console.log(data));
+    this._chatService.newMessageReceived().subscribe(data => {
+      // console.log(data);
+    });
   }
   oldMessages() {
     this._chatService.oldMessages().subscribe((data: ChatArrayInt) => {
-      console.log(data);
+      // console.log(data);
     });
   }
 }

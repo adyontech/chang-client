@@ -68,14 +68,14 @@ export class ChatSidebarMessageComponent implements OnInit {
   }
 
   newStarMessageReceived() {
-    this._chatService
-      .newStarMessageReceived()
-      .subscribe(data => console.log(data));
+    this._chatService.newStarMessageReceived().subscribe(data => {
+      // console.log(data);
+    });
   }
 
   oldStarMessages() {
     this._chatService.oldStarMessages().subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
   }
 }

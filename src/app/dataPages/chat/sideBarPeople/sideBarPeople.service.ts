@@ -23,4 +23,13 @@ export class ChatSidebarPeopleService {
     this.token = this.windowStorage.token;
     this.socket = io(`${this._globalVariableService.baseChatServerUrl}`);
   }
+
+  getUserList(roomId) {
+    console.log(roomId);
+    // the request is from chat server.
+    this._url = `${
+      this._globalVariableService.baseChatServerUrl
+    }/api/userList?token=${this.token}&&roomId=${roomId}`;
+    return this.http.get(this._url);
+  }
 }

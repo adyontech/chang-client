@@ -1,13 +1,16 @@
 <div id="users-list" class="list-group position-relative">
   <div class="users-list-padding">
-    <a class="list-group-item bg-blue-grey bg-lighten-5 border-right-primary border-right-2" (click)="SetActive($event, 'chat1')">
+    {{userList}}
+    <a *ngFor="let member of userList" class="list-group-item bg-blue-grey bg-lighten-5 border-right-primary border-right-2"
+      (click)="SetActive($event, 'chat1')">
       <span class="media">
         <span class="avatar avatar-md avatar-online">
-          <ngx-avatar class="avatar" name='a' value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+          <ngx-avatar class="avatar" name='{{member.memberName}}' value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5"
+            [round]="true"></ngx-avatar>
         </span>
         <div class="media-body">
           <h1 class="pt-2 list-group-item-heading" style="font-size: 15.8px;">
-            Elizabeth Elliott
+            {{member.memberName}}
           </h1>
           <p class="list-group-item-text text-muted">
             <span class="float-right primary">

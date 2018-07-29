@@ -24,6 +24,7 @@ export class ChatSidebarComponent implements OnInit {
   public message;
 
   messages = new Array();
+  userList = [];
   item: Number = 0;
   constructor(
     private elRef: ElementRef,
@@ -55,6 +56,17 @@ export class ChatSidebarComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.roomId = data.companyId;
+        this.getUserList();
+      });
+  }
+
+  getUserList() {
+    this.dataCopy = this._chatService
+      .getUserList(this.roomId)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.userList = data.formData;
+        console.log(this.userList);
       });
   }
 }
