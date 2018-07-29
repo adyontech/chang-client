@@ -4,8 +4,7 @@
   </div>
   <div class="col-sm-5 mt-3">
     <h3>
-      <b> {{paramId | titlecase}}
-      </b>
+      <b>{{paramId | titlecase}}</b>
     </h3>
   </div>
 </div>
@@ -16,35 +15,31 @@
         <div class="card-body">
           <div class="card-block">
             <div class="chat-application py-3">
-              <section class="chat-app-window" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+              <section class="chat-app-window">
                 <div class="badge badge-dark mb-1">Load more ?</div>
                 <div class="chats">
                   <div class="chats">
-                    <div [ngClass]="[chat.chatClass]" *ngFor="let chat of chat">
+                    <div [ngClass]="[chats.sender === userName? 'chat': 'chat chat-left']" *ngFor="let chats of messageArray">
+                      <p class="time">
+                        {{chats.date| date: 'medium'}}
+                      </p>
                       <div class="chat-avatar">
-                        <a class="avatar" data-toggle="tooltip" data-placement="[chat.avatar]" title="" data-original-title="">
-                          <img [src]="[chat.imagePath]" class="width-50" alt="avatar" />
-                        </a>
+                        <!-- <a class="avatar" data-toggle="tooltip" data-placement="[chat.avatar]" title data-original-title>
+                          <img [src]="[chat.imagePath]" class="width-50" alt="avatar">
+                        </a> -->
+                        <ngx-avatar class="avatar" name={{chats.sender}} value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5"
+                          [round]="true"></ngx-avatar>
+
                       </div>
                       <div class="chat-body">
-                        <div class="chat-content" *ngFor="let message of chat.messages">
-                          <p *ngIf="chat.messageType === 'text'">{{ message }}</p>
-                          <vg-player *ngIf="chat.messageType === 'audio'">
-                            <audio [vgMedia]="media1" #media1 id="singleAudio" preload="auto" controls>
-                              <source [src]="message" type="audio/mp3">
-                            </audio>
-                          </vg-player>
-                          <vg-player *ngIf="chat.messageType === 'video'" style="height: 250px; width: 250px">
-                            <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
-                              <source [src]="message" type="video/mp4">
-                            </video>
-                          </vg-player>
+                        <div class="chat-content">
+                          <p>{{ chats.message }}</p>
                         </div>
                       </div>
-                      <p class="time" *ngIf="chat.time !='' ">{{chat.time}}</p>
+
                     </div>
 
-                    <div class="chat" *ngIf="messages.length > 0">
+                    <!-- <div class="chat" *ngIf="messages.length > 0">
                       <div class="chat-avatar">
                         <a class="avatar" data-toggle="tooltip" data-placement="right" title="" data-original-title="">
                           <img src="assets/img/portrait/small/avatar-s-1.png" class="width-50" alt="avatar" />
@@ -55,7 +50,7 @@
                           <p>{{ message }}</p>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                   </div>
                 </div>
@@ -67,14 +62,16 @@
                       <i class="icon-emoticon-smile"></i>
                     </div> -->
                     <input type="text" class="form-control" id="iconLeft4" placeholder="Type your message" (keydown.enter)="onAddMessage();$event.preventDefault()"
-                    [(ngModel)]="message"  >
+                      [(ngModel)]="message">
                     <!-- <div class="form-control-position control-position-right">
                       <i class="ft-image"></i>
                     </div> -->
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left col-xl-2 col-lg-4 col-4 m-0 mb-1">
                     <button type="button" class="btn btn-raised btn-primary" (click)="onAddMessage()">
-                      <i class="fa fa-paper-plane-o hidden-lg-up"></i> Send</button>
+                      <i class="fa fa-paper-plane-o hidden-lg-up"></i>
+                      Send
+                    </button>
                   </fieldset>
                 </div>
               </section>

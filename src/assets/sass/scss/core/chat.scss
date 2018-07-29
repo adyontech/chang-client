@@ -91,8 +91,8 @@ $sideber-border: #E4E7ED;
     .time {
       color: $gray-500;
       font-size: 12px;
-      text-align: center;
-      margin: 40px 0
+      text-align: right;
+      margin: 0px 60px
     }
     .chat-left {
       .chat-avatar {
@@ -117,6 +117,12 @@ $sideber-border: #E4E7ED;
         margin: 0 0 10px 20px;
         color: theme-color("dark");
         background-color: $body-bg;
+      }
+      .time {
+        color: $gray-500;
+        font-size: 12px;
+        text-align: left;
+        margin: 0px 60px
       }
     }
   }

@@ -23,7 +23,45 @@ export class ChatComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
   public roomId;
-  public messageArray = [];
+  public userName = JSON.parse(window.localStorage.getItem('user')).userName;
+  public messageArray = [
+    {
+      date: '1532743506687',
+      _id: '5b5bcf7ec244e86793ef2df8',
+      sender: 'Proworktree',
+      message: 'Hii, you can start your company related discussion here.',
+    },
+    {
+      date: '1532743506687',
+      _id: '5b5bcf7ec244e86793ef2df7',
+      sender: 'Proworktree',
+      message: 'Youll be needed to upgrade your package. Thanks',
+    },
+    {
+      date: '1532788910233',
+      _id: '5b5c80b5b9c9356037beabfc',
+      sender: 'aadii104',
+      message: 'sss',
+    },
+    {
+      date: '1532788910233',
+      _id: '5b5c80d5b9c9356037beabfd',
+      sender: 'aadii104',
+      message: 'ss',
+    },
+    {
+      date: '1532788910233',
+      _id: '5b5c80e4b9c9356037beabfe',
+      sender: 'aadii104',
+      message: 'qwwqw',
+    },
+    {
+      date: '1532789421557',
+      _id: '5b5c82c5ddb57b65af42850d',
+      sender: 'aadii104',
+      message: 'das',
+    },
+  ];
 
   public message;
 
@@ -37,7 +75,8 @@ export class ChatComponent implements OnInit {
     private route: ActivatedRoute,
     public _globalCompanyService: GlobalCompanyService
   ) {
-    this._chatService.newMessageReceived().subscribe(data => console.log(data));
+    this.newMessageReceived();
+    this.oldMessages();
   }
 
   ngOnInit() {
@@ -74,8 +113,18 @@ export class ChatComponent implements OnInit {
   //     .subscribe(data => this.messageArray.push(data));
   // }
 
-  // send button function calls
   onAddMessage() {
     this._chatService.onAddMessage(this.roomId, this.message);
   }
+
+  newMessageReceived() {
+    this._chatService.newMessageReceived().subscribe(data => console.log(data));
+  }
+  oldMessages() {
+    this._chatService.oldMessages().subscribe((data: ChatArrayInt) => {console.log(data)});
+  }
+}
+
+interface ChatArrayInt {
+  chatArray: Array<any>;
 }

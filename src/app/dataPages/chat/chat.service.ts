@@ -28,12 +28,11 @@ export class ChatService {
   joinRoom(roomId) {
     this.socket.emit('join', {
       user: this.windowStorage.userName,
-      room: roomId,
+      roomId: roomId,
     });
   }
 
   onAddMessage(roomId, message) {
-    console.log(message);
     this.socket.emit('message', {
       user: this.windowStorage.userName,
       roomId: roomId,
@@ -44,7 +43,18 @@ export class ChatService {
   newMessageReceived() {
     const observable = new Observable(observer => {
       this.socket.on('new message', data => {
-        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  oldMessages() {
+    const observable = new Observable(observer => {
+      this.socket.on('old messages', data => {
         observer.next(data);
       });
       return () => {
