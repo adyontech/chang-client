@@ -23,4 +23,35 @@ export class ChatSidebarMessageService {
     this.token = this.windowStorage.token;
     this.socket = io(`${this._globalVariableService.baseChatServerUrl}`);
   }
+
+  newStarMessageReceived() {
+    const observable = new Observable(observer => {
+      this.socket.on('new star message', data => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  joinStarRoom(roomId) {
+    this.socket.emit('join star', {
+      user: this.windowStorage.userName,
+      roomId: roomId,
+    });
+  }
+
+  oldStarMessages() {
+    const observable = new Observable(observer => {
+      this.socket.on('old star messages', data => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
 }

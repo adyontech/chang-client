@@ -32,8 +32,8 @@ export class ChatSidebarMessageComponent implements OnInit {
     private route: ActivatedRoute,
     public _globalCompanyService: GlobalCompanyService
   ) {
-    // this.newMessageReceived();
-    // this.oldMessages();
+    this.newStarMessageReceived();
+    this.oldStarMessages();
   }
 
   ngOnInit() {
@@ -53,6 +53,9 @@ export class ChatSidebarMessageComponent implements OnInit {
       // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
+  joinStar() {
+    this._chatService.joinStarRoom(this.roomId);
+  }
 
   getGlobalCompanyData() {
     this.dataCopy = this._globalCompanyService
@@ -60,6 +63,19 @@ export class ChatSidebarMessageComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.roomId = data.companyId;
+        this.joinStar();
       });
+  }
+
+  newStarMessageReceived() {
+    this._chatService
+      .newStarMessageReceived()
+      .subscribe(data => console.log(data));
+  }
+
+  oldStarMessages() {
+    this._chatService.oldStarMessages().subscribe(data => {
+      console.log(data);
+    });
   }
 }

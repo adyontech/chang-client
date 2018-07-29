@@ -40,6 +40,14 @@ export class ChatService {
     });
   }
 
+  starMessage(roomId, msgBody) {
+    this.socket.emit('star message', {
+      user: this.windowStorage.userName,
+      roomId: roomId,
+      msgBody: msgBody,
+    });
+  }
+
   newMessageReceived() {
     const observable = new Observable(observer => {
       this.socket.on('new message', data => {

@@ -37,6 +37,7 @@ export class ChatComponent implements OnInit {
       _id: '5b5bcf7ec244e86793ef2df7',
       sender: 'Proworktree',
       message: 'Youll be needed to upgrade your package. Thanks',
+      stared: true,
     },
     {
       date: '1532788910233',
@@ -105,6 +106,11 @@ export class ChatComponent implements OnInit {
         this.roomId = data.companyId;
         this.join();
       });
+  }
+
+  starMessage(arg) {
+    console.log(arg);
+    this._chatService.starMessage(this.roomId, arg);
   }
 
   join() {
