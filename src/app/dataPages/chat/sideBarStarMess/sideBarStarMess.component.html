@@ -1,0 +1,28 @@
+<div class="chats pt-2">
+  <div class="text-left pl-2">
+    <p>
+      <i class="ft-trash-2" style="cursor: pointer; color: red" (click)="deleteToggle()"></i>
+      You can Star max of 6 messages.
+    </p>
+  </div>
+  <div class="chats">
+    <div [ngClass]="'chat-left'">
+      <p class="time" style="margin-left: 65px">
+        4545454545
+      </p>
+      <div class="chat-avatar">
+        <div *ngIf="!deleteAllow">
+          <ngx-avatar class="avatar" name='a' value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+        </div>
+        <div *ngIf="deleteAllow" class="avatar mt-1 pt-1" style="background-color: #333d4f; height: 40px; width: 40px; border-radius: 100%">
+          <i class="ft-trash-2  lighten-2" style="cursor: pointer; color: red"></i>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="chat-content">
+          <p>How are you?</p>
+        </div>
+      </div>
+
+    </div>
+  </div>

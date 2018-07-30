@@ -17,6 +17,10 @@ export const DATA_PAGES_ROUTES: Routes = [
     loadChildren: './dataPages/taskboard/taskboard.module#TaskboardModule',
   },
   {
+    path: ':owner/:id/chat',
+    loadChildren: './dataPages/chat/chat.module#ChatModule',
+  },
+  {
     path: ':owner/:id/edit',
     loadChildren: './dataPages/edit-pages/edit-pages.module#EditPagesModule',
   },
