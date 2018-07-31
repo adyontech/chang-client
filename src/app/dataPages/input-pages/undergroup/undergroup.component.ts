@@ -12,12 +12,12 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
-import { LedgerService } from './../ledger/service/ledger.service';
+import { LedgerService } from '../ledger/service/ledger.service';
 import { UnderGroupsService } from './service/underGroup.service';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { ToastrService } from '../../../utilities/toastr.service';
 @Component({
   selector: 'app-undergroup',
   templateUrl: './undergroup.component.html',

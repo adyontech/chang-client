@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 @Injectable()
 export class ReceiptService {
   result: {};

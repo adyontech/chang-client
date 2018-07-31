@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MeService } from './service/me.service';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { NgbDateCustomParserFormatter } from './../../shared/globalVariables/datePipe';
+import { NgbDateCustomParserFormatter } from '../../shared/globalVariables/datePipe';
 @Component({
   selector: 'app-me-profile',
   templateUrl: './me.component.html',

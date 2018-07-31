@@ -7,7 +7,7 @@ import {
   NgbDatepickerI18n,
   NgbCalendar,
 } from '@ng-bootstrap/ng-bootstrap';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 

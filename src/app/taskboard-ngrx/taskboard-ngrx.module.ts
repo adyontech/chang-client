@@ -6,7 +6,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { TaskboardNGRXRoutingModule } from "./taskboard-ngrx-routing.module";
 
 import { TaskboardNGRXComponent } from "./taskboard-ngrx.component";
-import { taskReducer } from '../taskboard-ngrx/store/taskboard.reducers';
+import { taskReducer } from './store/taskboard.reducers';
 
 
 @NgModule({

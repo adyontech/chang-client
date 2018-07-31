@@ -10,7 +10,7 @@ import { VgBufferingModule } from 'videogular2/buffering';
 import { ChatNGRXRoutingModule } from "./chat-ngrx-routing.module";
 
 import { ChatComponent } from "./chat-ngrx.component";
-import { chatReducer } from '../chat-ngrx/store/chat.reducers';
+import { chatReducer } from './store/chat.reducers';
 
 
 @NgModule({

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 @Injectable()
 export class PurchaseService {
   constructor(

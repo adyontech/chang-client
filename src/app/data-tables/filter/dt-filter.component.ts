@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DatatableComponent } from "@swimlane/ngx-datatable/release";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
 
 declare var require: any;
 const data: any = require('../../shared/data/company.json');

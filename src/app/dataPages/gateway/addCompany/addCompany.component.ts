@@ -6,12 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GatewayService } from './../service/gateway.service';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { GatewayService } from '../service/gateway.service';
+import { ToastrService } from '../../../utilities/toastr.service';
 import { DateValidator } from '../../../shared/validators/dateValidator';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { StateVaribles } from './../../../shared/forms/States';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { StateVaribles } from '../../../shared/forms/States';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 
 @Component({
   selector: 'app-add-company',

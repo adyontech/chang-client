@@ -12,9 +12,9 @@ import { ShowCompanyComponent } from './showCompany/showCompany.component';
 import { AddCompanyComponent } from './addCompany/addCompany.component';
 
 import { GatewayService } from './service/gateway.service';
-import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
-import { ToastrService } from './../../utilities/toastr.service';
-import { StateVaribles } from './../../shared/forms/States';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
+import { ToastrService } from '../../utilities/toastr.service';
+import { StateVaribles } from '../../shared/forms/States';
 
 @NgModule({
   imports: [

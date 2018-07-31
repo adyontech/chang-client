@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { CashAtBankService } from './service/cashAtBank.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
   selector: 'app-cash-atabank',

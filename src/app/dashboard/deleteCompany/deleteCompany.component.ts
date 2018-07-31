@@ -6,7 +6,7 @@ import {
   ActivatedRoute,
   RouterStateSnapshot,
 } from '@angular/router';
-import * as alertFunctions from './../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../shared/data/sweet-alerts';
 import { Routes, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-dashboard-settings',

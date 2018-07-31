@@ -13,7 +13,7 @@ import { LoginPageComponent } from './login/login-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { ConfirmComponent } from './mojoConfirm/confirm.component';
-import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
 
 import { SignupService } from './signup/service/signup.service';
 import { LoginService } from './login/service/login-page.service';

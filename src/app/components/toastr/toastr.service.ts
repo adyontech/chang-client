@@ -1,4 +1,4 @@
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { Injectable } from '@angular/core';
 
 @Injectable()

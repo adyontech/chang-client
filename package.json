@@ -70,6 +70,7 @@
     "sweetalert2": "^7.2.0",
     "videogular2": "^6.0.1",
     "web-animations-js": "^2.2.5",
+    "xlsx": "^0.13.3",
     "zone.js": "^0.8.18"
   },
   "devDependencies": {

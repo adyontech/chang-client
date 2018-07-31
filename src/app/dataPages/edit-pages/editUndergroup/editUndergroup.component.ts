@@ -7,11 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { EditUnderGroupsService } from './service/editUndergroup.service';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { ToastrService } from '../../../utilities/toastr.service';
 @Component({
   selector: 'app-edit-undergroup',
   templateUrl: './editUndergroup.component.html',

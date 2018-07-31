@@ -7,7 +7,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 
 @Component({

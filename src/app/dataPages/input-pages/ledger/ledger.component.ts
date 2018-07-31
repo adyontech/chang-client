@@ -6,12 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { StateVaribles } from './../../../shared/forms/States';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
+import { StateVaribles } from '../../../shared/forms/States';
 import { ActivatedRoute } from '@angular/router';
 import { LedgerService } from './service/ledger.service';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { ToastrService } from '../../../utilities/toastr.service';
 
 declare var $: any;
 

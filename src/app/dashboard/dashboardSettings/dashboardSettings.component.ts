@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ToastrService } from './../../utilities/toastr.service';
+import { ToastrService } from '../../utilities/toastr.service';
 import { DashboardSettingService } from './service/dashboardSettings.service';
 import { Router, ActivatedRoute } from '@angular/router';
 

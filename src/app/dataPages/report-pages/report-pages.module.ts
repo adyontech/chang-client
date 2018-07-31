@@ -11,7 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ArchwizardModule } from 'ng2-archwizard';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { SharedModule } from './../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 import { CashAtBankComponent } from './cashAtBank/cashAtBank.component';
 import { CashInHandsComponent } from './cashInHands/cashInHands.component';
@@ -37,7 +37,7 @@ import { PopReceiptComponent } from './_popComponent/popReceipt/receipt.componen
 import { PopSalesComponent } from './_popComponent/popSales/sales.component';
 import { PopSalesReturnComponent } from './_popComponent/popSalesReturn/salesReturn.component';
 
-import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
 
 import { CashAtBankService } from './cashAtBank/service/cashAtBank.service';
 import { CashInHandsService } from './cashInHands/service/cashInHands.service';
@@ -63,7 +63,7 @@ import { PopReceiptService } from './_popComponent/popReceipt/service/receipt.se
 import { PopSalesService } from './_popComponent/popSales/service/sales.service';
 import { PopSalesReturnService } from './_popComponent/popSalesReturn/service/salesReturn.service';
 
-import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../shared/globalServices/oneCallvariables.servce';
 @NgModule({
   imports: [
     HttpModule,

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 // import { UserStateService } from './../../../sharedService/userDetails/user-state.service';
-import { AuthService } from './../../../../shared/auth/auth.service';
+import { AuthService } from '../../../../shared/auth/auth.service';
 
 import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
-import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 @Injectable()
 export class PassForgotService {
   result: any;

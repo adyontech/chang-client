@@ -6,7 +6,7 @@ import { TaskboardRoutingModule } from './taskboard-routing.module';
 import { AvatarModule } from 'ngx-avatar';
 
 import { TaskboardComponent } from './taskboard.component';
-import { GlobalVaribles } from './../../../app/shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DndModule } from 'ng2-dnd';
 import { NgSelectModule } from '@ng-select/ng-select';

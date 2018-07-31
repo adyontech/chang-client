@@ -38,9 +38,9 @@ import { ReceiptService } from './receipt/service/receipt.service';
 import { SalesService } from './sales/service/sales.service';
 import { SalesReturnService } from './salesReturn/service/salesReturn.service';
 import { UnderGroupsService } from './undergroup/service/underGroup.service';
-import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
-import { StateVaribles } from './../../shared/forms/States';
-import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
+import { StateVaribles } from '../../shared/forms/States';
+import { GlobalCompanyService } from '../../shared/globalServices/oneCallvariables.servce';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({

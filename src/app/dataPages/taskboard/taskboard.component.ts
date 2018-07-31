@@ -13,8 +13,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TaskBoardService } from './taskboard.service';
 import { Task } from './taskboard.model';
-import * as alertFunctions from './../../shared/data/sweet-alerts';
-import { ToastrService } from './../../utilities/toastr.service';
+import * as alertFunctions from '../../shared/data/sweet-alerts';
+import { ToastrService } from '../../utilities/toastr.service';
 
 @Component({
   selector: 'app-taskboard',

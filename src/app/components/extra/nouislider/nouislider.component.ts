@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { NouiFormatter } from "ng2-nouislider/src/nouislider";
+import { NouiFormatter } from "ng2-nouislider";
 
 
 export class TimeFormatter implements NouiFormatter {

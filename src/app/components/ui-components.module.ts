@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UIComponentsRoutingModule } from './ui-components-routing.module';
-import { NouisliderModule } from 'ng2-nouislider/src/nouislider';
+import { NouisliderModule } from 'ng2-nouislider';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JsonpModule } from '@angular/http';

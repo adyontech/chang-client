@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ROUTES } from './settingSidebar-routes.config';
 import { RouteInfo } from './settingSidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 declare var $: any;
 

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { AuthService } from './../../../../shared/auth/auth.service';
-import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { AuthService } from '../../../../shared/auth/auth.service';
+import { GlobalVaribles } from '../../../../shared/globalVariables/globalVariable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 @Injectable()
 export class LoginService {
   result: any;

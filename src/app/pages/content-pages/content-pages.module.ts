@@ -11,7 +11,7 @@ import { ComingSoonPageComponent } from './coming-soon/coming-soon-page.componen
 import { ErrorPageComponent } from './error/error-page.component';
 import { LockScreenPageComponent } from './lock-screen/lock-screen-page.component';
 import { MaintenancePageComponent } from './maintenance/maintenance-page.component';
-import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
 
 // import { ActivationService } from './activation/service/activation.service';
 

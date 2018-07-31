@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { Router } from '@angular/router';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 import { STORE_FEATURES } from '@ngrx/store';

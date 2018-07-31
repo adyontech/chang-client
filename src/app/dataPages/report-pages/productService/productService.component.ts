@@ -6,8 +6,8 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { ToastrService } from './../../../utilities/toastr.service';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
+import { ToastrService } from '../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from './service/productService.service';
 declare var $: any;

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PopPurchaseReturnService } from './service/purchaseReturn.service';
-import * as alertFunctions from './../../../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../../../shared/data/sweet-alerts';
 
 @Component({
   selector: 'app-purchase-return',

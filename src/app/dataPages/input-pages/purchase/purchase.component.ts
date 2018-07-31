@@ -6,15 +6,15 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { ToastrService } from '../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
-import { StateVaribles } from './../../../shared/forms/States';
+import { StateVaribles } from '../../../shared/forms/States';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './service/purchase.service';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { DateValidator } from './../../../shared/validators/dateValidator';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { DateValidator } from '../../../shared/validators/dateValidator';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',

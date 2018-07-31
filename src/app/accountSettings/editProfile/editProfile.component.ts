@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from './../../utilities/toastr.service';
+import { ToastrService } from '../../utilities/toastr.service';
 
 // import { States } from './../../shared/forms/States';
 @Component({

@@ -7,13 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { DateValidator } from './../../../shared/validators/dateValidator';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { DateValidator } from '../../../shared/validators/dateValidator';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { ToastrService } from './../../../utilities/toastr.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { ToastrService } from '../../../utilities/toastr.service';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 

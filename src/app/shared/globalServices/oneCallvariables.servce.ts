@@ -5,11 +5,11 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../globalVariables/globalVariable';
 // import { paramIdValue } from './../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 import { VariableAst } from '@angular/compiler';
 @Injectable()
 export class GlobalCompanyService {

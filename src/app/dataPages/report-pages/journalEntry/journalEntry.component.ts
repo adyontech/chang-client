@@ -7,7 +7,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 

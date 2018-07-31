@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import * as Chartist from 'chartist';
-import { ChartType, ChartEvent } from "ng-chartist/dist/chartist.component";
+import { ChartType, ChartEvent } from "ng-chartist";
 
 declare var require: any;
 
