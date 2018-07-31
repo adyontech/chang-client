@@ -1,1 +1,355 @@
+<input type="file" (change)="onFileChange($event)" multiple="false" />
+<div class="content table-responsive table-full-width">
+  <table class="table table-responsive-md text-center">
+    <!-- <tr *ngFor="let row of data">
+      <td *ngFor="let val of row">
+        {{val}}
+      </td>
+    </tr> -->
+  </table>
+</div>
+<button (click)="clickwaal()">Map!</button>
+<div>
+  <p>{{row}}</p>
+  <ng-select [items]="firstRow"></ng-select>
+</div>
+<form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" novalidate class="mt-3">
+  <wizard #wizard navBarLayout="large-empty-symbols">
+    <div class="centered-content" style="margin: 6% 0 0 5%!important;width: 85%;">
+      <wizard-step stepTitle="Info" navigationSymbol="1">
 
+        <div class="form-row">
+          <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
+            <label>Invoice Number</label>
+            <span class="danger">*</span>
+            <input type="text" class="form-control" name="company_name" formControlName="invoiceNumber">
+            <div [ngClass]="{'error': form.controls['invoiceNumber'].errors && !form.controls['invoiceNumber'].pristine}">
+              <div *ngIf="form.controls['invoiceNumber'].errors && !form.controls['invoiceNumber'].pristine" class="error-msg">
+                <small class="form-text text-muted danger" [hidden]="!form.controls['invoiceNumber'].errors.required">
+                  filed is required.
+                </small>
+                <small class="form-text text-muted danger" [hidden]="!form.controls['invoiceNumber'].errors.patternInvalid">
+                  Invalid filed.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-sm-5 form-group">
+            <label>Transportation Mode</label>
+            <ng-select [items]="transportationModeArray" formControlName="transportationMode">
+            </ng-select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
+            <label>Date</label>
+            <span class="danger">*</span>
+            <div class="card-body">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="dd.mm.yyyy" name="de" [minDate]="minNgbDate" [maxDate]="maxNgbDate" (input)="dateRangeValidator('date')"
+                    ngbDatepicker #de="ngbDatepicker" formControlName="date">
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="de.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
+              <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
+                <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
+                  filed is required.
+                </small>
+                <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
+                  Invalid filed.
+                </small>
+                <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.dateIncorrect && form.controls['drawnOn'].errors.datevalidator">
+                  Date should be between company period.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-sm-5 form-group">
+            <label>Vehicle Number</label>
+            <input type="text" class="form-control" name="company_name" formControlName="vehicleNumber">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
+            <label>Party Name</label>
+            <span class="danger">*</span>
+            <ng-select [items]="ledgerList" formControlName="partyName">
+              <ng-template ng-header-tmp>
+                <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                  + New Ledger
+                </button>
+              </ng-template>
+            </ng-select>
+
+            <div [ngClass]="{'error': form.controls['partyName'].errors && !form.controls['partyName'].pristine}">
+              <div *ngIf="form.controls['partyName'].errors && !form.controls['partyName'].pristine" class="error-msg">
+                <small class="form-text text-muted danger" [hidden]="!form.controls['partyName'].errors.required">
+                  filed is required.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-sm-5 form-group">
+            <label>Sales ledger</label>
+            <span class="danger">*</span>
+
+            <ng-select [items]="salesList" formControlName="salesLedgerName">
+              <ng-template ng-header-tmp>
+                <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                  + New Ledger
+                </button>
+              </ng-template>
+            </ng-select>
+            <div [ngClass]="{'error': form.controls['salesLedgerName'].errors && !form.controls['salesLedgerName'].pristine}">
+              <div *ngIf="form.controls['salesLedgerName'].errors && !form.controls['salesLedgerName'].pristine" class="error-msg">
+                <small class="form-text text-muted danger" [hidden]="!form.controls['salesLedgerName'].errors.required">
+                  filed is required.
+                </small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="form-row">
+          <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
+            <label>Place of supply</label>
+            <span class="danger">*</span>
+            <ng-select [items]="stateList" (change)="fillTypeOfSales($event)" formControlName="supplyPlace">
+            </ng-select>
+            <div [ngClass]="{'error': form.controls['supplyPlace'].errors && !form.controls['supplyPlace'].pristine}">
+              <div *ngIf="form.controls['supplyPlace'].errors && !form.controls['supplyPlace'].pristine" class="error-msg">
+                <small class="form-text text-muted danger" [hidden]="!form.controls['supplyPlace'].errors.required">
+                  filed is required.
+                </small>
+                <small class="form-text text-muted danger" [hidden]="!form.controls['supplyPlace'].errors.patternInvalid">
+                  Invalid filed.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-sm-5 form-group">
+            <label>Type of sales</label>
+            <span class="danger">*</span>
+            <ng-select [items]="salesType" formControlName="saleType">
+            </ng-select>
+            <div [ngClass]="{'error': form.controls['saleType'].errors && !form.controls['saleType'].pristine}">
+              <div *ngIf="form.controls['saleType'].errors && !form.controls['saleType'].pristine" class="error-msg">
+                <small class="form-text text-muted danger" [hidden]="!form.controls['saleType'].errors.required">
+                  filed is required.
+                </small>
+                <small class="form-text text-muted danger" [hidden]="!form.controls['saleType'].errors.patternInvalid">
+                  Invalid filed.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" nextStep>
+            Continue
+          </button>
+        </div>
+      </wizard-step>
+      <wizard-step stepTitle="Sales-details" navigationSymbol="2" class="mt-3">
+        <div class="centered-content">
+          <div class="form-row">
+            <div class="col-md-10 offset-lg -1 offset-md-1 offset-sm-1">
+              <table class="table table-responsive-md text-center">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name of product service
+                      <span class="danger">*</span>
+                    </th>
+                    <th>Qty
+                      <span class="danger">*</span>
+                    </th>
+                    <th>Units
+                      <span class="danger">*</span>
+                    </th>
+                    <th>Rate
+                      <span class="danger">*</span>
+                    </th>
+                    <th>Sub. amt
+                      <span class="danger">*</span>
+                    </th>
+                    <th>GST Rate
+                      <span class="danger">*</span>
+                    </th>
+                    <th>Amount
+                      <span class="danger">*</span>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody formArrayName="particularsData">
+                  <tr *ngFor="let formDum of formData.controls; let i=index" [formGroupName]="i">
+                    <td>
+                      <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                    </td>
+                    <td width="30%">
+                      <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct">
+                        <ng-template ng-header-tmp>
+                          <p style="cursor: pointer;" id="openModalButton" (click)="open(content)">
+                            + PrSr
+                          </p>
+                        </ng-template>
+                      </ng-select>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum();  totalSum()" formControlName="qty">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" style="min-width: 55px;" formControlName="units">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum()" formControlName="rate">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum()" formControlName="subAmount"
+                        value="{{(formDum.get('qty').value)*(formDum.get('rate').value) }}">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum()" formControlName="gstRate">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" style="min-width: 55px;" (input)="subSum(); totalSum()" formControlName="amount"
+                        value="{{((formDum.get('qty').value) * (formDum.get('rate').value)) + ((formDum.get('qty').value)*(formDum.get('rate').value)*(formDum.get('gstRate').value)/100) }}">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <button type="button" href="javascript:void(0)" class="btn btn-raised btn-info" (click)="addParticular()" style="cursor: default">
+                    Add another field +
+                  </button>
+                </div>
+                <div class="offset-md-6 col-md-3">
+                  <p class="p1">Sub Total Rs. {{subTotal}}</p>
+                </div>
+              </div>
+              <br>
+              <br>
+              <table class="table table-responsive-md text-center">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Additional
+                      <span class="danger">*</span>
+                    </th>
+                    <th>+/-
+                      <span class="danger">*</span>
+                    </th>
+                    <th>Amount
+                      <span class="danger">*</span>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody formArrayName="subParticularsData" class="mb-3">
+                  <tr *ngFor="let formDum2 of formData2.controls; let i=index" class="form-group" [formGroupName]="i">
+                    <td>
+                      <span class="fa fa-times pull-right" *ngIf="form.controls.subParticularsData.controls.length > 1" (click)="removeSubParticular(i)"></span>
+                    </td>
+                    <td width="30%">
+                      <ng-select [items]="ledgerList" formControlName="additionalService" placeholder="No party selected">
+                        <ng-template ng-header-tmp>
+                          <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">
+                            + New Ledger
+                          </button>
+                        </ng-template>
+                      </ng-select>
+                      <small [hidden]="form.controls.subParticularsData.controls[i].controls.additionalService.untouched || form.controls.subParticularsData.controls[i].controls.additionalService.valid"
+                        class="text-danger">
+                        <span>Additional Service is required</span>
+                      </small>
+                    </td>
+                    <td>
+                      <ng-select [items]="addSubArray" (change)="totalSumBySwitch($event)" formControlName="addSub" placeholder="No party selected">
+                      </ng-select>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="company_name" (input)="totalSum()" formControlName="percent">
+                      <div [ngClass]="{'error': form.controls.subParticularsData.controls[i].controls.percent.errors && !form.controls.subParticularsData.controls[i].controls.percent.pristine}">
+                        <div *ngIf="form.controls.subParticularsData.controls[i].controls.percent.errors && !form.controls.subParticularsData.controls[i].controls.percent.pristine"
+                          class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls.subParticularsData.controls[i].controls.percent.errors.required">
+                            filed is required.
+                          </small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls.subParticularsData.controls[i].controls.percent.errors.patternInvalid">
+                            Invalid filed.
+                          </small>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row mt-3">
+                <div class="col-md-2">
+                  <button type="button" (click)="addSubParticular()" class="btn btn-raised btn-info" style="cursor: default">
+                    Add another field +
+                  </button>
+                </div>
+                <div class="offset-md-6 col-md-3">
+                  <p class="p1">
+                    Total Rs. {{form.get('grandTotal').value}}
+                  </p>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-7  mt-3">
+                  <div class="form-group">
+                    <label>Narration</label>
+                    <textarea rows="5" formControlName="narration" class="form-control" placeholder="Here can be your description"></textarea>
+                  </div>
+                </div>
+                <div class="col-4 offset-md-1  mt-3">
+                  <div class="form-group">
+                    <label for="upload">Attachment:</label>
+                    <div class="card-body">
+                      <div class="input-group">
+                        <div class="upload-btnF-wrapper">
+                          <button type="button" class="btnF">
+                            Upload File
+                          </button>
+                          <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+                        </div>
+                      </div>
+                      <div>{{attachmentName}}</div>
+                      <div *ngIf="attachmentError" style="color: red">
+                        Max file size exceeded.
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" previousStep>
+            Back
+          </button>
+          <button type="button" class="btn btn-secondary" resetWizard>
+            Reset
+          </button>
+          <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" resetWizard>
+            submit
+          </button>
+        </div>
+      </wizard-step>
+    </div>
+  </wizard>
+</form>

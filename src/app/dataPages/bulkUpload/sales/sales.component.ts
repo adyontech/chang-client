@@ -8,25 +8,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bulk-sales',
-  // templateUrl: './sales.component.html',
-  template: `
-	<input type="file" (change)="onFileChange($event)" multiple="false" />
-	<table class="sjs-table">
-		<tr *ngFor="let row of data">
-			<td *ngFor="let val of row">
-				{{val}}
-			</td>
-		</tr>
-	</table>
-	<button (click)="export()">Export!</button>
-	`,
+  templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.scss'],
 })
 export class SalesBulkComponent {
   data: AOA = [[1, 2], [3, 4]];
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName = 'SheetJS.xlsx';
+  salesFields = [
+    'TYPE OF SALES',
+    'PLACE OF SUPPLY',
+    'PARTY NAME',
+    'SALES LEDGER',
+    'VEHICLE NUMBER',
+    'DATE',
+    'INVOICE NUMBER',
+    'TRANSPORTATION MODE',
+  ];
 
+  firstRow = [];
   onFileChange(evt: any) {
     /* wire up file reader */
     const target: DataTransfer = <DataTransfer>evt.target;
@@ -41,13 +41,48 @@ export class SalesBulkComponent {
 
       /* grab first sheet */
       const wsname: string = wb.SheetNames[0];
+      console.log(wsname);
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
+      console.log(ws);
       /* save data */
       this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
       console.log(this.data);
+      this.firstRow = this.data[0];
     };
     reader.readAsBinaryString(target.files[0]);
+  }
+
+  map() {}
+
+  clickwaal() {
+    this.data[0] = [
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      'g',
+      'h',
+      'i',
+      'j',
+      'k',
+      'l',
+      'm',
+      'n',
+      'o',
+      'p',
+      'q',
+      'r',
+      's',
+      't',
+      'u',
+    ];
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    /* save data */
+    this.data = <AOA>XLSX.utils.sheet_to_json(ws);
+    console.log(this.data);
   }
 
   export(): void {
