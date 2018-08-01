@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import * as XLSX from 'xlsx';
 
 type AOA = any[][];
@@ -11,7 +17,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.scss'],
 })
-export class SalesBulkComponent {
+export class SalesBulkComponent implements OnInit {
+  public form: FormGroup;
   data: AOA = [[1, 2], [3, 4]];
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName = 'SheetJS.xlsx';
@@ -25,8 +32,48 @@ export class SalesBulkComponent {
     'INVOICE NUMBER',
     'TRANSPORTATION MODE',
   ];
+  firstRow = [
+    'T mode',
+    'gaadi',
+    'daaatttee',
+    'inv number',
+    'pty name',
+    'supply wala place',
+    'Quan-tity',
+    'sale wala pt',
+    'sales type',
+    'ssuubbaammtt',
+    'aammoouunntt',
+    'rraaattee',
+    'name of prsr',
+    'units',
+    'ggsstt',
+    'naarraattiioonn',
+  ];
+  constructor(private route: ActivatedRoute, public fb: FormBuilder) {}
+  ngOnInit() {
+    this.form = this.fb.group({
+      invoiceNumber: [''],
+      vehicleNumber: [''],
+      partyName: [''],
+      salesLedgerName: [''],
+      saleType: [''],
+      supplyPlace: [''],
+      transportationMode: [''],
+      nameOfProduct: [''],
+      qty: [''],
+      units: [''],
+      rate: [''],
+      subAmount: [''],
+      gstRate: [''],
+      amount: [''],
+      narration: [''],
+      attachment: [''],
+      date: [''],
+      grandTotal: [''],
+    });
+  }
 
-  firstRow = [];
   onFileChange(evt: any) {
     /* wire up file reader */
     const target: DataTransfer = <DataTransfer>evt.target;
@@ -51,33 +98,8 @@ export class SalesBulkComponent {
     };
     reader.readAsBinaryString(target.files[0]);
   }
-
-  map() {}
-
   clickwaal() {
-    this.data[0] = [
-      'a',
-      'b',
-      'c',
-      'd',
-      'e',
-      'f',
-      'g',
-      'h',
-      'i',
-      'j',
-      'k',
-      'l',
-      'm',
-      'n',
-      'o',
-      'p',
-      'q',
-      'r',
-      's',
-      't',
-      'u',
-    ];
+    this.data[0] = this.firstRow;
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     /* save data */
@@ -95,5 +117,20 @@ export class SalesBulkComponent {
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
+  }
+  onSubmit(val) {
+    console.log(val);
+    for (const key in val) {
+      if (val.hasOwnProperty(key)) {
+        this.firstRow.map(el => {
+          if (val[key] === el) {
+            // console.log(val[key], el);
+            // console.log(this.firstRow.indexOf(el));
+            this.firstRow[this.firstRow.indexOf(el)] = key;
+          }
+        });
+      }
+    }
+    this.clickwaal();
   }
 }
