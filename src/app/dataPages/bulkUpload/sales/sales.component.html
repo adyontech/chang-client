@@ -1,196 +1,260 @@
-<input type="file" (change)="onFileChange($event)" multiple="false">
-<div class="content table-responsive table-full-width">
-  <table class="table table-responsive-md text-center">
-    <!-- <tr *ngFor="let row of data">
+<div class="mt-3">
+  <ngb-tabset class="mt-3">
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b>Upload</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ul class="text-center" style="list-style-type: none">
+
+          <li>
+            You can upload at max of 500 entries at once.
+          </li>
+          <li>Uploading lesser will take less time.</li>
+          <li>
+            Make sure you have entered correct ledger names.
+          </li>
+          <li>
+            If ledger name is not in your account, please create one else error will occur
+          </li>
+          <!-- <input type="file" (change)="onFileChange($event)" multiple="false"> -->
+          <div class="upload-btnF-wrapper">
+            <button type="button" class="btnF">
+              Upload Excel
+            </button>
+
+            <input type="file" id="avatar" (change)="onFileChange($event)" multiple="false">
+          </div>
+
+        </ul>
+        <div *ngIf="data.length!=0">
+          <div class="content table-responsive table-full-width">
+            <ngb-pagination [collectionSize]="totalIndex" [(pageSize)]="pageLimit" [(page)]="currentPage" [maxSize]="5" [rotate]="true"
+              [ellipses]="false" [boundaryLinks]="true" (pageChange)="loadPage($event)" size="sm  "></ngb-pagination>
+            <table class="table table-responsive-md text-center">
+              <tbody>
+                <tr *ngFor="let row of formatedValue">
+                  <td *ngFor="let val of row">{{val}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <!-- <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b>See data</b>
+      </ng-template>
+      <ng-template ngbTabContent></ng-template>
+    </ngb-tab> -->
+    <ngb-tab *ngIf="data.length != 0">
+      <ng-template ngbTabTitle>
+        <b>Map data</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <section id="icon-tabs">
+          <div class="row">
+            <div class="col-12">
+              <div class="card text-center">
+                <div class="card-body">
+                  <div class="card-block">
+                    <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" novalidate class="mt-3">
+                      <wizard #wizard navBarLayout="large-empty-symbols">
+                        <div class="centered-content" style="margin: 6% 0 0 5%!important;width: 85%;">
+                          <wizard-step stepTitle="Info" navigationSymbol="1">
+
+                            <div class="form-row">
+                              <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
+                                <label>Invoice Number</label>
+                                <span class="danger">*</span>
+                                <ng-select [items]="firstRow" formControlName="invoiceNumber">
+                                </ng-select>
+                              </div>
+                              <div class="col-lg-5 col-sm-5 form-group">
+                                <label>Transportation Mode</label>
+                                <ng-select [items]="firstRow" formControlName="transportationMode">
+                                </ng-select>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
+                                <label>Date</label>
+                                <span class="danger">*</span>
+                                <ng-select [items]="firstRow" formControlName="date">
+                                </ng-select>
+                              </div>
+                              <div class="col-lg-5 col-sm-5 form-group">
+                                <label>Vehicle Number</label>
+                                <ng-select [items]="firstRow" formControlName="vehicleNumber">
+                                </ng-select>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
+                                <label>Party Name</label>
+                                <span class="danger">*</span>
+                                <ng-select [items]="firstRow" formControlName="partyName">
+                                </ng-select>
+                              </div>
+                              <div class="col-lg-5 col-sm-5 form-group">
+                                <label>Sales ledger</label>
+                                <span class="danger">*</span>
+
+                                <ng-select [items]="firstRow" formControlName="salesLedgerName">
+                                </ng-select>
+                              </div>
+
+                            </div>
+                            <div class="form-row">
+                              <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
+                                <label>Place of supply</label>
+                                <span class="danger">*</span>
+                                <ng-select [items]="firstRow" formControlName="supplyPlace">
+                                </ng-select>
+                              </div>
+                              <div class="col-lg-5 col-sm-5 form-group">
+                                <label>Type of sales</label>
+                                <span class="danger">*</span>
+                                <ng-select [items]="firstRow" formControlName="saleType">
+                                </ng-select>
+                              </div>
+                            </div>
+
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-secondary" nextStep>
+                                Continue
+                              </button>
+                            </div>
+                          </wizard-step>
+                          <wizard-step stepTitle="Sales-details" navigationSymbol="2" class="mt-3">
+                            <div class="centered-content">
+                              <div class="form-row">
+                                <div class="col-md-10 offset-lg -1 offset-md-1 offset-sm-1">
+                                  <table class="table table-responsive-md text-center">
+                                    <thead>
+                                      <tr>
+                                        <th>
+                                          Name of prod ser
+                                          <span class="danger">*</span>
+                                        </th>
+                                        <th>
+                                          Qty
+                                          <span class="danger">*</span>
+                                        </th>
+                                        <th>
+                                          Units
+                                          <span class="danger">*</span>
+                                        </th>
+                                        <th>
+                                          Rate
+                                          <span class="danger">*</span>
+                                        </th>
+
+                                      </tr>
+                                    </thead>
+
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <ng-select class="custom" [items]="firstRow" formControlName="nameOfProduct">
+                                          </ng-select>
+                                        </td>
+                                        <td>
+                                          <ng-select class="custom" [items]="firstRow" formControlName="qty">
+                                          </ng-select>
+                                        </td>
+                                        <td>
+                                          <ng-select class="custom" [items]="firstRow" formControlName="units">
+                                          </ng-select>
+                                        </td>
+                                        <td>
+                                          <ng-select class="custom" [items]="firstRow" formControlName="rate">
+                                          </ng-select>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <br>
+                                  <table class="table table-responsive-md text-center">
+                                    <thead>
+                                      <tr>
+                                        <th>
+                                          Sub. amt
+                                          <span class="danger">*</span>
+                                        </th>
+                                        <th>
+                                          GST Rate
+                                          <span class="danger">*</span>
+                                        </th>
+                                        <th>
+                                          Amount
+                                          <span class="danger">*</span>
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <ng-select class="custom" [items]="firstRow" formControlName="subAmount">
+                                          </ng-select>
+                                        </td>
+                                        <td>
+                                          <ng-select class="custom" [items]="firstRow" formControlName="gstRate">
+                                          </ng-select>
+                                        </td>
+                                        <td>
+                                          <ng-select class="custom" [items]="firstRow" formControlName="amount">
+                                          </ng-select>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <div class="row mt-3">
+                                    <div class="col-md-7  mt-3">
+                                      <div class="form-group">
+                                        <label>Narration</label>
+                                        <ng-select class="custom" [items]="firstRow" formControlName="qty" formControlName="narration">
+                                        </ng-select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-secondary" previousStep>
+                                Back
+                              </button>
+                              <button type="button" class="btn btn-secondary" resetWizard>
+                                Reset
+                              </button>
+                              <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" resetWizard>
+                                submit
+                              </button>
+                            </div>
+                          </wizard-step>
+                        </div>
+                      </wizard>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+  <div class="content table-responsive table-full-width">
+    <table class="table table-responsive-md text-center">
+      <!-- <tr *ngFor="let row of data">
       <td *ngFor="let val of row">
         {{val}}
       </td>
     </tr> -->
-  </table>
-</div>
-<button (click)="clickwaal()">Map!</button>
-<section id="icon-tabs">
-  <div class="row">
-    <div class="col-12">
-      <div class="card text-center">
-        <div class="card-body">
-          <div class="card-block">
-            <form class="icons-tab-steps wizard-circle" id="form" [formGroup]="form" novalidate class="mt-3">
-              <wizard #wizard navBarLayout="large-empty-symbols">
-                <div class="centered-content" style="margin: 6% 0 0 5%!important;width: 85%;">
-                  <wizard-step stepTitle="Info" navigationSymbol="1">
-
-                    <div class="form-row">
-                      <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
-                        <label>Invoice Number</label>
-                        <span class="danger">*</span>
-                        <ng-select [items]="firstRow" formControlName="invoiceNumber">
-                        </ng-select>
-                      </div>
-                      <div class="col-lg-5 col-sm-5 form-group">
-                        <label>Transportation Mode</label>
-                        <ng-select [items]="firstRow" formControlName="transportationMode">
-                        </ng-select>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1 form-group">
-                        <label>Date</label>
-                        <span class="danger">*</span>
-                        <ng-select [items]="firstRow" formControlName="date">
-                        </ng-select>
-                      </div>
-                      <div class="col-lg-5 col-sm-5 form-group">
-                        <label>Vehicle Number</label>
-                        <ng-select [items]="firstRow" formControlName="vehicleNumber">
-                        </ng-select>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="col-lg-5 offset-lg-1 col-sm-5 offset-sm-1  form-group">
-                        <label>Party Name</label>
-                        <span class="danger">*</span>
-                        <ng-select [items]="firstRow" formControlName="partyName">
-                        </ng-select>
-                      </div>
-                      <div class="col-lg-5 col-sm-5 form-group">
-                        <label>Sales ledger</label>
-                        <span class="danger">*</span>
-
-                        <ng-select [items]="firstRow" formControlName="salesLedgerName">
-                        </ng-select>
-                      </div>
-
-                    </div>
-                    <div class="form-row">
-                      <div class="col-lg-5 col-sm-5 offset-lg-1 offset-sm-1 form-group">
-                        <label>Place of supply</label>
-                        <span class="danger">*</span>
-                        <ng-select [items]="firstRow" formControlName="supplyPlace">
-                        </ng-select>
-                      </div>
-                      <div class="col-lg-5 col-sm-5 form-group">
-                        <label>Type of sales</label>
-                        <span class="danger">*</span>
-                        <ng-select [items]="firstRow" formControlName="saleType">
-                        </ng-select>
-                      </div>
-                    </div>
-
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-secondary" nextStep>
-                        Continue
-                      </button>
-                    </div>
-                  </wizard-step>
-                  <wizard-step stepTitle="Sales-details" navigationSymbol="2" class="mt-3">
-                    <div class="centered-content">
-                      <div class="form-row">
-                        <div class="col-md-10 offset-lg -1 offset-md-1 offset-sm-1">
-                          <table class="table table-responsive-md text-center">
-                            <thead>
-                              <tr>
-                                <th>Name of prod ser
-                                  <span class="danger">*</span>
-                                </th>
-                                <th>Qty
-                                  <span class="danger">*</span>
-                                </th>
-                                <th>Units
-                                  <span class="danger">*</span>
-                                </th>
-                                <th>Rate
-                                  <span class="danger">*</span>
-                                </th>
-
-                            </thead>
-
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <ng-select class="custom" [items]="firstRow" formControlName="nameOfProduct">
-                                  </ng-select>
-                                </td>
-                                <td>
-                                  <ng-select class="custom" [items]="firstRow" formControlName="qty">
-                                  </ng-select>
-                                </td>
-                                <td>
-                                  <ng-select class="custom" [items]="firstRow" formControlName="units">
-                                  </ng-select>
-                                </td>
-                                <td>
-                                  <ng-select class="custom" [items]="firstRow" formControlName="rate">
-                                  </ng-select>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-
-                          <br>
-                          <table class="table table-responsive-md text-center">
-                            <thead>
-                              <tr>
-                                <th>Sub. amt
-                                  <span class="danger">*</span>
-                                </th>
-                                <th>GST Rate
-                                  <span class="danger">*</span>
-                                </th>
-                                <th>Amount
-                                  <span class="danger">*</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <ng-select class="custom" [items]="firstRow" formControlName="subAmount">
-                                  </ng-select>
-                                </td>
-                                <td>
-                                  <ng-select class="custom" [items]="firstRow" formControlName="gstRate">
-                                  </ng-select>
-                                </td>
-                                <td>
-                                  <ng-select class="custom" [items]="firstRow" formControlName="amount">
-                                  </ng-select>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                          <div class="row mt-3">
-                            <div class="col-md-7  mt-3">
-                              <div class="form-group">
-                                <label>Narration</label>
-                                <ng-select class="custom" [items]="firstRow" formControlName="qty" formControlName="narration">
-                                </ng-select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-secondary" previousStep>
-                        Back
-                      </button>
-                      <button type="button" class="btn btn-secondary" resetWizard>
-                        Reset
-                      </button>
-                      <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" resetWizard>
-                        submit
-                      </button>
-                    </div>
-                  </wizard-step>
-                </div>
-              </wizard>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    </table>
   </div>
-</section>
+</div>

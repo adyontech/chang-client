@@ -14,6 +14,7 @@ import { ToastrService } from '../../utilities/toastr.service';
 import { StateVaribles } from '../../shared/forms/States';
 import { SharedModule } from '../../shared/shared.module';
 import { SalesBulkComponent } from './sales/sales.component';
+import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { SalesBulkService } from './sales/service/sales.service';
 @NgModule({
@@ -33,6 +34,12 @@ import { SalesBulkService } from './sales/service/sales.service';
     ArchwizardModule,
   ],
   declarations: [SalesBulkComponent],
-  providers: [SalesBulkService, GlobalVaribles, ToastrService, StateVaribles],
+  providers: [
+    SalesBulkService,
+    GlobalVaribles,
+    ToastrService,
+    StateVaribles,
+    NgbTabsetConfig,
+  ],
 })
 export class BulkUploadPagesModule {}
