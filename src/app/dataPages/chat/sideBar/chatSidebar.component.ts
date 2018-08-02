@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ChatSidebarService } from './chatSidebar.service';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
   selector: 'app-chat-sidebar',

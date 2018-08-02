@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as XLSX from 'xlsx';
-import * as YuppSalesSchema from './../yup'; // for everything
+import { SalesBulkMainService } from '../yup.service'; // for everything
 type AOA = any[][];
 
 @Component({
@@ -47,8 +47,8 @@ export class SalesBulkComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public fb: FormBuilder,
-    config: NgbTabsetConfig
-    // yupp: YuppSalesSchema
+    config: NgbTabsetConfig,
+    public _salesBulkMainService: SalesBulkMainService
   ) {
     config.justify = 'center';
     config.type = 'pills';
@@ -109,7 +109,8 @@ export class SalesBulkComponent implements OnInit {
   }
   validateData() {
     console.log(this.finalUploadObject);
-    YuppSalesSchema.schema
+
+    this._salesBulkMainService.schema
       .validate(this.finalUploadObject)
       .then(c => {
         console.log(c);

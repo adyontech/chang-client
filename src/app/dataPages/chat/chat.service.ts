@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Chat } from './chat.model';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
-import { GlobalVaribles } from './../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
 
 @Injectable()
 export class ChatService {

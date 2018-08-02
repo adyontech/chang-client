@@ -8,7 +8,7 @@ import {
 import { ChatService } from './chat.service';
 import { Chat } from './chat.model';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../shared/globalServices/oneCallvariables.servce';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

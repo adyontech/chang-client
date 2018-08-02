@@ -11,7 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AvatarModule } from 'ngx-avatar';
 import { ChatRoutingModule } from './chat-routing.module';
 
-import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../shared/globalServices/oneCallvariables.servce';
 import { ChatComponent } from './chat.component';
 // import { ChatSidebarComponent } from './sideBar/chatSidebar.component';
 // import { ChatSidebarService } from './sideBar/chatSidebar.service';
