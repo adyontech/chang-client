@@ -4,6 +4,11 @@ import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as XLSX from 'xlsx';
 type AOA = any[][];
 
+import * as YuppSalesSchema from './../yup'; // for everything
+// or only what you need
+// import { string, object } from 'yup';
+// const yup = require('yup');
+
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,13 +29,26 @@ export class SalesBulkComponent implements OnInit {
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   finalUploadObject;
   firstRow = [];
+
   constructor(
     private route: ActivatedRoute,
     public fb: FormBuilder,
     config: NgbTabsetConfig
+    // yupp: YuppSalesSchema
   ) {
     config.justify = 'center';
     config.type = 'pills';
+    const obj = {
+      invoiceNumber: '465464',
+    };
+    YuppSalesSchema.schema
+      .validate(obj)
+      .then(c => {
+        console.log(c);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
   ngOnInit() {
     this.form = this.fb.group({
