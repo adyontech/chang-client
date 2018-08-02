@@ -1,7 +1,10 @@
-import * as yup from 'yup';
-
-export const  schema = yup.object().shape({
-    invoiceNumber: yup.string().required().matches(/^\d+$/, {message: 'regex didnt work'}),
+// import * as yup from 'yup';
+const { object, string, array, number, date } = require('yup');
+export const schema = array().of(
+  object().shape({
+    invoiceNumber: string()
+      .required()
+      .matches(/^\d+$/, { message: 'regex didnt work' }),
     // vehicleNumber: yup.string().required(),
     // partyName: yup.string().required(),
     // salesLedgerName: yup.string().required(),
@@ -25,5 +28,5 @@ export const  schema = yup.object().shape({
     // date: yup.date().default(function() {
     //   return new Date();
     // }),
-  });
-}
+  })
+);

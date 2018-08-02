@@ -41,14 +41,6 @@ export class SalesBulkComponent implements OnInit {
     const obj = {
       invoiceNumber: '465464',
     };
-    YuppSalesSchema.schema
-      .validate(obj)
-      .then(c => {
-        console.log(c);
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
   ngOnInit() {
     this.form = this.fb.group({
@@ -96,6 +88,7 @@ export class SalesBulkComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     /* save data */
     this.finalUploadObject = <AOA>XLSX.utils.sheet_to_json(ws);
+    console.log(this.finalUploadObject);
   }
 
   onSubmit(val) {
@@ -115,5 +108,18 @@ export class SalesBulkComponent implements OnInit {
       (page - 1) * 100,
       (page - 1) * 100 + 100
     );
+  }
+  validateData() {
+    // console.log(this.finalUploadObject);
+    // this.finalUploadObject.map(el => {
+    YuppSalesSchema.schema
+      .validate(this.finalUploadObject)
+      .then(c => {
+        console.log(c);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // });
   }
 }

@@ -30,7 +30,7 @@
         <div *ngIf="data.length!=0">
           <div class="content table-responsive table-full-width">
             <ngb-pagination [collectionSize]="totalIndex" [(pageSize)]="pageLimit" [(page)]="currentPage" [maxSize]="5" [rotate]="true"
-              [ellipses]="false" [boundaryLinks]="true" (pageChange)="loadPage($event)" size="sm  "></ngb-pagination>
+              [ellipses]="false" [boundaryLinks]="true" (pageChange)="loadPage($event)" size="sm"></ngb-pagination>
             <table class="table table-responsive-md text-center">
               <tbody>
                 <tr *ngFor="let row of formatedValue">
@@ -53,6 +53,9 @@
         <b>Map data</b>
       </ng-template>
       <ng-template ngbTabContent>
+        <button class="btn" (click)="validateData()">
+          validate
+        </button>
         <section id="icon-tabs">
           <div class="row">
             <div class="col-12">
