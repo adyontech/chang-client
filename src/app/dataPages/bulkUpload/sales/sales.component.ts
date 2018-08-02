@@ -24,6 +24,10 @@ export class SalesBulkComponent implements OnInit {
   formatedValue = [];
   finalUploadObject;
   firstRow = [];
+  disableSubmit = true;
+  mappingTypeModel = '';
+  mappingType = ['Personal', 'Bee ocean template'];
+  jsonValidatoErrorMessage: String;
   knownFieldVal = {
     invoiceNumber: 'Invoice Number',
     vehicleNumber: 'Vehicle Number',
@@ -83,6 +87,15 @@ export class SalesBulkComponent implements OnInit {
     );
   }
 
+  mappingTypeSelection(value) {
+    console.log(value);
+    if (value === 'Bee ocean template') {
+      this.autoFill();
+    } else {
+      this.form.reset();
+    }
+  }
+
   onFileChange(evt: any) {
     const target: DataTransfer = <DataTransfer>evt.target;
     if (target.files.length !== 1) {
@@ -101,6 +114,26 @@ export class SalesBulkComponent implements OnInit {
     reader.readAsBinaryString(target.files[0]);
   }
 
+  autoFill() {
+    this.form.get('invoiceNumber').setValue('Invoice Number');
+    this.form.get('vehicleNumber').setValue('Vehicle Number');
+    this.form.get('partyName').setValue('Party Name');
+    this.form.get('salesLedgerName').setValue('Sales Ledger Name');
+    this.form.get('saleType').setValue('Sales Type');
+    this.form.get('supplyPlace').setValue('Supply Place');
+    this.form.get('transportationMode').setValue('Transportation Mode');
+    this.form.get('nameOfProduct').setValue('Name of Product');
+    this.form.get('qty').setValue('Qty');
+    this.form.get('units').setValue('Units');
+    this.form.get('rate').setValue('Rate');
+    this.form.get('subAmount').setValue('Sub Amount');
+    this.form.get('gstRate').setValue('Gst Rate');
+    this.form.get('amount').setValue('Amount');
+    this.form.get('narration').setValue('Narration');
+    this.form.get('date').setValue('Date');
+    this.form.get('grandTotal').setValue('Grand Total');
+  }
+
   convertToJson() {
     this.data[0] = this.firstRow;
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
@@ -108,15 +141,23 @@ export class SalesBulkComponent implements OnInit {
     this.validateData();
   }
   validateData() {
+    console.log(Date.now);
+    this.jsonValidatoErrorMessage = '';
+
     console.log(this.finalUploadObject);
 
     this._salesBulkMainService.schema
       .validate(this.finalUploadObject)
       .then(c => {
         console.log(c);
+        this.disableSubmit = false;
       })
       .catch(err => {
         console.log(err);
+        console.log();
+        this.jsonValidatoErrorMessage = `Field Name: "${
+          err.params.value
+        }" Error: ${err.message}`;
       });
   }
   matchAndValidate(val) {

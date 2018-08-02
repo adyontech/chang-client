@@ -23,7 +23,7 @@ export class SalesBulkMainService implements OnInit {
         //   .required()
         //   .matches(/^\d+$/, { message: 'regex didnt work' })
         .mixed()
-        .oneOf(['jimmy', '42'])
+        .oneOf(['jimmy', '42'], 'please choose one the ledgers')
         .required('invoice number is required.'),
       // vehicleNumber: yup.string().required(),
       // partyName: yup.string().required(),

@@ -1,4 +1,5 @@
 <div class="mt-3">
+
   <ngb-tabset class="mt-3">
     <ngb-tab>
       <ng-template ngbTabTitle>
@@ -18,8 +19,13 @@
             If ledger name is not in your account, please create one else error will occur
           </li>
           <!-- <input type="file" (change)="onFileChange($event)" multiple="false"> -->
+          <div class="my-3 form-group">
+            <label>Select upload excel Mode</label>
+            <ng-select [items]="mappingType" [(ngModel)]="mappingTypeModel" (change)="mappingTypeSelection($event)">
+            </ng-select>
+          </div>
           <div class="upload-btnF-wrapper">
-            <button type="button" class="btnF">
+            <button class="mt-3" type="button" class="btnF">
               Upload Excel
             </button>
 
@@ -53,10 +59,10 @@
         <b>Map data</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <button class="btn" (click)="validateData()">
-          validate
-        </button>
         <section id="icon-tabs">
+          <div>
+            <p style="color: red">{{jsonValidatoErrorMessage}}</p>
+          </div>
           <div class="row">
             <div class="col-12">
               <div class="card text-center">
@@ -231,11 +237,11 @@
                               <button type="button" class="btn btn-secondary" previousStep>
                                 Back
                               </button>
-                              <button type="button" class="btn btn-secondary" resetWizard>
-                                Reset
+                              <button type="button" (click)="matchAndValidate(form.value)" class="btn btn-secondary">
+                                Validate
                               </button>
-                              <button type="button" (click)="matchAndValidate(form.value)" class="btn btn-secondary" resetWizard>
-                                submit
+                              <button type="button" class="btn btn-secondary" [disabled]="disableSubmit">
+                                Submit
                               </button>
                             </div>
                           </wizard-step>
@@ -250,28 +256,5 @@
         </section>
       </ng-template>
     </ngb-tab>
-    <ngb-tab *ngIf="data.length != 0">
-      <ng-template ngbTabTitle>
-        <b>Upload data</b>
-      </ng-template>
-      <ng-template ngbTabContent>
-        <ul class="text-center" style="list-style-type: none">
-
-          <li>
-            Use this option if u have used same field name as in beeOcean's template.
-          </li>
-        </ul>
-        <button class="btn" (click)="directValidate()"></button>
-      </ng-template>
-    </ngb-tab>
   </ngb-tabset>
-  <div class="content table-responsive table-full-width">
-    <table class="table table-responsive-md text-center">
-      <!-- <tr *ngFor="let row of data">
-      <td *ngFor="let val of row">
-        {{val}}
-      </td>
-    </tr> -->
-    </table>
-  </div>
 </div>
