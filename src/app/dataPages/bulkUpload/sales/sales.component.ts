@@ -1,15 +1,10 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as XLSX from 'xlsx';
-type AOA = any[][];
-
 import * as YuppSalesSchema from './../yup'; // for everything
-// or only what you need
-// import { string, object } from 'yup';
-// const yup = require('yup');
-
-import { Router, ActivatedRoute } from '@angular/router';
+type AOA = any[][];
 
 @Component({
   selector: 'app-bulk-sales',
@@ -21,6 +16,7 @@ export class SalesBulkComponent implements OnInit {
   currentPage = 0;
   pageLimit = 100;
   totalIndex = 0;
+  originalWs: XLSX.WorkSheet;
   itemsPerPage: number;
   totalItems: any;
   page: any;
@@ -29,6 +25,9 @@ export class SalesBulkComponent implements OnInit {
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   finalUploadObject;
   firstRow = [];
+  knownFieldVal = {
+    invoiceNumber: 'invoice Number',
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -75,8 +74,8 @@ export class SalesBulkComponent implements OnInit {
       const bstr: String = e.target.result;
       const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
       const wsname: string = wb.SheetNames[0];
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-      this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
+      this.originalWs = wb.Sheets[wsname];
+      this.data = <AOA>XLSX.utils.sheet_to_json(this.originalWs, { header: 1 });
       this.firstRow = this.data[0];
       this.totalIndex = this.data.length;
     };
@@ -85,13 +84,11 @@ export class SalesBulkComponent implements OnInit {
   convertToJson() {
     this.data[0] = this.firstRow;
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    /* save data */
     this.finalUploadObject = <AOA>XLSX.utils.sheet_to_json(ws);
-    console.log(this.finalUploadObject);
   }
 
   onSubmit(val) {
+    console.log(val);
     for (const key in val) {
       if (val.hasOwnProperty(key)) {
         this.firstRow.map(el => {
@@ -110,8 +107,7 @@ export class SalesBulkComponent implements OnInit {
     );
   }
   validateData() {
-    // console.log(this.finalUploadObject);
-    // this.finalUploadObject.map(el => {
+    console.log(this.finalUploadObject);
     YuppSalesSchema.schema
       .validate(this.finalUploadObject)
       .then(c => {
@@ -120,6 +116,27 @@ export class SalesBulkComponent implements OnInit {
       .catch(err => {
         console.log(err);
       });
-    // });
+  }
+  directSubmit() {
+    for (const key in this.knownFieldVal) {
+      if (this.knownFieldVal.hasOwnProperty(key)) {
+        console.log(this.knownFieldVal);
+        //   this.firstRow.map(el => {
+        //     if (val[key] === el) {
+        //       this.firstRow[this.firstRow.indexOf(el)] = key;
+        //     }
+        //   });
+      }
+    }
+
+    const dataPart = <AOA>XLSX.utils.sheet_to_json(this.originalWs);
+    YuppSalesSchema.schema
+      .validate(dataPart)
+      .then(c => {
+        console.log(c);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }

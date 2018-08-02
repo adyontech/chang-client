@@ -250,6 +250,20 @@
         </section>
       </ng-template>
     </ngb-tab>
+    <ngb-tab *ngIf="data.length != 0">
+      <ng-template ngbTabTitle>
+        <b>Upload data</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <ul class="text-center" style="list-style-type: none">
+
+          <li>
+            Use this option if u have used same field name as in beeOcean's template.
+          </li>
+        </ul>
+        <button class="btn" (click)="directSubmit()"></button>
+      </ng-template>
+    </ngb-tab>
   </ngb-tabset>
   <div class="content table-responsive table-full-width">
     <table class="table table-responsive-md text-center">
