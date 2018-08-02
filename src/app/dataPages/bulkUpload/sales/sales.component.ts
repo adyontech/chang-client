@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as XLSX from 'xlsx';
 import { SalesBulkMainService } from '../yup.service'; // for everything
+import * as yup from 'yup';
 type AOA = any[][];
 
 @Component({
@@ -47,6 +48,56 @@ export class SalesBulkComponent implements OnInit {
     gstRate: 'Gst Rate',
     date: 'Date',
   };
+  schema = yup.array().of(
+    yup.object().shape({
+      invoiceNumber: yup
+        //   .string()
+        //   .required()
+        //   .matches(/^\d+$/, { message: 'regex didnt work' })
+        .mixed()
+        .oneOf(['jimmy', '42'], 'please choose one the ledgers')
+        .required('invoice number is required.'),
+      // vehicleNumber: yup.string().required(),
+      // partyName: yup.string().required(),
+      // salesLedgerName: yup.string().required(),
+      // saleType: yup.string().required(),
+      // supplyPlace: yup.string().required(),
+      // transportationMode: yup.string().required(),
+      // nameOfProduct: yup.string().required(),
+      // qty:  yup
+      //   .number()
+      //   .required()
+      //   .positive()
+      // units:  yup
+      //   .number()
+      //   .required()
+      //   .positive()
+      // amount:  yup
+      //   .number()
+      //   .required()
+      //   .positive()
+      // narration: yup.string(),
+      // grandTotal: yup.
+      //   .number()
+      //   .required()
+      //   .positive()
+      // subAmount: yup
+      //   .number()
+      //   .required()
+      //   .positive()
+      // rate:  yup
+      //   .number()
+      //   .required()
+      //   .positive()
+      // gstRate: yup
+      //   .number()
+      //   .required()
+      //   .positive()
+      // date: yup.date().default(function() {
+      //   return new Date();
+      // }),
+    })
+  );
 
   constructor(
     private route: ActivatedRoute,
@@ -146,7 +197,7 @@ export class SalesBulkComponent implements OnInit {
 
     console.log(this.finalUploadObject);
 
-    this._salesBulkMainService.schema
+    this.schema
       .validate(this.finalUploadObject)
       .then(c => {
         console.log(c);
