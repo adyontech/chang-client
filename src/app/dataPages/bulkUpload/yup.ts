@@ -57,4 +57,8 @@ export const schema = array().of(
     //   return new Date();
     // }),
   })
-);
+  }
+  export class SalesBulkComponent implements OnInit {
+
+
+  }
