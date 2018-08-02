@@ -234,7 +234,7 @@
                               <button type="button" class="btn btn-secondary" resetWizard>
                                 Reset
                               </button>
-                              <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary" resetWizard>
+                              <button type="button" (click)="matchAndValidate(form.value)" class="btn btn-secondary" resetWizard>
                                 submit
                               </button>
                             </div>
@@ -261,7 +261,7 @@
             Use this option if u have used same field name as in beeOcean's template.
           </li>
         </ul>
-        <button class="btn" (click)="directSubmit()"></button>
+        <button class="btn" (click)="directValidate()"></button>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>

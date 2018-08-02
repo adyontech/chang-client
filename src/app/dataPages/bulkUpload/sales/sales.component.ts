@@ -22,11 +22,26 @@ export class SalesBulkComponent implements OnInit {
   page: any;
   data: AOA = [];
   formatedValue = [];
-  wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   finalUploadObject;
   firstRow = [];
   knownFieldVal = {
-    invoiceNumber: 'invoice Number',
+    invoiceNumber: 'Invoice Number',
+    vehicleNumber: 'Vehicle Number',
+    partyName: 'Party Name',
+    salesLedgerName: 'Sales Ledger Name',
+    saleType: 'Sales Type',
+    supplyPlace: 'Supply Place',
+    transportationMode: 'Transportation Mode',
+    nameOfProduct: 'Name of Product',
+    qty: 'Qty',
+    units: 'Units',
+    amount: 'Amount',
+    narration: 'Narration',
+    grandTotal: 'Grand Total',
+    subAmount: 'Sub Amount',
+    rate: 'Rate',
+    gstRate: 'Gst Rate',
+    date: 'Date',
   };
 
   constructor(
@@ -37,9 +52,6 @@ export class SalesBulkComponent implements OnInit {
   ) {
     config.justify = 'center';
     config.type = 'pills';
-    const obj = {
-      invoiceNumber: '465464',
-    };
   }
   ngOnInit() {
     this.form = this.fb.group({
@@ -64,6 +76,13 @@ export class SalesBulkComponent implements OnInit {
     });
   }
 
+  loadPage(page: number) {
+    this.formatedValue = this.data.slice(
+      (page - 1) * 100,
+      (page - 1) * 100 + 100
+    );
+  }
+
   onFileChange(evt: any) {
     const target: DataTransfer = <DataTransfer>evt.target;
     if (target.files.length !== 1) {
@@ -81,30 +100,12 @@ export class SalesBulkComponent implements OnInit {
     };
     reader.readAsBinaryString(target.files[0]);
   }
+
   convertToJson() {
     this.data[0] = this.firstRow;
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
     this.finalUploadObject = <AOA>XLSX.utils.sheet_to_json(ws);
-  }
-
-  onSubmit(val) {
-    console.log(val);
-    for (const key in val) {
-      if (val.hasOwnProperty(key)) {
-        this.firstRow.map(el => {
-          if (val[key] === el) {
-            this.firstRow[this.firstRow.indexOf(el)] = key;
-          }
-        });
-      }
-    }
-    this.convertToJson();
-  }
-  loadPage(page: number) {
-    this.formatedValue = this.data.slice(
-      (page - 1) * 100,
-      (page - 1) * 100 + 100
-    );
+    this.validateData();
   }
   validateData() {
     console.log(this.finalUploadObject);
@@ -117,26 +118,30 @@ export class SalesBulkComponent implements OnInit {
         console.log(err);
       });
   }
-  directSubmit() {
-    for (const key in this.knownFieldVal) {
-      if (this.knownFieldVal.hasOwnProperty(key)) {
-        console.log(this.knownFieldVal);
-        //   this.firstRow.map(el => {
-        //     if (val[key] === el) {
-        //       this.firstRow[this.firstRow.indexOf(el)] = key;
-        //     }
-        //   });
+  matchAndValidate(val) {
+    console.log(val);
+    for (const key in val) {
+      if (val.hasOwnProperty(key)) {
+        this.firstRow.map(el => {
+          if (val[key] === el) {
+            this.firstRow[this.firstRow.indexOf(el)] = key;
+          }
+        });
       }
     }
+    this.convertToJson();
+  }
 
-    const dataPart = <AOA>XLSX.utils.sheet_to_json(this.originalWs);
-    YuppSalesSchema.schema
-      .validate(dataPart)
-      .then(c => {
-        console.log(c);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  directValidate() {
+    for (const key in this.knownFieldVal) {
+      if (this.knownFieldVal.hasOwnProperty(key)) {
+        this.firstRow.map(el => {
+          if (this.knownFieldVal[key] === el) {
+            this.firstRow[this.firstRow.indexOf(el)] = key;
+          }
+        });
+      }
+    }
+    this.convertToJson();
   }
 }
