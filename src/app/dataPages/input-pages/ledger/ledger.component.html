@@ -154,15 +154,15 @@
                             <i>36XXXXK2104P1Z4</i>
                           </small>
                         </div>
-                      </div>
-                      <div [ngClass]="{'error': form.controls['gstin'].errors && !form.controls['gstin'].pristine}">
-                        <div *ngIf="form.controls['gstin'].errors && !form.controls['gstin'].pristine" class="error-msg">
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['gstin'].errors.required">
-                            filed is required.
-                          </small>
-                          <small class="form-text text-muted danger" [hidden]="!form.controls['gstin'].errors.patternInvalid">
-                            Invalid filed.
-                          </small>
+                        <div [ngClass]="{'error': form.controls['gstin'].errors && !form.controls['gstin'].pristine}">
+                          <div *ngIf="form.controls['gstin'].errors && !form.controls['gstin'].pristine" class="error-msg">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['gstin'].errors.required">
+                              filed is required.
+                            </small>
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['gstin'].errors.patternInvalid">
+                              Invalid filed.
+                            </small>
+                          </div>
                         </div>
                       </div>
                     </div>
