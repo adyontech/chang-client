@@ -79,7 +79,7 @@ export class PaymentComponent implements OnInit {
     this.getParticularNames();
     this.getAccountNames();
     this.getGlobalCompanyData();
-    this.getLedgerUGNames();
+    this.getLedgerNames();
     this.form = this.fb.group({
       paymentNumber: new FormControl('', [
         Validators.required,
@@ -120,13 +120,13 @@ export class PaymentComponent implements OnInit {
     this.modalRef.result.then(
       result => {
         this.getAccountNames();
-        this.getLedgerUGNames();
+        this.getLedgerNames();
         this.getParticularNames();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
         this.getAccountNames();
-        this.getLedgerUGNames();
+        this.getLedgerNames();
         this.getParticularNames();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
@@ -270,14 +270,14 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  getLedgerUGNames() {
+  getLedgerNames() {
     this.dataCopy = this._paymentService
-      .getLedgerUGNames(this.paramId, this.ownerName)
+      .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         console.log(data.ledgerData);
         this.ledgerList = [];
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
   getAccountNames() {
@@ -286,7 +286,9 @@ export class PaymentComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.accountList = [];
-        this.accountList = this.accountList.concat(data.accountNameList);
+        this.accountList = this.accountList
+          .concat(data.accountNameList)
+          .reverse();
       });
   }
 

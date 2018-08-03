@@ -51,7 +51,7 @@ export class PaymentService {
     });
   }
 
-  getLedgerUGNames(compName, owner) {
+  getLedgerNames(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/ledgerNameList?token=${
