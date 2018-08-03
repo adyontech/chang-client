@@ -151,7 +151,7 @@ export class SalesReturnComponent implements OnInit {
   public selectedprsr(value: any, indexValue): void {
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
-      if (element.prsrName === value.id) {
+      if (element.prsrName === value) {
         unitsValue = element.units;
         gstRatevalue = element.gstRate;
       }
@@ -191,13 +191,13 @@ export class SalesReturnComponent implements OnInit {
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth()+1,
+          month: minD.getMonth() + 1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth()+1,
+          month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
         this.companyStateName = data.state;
@@ -316,7 +316,7 @@ export class SalesReturnComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = [];
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
 
@@ -326,7 +326,7 @@ export class SalesReturnComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.salesList = [];
-        this.salesList = this.salesList.concat(data.salesLedgerList);
+        this.salesList = this.salesList.concat(data.salesLedgerList).reverse();
       });
   }
 
@@ -337,7 +337,7 @@ export class SalesReturnComponent implements OnInit {
       .subscribe(data => {
         this.prsrData = [];
         this.prsrData = data;
-        this.prsrList = data.prsr.map(item => item.prsrName);
+        this.prsrList = data.prsr.map(item => item.prsrName).reverse();
       });
   }
 

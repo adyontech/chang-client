@@ -145,7 +145,7 @@ export class PurchaseComponent implements OnInit {
   public selectedprsr(value: any, indexValue): void {
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
-      if (element.prsrName === value.id) {
+      if (element.prsrName === value) {
         unitsValue = element.units;
         gstRatevalue = element.gstRate;
       }
@@ -157,7 +157,6 @@ export class PurchaseComponent implements OnInit {
       gstRate: gstRatevalue,
     });
   }
-
   get formData() {
     return <FormArray>this.form.get('particularsData');
   }
@@ -214,13 +213,13 @@ export class PurchaseComponent implements OnInit {
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth()+1,
+          month: minD.getMonth() + 1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth()+1,
+          month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
         this.companyStateName = data.state;
@@ -325,7 +324,7 @@ export class PurchaseComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = [];
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
 
@@ -335,7 +334,9 @@ export class PurchaseComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.purchaseList = [];
-        this.purchaseList = this.purchaseList.concat(data.purchaseLedgerList);
+        this.purchaseList = this.purchaseList
+          .concat(data.purchaseLedgerList)
+          .reverse();
       });
   }
 
@@ -345,7 +346,7 @@ export class PurchaseComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        this.prsrList = data.prsr.map(item => item.prsrName);
+        this.prsrList = data.prsr.map(item => item.prsrName).reverse();
       });
   }
 

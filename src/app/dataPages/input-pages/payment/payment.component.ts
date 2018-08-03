@@ -275,7 +275,6 @@ export class PaymentComponent implements OnInit {
       .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.ledgerData);
         this.ledgerList = [];
         this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
@@ -285,6 +284,7 @@ export class PaymentComponent implements OnInit {
       .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        // console.log(data.accountNameList);
         this.accountList = [];
         this.accountList = this.accountList
           .concat(data.accountNameList)
@@ -297,7 +297,7 @@ export class PaymentComponent implements OnInit {
       .getParticularNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.particularList = data.ledgerData;
+        this.particularList = data.ledgerData.reverse();
       });
   }
 
