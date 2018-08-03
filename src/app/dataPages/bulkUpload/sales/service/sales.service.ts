@@ -37,35 +37,13 @@ export class SalesBulkService {
       this.token = this.windowStorage.token;
     }
   }
-  editCompanyDetails(user: any, compName, owner) {
-    console.log(user);
-    const form = new FormData();
-    for (const key of Object.keys(user)) {
-      form.append(key, user[key]);
-    }
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/editCompanyDetails?token=${
-      this.token
-    }&&companyName=${compName}&&ownerName=${owner}`;
-    return this.http.post(this._url, form).map((res: Response) => {
-      this.result = res.json();
-      return (this.result = res.json());
-    });
-  }
 
-  getCompanyData(compName, owner) {
+  getLedgerNames(compName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/companyData?token=${
+    }/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}&&ownerName=${owner}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
-  }
-
-  removeCompany(id) {
-    return this.http
-      .delete(this._url + '/' + id)
-      .map((res: Response) => res.json());
   }
 }

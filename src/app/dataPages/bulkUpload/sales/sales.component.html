@@ -237,7 +237,7 @@
                               <button type="button" class="btn btn-secondary" previousStep>
                                 Back
                               </button>
-                              <button type="button" (click)="matchAndValidate(form.value)" class="btn btn-secondary">
+                              <button type="button" [disabled]="form.invalid" (click)="matchAndValidate(form.value)" class="btn btn-secondary">
                                 Validate
                               </button>
                               <button type="button" class="btn btn-secondary" [disabled]="disableSubmit">

@@ -1,9 +1,9 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
+import { SalesBulkService } from './service/sales.service';
 import * as XLSX from 'xlsx';
-import { SalesBulkMainService } from '../yup.service'; // for everything
 import * as yup from 'yup';
 type AOA = any[][];
 
@@ -14,6 +14,9 @@ type AOA = any[][];
 })
 export class SalesBulkComponent implements OnInit {
   public form: FormGroup;
+  public dataCopy: any;
+  public paramId: string;
+  public ownerName: string;
   currentPage = 0;
   pageLimit = 100;
   totalIndex = 0;
@@ -25,6 +28,7 @@ export class SalesBulkComponent implements OnInit {
   formatedValue = [];
   finalUploadObject;
   firstRow = [];
+  public ledgerNameArray: Array<string> = [];
   disableSubmit = true;
   mappingTypeModel = '';
   mappingType = ['Personal', 'Bee ocean template'];
@@ -48,86 +52,46 @@ export class SalesBulkComponent implements OnInit {
     gstRate: 'Gst Rate',
     date: 'Date',
   };
-  schema = yup.array().of(
-    yup.object().shape({
-      invoiceNumber: yup
-        //   .string()
-        //   .required()
-        //   .matches(/^\d+$/, { message: 'regex didnt work' })
-        .mixed()
-        .oneOf(['jimmy', '42'], 'please choose one the ledgers')
-        .required('invoice number is required.'),
-      // vehicleNumber: yup.string().required(),
-      // partyName: yup.string().required(),
-      // salesLedgerName: yup.string().required(),
-      // saleType: yup.string().required(),
-      // supplyPlace: yup.string().required(),
-      // transportationMode: yup.string().required(),
-      // nameOfProduct: yup.string().required(),
-      // qty:  yup
-      //   .number()
-      //   .required()
-      //   .positive()
-      // units:  yup
-      //   .number()
-      //   .required()
-      //   .positive()
-      // amount:  yup
-      //   .number()
-      //   .required()
-      //   .positive()
-      // narration: yup.string(),
-      // grandTotal: yup.
-      //   .number()
-      //   .required()
-      //   .positive()
-      // subAmount: yup
-      //   .number()
-      //   .required()
-      //   .positive()
-      // rate:  yup
-      //   .number()
-      //   .required()
-      //   .positive()
-      // gstRate: yup
-      //   .number()
-      //   .required()
-      //   .positive()
-      // date: yup.date().default(function() {
-      //   return new Date();
-      // }),
-    })
-  );
+  schema: any;
 
   constructor(
     private route: ActivatedRoute,
     public fb: FormBuilder,
     config: NgbTabsetConfig,
-    public _salesBulkMainService: SalesBulkMainService
+    public _salesBulkService: SalesBulkService
   ) {
     config.justify = 'center';
     config.type = 'pills';
   }
   ngOnInit() {
+    this.getRouteParam();
+    this.getLedgerNames();
     this.form = this.fb.group({
-      invoiceNumber: [''],
-      vehicleNumber: [''],
-      partyName: [''],
-      salesLedgerName: [''],
-      saleType: [''],
-      supplyPlace: [''],
-      transportationMode: [''],
-      nameOfProduct: [''],
-      qty: [''],
-      units: [''],
-      rate: [''],
-      subAmount: [''],
-      gstRate: [''],
-      amount: [''],
-      narration: [''],
-      attachment: [''],
-      date: [''],
+      invoiceNumber: ['', Validators.required],
+      vehicleNumber: ['', Validators.required],
+      partyName: ['', Validators.required],
+      salesLedgerName: ['', Validators.required],
+      saleType: ['', Validators.required],
+      supplyPlace: ['', Validators.required],
+      transportationMode: ['', Validators.required],
+      nameOfProduct: ['', Validators.required],
+      qty: ['', Validators.required],
+      units: ['', Validators.required],
+      rate: ['', Validators.required],
+      subAmount: ['', Validators.required],
+      gstRate: ['', Validators.required],
+      amount: ['', Validators.required],
+      narration: ['', Validators.required],
+      date: ['', Validators.required],
       grandTotal: [''],
+    });
+  }
+
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 
@@ -225,16 +189,69 @@ export class SalesBulkComponent implements OnInit {
     this.convertToJson();
   }
 
-  directValidate() {
-    for (const key in this.knownFieldVal) {
-      if (this.knownFieldVal.hasOwnProperty(key)) {
-        this.firstRow.map(el => {
-          if (this.knownFieldVal[key] === el) {
-            this.firstRow[this.firstRow.indexOf(el)] = key;
-          }
-        });
-      }
-    }
-    this.convertToJson();
+  getLedgerNames() {
+    this.dataCopy = this._salesBulkService
+      .getLedgerNames(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        if (data.success === true) {
+          this.ledgerNameArray = this.ledgerNameArray.concat(data.ledgerData);
+          console.log(this.ledgerNameArray);
+          this.schemaDefining();
+        }
+      });
+  }
+
+  schemaDefining() {
+    this.schema = yup.array().of(
+      yup.object().shape({
+        salesLedgerName: yup
+          //   .string()
+          //   .required()
+          //   .matches(/^\d+$/, { message: 'regex didnt work' })
+          .mixed()
+          .oneOf(this.ledgerNameArray, 'please choose one the ledgers')
+          .required('invoice number is required.'),
+        // vehicleNumber: yup.string().required(),
+        // partyName: yup.string().required(),
+        // salesLedgerName: yup.string().required(),
+        // saleType: yup.string().required(),
+        // supplyPlace: yup.string().required(),
+        // transportationMode: yup.string().required(),
+        // nameOfProduct: yup.string().required(),
+        // qty:  yup
+        //   .number()
+        //   .required()
+        //   .positive()
+        // units:  yup
+        //   .number()
+        //   .required()
+        //   .positive()
+        // amount:  yup
+        //   .number()
+        //   .required()
+        //   .positive()
+        // narration: yup.string(),
+        // grandTotal: yup.
+        //   .number()
+        //   .required()
+        //   .positive()
+        // subAmount: yup
+        //   .number()
+        //   .required()
+        //   .positive()
+        // rate:  yup
+        //   .number()
+        //   .required()
+        //   .positive()
+        // gstRate: yup
+        //   .number()
+        //   .required()
+        //   .positive()
+        // date: yup.date().default(function() {
+        //   return new Date();
+        // }),
+      })
+    );
   }
 }

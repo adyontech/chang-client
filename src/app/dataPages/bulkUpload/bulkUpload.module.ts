@@ -17,7 +17,6 @@ import { SalesBulkComponent } from './sales/sales.component';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { SalesBulkService } from './sales/service/sales.service';
-import { SalesBulkMainService } from './yup.service';
 @NgModule({
   imports: [
     HttpModule,
@@ -41,7 +40,6 @@ import { SalesBulkMainService } from './yup.service';
     ToastrService,
     StateVaribles,
     NgbTabsetConfig,
-    SalesBulkMainService,
   ],
 })
 export class BulkUploadPagesModule {}
