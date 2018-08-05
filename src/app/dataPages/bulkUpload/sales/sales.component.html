@@ -240,7 +240,7 @@
                               <button type="button" [disabled]="form.invalid" (click)="matchAndValidate(form.value)" class="btn btn-secondary">
                                 Validate
                               </button>
-                              <button type="button" class="btn btn-secondary" [disabled]="disableSubmit">
+                              <button type="button" class="btn btn-secondary" (click)="uploadBulk()" [disabled]="disableSubmit">
                                 Submit
                               </button>
                             </div>

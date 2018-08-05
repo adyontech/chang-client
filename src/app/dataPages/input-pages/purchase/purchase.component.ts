@@ -318,6 +318,10 @@ export class PurchaseComponent implements OnInit {
     });
   }
 
+  setPopUp(val) {
+    console.log(val);
+  }
+
   getLedgerUGNames() {
     this.dataCopy = this._purchaseService
       .getLedgerUGNames(this.paramId, this.ownerId)

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -23,6 +23,7 @@ declare var $: any;
 export class LedgerComponent implements OnInit {
   @Input() statePop: string;
   @Input() modalReference: any;
+  @Output() popUpSource: EventEmitter<string> = new EventEmitter<string>();
   public allUndergroupData: any;
   public paramId: string;
   public ownerName: string;
@@ -252,6 +253,7 @@ export class LedgerComponent implements OnInit {
               // or not, if pop-up then it will close it.
               if (this.statePop === 'child') {
                 this.modalReference.close();
+                this.popUpSource.emit('ledger');
               }
               this.form.reset();
             } else {

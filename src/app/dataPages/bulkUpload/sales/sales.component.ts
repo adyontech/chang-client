@@ -2,7 +2,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from '../../../utilities/toastr.service';
 import { SalesBulkService } from './service/sales.service';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import * as XLSX from 'xlsx';
 import * as yup from 'yup';
 type AOA = any[][];
@@ -58,7 +60,9 @@ export class SalesBulkComponent implements OnInit {
     private route: ActivatedRoute,
     public fb: FormBuilder,
     config: NgbTabsetConfig,
-    public _salesBulkService: SalesBulkService
+    public _salesBulkService: SalesBulkService,
+    public _toastrService: ToastrService,
+    private router: Router
   ) {
     config.justify = 'center';
     config.type = 'pills';
@@ -103,7 +107,6 @@ export class SalesBulkComponent implements OnInit {
   }
 
   mappingTypeSelection(value) {
-    console.log(value);
     if (value === 'Bee ocean template') {
       this.autoFill();
     } else {
@@ -156,27 +159,19 @@ export class SalesBulkComponent implements OnInit {
     this.validateData();
   }
   validateData() {
-    console.log(Date.now);
     this.jsonValidatoErrorMessage = '';
-
-    console.log(this.finalUploadObject);
-
     this.schema
       .validate(this.finalUploadObject)
       .then(c => {
-        console.log(c);
         this.disableSubmit = false;
       })
       .catch(err => {
-        console.log(err);
-        console.log();
         this.jsonValidatoErrorMessage = `Field Name: "${
           err.params.value
         }" Error: ${err.message}`;
       });
   }
   matchAndValidate(val) {
-    console.log(val);
     for (const key in val) {
       if (val.hasOwnProperty(key)) {
         this.firstRow.map(el => {
@@ -196,7 +191,6 @@ export class SalesBulkComponent implements OnInit {
       .subscribe(data => {
         if (data.success === true) {
           this.ledgerNameArray = this.ledgerNameArray.concat(data.ledgerData);
-          console.log(this.ledgerNameArray);
           this.schemaDefining();
         }
       });
@@ -205,13 +199,11 @@ export class SalesBulkComponent implements OnInit {
   schemaDefining() {
     this.schema = yup.array().of(
       yup.object().shape({
-        salesLedgerName: yup
-          //   .string()
-          //   .required()
-          //   .matches(/^\d+$/, { message: 'regex didnt work' })
-          .mixed()
-          .oneOf(this.ledgerNameArray, 'please choose one the ledgers')
-          .required('invoice number is required.'),
+        invoiceNumber: yup.string().required(),
+        //   .matches(/^\d+$/, { message: 'regex didnt work' })
+        // .mixed()
+        // .oneOf(this.ledgerNameArray, 'please choose one the ledgers')
+        // .required('invoice number is required.'),
         // vehicleNumber: yup.string().required(),
         // partyName: yup.string().required(),
         // salesLedgerName: yup.string().required(),
@@ -253,5 +245,27 @@ export class SalesBulkComponent implements OnInit {
         // }),
       })
     );
+  }
+  uploadBulk() {
+    console.log(this.finalUploadObject);
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        this._toastrService.typeWarning('Processing the data');
+
+        this._salesBulkService.uploadBulk(this.finalUploadObject,  this.paramId, this.ownerName).subscribe(data => {
+          if (data.success) {
+            this._toastrService.typeSuccess(
+              'success',
+              'Data successfully added'
+            );
+            this._toastrService.typeInfo('Redirecting to Gateway page', 'Info');
+          } else {
+            this._toastrService.typeError('Error', data.message);
+          }
+        });
+      } else {
+        return;
+      }
+    });
   }
 }

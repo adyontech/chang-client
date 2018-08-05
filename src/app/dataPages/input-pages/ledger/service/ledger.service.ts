@@ -41,7 +41,7 @@ export class LedgerService {
       this._globalVariableService.baseServerUrl
     }/api/ledger?token=${
       this.token
-    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
       return res.json();
     });

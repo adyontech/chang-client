@@ -46,4 +46,21 @@ export class SalesBulkService {
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
+
+  uploadBulk(user: any, companyName, ownerName) {
+    console.log(user);
+    // const form = new FormData();
+    // for (const key of Object.keys(user)) {
+    //   form.append(key, user[key]);
+    // }
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/apibulk/bulksales?token=${
+      this.token
+    }&&companyName=${companyName}&&ownerName=${ownerName}`;
+    return this.http.post(this._url, user).map((res: Response) => {
+      this.result = res.json();
+      return (this.result = res.json());
+    });
+  }
 }
