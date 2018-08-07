@@ -279,6 +279,7 @@ export class PaymentComponent implements OnInit {
         this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
+
   getAccountNames() {
     this.dataCopy = this._paymentService
       .getAccountNames(this.paramId, this.ownerName)
