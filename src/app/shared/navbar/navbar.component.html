@@ -1,96 +1,144 @@
-<!-- Navbar (Header) Starts -->
 <nav class="navbar navbar-expand-lg navbar-light bg-faded" style="background-color: #1999e3;">
-    <div class="container-fluid">
-        <div class="navbar-header navsmall-device">
-            <div class="row">
-                <div class=" col-12">
-                    <div class="d-block d-lg-none nav-icon">
-                        <a [routerLink]="['/']" class="logo-text float-left">
-                            <div class="logo-img" style="padding-top: 10px">
-                                <img src="./../../../assets/pwt/logo.jpg" style="height: 40px;" alt="logo">
-                            </div>
-                            <span class="text align-middle" style="font-size:15px">ProWorkTree</span>
-                        </a>
-                    </div>
+  <div class="container-fluid">
+    <div class="navbar-header navsmall-device">
+      <div class="row">
+        <div class=" col-12">
+          <div class="d-block d-lg-none nav-icon">
+            <a [routerLink]="['/']" class="logo-text float-left">
+              <div class="logo-img" style="padding-top: 10px">
+                <img src="./../../../assets/pwt/logo.jpg" style="height: 40px;" alt="logo">
+              </div>
+              <span class="text align-middle" style="font-size:15px">ProWorkTree</span>
+            </a>
+          </div>
 
-                    <button type="button" class="navbar-toggle d-lg-none pull-right" data-toggle="collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <!-- //for mobile -->
-                <div class="col-12 mt-1 mb-2 d-block d-lg-none" role="search">
-                    <div class="position-relative has-icon-right">
-                        <ng-select [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
-                        </ng-select>
-                    </div>
-                </div>
-            </div>
-            <!-- <form class="navbar-form navbar-right mt-1" role="search">
-                <div class="position-relative has-icon-right">
-                    <input type="text" class="form-control round" placeholder="Search">
-                    <div class="form-control-position">
-                        <i class="ft-search"></i>
-                    </div>
-                </div>
-            </form> -->
-            <div class="d-none d-xl-block">
-                <div class="navbar-form navbar-right mt-1" role="search">
-                    <div class="position-relative has-icon-right">
-                        <ng-select [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
-                        </ng-select>
-                    </div>
-                </div>
-            </div>
+          <button type="button" class="navbar-toggle d-lg-none pull-right" data-toggle="collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         </div>
-        <div class="navbar-container">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item mr-2 ml-2 mt-1">
-                        <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen (click)="ToggleClass()">
-                            <i class="{{toggleClass}} font-medium-3 blue-grey headerFont darken-4"></i>
-                            <p class="d-none">fullscreen</p>
-                        </a>
-                    </li>
-                    <li class="nav-item mr-2 ml-2 mt-1">
-                        <a class="nav-link position-relative notification-sidebar-toggle">
-                            <i class="ft-align-left headerFont font-medium-3 blue-grey darken-4"></i>
-                            <p class="d-none">Notifications Sidebar</p>
-                        </a>
-                    </li>
-                    <li class="nav-item mr-2 ml-2" ngbDropdown placement="bottom-right">
-                        <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
-                            <ngx-avatar name={{creator}} value="28%" bgColor="#333d4f" fgColor="white" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
-
-                            <p class="d-none">User Settings</p>
-                        </a>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
-                            <a class="dropdown-item py-1" [routerLink]="['/settings/me']">
-                                <i class="ft-edit mr-2"></i>
-                                <span>My Profile</span>
-                            </a>
-                            <a class="dropdown-item py-1" [routerLink]="['/settings/contributors']">
-                                <i class="ft-mail mr-2"></i>
-                                <span>My Helpers</span>
-                            </a>
-                            <!-- <a class="dropdown-item py-1" [routerLink]="['/settings/upgrade']">
-                                                    <i class="ft-settings mr-2"></i>
-                                                    <span></span>
-                                                </a> -->
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0);">
-                                <i class="ft-power mr-2"></i>
-                                <span (click)="logout()">Logout</span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-1 mb-2 d-block d-lg-none" role="search">
+          <div class="position-relative has-icon-right">
+            <ng-select [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
+            </ng-select>
+          </div>
         </div>
+      </div>
     </div>
+
+    <div class="d-none d-xl-block">
+      <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <div class="navbar-form navbar-right mt-1" role="search">
+              <div class="position-relative has-icon-right">
+                <ng-select class="custom" [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
+                </ng-select>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="navbar-container">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item mr-2 ml-2 mt-1">
+            <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen (click)="ToggleClass()">
+              <i class="{{toggleClass}} font-medium-3 blue-grey headerFont darken-4"></i>
+              <p class="d-none">fullscreen</p>
+            </a>
+          </li>
+          <li class="nav-item mr-2 ml-2 mt-1">
+            <a class="nav-link position-relative notification-sidebar-toggle">
+              <i class="ft-align-left headerFont font-medium-3 blue-grey darken-4"></i>
+              <p class="d-none">Notifications Sidebar</p>
+            </a>
+          </li>
+          <li class="nav-item mr-2 ml-2" ngbDropdown placement="bottom-right">
+            <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
+              <ngx-avatar name={{creator}} value="28%" bgColor="#333d4f" fgColor="white" size="30" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+
+              <p class="d-none">User Settings</p>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+              <a class="dropdown-item py-1" [routerLink]="['/settings/me']">
+                <i class="ft-edit mr-2"></i>
+                <span>My Profile</span>
+              </a>
+              <a class="dropdown-item py-1" [routerLink]="['/settings/contributors']">
+                <i class="ft-mail mr-2"></i>
+                <span>My Helpers</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="javascript:void(0);">
+                <i class="ft-power mr-2"></i>
+                <span (click)="logout()">Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </nav>
-<!-- Navbar (Header) Ends -->
+<!-- <div style="background-color: #1999e3; position: relative; z-index: 999;">
+  <div class="main-content pt-1">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 pt-2">
+          <i class="ft-book nav-item mr-2 ml-2 font-medium-3 blue-grey headerFont darken-4"></i>
+          <i class="ft-home nav-item mr-2 ml-2 font-medium-3 blue-grey headerFont darken-4"></i>
+          <i class="nav-item mr-2 ml-2 font-medium-3 blue-grey headerFont darken-4"></i>
+        </div>
+        <div class="col-md-6">
+          <ng-select class="custom" [items]="companyList" placeholder="Switch company" (add)="selected($event)" (change)="selected($event)">
+          </ng-select>
+        </div>
+        <div class="col-md-3">
+          <ul class="navbar-nav" style="display: inline;float: right;">
+            <li class="nav-item mr-2 ml-2">
+              <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen (click)="ToggleClass()">
+                <i class="{{toggleClass}} font-medium-3 blue-grey headerFont darken-4"></i>
+                <p class="d-none">fullscreen</p>
+              </a>
+            </li>
+            <li class="nav-item mr-2 ml-2">
+              <a class="nav-link position-relative notification-sidebar-toggle">
+                <i class="ft-align-left headerFont font-medium-3 blue-grey darken-4"></i>
+                <p class="d-none">Notifications Sidebar</p>
+              </a>
+            </li>
+            <li class="nav-item mr-2 ml-2" ngbDropdown placement="bottom-right">
+              <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
+                <ngx-avatar name={{creator}} value="28%" bgColor="#333d4f" fgColor="white" size="30" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+
+                <p class="d-none">User Settings</p>
+              </a>
+              <div style="position: absolute;" ngbDropdownMenu aria-labelledby="dropdownBasic3">
+                <a class="dropdown-item py-1" [routerLink]="['/settings/me']">
+                  <i class="ft-edit mr-2"></i>
+                  <span>My Profile</span>
+                </a>
+                <a class="dropdown-item py-1" [routerLink]="['/settings/contributors']">
+                  <i class="ft-mail mr-2"></i>
+                  <span>My Helpers</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="javascript:void(0);">
+                  <i class="ft-power mr-2"></i>
+                  <span (click)="logout()">Logout</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
