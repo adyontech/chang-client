@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-import { ChartType, ChartEvent } from 'ng-chartist/dist/chartist.component';
+import { ChartType, ChartEvent } from 'ng-chartist';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { DashboardService } from './service/dashboard.service';
 import { ActivatedRoute } from '@angular/router';

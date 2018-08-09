@@ -15,7 +15,7 @@ import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvari
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./../chat.component.scss'],
 })
-export class ChatSidebarComponent implements OnInit {
+export class ChatSidebarPeopleComponent implements OnInit {
   dataCopy: any;
   public paramId: string;
   public ownerName: string;

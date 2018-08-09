@@ -17,7 +17,7 @@ import {
   ModalDismissReasons,
   NgbActiveModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import * as alertFunctions from './../../../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PopJournalEntryService } from './service/journalEntry.service';
 declare var $: any;

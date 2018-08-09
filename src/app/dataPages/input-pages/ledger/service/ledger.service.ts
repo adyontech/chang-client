@@ -3,10 +3,10 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 @Injectable()
 export class LedgerService {
   // private paramCompanyName: string;
@@ -41,7 +41,7 @@ export class LedgerService {
       this._globalVariableService.baseServerUrl
     }/api/ledger?token=${
       this.token
-    }&companyName=${companyName}&&ownerName=${ownerName}`;
+    }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.post(this._url, user).map((res: Response) => {
       return res.json();
     });

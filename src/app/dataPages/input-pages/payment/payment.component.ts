@@ -7,13 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { DateValidator } from './../../../shared/validators/dateValidator';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { DateValidator } from '../../../shared/validators/dateValidator';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from './service/payment.service';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { ToastrService } from './../../../utilities/toastr.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { ToastrService } from '../../../utilities/toastr.service';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 
@@ -79,7 +79,7 @@ export class PaymentComponent implements OnInit {
     this.getParticularNames();
     this.getAccountNames();
     this.getGlobalCompanyData();
-    this.getLedgerUGNames();
+    this.getLedgerNames();
     this.form = this.fb.group({
       paymentNumber: new FormControl('', [
         Validators.required,
@@ -120,13 +120,13 @@ export class PaymentComponent implements OnInit {
     this.modalRef.result.then(
       result => {
         this.getAccountNames();
-        this.getLedgerUGNames();
+        this.getLedgerNames();
         this.getParticularNames();
         this.closeResult = `Closed with: ${result}`;
       },
       reason => {
         this.getAccountNames();
-        this.getLedgerUGNames();
+        this.getLedgerNames();
         this.getParticularNames();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
@@ -270,23 +270,26 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  getLedgerUGNames() {
+  getLedgerNames() {
     this.dataCopy = this._paymentService
-      .getLedgerUGNames(this.paramId, this.ownerName)
+      .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.ledgerData);
         this.ledgerList = [];
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
+
   getAccountNames() {
     this.dataCopy = this._paymentService
       .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        // console.log(data.accountNameList);
         this.accountList = [];
-        this.accountList = this.accountList.concat(data.accountNameList);
+        this.accountList = this.accountList
+          .concat(data.accountNameList)
+          .reverse();
       });
   }
 
@@ -295,7 +298,7 @@ export class PaymentComponent implements OnInit {
       .getParticularNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.particularList = data.ledgerData;
+        this.particularList = data.ledgerData.reverse();
       });
   }
 

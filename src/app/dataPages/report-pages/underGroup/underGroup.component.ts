@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { ActivatedRoute } from '@angular/router';
-import { LedgerService } from './../ledger/service/ledger.service';
+import { LedgerService } from '../ledger/service/ledger.service';
 import { UnderGroupsService } from './service/underGroup.service';
 declare var $: any;
 

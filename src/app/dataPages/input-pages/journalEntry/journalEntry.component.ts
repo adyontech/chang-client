@@ -6,13 +6,13 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { JournalEntryService } from './service/journalEntry.service';
-import { ToastrService } from './../../../utilities/toastr.service';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { DateValidator } from './../../../shared/validators/dateValidator';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { ToastrService } from '../../../utilities/toastr.service';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { DateValidator } from '../../../shared/validators/dateValidator';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
   selector: 'app-journal-entry',

@@ -6,14 +6,14 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { ToastrService } from '../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
-import { StateVaribles } from './../../../shared/forms/States';
+import { StateVaribles } from '../../../shared/forms/States';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { DateValidator } from './../../../shared/validators/dateValidator';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { DateValidator } from '../../../shared/validators/dateValidator';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 import { PurchaseReturnService } from './service/purchaseReturn.service';
 
 @Component({
@@ -147,7 +147,7 @@ export class PurchaseReturnComponent implements OnInit {
   public selectedprsr(value: any, indexValue): void {
     let unitsValue, gstRatevalue;
     this.prsrData.prsr.forEach(element => {
-      if (element.prsrName === value.id) {
+      if (element.prsrName === value) {
         unitsValue = element.units;
         gstRatevalue = element.gstRate;
       }
@@ -234,13 +234,13 @@ export class PurchaseReturnComponent implements OnInit {
         const minD = new Date(parseInt(data.startDate, 0));
         this.minNgbDate = {
           year: minD.getFullYear(),
-          month: minD.getMonth()+1,
+          month: minD.getMonth() + 1,
           day: minD.getDate(),
         };
         const maxD = new Date(parseInt(data.endDate, 0));
         this.maxNgbDate = {
           year: maxD.getFullYear(),
-          month: maxD.getMonth()+1,
+          month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
         this.companyStateName = data.state;
@@ -255,9 +255,9 @@ export class PurchaseReturnComponent implements OnInit {
         if (data.success === true) {
           console.log(data);
           this.originalInvoiceObj = data.purchase;
-          this.originalInvoiceArray = this.originalInvoiceObj.map(
-            el => el.invoiceNumber
-          );
+          this.originalInvoiceArray = this.originalInvoiceObj
+            .map(el => el.invoiceNumber)
+            .reverse();
         }
       });
   }
@@ -370,7 +370,7 @@ export class PurchaseReturnComponent implements OnInit {
       .getLedgerUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
 
@@ -379,7 +379,9 @@ export class PurchaseReturnComponent implements OnInit {
       .getPurchaseUGNames(this.paramId, this.ownerId)
       .map(response => response.json())
       .subscribe(data => {
-        this.purchaseList = this.purchaseList.concat(data.purchaseLedgerList);
+        this.purchaseList = this.purchaseList
+          .concat(data.purchaseLedgerList)
+          .reverse();
       });
   }
 
@@ -389,7 +391,7 @@ export class PurchaseReturnComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.prsrData = data;
-        this.prsrList = data.prsr.map(item => item.prsrName);
+        this.prsrList = data.prsr.map(item => item.prsrName).reverse();
       });
   }
 

@@ -12,7 +12,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <app-ledger [modalReference]="modalRef" [statePop]="'child'"></app-ledger>
+              <app-ledger (change)="setPopUp($event)" [modalReference]="modalRef" [statePop]="'child'"></app-ledger>
             </div>
           </ng-template>
 

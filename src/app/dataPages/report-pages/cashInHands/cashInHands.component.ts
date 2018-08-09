@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { CashInHandsService } from './service/cashInHands.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 

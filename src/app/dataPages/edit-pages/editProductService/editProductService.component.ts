@@ -5,15 +5,15 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
 import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
-import { ToastrService } from './../../../utilities/toastr.service';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
+import { ToastrService } from '../../../utilities/toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { EditProductServiceService } from './service/editProductService.service';
 declare var $: any;

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { GlobalVaribles } from './../../../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../../../shared/globalVariables/globalVariable';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 @Injectable()
 export class PaymentService {
   result: {};
@@ -18,9 +18,6 @@ export class PaymentService {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
-  // setParamId(value) {
-  //   this._globalVariableService.paramId = value;
-  // }
 
   getData(compName) {
     this._url = `${
@@ -51,7 +48,7 @@ export class PaymentService {
     });
   }
 
-  getLedgerUGNames(compName, owner) {
+  getLedgerNames(compName, owner) {
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/ledgerNameList?token=${

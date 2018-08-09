@@ -8,12 +8,12 @@ import {
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import { ContraService } from './service/contra.service';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { DateValidator } from './../../../shared/validators/dateValidator';
-import { ToastrService } from './../../../utilities/toastr.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { DateValidator } from '../../../shared/validators/dateValidator';
+import { ToastrService } from '../../../utilities/toastr.service';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 

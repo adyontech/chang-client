@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task } from './taskboard.model';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { GlobalVaribles } from './../../../app/shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../shared/globalVariables/globalVariable';
 import {
   Router,
   CanActivate,

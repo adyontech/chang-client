@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import * as alertFunctions from './../../../../shared/data/sweet-alerts';
+import * as alertFunctions from '../../../../shared/data/sweet-alerts';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { PopReceiptService } from './service/receipt.service';

@@ -6,12 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GatewayService } from './../service/gateway.service';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { GatewayService } from '../service/gateway.service';
+import { ToastrService } from '../../../utilities/toastr.service';
 import { DateValidator } from '../../../shared/validators/dateValidator';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { StateVaribles } from './../../../shared/forms/States';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { StateVaribles } from '../../../shared/forms/States';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 
 @Component({
   selector: 'app-add-company',
@@ -118,6 +118,13 @@ export class AddCompanyComponent implements OnInit {
       user.endDate.month - 1,
       user.endDate.day
     ).getTime();
+    if (user.startDate > user.endDate) {
+      this._toastrService.typeError(
+        'Error',
+        'Start date should be before end date'
+      );
+      return;
+    }
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._toastrService.typeWarning('Processing the data');
@@ -136,6 +143,7 @@ export class AddCompanyComponent implements OnInit {
             this._toastrService.typeError('Error', data.message);
           }
         });
+        this.resetDateFormat(user);
       } else {
         this.resetDateFormat(user);
         return;

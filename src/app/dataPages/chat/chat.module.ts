@@ -11,13 +11,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AvatarModule } from 'ngx-avatar';
 import { ChatRoutingModule } from './chat-routing.module';
 
-import { GlobalCompanyService } from './../../shared/globalServices/oneCallvariables.servce';
+import { GlobalCompanyService } from '../../shared/globalServices/oneCallvariables.servce';
 import { ChatComponent } from './chat.component';
 // import { ChatSidebarComponent } from './sideBar/chatSidebar.component';
 // import { ChatSidebarService } from './sideBar/chatSidebar.service';
 import { ChatSidebarMessageComponent } from './sideBarStarMess/sideBarStarMess.component';
 import { ChatSidebarMessageService } from './sideBarStarMess/sideBarStarMess.service';
-import { ChatSidebarComponent } from './sideBarPeople/sideBarPeople.component';
+import { ChatSidebarPeopleComponent } from './sideBarPeople/sideBarPeople.component';
 import { ChatSidebarPeopleService } from './sideBarPeople/sideBarPeople.service';
 
 @NgModule({
@@ -34,7 +34,7 @@ import { ChatSidebarPeopleService } from './sideBarPeople/sideBarPeople.service'
   ],
   declarations: [
     ChatComponent,
-    ChatSidebarComponent,
+    ChatSidebarPeopleComponent,
     ChatSidebarMessageComponent,
   ],
   providers: [

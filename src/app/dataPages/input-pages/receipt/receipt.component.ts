@@ -7,13 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { DateValidator } from './../../../shared/validators/dateValidator';
-import * as alertFunctions from './../../../shared/data/sweet-alerts';
+import { DateValidator } from '../../../shared/validators/dateValidator';
+import * as alertFunctions from '../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
-import { patternValidator } from './../../../shared/validators/pattern-validator';
-import { ToastrService } from './../../../utilities/toastr.service';
-import { GlobalCompanyService } from './../../../shared/globalServices/oneCallvariables.servce';
+import { patternValidator } from '../../../shared/validators/pattern-validator';
+import { ToastrService } from '../../../utilities/toastr.service';
+import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 declare var $: any;
 
@@ -26,6 +26,7 @@ export class ReceiptComponent implements OnInit {
   public closeResult: string;
   public form: FormGroup;
   public dataCopy: any;
+  public modalRef: any;
   public paramId: string;
   public ownerName: string;
   public totalAmount: number;
@@ -116,7 +117,8 @@ export class ReceiptComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' }).result.then(
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.modalRef.result.then(
       result => {
         this.getAccountNames();
         this.getLedgerNames();
@@ -272,7 +274,7 @@ export class ReceiptComponent implements OnInit {
       .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
   getAccountNames() {
@@ -280,7 +282,9 @@ export class ReceiptComponent implements OnInit {
       .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.accountList = this.accountList.concat(data.accountNameList);
+        this.accountList = this.accountList
+          .concat(data.accountNameList)
+          .reverse();
       });
   }
   getParticularNames() {

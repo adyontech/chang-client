@@ -10,7 +10,7 @@ import { MatchHeightModule } from '../shared/directives/match-height.directive';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardService } from './dashboard/service/dashboard.service';
-import { GlobalVaribles } from './../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../shared/globalVariables/globalVariable';
 import { DashboardSettingsComponent } from './dashboardSettings/dashboardSettings.component';
 import { DeleteCompanyService } from './deleteCompany/service/deleteCompany.service';
 import { DashboardSettingService } from './dashboardSettings/service/dashboardSettings.service';

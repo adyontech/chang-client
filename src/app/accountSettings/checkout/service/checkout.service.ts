@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 
-import { GlobalVaribles } from './../../../shared/globalVariables/globalVariable';
+import { GlobalVaribles } from '../../../shared/globalVariables/globalVariable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
-import { ToastrService } from './../../../utilities/toastr.service';
+import { ToastrService } from '../../../utilities/toastr.service';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/';
+import 'rxjs';
 @Injectable()
 export class CheckoutService {
   result: {};

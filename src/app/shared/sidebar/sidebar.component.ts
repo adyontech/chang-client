@@ -3,7 +3,7 @@ import { GenerateRoutes } from './sidebar-routes.config';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParseId, ParseOwner } from '../../utilities/IdParser';
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 declare var $: any;
 
