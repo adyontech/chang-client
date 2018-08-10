@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { NavbarService } from './navbar.service';
 import { Router } from '@angular/router';
+import { ParseId, ParseOwner } from '../../utilities/IdParser';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  public paramId: string;
+  public menuItems: any[];
+  public paramId;
   public ownerName: string;
   companyList: Array<string>;
   companyData: Array<string>;
@@ -25,6 +27,8 @@ export class NavbarComponent implements OnInit {
   }
   ngOnInit() {
     this.getCompanyNameList();
+    this.paramId = ParseId();
+    this.ownerName = ParseOwner();
   }
 
   ToggleClass() {
