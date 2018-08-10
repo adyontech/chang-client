@@ -51,7 +51,7 @@
           *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
           <i [ngClass]="[menuItem.icon]"></i>
           <span class="menu-title">{{menuItem.title }}</span>
-          <span *ngIf=" !this.showIconBar">
+          <span class="ml-1" *ngIf=" !this.showIconBar">
             <b>
               <span *ngIf="menuItem.navInfo != '' " style="font-size: 12px;color: #F44F6F">{{menuItem.navInfo}}</span>
             </b>
