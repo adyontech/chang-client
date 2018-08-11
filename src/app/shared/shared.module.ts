@@ -7,7 +7,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FooterComponent } from './footer/footer.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { DashboardNavbarComponent } from './navbars/dashboardNav/navbar.component';
+import { GatewayNavbarComponent } from './navbars/gatewayNav/navbar.component';
 import { LivePreviewComponent } from './livePreview/livePreview.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SettingSidebarComponent } from './settingSidebar/settingSidebar.component';
@@ -17,14 +18,16 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
 // import { NgbDateCustomParserFormatter } from './globalVariables/datePipe';
 
 import { GlobalVaribles } from './globalVariables/globalVariable';
-import { NavbarService } from './navbar/navbar.service';
+import { DashboardNavbarService } from './navbars/dashboardNav/navbar.service';
+import { GatewayNavbarservice } from './navbars/gatewayNav/navbar.service';
 import { LivePreviewService } from './livePreview/livePreview.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 @NgModule({
   exports: [
     CommonModule,
     FooterComponent,
-    NavbarComponent,
+    DashboardNavbarComponent,
+    GatewayNavbarComponent,
     LivePreviewComponent,
     SidebarComponent,
     CustomizerComponent,
@@ -45,7 +48,8 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
   declarations: [
     BreadcrumbsComponent,
     FooterComponent,
-    NavbarComponent,
+    DashboardNavbarComponent,
+    GatewayNavbarComponent,
     LivePreviewComponent,
     SidebarComponent,
     SettingSidebarComponent,
@@ -54,7 +58,8 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
     ToggleFullscreenDirective,
   ],
   providers: [
-    NavbarService,
+    GatewayNavbarservice,
+    DashboardNavbarService,
     GlobalVaribles,
     BreadcrumbsService,
     LivePreviewService,

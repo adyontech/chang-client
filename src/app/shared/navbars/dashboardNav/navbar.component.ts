@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { NavbarService } from './navbar.service';
+import { AuthService } from '../../auth/auth.service';
+import { DashboardNavbarService } from './navbar.service';
 import { Router } from '@angular/router';
-import { ParseId, ParseOwner } from '../../utilities/IdParser';
+import { ParseId, ParseOwner } from '../../../utilities/IdParser';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-dashboard-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class DashboardNavbarComponent implements OnInit {
   public menuItems: any[];
   public paramId;
   public ownerName: string;
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   toggleClass = 'ft-maximize';
   constructor(
     public _authService: AuthService,
-    public _navbarService: NavbarService,
+    public _navbarService: DashboardNavbarService,
     private router: Router
   ) {
     this.creator = JSON.parse(window.localStorage.getItem('user')).userName;

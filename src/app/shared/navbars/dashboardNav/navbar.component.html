@@ -129,16 +129,16 @@
                 <p class="d-none">User Settings</p>
               </a>
               <div style="position: absolute;" ngbDropdownMenu aria-labelledby="dropdownBasic3">
-                <a class="dropdown-item py-1" routerLink="/settings/me/dashboard/settings">
+                <a class="dropdown-item py-1" [routerLink]="['settings']">
                   <i class="ft-users mr-2"></i>
                   <span>Add people</span>
                 </a>
-                <a class="dropdown-item py-1" routerLink="/settings/me/edit/gateway">
+                <a class="dropdown-item py-1" [routerLink]="['settings/edit']">
                   <i class="ft-mail mr-2"></i>
                   <span>Edit</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" routerLink="/settings/me/dashboard/delete">
+                <a class="dropdown-item" [routerLink]="['delete']">
                   <i class="ft-power mr-2"></i>
                   <span>Delete</span>
                 </a>

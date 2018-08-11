@@ -6,12 +6,12 @@
         <img src="./../../../assets/pwt/logo.jpg" style="height:40px" alt="logo">
         <!-- <img src="assets/img/logo.png" /> -->
       </div>
-      <span class="text align-middle" style="font-size:15px"><b> ProWorkTree </b></span>
+      <span class="text align-middle" style="font-size:15px">BEEOCEAN</span>
     </a>
-    <a class="nav-toggle d-none d-sm-none d-md-none d-lg-block" id="sidebarToggle" href="javascript:;">
+    <a class="nav-toggle d-none d-sm-none d-md-none d-lg-block" style="color:black" id="sidebarToggle" href="javascript:void(0);">
       <i class="ft-toggle-right toggle-icon" data-toggle="expanded"></i>
     </a>
-    <a class="nav-close d-block d-md-block d-lg-none d-xl-none" id="sidebarClose" href="javascript:;">
+    <a class="nav-close d-block d-md-block d-lg-none d-xl-none" id="sidebarClose" href="javascript:void(0);">
       <i class="ft-x"></i>
     </a>
   </div>
@@ -48,29 +48,30 @@
       <!-- First level menu -->
       <li *ngFor="let menuItem of menuItems" [ngClass]="[menuItem.class]" [routerLinkActive]="menuItem.submenu.length != 0 ? '' : 'active'"
         [routerLinkActiveOptions]="{exact: true}">
-        <a [routerLink]="menuItem.class === '' ? [menuItem.path] : null" *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
+        <a style="font-size: 5px; height: 42px; padding: 5px 17px;" [routerLink]="menuItem.class === '' ? [menuItem.path] : null"
+          *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
           <i [ngClass]="[menuItem.icon]"></i>
           <span class="menu-title">{{menuItem.title }}</span>
-          <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+          <!-- <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}} -->
         </a>
         <ng-template #externalLinkBlock>
           <a [href]="[menuItem.path]" target="_blank">
             <i [ngClass]="[menuItem.icon]"></i>
             <span class="menu-title">{{menuItem.title }}</span>
-            <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+            <!-- <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span> -->
           </a>
         </ng-template>
         <!-- Second level menu -->
         <ul class="menu-content" *ngIf="menuItem.submenu.length > 0">
           <li *ngFor="let menuSubItem of menuItem.submenu" [routerLinkActive]="menuSubItem.submenu.length > 0 ? '' : 'active'" [ngClass]="[menuSubItem.class]">
-            <a [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
-              <i [ngClass]="[menuSubItem.icon]"></i>
+            <a style="color:black !important" [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]" *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
+              <i style="color:black !important" [ngClass]="[menuSubItem.icon]"></i>
               <span class="menu-title">{{menuSubItem.title }}</span>
               <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
             </a>
             <ng-template #externalSubLinkBlock>
-              <a [href]="[menuSubItem.path]">
-                <i [ngClass]="[menuSubItem.icon]"></i>
+              <a style="color:black !important" [href]="[menuSubItem.path]">
+                <i style="color:black !important" [ngClass]="[menuSubItem.icon]"></i>
                 <span class="menu-title">{{menuSubItem.title }}</span>
                 <span *ngIf="menuSubItem.badge != '' " [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
               </a>
