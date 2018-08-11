@@ -301,29 +301,29 @@ export function GenerateRoutes(companyId: string, ownerId: string) {
       ],
       navInfo: '',
     },
-    {
-      path: '',
-      title: 'Bulk upload',
-      icon: 'ft-home',
-      class: 'has-sub',
-      badge: '1',
-      badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1',
-      isExternalLink: false,
-      submenu: [
-        {
-          path: `/${ownerId}/${companyId}/bulk/sales`,
-          title: 'Sales',
-          icon: '',
-          class: '',
-          badge: '',
-          badgeClass: '',
-          isExternalLink: false,
-          submenu: [],
-          navInfo: '',
-        },
-      ],
-      navInfo: '',
-    },
+    // {
+    //   path: '',
+    //   title: 'Bulk upload',
+    //   icon: 'ft-home',
+    //   class: 'has-sub',
+    //   badge: '1',
+    //   badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1',
+    //   isExternalLink: false,
+    //   submenu: [
+    //     {
+    //       path: `/${ownerId}/${companyId}/bulk/sales`,
+    //       title: 'Sales',
+    //       icon: '',
+    //       class: '',
+    //       badge: '',
+    //       badgeClass: '',
+    //       isExternalLink: false,
+    //       submenu: [],
+    //       navInfo: '',
+    //     },
+    //   ],
+    //   navInfo: '',
+    // },
   ];
 
   return ROUTES;

@@ -122,33 +122,39 @@
                 <i class="fa fa-cog headerFont font-medium-3" style="color: black !important"></i>
                 <p class="d-none">Notifications Sidebar</p>
               </a>
+            </li> 
+            <li class="nav-item mr-2 mt-1 ml-2">
+              <a class="nav-link position-relative notification-sidebar-toggle">
+                <i class="ft-align-left headerFont font-medium-3" style="color: black !important"></i>
+                <p class="d-none">Notifications Sidebar</p>
+              </a>
             </li> -->
+            <li class="nav-item mr-2 mt-1 ml-2">
+              <a class="nav-link position-relative" routerLink="/{{ownerName}}/{{paramId}}/bulk/sales">
+                <i class="ft-upload headerFont font-medium-3" style="color: black !important"></i>
+                <p class="d-none">bulk upload Sidebar</p>
+              </a>
+            </li>
             <li class="nav-item mr-2 mt-1 ml-2" ngbDropdown placement="bottom-right">
               <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
                 <i class="fa fa-cog headerFont font-medium-3" style="color: black !important"></i>
                 <p class="d-none">User Settings</p>
               </a>
               <div style="position: absolute;" ngbDropdownMenu aria-labelledby="dropdownBasic3">
-                <a class="dropdown-item py-1" [routerLink]="['settings']">
+                <a class="dropdown-item py-1" routerLink="/{{ownerName}}/{{paramId}}/dashboard/settings">
                   <i class="ft-users mr-2"></i>
                   <span>Add people</span>
                 </a>
-                <a class="dropdown-item py-1" [routerLink]="['settings/edit']">
+                <a class="dropdown-item py-1" routerLink="/{{ownerName}}/{{paramId}}/edit/gateway">
                   <i class="ft-mail mr-2"></i>
                   <span>Edit</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" [routerLink]="['delete']">
+                <a class="dropdown-item" routerLink="/settings/me/dashboard/delete">
                   <i class="ft-power mr-2"></i>
                   <span>Delete</span>
                 </a>
               </div>
-            </li>
-            <li class="nav-item mr-2 mt-1 ml-2">
-              <a class="nav-link position-relative notification-sidebar-toggle">
-                <i class="ft-align-left headerFont font-medium-3" style="color: black !important"></i>
-                <p class="d-none">Notifications Sidebar</p>
-              </a>
             </li>
             <li class="nav-item mr-2 ml-2" ngbDropdown placement="bottom-right">
               <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
@@ -166,7 +172,7 @@
                   <span>Help</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a (click)="logout()" class="dropdown-item" routerLink="/settings/me/dashboard/delete">
+                <a (click)="logout()" class="dropdown-item">
                   <i class="ft-power mr-2"></i>
                   <span>Logout</span>
                 </a>
