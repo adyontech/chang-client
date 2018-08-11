@@ -25,26 +25,31 @@ export class PaymentService {
   }
 
   getIncomingData(selectionValue, companyName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/paymentStored?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/paymentStored?token=${
       this.token
-    }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
+    }&&companyName=${companyName}&&selectionValue=${selectionValue}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
   getAllIncomingData(companyName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/allPaymentStored?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/allPaymentStored?token=${
       this.token
-    }&&companyName=${companyName}`;
+    }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
     // return 0;
   }
 
   deleteEntry(id, companyName, ownerName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/deletePaymentEntry?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/deletePaymentEntry?token=${
       this.token
     }&&companyName=${companyName}&&deleteId=${id}&&ownerName=${ownerName}`;
     return this.http.delete(this._url);
     // return 0;
   }
-
 }

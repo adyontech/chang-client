@@ -32,7 +32,8 @@ export class PaymentComponent implements OnInit {
   VColChequeNO: String = 'Cheque Number';
   VColAgainst: String = 'Against';
 
-  @Input() public ColPaymentType: Boolean = false;
+  @Input()
+  public ColPaymentType: Boolean = false;
   public ColPaymentThrough: Boolean = false;
   public ColChequeNO: Boolean = false;
   public ColAgainst: Boolean = false;
