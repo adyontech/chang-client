@@ -42,6 +42,7 @@ export class LedgerComponent implements OnInit {
   public minNgbDate;
   public maxNgbDate;
 
+  public choosenLedgerName: string;
   public LedgerData = [];
   public mainLedgerData = [];
   form: FormGroup;
@@ -64,8 +65,8 @@ export class LedgerComponent implements OnInit {
 
   ngOnInit() {
     this.getRouteParam();
-    this.getLedgerNames();
     this.getGlobalCompanyData();
+    this.getLedgerNames();
   }
 
   getRouteParam() {
@@ -84,9 +85,18 @@ export class LedgerComponent implements OnInit {
   }
 
   public onAdd(value: any): void {
-    this._ledgerService.ledgerName = value;
+    this.choosenLedgerName = value;
+    this.getIncomingData(this.companyStartingDate, this.companyEndingDate);
+  }
+  getIncomingData(filterStartDate, filterEndDate) {
     this.dataCopy = this._ledgerService
-      .getIncomingData(this.paramId, this.ownerName)
+      .getIncomingData(
+        this.paramId,
+        this.ownerName,
+        this.choosenLedgerName,
+        filterStartDate,
+        filterEndDate
+      )
       .map(response => response.json())
       .subscribe(data => {
         this.mainLedgerData = data.formData;
@@ -128,6 +138,8 @@ export class LedgerComponent implements OnInit {
           month: maxD.getMonth() + 1,
           day: maxD.getDate(),
         };
+        this.choosenEndDate = maxD;
+        // calling it here so that it will run after global date set
         this.dateFilterRefresh();
       });
   }
@@ -166,7 +178,9 @@ export class LedgerComponent implements OnInit {
   }
 
   endDate(value) {
+    console.log(value);
     const dateReturn = this.dateRangeValidator(value);
+    console.log(dateReturn);
     if (dateReturn.allow) {
       this.showEndDateError = false;
       this.choosenEndDate = dateReturn.date;

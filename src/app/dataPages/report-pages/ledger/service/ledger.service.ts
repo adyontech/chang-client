@@ -33,14 +33,12 @@ export class LedgerService {
     }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
-  getIncomingData(compName, ownerName) {
+  getIncomingData(compName, ownerName, ledgerName, stDate, enDate) {
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/ledgerformData?token=${
       this.token
-    }&&companyName=${compName}&&ledgerName=${
-      this.ledgerName
-    }&&ownerName=${ownerName}`;
+    }&&companyName=${compName}&&ledgerName=${ledgerName}&&ownerName=${ownerName}&&startDate=${stDate}&&endDate=${enDate}`;
     return this.http.get(this._url);
   }
 }
