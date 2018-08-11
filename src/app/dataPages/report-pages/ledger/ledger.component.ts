@@ -17,14 +17,7 @@ declare var $: any;
   styleUrls: ['./ledger.component.scss'],
 })
 export class LedgerComponent implements OnInit {
-  // Models
-  // boxHidden: Boolean = false;
-  // haveData: Boolean = true;
-  // defaultLedgerSelect: String;
-  // public accountBalance: number;
-  // public dateFrom: Date;
-  // public dateTo: Date;
-  // public dropdFilter: string;
+  public queryLedgerParam;
   public totalNet: number;
   public newTotalNet: number;
   public netDebitAmount: number;
@@ -45,7 +38,7 @@ export class LedgerComponent implements OnInit {
   public choosenLedgerName: string;
   public LedgerData = [];
   public mainLedgerData = [];
-  form: FormGroup;
+  public form: FormGroup;
   public dataCopy: any;
   public paramId: string;
   public ownerName: string;
@@ -75,6 +68,13 @@ export class LedgerComponent implements OnInit {
       this.ownerName = params.owner.split('%20').join(' ');
       // this._dashboardSettingService.setParamId(this.paramId);
     });
+    this.route.queryParams.subscribe(params => {
+      if (params.ledgerName !== undefined) {
+        this.choosenLedgerName = params.ledgerName.split('%20').join(' ');
+        this.getIncomingData(this.companyStartingDate, this.companyEndingDate);
+      }
+    });
+
     this.breadcrumbs = [
       { name: 'Ledger' },
       {

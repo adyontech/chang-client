@@ -16,7 +16,7 @@ export class DashboardNavbarComponent implements OnInit {
   public ownerName: string;
   public dropDownSelect;
   placheloderValue = 'Select Dropdown first';
-  menuList: Array<>;
+  menuList;
   companyData: Array<string>;
   public creator: string;
 
