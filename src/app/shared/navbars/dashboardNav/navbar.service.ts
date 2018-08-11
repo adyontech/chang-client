@@ -43,4 +43,12 @@ export class DashboardNavbarService {
     }/api/companyNameOwnerList?token=${this.token}`;
     return this.http.get(this._url);
   }
+  getLedgerUGNames(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
+    return this.http.get(this._url);
+  }
 }
