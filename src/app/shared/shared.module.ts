@@ -9,7 +9,6 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FooterComponent } from './footer/footer.component';
 import { DashboardNavbarComponent } from './navbars/dashboardNav/navbar.component';
 import { GatewayNavbarComponent } from './navbars/gatewayNav/navbar.component';
-import { LivePreviewComponent } from './livePreview/livePreview.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SettingSidebarComponent } from './settingSidebar/settingSidebar.component';
 import { CustomizerComponent } from './customizer/customizer.component';
@@ -20,7 +19,6 @@ import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.direct
 import { GlobalVaribles } from './globalVariables/globalVariable';
 import { DashboardNavbarService } from './navbars/dashboardNav/navbar.service';
 import { GatewayNavbarservice } from './navbars/gatewayNav/navbar.service';
-import { LivePreviewService } from './livePreview/livePreview.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 @NgModule({
   exports: [
@@ -28,7 +26,6 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
     FooterComponent,
     DashboardNavbarComponent,
     GatewayNavbarComponent,
-    LivePreviewComponent,
     SidebarComponent,
     CustomizerComponent,
     NotificationSidebarComponent,
@@ -50,7 +47,6 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
     FooterComponent,
     DashboardNavbarComponent,
     GatewayNavbarComponent,
-    LivePreviewComponent,
     SidebarComponent,
     SettingSidebarComponent,
     CustomizerComponent,
@@ -62,7 +58,6 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
     DashboardNavbarService,
     GlobalVaribles,
     BreadcrumbsService,
-    LivePreviewService,
   ],
 })
 export class SharedModule {}
