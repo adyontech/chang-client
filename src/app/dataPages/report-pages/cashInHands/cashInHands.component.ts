@@ -90,7 +90,12 @@ export class CashInHandsComponent implements OnInit {
       .getIncomingData(value, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        // this.incomingData = data.formData;
+        this.incomingData = data.formData;
+        this.mainIncomingData = data.formData;
+        this.debSum = data.debSum;
+        this.credSum = data.credSum;
+        this.sumTotal = Math.abs(this.debSum - this.credSum);
+        console.log(this.incomingData);
         this.caseThrough(data.formData);
       });
   }
@@ -182,61 +187,56 @@ export class CashInHandsComponent implements OnInit {
   }
 
   caseThrough(arg) {
-    // console.log(arg);
-    this.debSum = 0;
-    this.credSum = 0;
-    arg.map(el => {
-      // console.log(el);
-      switch (el.voucherType.toLowerCase()) {
-        case 'payment': {
-          el.particularsData.map(elm => {
-            if (elm.particulars.toLowerCase() !== 'cash') {
-              elm['creditAmount'] = elm.amount;
-              this.credSum += elm.amount;
-              elm['debitAmount'] = 0;
-            } else {
-              elm['debitAmount'] = elm.amount;
-              this.debSum += elm.amount;
-              elm['creditAmount'] = 0;
-            }
-          });
-          break;
-        }
-        case 'receipt': {
-          el.particularsData.map(elm => {
-            if (elm.particulars.toLowerCase() !== 'cash') {
-              elm['debitAmount'] = elm.amount;
-              this.debSum += elm.amount;
-              elm['creditAmount'] = 0;
-            } else {
-              elm['creditAmount'] = elm.amount;
-              this.credSum += elm.amount;
-              elm['debitAmount'] = 0;
-            }
-          });
-          break;
-        }
-        case 'contra': {
-          el.particularsData.map(elm => {
-            console.log(elm);
-            if (elm.particulars.toLowerCase() !== 'cash') {
-              elm['debitAmount'] = elm.amount;
-              this.debSum += elm.amount;
-              elm['creditAmount'] = 0;
-            } else {
-              elm['creditAmount'] = elm.amount;
-              this.credSum += elm.amount;
-              elm['debitAmount'] = 0;
-            }
-          });
-          break;
-        }
-      }
-    });
-    this.sumTotal = Math.abs(this.debSum - this.credSum);
-    this.incomingData = arg;
-    this.mainIncomingData = arg;
-    console.log(this.incomingData);
+    console.log(arg);
+    // this.debSum = 0;
+    // this.credSum = 0;
+    // arg.map(el => {
+    //   switch (el.voucherType.toLowerCase()) {
+    //     case 'payment': {
+    //       el.particularsData.map(elm => {
+    //         if (elm.particulars.toLowerCase() !== 'cash') {
+    //           elm['creditAmount'] = elm.amount;
+    //           this.credSum += elm.amount;
+    //           elm['debitAmount'] = 0;
+    //         } else {
+    //           elm['debitAmount'] = elm.amount;
+    //           this.debSum += elm.amount;
+    //           elm['creditAmount'] = 0;
+    //         }
+    //       });
+    //       break;
+    //     }
+    //     case 'receipt': {
+    //       el.particularsData.map(elm => {
+    //         if (elm.particulars.toLowerCase() !== 'cash') {
+    //           elm['debitAmount'] = elm.amount;
+    //           this.debSum += elm.amount;
+    //           elm['creditAmount'] = 0;
+    //         } else {
+    //           elm['creditAmount'] = elm.amount;
+    //           this.credSum += elm.amount;
+    //           elm['debitAmount'] = 0;
+    //         }
+    //       });
+    //       break;
+    //     }
+    //     case 'contra': {
+    //       el.particularsData.map(elm => {
+    //         console.log(elm);
+    //         if (elm.particulars.toLowerCase() !== 'cash') {
+    //           elm['debitAmount'] = elm.amount;
+    //           this.debSum += elm.amount;
+    //           elm['creditAmount'] = 0;
+    //         } else {
+    //           elm['creditAmount'] = elm.amount;
+    //           this.credSum += elm.amount;
+    //           elm['debitAmount'] = 0;
+    //         }
+    //       });
+    //       break;
+    //     }
+    //   }
+    // });
   }
 
   editData(id) {

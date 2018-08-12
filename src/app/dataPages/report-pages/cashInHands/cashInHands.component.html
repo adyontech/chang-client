@@ -80,14 +80,14 @@
                 </tr>
 
               </thead>
-              <tbody>
+              <tbody class="text-center">
                 <tr *ngFor="let list of incomingData">
 
                   <td> {{list.date | date}}</td>
 
                   <td> {{list.referenceNumber}}</td>
 
-                  <td>
+                  <td class="text-center">
                     <tr *ngFor="let parti of list.particularsData">
                       <td style="border:0">{{parti.particulars}}</td>
                     </tr>
