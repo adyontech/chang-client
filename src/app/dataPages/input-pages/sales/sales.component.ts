@@ -34,6 +34,8 @@ export class SalesComponent implements OnInit {
   public paramId: string;
   public ownerId: string;
   public subTotal: number;
+
+  public normalDateFormat;
   public minNgbDate;
   public maxNgbDate;
   public companyStateName: String;
@@ -404,15 +406,15 @@ export class SalesComponent implements OnInit {
     const data = document.getElementById('contentToConvert');
     html2canvas(data).then(canvas => {
       // Few necessary setting options
-      // const imgWidth = 208;
-      // const pageHeight = 295;
-      // const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      // const heightLeft = imgHeight;
+      const imgWidth = 208;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const heightLeft = imgHeight;
 
       const contentDataURL = canvas.toDataURL('image/png');
       const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
       const position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position);
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
       pdf.save('MYPdf.pdf'); // Generated PDF
     });
   }

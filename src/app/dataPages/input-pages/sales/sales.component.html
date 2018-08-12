@@ -123,7 +123,7 @@
                             <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
                               Invalid filed.
                             </small>
-                            <small class="form-text text-muted danger" [hidden]="!form.controls['drawnOn'].errors.dateIncorrect && form.controls['drawnOn'].errors.datevalidator">
+                            <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.dateIncorrect && form.controls['date'].errors.datevalidator">
                               Date should be between company period.
                             </small>
                           </div>
@@ -224,25 +224,32 @@
                             <thead>
                               <tr>
                                 <th></th>
-                                <th>Name of product service
+                                <th>
+                                  Name of product service
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Qty
+                                <th>
+                                  Qty
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Units
+                                <th>
+                                  Units
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Rate
+                                <th>
+                                  Rate
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Sub. amt
+                                <th>
+                                  Sub. amt
                                   <span class="danger">*</span>
                                 </th>
-                                <th>GST Rate
+                                <th>
+                                  GST Rate
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Amount
+                                <th>
+                                  Amount
                                   <span class="danger">*</span>
                                 </th>
                               </tr>
@@ -302,13 +309,16 @@
                             <thead>
                               <tr>
                                 <th></th>
-                                <th>Additional
+                                <th>
+                                  Additional
                                   <span class="danger">*</span>
                                 </th>
-                                <th>+/-
+                                <th>
+                                  +/-
                                   <span class="danger">*</span>
                                 </th>
-                                <th>Amount
+                                <th>
+                                  Amount
                                   <span class="danger">*</span>
                                 </th>
                               </tr>
@@ -424,35 +434,144 @@
       <input type="button" value="CPTURE" (click)="captureScreen()" />
     </div> -->
   </div>
-  <div class="mt-3" id="contentToConvert">
-    <div class="row" class="text-center">
-      <h4 class="mt-3">Bee Ocean</h4>
-      <p>A single tool to manage the task, whatever chetan bhaiya want it to do. </p>
-    </div>
-    <div class="mx-3" style="border: 1px solid #141414;">
-      <div class="row" style="border-bottom: 1px solid #141414;">
-        <div class="col-sm-8 mt-2 text-center" style="">
-          <h1>INVOICE</h1>
-        </div>
-        <div class="col-sm-4" style="float: left;">
-          <table class="blueTable">
-            <tbody>
-              <tr>
-                <td width="15%">&nbsp;</td>
-                <td>Original for Receipient</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>Duplicate for Supplier/Transporter</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>Triplicate for Supplier</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div id="contentToConvert">
+    <div class="row">
+      <div class="col-sm-12 text-center" style="padding:  15px 50px">
+
+        <img src="./../../../../assets/pwt/logo.jpg" style="float: left" height="100px" alt srcset>
+
+        <h4 class="mt-3">Bee Ocean</h4>
+        <p>
+          A single tool to manage the task, whatever chetan bhaiya want it to do.
+        </p>
+
       </div>
     </div>
+    <section class="invoice-template">
+      <div class="card">
+        <div class="card-body p-3">
+          <div id="invoice-template" class="card-block">
+            <div style="border: 1px solid #141414">
+              <!-- Invoice Company Details -->
+              <div class="row mx-0" style="border-bottom: 1px solid #141414; width: 100%">
+                <div class="col-12 text-center">
+                  <h3>INVOICE</h3>
+                </div>
+              </div>
+              <div class="px-3 py-3">
+                <div class="row">
+                  <div class="col-6 text-left">
+                    <ul style="list-style: none;">
+                      <li>
+                        Invoice Number : {{form.get('invoiceNumber').value}}
+                      </li>
+                      <li>
+                        Invoice Date : {{(form.get('date').value).day}}-{{(form.get('date').value).month}}-{{(form.get('date').value).year}}
+                      </li>
+                      <li>State :</li>
+                    </ul>
+                  </div>
+                  <div class="col-6 text-left">
+                    <ul style="list-style: none;">
+                      <li>
+                        Transportation Mode : {{form.get('transportationMode').value}}
+                      </li>
+                      <li>
+                        Vechile Number : {{(form.get('vehicleNumber').value)}}
+                      </li>
+                      <li>
+                        State : {{(form.get('supplyPlace').value)}}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12" [formGroup]="form">
+                    <table class="blueTable">
+                      <thead>
+                        <tr>
+                          <th>Name of product</th>
+                          <th>Qty</th>
+                          <th>Units</th>
+                          <th>Rate</th>
+                          <th>Sub Amt.</th>
+                          <th>Gst Rate</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody formArrayName="particularsData">
+                        <tr *ngFor="let formDum of formData.controls; let i=index" [formGroupName]="i">
+                          <td>{{(formDum.get('nameOfProduct').value)}}</td>
+                          <td>{{(formDum.get('qty').value)}}</td>
+                          <td>{{(formDum.get('units').value)}}</td>
+                          <td>{{(formDum.get('rate').value)}}</td>
+                          <td>{{(formDum.get('subAmount').value)}}</td>
+                          <td>{{(formDum.get('gstRate').value)}}</td>
+                          <td>{{(formDum.get('amount').value)}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-12 mt-3" [formGroup]="form">
+                    <table class="blueTable">
+                      <thead>
+                        <tr>
+                          <th>Additional</th>
+                          <th> +/-</th>
+                          <th> Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody formArrayName="subParticularsData">
+                        <tr *ngFor="let formDum2 of formData2.controls; let i=index" [formGroupName]="i">
+                          <td>{{(formDum2.get('additionalService').value)}}</td>
+                          <td>{{(formDum2.get('addSub').value)}}</td>
+                          <td>{{(formDum2.get('percent').value)}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="invoice-items-details" class="pt-2">
+                  <div class="row">
+                    <div class="offset-md-6 text-center col-md-6 col-sm-12">
+                      <p class="lead">Total : {{form.get('grandTotal').value}}</p>
+                      <div class="table-responsive">
+                        <div class="text-center">
+                          <p>Authorized person</p>
+                          <img src="assets/img/pages/signature-scan.png" alt="signature" class="width-250">
+                          <h6>aadii104</h6>
+                          <p class="text-muted">The Dev</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Invoice Footer -->
+                  <div id="invoice-footer">
+                    <div class="row">
+                      <div class="col-md-9 col-sm-12">
+                        <h6>Terms & Condition</h6>
+                        <p>
+                          You know, being a test pilot isn't always the healthiest business in the world. We predict too much for the next year and
+                          yet far too little for the next 10.
+                        </p>
+                      </div>
+                      <div id="content" #content class="col-md-3 col-sm-12 text-center">
+                        <button value="CPTURE" (click)="captureScreen()" type="button" class="btn btn-primary btn-raised my-1">
+                          <i class="fa fa-paper-plane-o"></i>
+                          Download
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </section>

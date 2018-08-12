@@ -44,6 +44,9 @@ export class GlobalCompanyService {
     // console.log(value);
     // console.log(minD);
     // console.log(maxD);
+    if(value === null){
+      return
+    }
     if (value.year >= minD.year && value.year <= maxD.year) {
       if (value.month >= minD.month && value.month <= maxD.month) {
         if (value.day >= minD.day && value.day <= maxD.day) {
