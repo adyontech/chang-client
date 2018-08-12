@@ -1,3 +1,5 @@
+import * as jspdf from 'jspdf';
+import * as html2canvas from 'html2canvas';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -396,6 +398,22 @@ export class SalesComponent implements OnInit {
         month: user.date.getMonth() + 1,
         day: user.date.getDate(),
       });
+    });
+  }
+  public captureScreen() {
+    const data = document.getElementById('contentToConvert');
+    html2canvas(data).then(canvas => {
+      // Few necessary setting options
+      // const imgWidth = 208;
+      // const pageHeight = 295;
+      // const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      // const heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position);
+      pdf.save('MYPdf.pdf'); // Generated PDF
     });
   }
 }

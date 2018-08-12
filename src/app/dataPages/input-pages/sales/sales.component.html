@@ -105,8 +105,8 @@
                         <div class="card-body">
                           <div class="form-group">
                             <div class="input-group">
-                              <input class="form-control" placeholder="dd.mm.yyyy" name="de"  [minDate]="minNgbDate" [maxDate]="maxNgbDate" (input)="dateRangeValidator('date')" ngbDatepicker #de="ngbDatepicker"
-                                formControlName="date">
+                              <input class="form-control" placeholder="dd.mm.yyyy" name="de" [minDate]="minNgbDate" [maxDate]="maxNgbDate" (input)="dateRangeValidator('date')"
+                                ngbDatepicker #de="ngbDatepicker" formControlName="date">
                               <div class="input-group-append">
                                 <div class="input-group-text" (click)="de.toggle()">
                                   <i class="fa fa-calendar" style="cursor: pointer;"></i>
@@ -412,6 +412,45 @@
               </wizard>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="pb-3" style="background-color: white">
+  <div id="content" #content>
+
+    <!-- <div>
+      <input type="button" value="CPTURE" (click)="captureScreen()" />
+    </div> -->
+  </div>
+  <div class="mt-3" id="contentToConvert">
+    <div class="row" class="text-center">
+      <h4 class="mt-3">Bee Ocean</h4>
+      <p>A single tool to manage the task, whatever chetan bhaiya want it to do. </p>
+    </div>
+    <div class="mx-3" style="border: 1px solid #141414;">
+      <div class="row" style="border-bottom: 1px solid #141414;">
+        <div class="col-sm-8 mt-2 text-center" style="">
+          <h1>INVOICE</h1>
+        </div>
+        <div class="col-sm-4" style="float: left;">
+          <table class="blueTable">
+            <tbody>
+              <tr>
+                <td width="15%">&nbsp;</td>
+                <td>Original for Receipient</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>Duplicate for Supplier/Transporter</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>Triplicate for Supplier</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
