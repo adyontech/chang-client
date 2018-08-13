@@ -63,7 +63,7 @@ export class PaymentComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.getRouteParam();
-    this.onAccSelect('All');
+    this.getIncomingData('All');
     this.getGlobalCompanyData();
   }
 
@@ -205,16 +205,6 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  onAccSelect(item: any): void {
-    this.csd = null;
-    this.ced = null;
-    if (item === 'All') {
-      this.getAllIncomingData();
-    } else {
-      this.getIncomingData(item);
-    }
-  }
-
   onSelectAll() {
     this.ColPaymentType = true;
     this.ColPaymentThrough = true;
@@ -250,20 +240,13 @@ export class PaymentComponent implements OnInit {
 
   // real date picker active from here
   getIncomingData(selectionValue) {
+    this.csd = null;
+    this.ced = null;
     this.dataCopy = this._paymentService
       .getIncomingData(selectionValue, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.incomingData = data.paymentData;
-        this.mainIncomingData = data.paymentData;
-      });
-  }
-
-  getAllIncomingData() {
-    this.dataCopy = this._paymentService
-      .getAllIncomingData(this.paramId, this.ownerName)
-      .map(response => response.json())
-      .subscribe(data => {
+        console.log(data);
         this.incomingData = data.paymentData;
         this.mainIncomingData = data.paymentData;
       });

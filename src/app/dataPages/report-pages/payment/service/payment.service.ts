@@ -40,7 +40,6 @@ export class PaymentService {
       this.token
     }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
-    // return 0;
   }
 
   deleteEntry(id, companyName, ownerName) {

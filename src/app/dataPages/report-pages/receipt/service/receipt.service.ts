@@ -29,16 +29,17 @@ export class ReceiptService {
       this._globalVariableService.baseServerUrl
     }/api/receiptStored?token=${
       this.token
-    }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
+    }&&companyName=${companyName}&&selectionValue=${selectionValue}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
   getAllIncomingData(companyName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
-    }/api/allReceiptStored?token=${this.token}&&companyName=${companyName}`;
+    }/api/allReceiptStored?token=${
+      this.token
+    }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
-    // return 0;
   }
 
   deleteEntry(id, companyName, ownerName) {

@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from './service/receipt.service';
 import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
-
 @Component({
   selector: 'app-receipt-report',
   templateUrl: './receipt.component.html',
@@ -19,7 +18,7 @@ export class ReceiptComponent implements OnInit {
   // Models
   closeResult: string;
   editContentId: String = '';
-  
+
   public companyStartingDate;
   public companyEndingDate;
   public choosenStartDate;
@@ -36,7 +35,8 @@ export class ReceiptComponent implements OnInit {
   VColChequeNO: String = 'Cheque Number';
   VColAgainst: String = 'Against';
 
-  @Input() public ColReceiptType: Boolean = false;
+  @Input()
+  public ColReceiptType: Boolean = false;
   public ColReceiptThrough: Boolean = false;
   public ColChequeNO: Boolean = false;
   public ColAgainst: Boolean = false;
@@ -45,6 +45,7 @@ export class ReceiptComponent implements OnInit {
   public paramId: String;
   public ownerName: string;
 
+  public accountTypeModel = 'All';
   public chooseItem = [
     'Receipt Type',
     'Receipt Through',
@@ -52,11 +53,10 @@ export class ReceiptComponent implements OnInit {
     'Against',
   ];
 
-  public chooseItemBox = [];
-  public accountTypeModel = 'All';
   public accountType: Array<string> = ['All', 'Cash', 'Bank'];
-    public mainIncomingData = [];
-    public incomingData: Array<string> = [];
+  public chooseItemBox = [];
+  public mainIncomingData = [];
+  public incomingData: Array<string> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -66,7 +66,7 @@ export class ReceiptComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.getRouteParam();
-    this.onAccSelect('All');
+    this.getIncomingData('All');
     this.getGlobalCompanyData();
   }
 
@@ -154,7 +154,6 @@ export class ReceiptComponent implements OnInit {
     this.choosenEndDate = this.companyEndingDate;
   }
 
-
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -206,14 +205,6 @@ export class ReceiptComponent implements OnInit {
     }
   }
 
-  onAccSelect(item: any): void {
-    if (item === 'All') {
-      this.getAllIncomingData();
-    } else {
-      this.getIncomingData(item);
-    }
-  }
-
   onSelectAll() {
     this.ColReceiptType = true;
     this.ColReceiptThrough = true;
@@ -252,26 +243,26 @@ export class ReceiptComponent implements OnInit {
       .getIncomingData(selectionValue, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
+        console.log(data);
         this.incomingData = data.receiptData;
         this.mainIncomingData = data.receiptData;
       });
   }
 
-  getAllIncomingData() {
-    this.dataCopy = this._receiptService
-      .getAllIncomingData(this.paramId, this.ownerName)
-      .map(response => response.json())
-      .subscribe(data => {
-        this.mainIncomingData = data.receiptData;
-        this.incomingData = data.receiptData;
-      });
-  }
+  // getAllIncomingData() {
+  //   this.dataCopy = this._receiptService
+  //     .getAllIncomingData(this.paramId, this.ownerName)
+  //     .map(response => response.json())
+  //     .subscribe(data => {
+  //       this.mainIncomingData = data.receiptData;
+  //       this.incomingData = data.receiptData;
+  //     });
+  // }
 
   deleteEntry(id) {
     this._receiptService
       .deleteEntry(id, this.paramId, this.ownerName)
       .map(response => response.json())
-      .subscribe(data => {
-      });
+      .subscribe(data => {});
   }
 }

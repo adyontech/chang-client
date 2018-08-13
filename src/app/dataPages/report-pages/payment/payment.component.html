@@ -31,7 +31,7 @@
 
           <div class="row">
             <div class="col-4">
-              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="onAccSelect($event)" [(ngModel)]="accountTypeModel">
+              <ng-select [items]="accountType" [markFirst]="true" placeholder="Select Account" (add)="getIncomingData($event)" [(ngModel)]="accountTypeModel">
               </ng-select>
             </div>
             <div class="col-4">
@@ -120,7 +120,7 @@
               <tbody class="text-center">
                 <tr *ngFor="let list of incomingData ">
                   <td> {{list.date | date}}</td>
-                  <td> {{list.paymentNumber}}</td>
+                  <td> {{list.referenceNumber}}</td>
                   <td>
                     <tr *ngFor="let parti of list.particularsData ">
                       <td style="border:0">{{parti.particulars}}</td>
