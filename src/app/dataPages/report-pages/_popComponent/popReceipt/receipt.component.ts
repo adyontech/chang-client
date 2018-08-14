@@ -326,7 +326,7 @@ export class PopReceiptComponent implements OnInit {
           .getReceiptFormData(this.paramId, this.popContnetId, this.ownerName)
           .map(response => response.json())
           .subscribe(data => {
-            this.fillForm(data.receipptData);
+            this.fillForm(data.receiptData);
           });
       }
     }
