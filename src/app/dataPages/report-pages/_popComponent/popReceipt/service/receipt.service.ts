@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 
 import { GlobalVaribles } from '../../../../../shared/globalVariables/globalVariable';
 
@@ -17,43 +15,101 @@ export class PopReceiptService {
 
   constructor(
     private http: Http,
-    private router: Router,
-    private route: ActivatedRoute,
     public _globalVariableService: GlobalVaribles
   ) {
     this.windowStorage = JSON.parse(window.localStorage.getItem('user'));
     this.token = this.windowStorage.token;
   }
-
   getData(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/uglist?token=${this.token}&&companyName=${compName}`;
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/uglist?token=${this.token}&&companyName=${compName}`;
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any, compName) {
+  getReceiptFormData(compName, id: string, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/receiptFormData?token=${
+      this.token
+    }&&compName=${compName}&&ownerName=${owner}&&dataId=${id}`;
+    return this.http.get(this._url);
+  }
+
+  createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
-      if (user[key] instanceof Array || user[key] instanceof Object) {
+      if (
+        key !== 'attachment' &&
+        (user[key] instanceof Array || user[key] instanceof Object)
+      ) {
         form.append(key, JSON.stringify(user[key]));
       } else {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/receipts?token=${this.token}&companyName=${compName}`;
-    return this.http.post(this._url, user).map((res: Response) => {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/receipts?token=${
+      this.token
+    }&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.post(this._url, form).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  editEntry(user: any, compName, receipttId, owner) {
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      if (
+        key !== 'attachment' &&
+        (user[key] instanceof Array || user[key] instanceof Object)
+      ) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
+    }
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/receiptEdit?token=${
+      this.token
+    }&&companyName=${compName}&&receipttId=${receipttId}&&ownerName=${owner}`;
+    return this.http.patch(this._url, form).map((res: Response) => {
       this.result = res.json();
     });
   }
-  getLedgerNames(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
+
+  getIvoiceNumbers(compName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/allSalesInvoiceNumbers?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
-  getAccountNames(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/accountNameList?token=${
+  getLedgerNames(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+  getAccountNames(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/accountNameList?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.get(this._url);
+  }
+  getParticularNames(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameRmHandBank?token=${
+      this.token
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 }

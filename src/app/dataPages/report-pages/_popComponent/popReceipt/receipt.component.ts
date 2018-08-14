@@ -1,80 +1,147 @@
-import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import * as alertFunctions from '../../../../shared/data/sweet-alerts';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { PopReceiptService } from './service/receipt.service';
+import { patternValidator } from '../../../../shared/validators/pattern-validator';
+import { ToastrService } from '../../../../utilities/toastr.service';
+import { GlobalCompanyService } from '../../../../shared/globalServices/oneCallvariables.servce';
+import { DateValidator } from '../../../../shared/validators/dateValidator';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-receipt',
+  selector: 'app-pop-receipt',
   templateUrl: './receipt.component.html',
   styleUrls: ['./receipt.component.scss'],
 })
 export class PopReceiptComponent implements OnInit {
+  @Input()
+  editContentId: string;
+  // popContentId will be empty string checking only
+  editupdate: Boolean = false;
+  popContnetId = '';
+
   public closeResult: string;
   public form: FormGroup;
   public dataCopy: any;
+  public modalRef: any;
   public paramId: string;
+  public ownerName: string;
   public totalAmount: number;
-  public attachmentError: Boolean = false;
-
+  public minNgbDate;
+  public maxNgbDate;
   public ledgerList: Array<string> = [];
-  public accountList: Array<string> = ['Cash'];
-
+  public accountList: Array<string> = [];
+  public particularList: Array<string> = [];
+  public attachmentError: Boolean = false;
   public value: any = {};
-  public _disabledV: String = '0';
-  public disabled: Boolean = false;
+  public attachmentName: String = 'No File Choosen.';
+  public showCheque = false;
+  public showAgainst = true;
+  public showInvoiceNumberField = false;
+  public allInvoiceNumberArray: Array<string> = [];
+  public receiptTypeArray: Array<string> = [
+    'General',
+    'Sales receipt',
+    'Advance receipt',
+    'Purchase refund',
+    'Others',
+  ];
+  public receiptThroughArray: Array<string> = [
+    'Cash',
+    'Cheque',
+    'E transfer',
+    'Others',
+  ];
+  public againstArray: Array<string> = [
+    'Against invoice',
+    'Against account',
+    'Against advance',
+    'others',
+  ];
+
   constructor(
     private route: ActivatedRoute,
     public _receiptService: PopReceiptService,
     public fb: FormBuilder,
-    private router: Router,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    public _toastrService: ToastrService,
+    public _globalCompanyService: GlobalCompanyService
+  ) {}
 
   ngOnInit() {
     $.getScript('./assets/js/jquery.steps.min.js');
     $.getScript('./assets/js/wizard-steps.js');
     this.getRouteParam();
+    this.getIncomingData();
+    this.getParticularNames();
     this.getAccountNames();
+    this.getGlobalCompanyData();
     this.getLedgerNames();
     this.form = this.fb.group({
-      receiptNumber: [''],
-      date: [''],
-      account: [''],
-      receiptType: [''],
-      receiptThrough: [''],
+      receiptNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      date: new FormControl(
+        '',
+        Validators.compose([Validators.required, DateValidator.datevalidator])
+      ),
+      account: new FormControl('', [Validators.required]),
+      receiptType: new FormControl('', [Validators.required]),
+      receiptThrough: new FormControl('', [Validators.required]),
+      againstInvoiceNumber: [''],
       chequeNumber: [''],
-      drawnOn: [null, Validators.required],
+      drawnOn: new FormControl(
+        '',
+        Validators.compose([Validators.required, DateValidator.datevalidator])
+      ),
       against: [''],
       particularsData: this.fb.array([]),
       narration: [''],
-      file: [''],
+      attachment: [''],
+      endtotal: [''],
     });
     this.addParticular();
   }
 
-  // To open modal we need key event here
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.keyCode === 66 && event.ctrlKey) {
-      document.getElementById('openModalButton').click();
-    }
+  getRouteParam() {
+    this.route.params.subscribe(params => {
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
+    });
   }
+
   open(content) {
-    this.modalService
-      .open(content, { size: "lg" })
-      .result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.modalRef.result.then(
+      result => {
+        this.getAccountNames();
+        this.getLedgerNames();
+        this.getParticularNames();
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.getAccountNames();
+        this.getLedgerNames();
+        this.getParticularNames();
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   // This function is used in open
@@ -87,17 +154,14 @@ export class PopReceiptComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  getRouteParam() {
-    this.route.params.subscribe(params => {
-      // console.log(params.id);
-      this.paramId = params.id;
-    });
-  }
 
   initParticular() {
     return this.fb.group({
       particulars: ['', Validators.required],
-      amount: [''],
+      amount: new FormControl('', [
+        Validators.required,
+        patternValidator(/^\d+$/),
+      ]),
     });
   }
   addParticular() {
@@ -107,13 +171,94 @@ export class PopReceiptComponent implements OnInit {
     control.push(addCtrl);
   }
   removeParticular(i: number) {
-    this.totalSum();
     const control = <FormArray>this.form.controls['particularsData'];
     control.removeAt(i);
+    this.totalSum();
   }
-
   get formData() {
     return <FormArray>this.form.get('particularsData');
+  }
+
+  fillForm(data) {
+    console.log(data);
+    data = data[0];
+    data.date = new Date(parseInt(data.date, 0));
+    data.drawnOn = new Date(parseInt(data.drawnOn, 0));
+    this.form.controls['account'].setValue(data.account);
+    this.form.controls['chequeNumber'].setValue(data.chequeNumber);
+    this.form.controls['against'].setValue(data.against);
+    this.form.controls['date'].setValue({
+      year: data.date.getFullYear(),
+      month: data.date.getMonth() + 1,
+      day: data.date.getDate(),
+    });
+    this.form.controls['drawnOn'].setValue({
+      year: data.drawnOn.getFullYear(),
+      month: data.drawnOn.getMonth() + 1,
+      day: data.drawnOn.getDate(),
+    });
+    this.form.controls['narration'].setValue(data.narration);
+    this.form.controls['receiptNumber'].setValue(data.referenceNumber);
+    this.form.controls['receiptType'].setValue(data.receiptType);
+    this.form.controls['receiptThrough'].setValue(data.receiptThrough);
+    this.form.controls['againstInvoiceNumber'].setValue(
+      data.againstInvoiceNumber
+    );
+
+    const particularsData = <FormArray>this.form.controls['particularsData'];
+    const oldArray = data.particularsData;
+    oldArray.forEach((element, index) => {
+      const array = particularsData.at(index);
+      if (!array) {
+        particularsData.push(
+          this.fb.group({
+            particulars: [element.particulars],
+            amount: element.amount,
+          })
+        );
+      } else {
+        array.patchValue({
+          particulars: element.particulars,
+          amount: element.amount,
+        });
+      }
+    });
+  }
+
+  getGlobalCompanyData() {
+    this.dataCopy = this._globalCompanyService
+      .getGlobalCompanyData(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        const minD = new Date(parseInt(data.startDate, 0));
+        this.minNgbDate = {
+          year: minD.getFullYear(),
+          month: minD.getMonth() + 1,
+          day: minD.getDate(),
+        };
+        const maxD = new Date(parseInt(data.endDate, 0));
+        this.maxNgbDate = {
+          year: maxD.getFullYear(),
+          month: maxD.getMonth() + 1,
+          day: maxD.getDate(),
+        };
+      });
+  }
+
+  dateRangeValidator(arg) {
+    let dateError;
+    const dateVal = this.form.get(arg).value;
+    if (typeof dateVal === 'object') {
+      console.log(dateVal);
+      dateError = this._globalCompanyService.dateRangeValidator(
+        dateVal,
+        this.minNgbDate,
+        this.maxNgbDate
+      );
+    }
+    if (dateError) {
+      this.form.controls[arg].setErrors({ dateIncorrect: true });
+    }
   }
 
   totalSum() {
@@ -126,46 +271,161 @@ export class PopReceiptComponent implements OnInit {
       }
     }
   }
+  SetDrawnOn(value) {
+    if (value !== null) {
+      const dateval = new Date(value.year, value.month, value.day);
+      this.form.controls['drawnOn'].setValue({
+        year: dateval.getFullYear(),
+        month: dateval.getMonth(),
+        day: dateval.getDate(),
+      });
+    }
+  }
+  setAgainst(value) {
+    this.showInvoiceNumberField = false;
+    if (
+      value === 'General' ||
+      value === 'Purchase refund' ||
+      value === 'Others'
+    ) {
+      this.showAgainst = false;
+    } else {
+      this.showAgainst = true;
+      this.form.patchValue({
+        against: '',
+      });
+    }
+  }
+  showInvoiceNumber(value) {
+    if (value === 'Against invoice') {
+      this.showInvoiceNumberField = true;
+      this._receiptService
+        .getIvoiceNumbers(this.paramId, this.ownerName)
+        .map(response => response.json())
+        .subscribe(data => {
+          if (data.success === true) {
+            const originalInvoiceObj = data.sales;
+            originalInvoiceObj.map(el => {
+              this.allInvoiceNumberArray = [
+                ...this.allInvoiceNumberArray,
+                el.invoiceNumber,
+              ];
+            });
+          }
+        });
+    } else {
+      this.showInvoiceNumberField = false;
+    }
+  }
+
+  getIncomingData() {
+    if (this.editContentId !== this.popContnetId) {
+      this.popContnetId = this.editContentId;
+      if (this.popContnetId !== '') {
+        this._receiptService
+          .getReceiptFormData(this.paramId, this.popContnetId, this.ownerName)
+          .map(response => response.json())
+          .subscribe(data => {
+            this.fillForm(data.receipptData);
+          });
+      }
+    }
+  }
+
+  toggleCheque(value) {
+    if (value === 'Cheque') {
+      this.showCheque = true;
+    } else {
+      this.showCheque = false;
+    }
+  }
 
   getLedgerNames() {
     this.dataCopy = this._receiptService
-      .getLedgerNames(this.paramId)
+      .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
-        this.ledgerList = this.ledgerList.concat(data.ledgerData);
+        this.ledgerList = this.ledgerList.concat(data.ledgerData).reverse();
       });
   }
   getAccountNames() {
     this.dataCopy = this._receiptService
-      .getAccountNames(this.paramId)
+      .getAccountNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.accountList = this.accountList.concat(data.accountNameList);
+        this.accountList = this.accountList
+          .concat(data.accountNameList)
+          .reverse();
+      });
+  }
+  getParticularNames() {
+    this.dataCopy = this._receiptService
+      .getParticularNames(this.paramId, this.ownerName)
+      .map(response => response.json())
+      .subscribe(data => {
+        this.particularList = data.ledgerData;
       });
   }
   onFileChange(event) {
     this.attachmentError = false;
-    console.log(event.target.files[0].size);
-    const reader = new FileReader();
-
-    if (event.target.files[0].size < 400000) {
+    if (event.target.files[0].size < 200000) {
       if (event.target.files && event.target.files.length > 0) {
-        this.form.get('file').setValue(event.target.files[0]);
+        this.form.get('attachment').setValue(event.target.files[0]);
+        this.attachmentName = event.target.files[0].name;
       }
     } else {
       this.attachmentError = true;
+      this.attachmentName = 'No File choosen';
     }
   }
 
-  onSubmit(user) {
-    // alertFunctions.SaveData().then(datsa => {
-    //   if (datsa) {
-    console.log(user);
+  onSubmit(user, action) {
+    user.date = new Date(
+      user.date.year,
+      user.date.month - 1,
+      user.date.day
+    ).getTime();
+    user.drawnOn = new Date(
+      user.drawnOn.year,
+      user.drawnOn.month - 1,
+      user.drawnOn.day
+    ).getTime();
+    alertFunctions.SaveData().then(datsa => {
+      if (datsa) {
+        user.endtotal = this.totalAmount;
+        if (action === false) {
+          this._receiptService
+            .editEntry(user, this.paramId, this.editContentId, this.ownerName)
+            .subscribe(data => {});
 
-    user.endtotal = this.totalAmount;
-    this._receiptService.createNewEntry(user, this.paramId).subscribe(data => { });
-    //   }
-    // });
+          this.dateRefresh(user);
+        } else {
+          this._receiptService
+            .createNewEntry(user, this.paramId, this.ownerName)
+            .subscribe(data => {});
+
+          this.dateRefresh(user);
+        }
+        this.dateRefresh(user);
+      } else {
+        this.dateRefresh(user);
+        return;
+      }
+    });
+  }
+  dateRefresh(user) {
+    user.date = new Date(user.date);
+    this.form.controls['date'].setValue({
+      year: user.date.getFullYear(),
+      month: user.date.getMonth() + 1,
+      day: user.date.getDate(),
+    });
+
+    user.drawnOn = new Date(user.drawnOn);
+    this.form.controls['drawnOn'].setValue({
+      year: user.drawnOn.getFullYear(),
+      month: user.drawnOn.getMonth() + 1,
+      day: user.drawnOn.getDate(),
+    });
   }
 }

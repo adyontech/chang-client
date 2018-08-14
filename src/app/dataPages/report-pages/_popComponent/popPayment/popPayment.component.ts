@@ -25,11 +25,13 @@ declare var $: any;
   styleUrls: ['./popPayment.component.scss'],
 })
 export class PopPaymentComponent implements OnInit {
-  @Input() editContentId: string;
+  @Input()
+  editContentId: string;
   // popContentId will be empty string checking only
   editupdate: Boolean = false;
   popContnetId = '';
-  closeResult: string;
+
+  public closeResult: string;
   public form: FormGroup;
   public dataCopy: any;
   public paramId: string;
@@ -131,6 +133,7 @@ export class PopPaymentComponent implements OnInit {
   }
 
   fillForm(data) {
+    console.log(data);
     data = data[0];
     data.date = new Date(parseInt(data.date, 0));
     data.drawnOn = new Date(parseInt(data.drawnOn, 0));
@@ -149,7 +152,7 @@ export class PopPaymentComponent implements OnInit {
       day: data.drawnOn.getDate(),
     });
     this.form.controls['narration'].setValue(data.narration);
-    this.form.controls['paymentNumber'].setValue(data.paymentNumber);
+    this.form.controls['paymentNumber'].setValue(data.referenceNumber);
     this.form.controls['paymentType'].setValue(data.paymentType);
     this.form.controls['paymentThrough'].setValue(data.paymentThrough);
 
