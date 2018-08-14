@@ -259,7 +259,9 @@ export class ReceiptComponent implements OnInit {
   //     });
   // }
 
-  deleteEntry(id) {
+  deleteEntry(id, index) {
+    console.log(index);
+    // delete this.incomingData[index];
     this._receiptService
       .deleteEntry(id, this.paramId, this.ownerName)
       .map(response => response.json())

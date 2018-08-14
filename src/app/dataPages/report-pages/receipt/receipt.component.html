@@ -114,7 +114,7 @@
 
               </thead>
               <tbody>
-                <tr *ngFor="let list of incomingData ">
+                <tr *ngFor="let list of incomingData; let i=index">
                   <td> {{list.date | date}}</td>
                   <td> {{list.receiptNumber}}</td>
                   <td>
@@ -138,7 +138,7 @@
                     <a class="success p-0 " data-original-title=" " title=" " (click)="open(content, list._id) ">
                       <i class="ft-edit-2 font-medium-3 mr-2 "></i>
                     </a>
-                    <a class="danger p-0 " data-original-title=" " title=" " (click)="deleteEntry(list._id) ">
+                    <a class="danger p-0 " data-original-title=" " title=" " (click)="deleteEntry(list._id,i) ">
                       <i class="ft-x font-medium-3 mr-2 "></i>
                     </a>
                   </td>
