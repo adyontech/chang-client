@@ -75,7 +75,6 @@ export class PopPaymentComponent implements OnInit {
     private route: ActivatedRoute,
     public _popPaymentService: PopPaymentService,
     public fb: FormBuilder,
-    private router: Router,
     public _toastrService: ToastrService,
     public _globalCompanyService: GlobalCompanyService
   ) {}

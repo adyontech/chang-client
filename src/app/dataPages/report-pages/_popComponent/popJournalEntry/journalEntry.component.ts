@@ -6,12 +6,7 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import {
   NgbModal,
   ModalDismissReasons,
@@ -20,6 +15,11 @@ import {
 import * as alertFunctions from '../../../../shared/data/sweet-alerts';
 import { ActivatedRoute } from '@angular/router';
 import { PopJournalEntryService } from './service/journalEntry.service';
+import { ToastrService } from '../../../../utilities/toastr.service';
+import { GlobalCompanyService } from '../../../../shared/globalServices/oneCallvariables.servce';
+import { patternValidator } from '../../../../shared/validators/pattern-validator';
+import { DateValidator } from '../../../../shared/validators/dateValidator';
+
 declare var $: any;
 
 @Component({
@@ -28,28 +28,33 @@ declare var $: any;
   styleUrls: ['./journalEntry.component.scss'],
 })
 export class PopJournalEntryComponent implements OnInit {
-  @Input() editContentId: string;
-
+  @Input()
+  editContentId: string;
   editupdate: Boolean = false;
   popContnetId = '';
+
   closeResult: string;
   form: FormGroup;
   dataCopy: any;
   paramId: string;
+  public ownerName: string;
   totalAmount: number;
   debitSum: number;
   creditSum: number;
   public ledgerList: Array<string> = [];
   public attachmentError: Boolean = false;
+  public attachmentName: String = 'No File Choosen.';
 
-  public value: any = {};
-  public _disabledV: String = '0';
-  public disabled: Boolean = false;
+  public minNgbDate;
+  public maxNgbDate;
+  public modalRef: any;
+
   constructor(
     private route: ActivatedRoute,
     public _journalEntryService: PopJournalEntryService,
     public fb: FormBuilder,
-    private router: Router
+    public _toastrService: ToastrService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
@@ -57,8 +62,15 @@ export class PopJournalEntryComponent implements OnInit {
     this.getIncomingData();
     this.getLedgerNames();
     this.form = this.fb.group({
-      journalNumber: [''],
-      date: [''],
+      journalNumber: new FormControl('', [
+        Validators.required,
+        patternValidator(/^[a-zA-Z\d-_]+$/),
+        Validators.maxLength(20),
+      ]),
+      date: new FormControl(
+        '',
+        Validators.compose([Validators.required, DateValidator.datevalidator])
+      ),
       narration: [''],
       particularsData: this.fb.array([]),
       file: [''],
@@ -68,18 +80,19 @@ export class PopJournalEntryComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      this.paramId = params.id;
+      this.paramId = params.id.split('%20').join(' ');
+      this.ownerName = params.owner.split('%20').join(' ');
+      // this._dashboardSettingService.setParamId(this.paramId);
     });
   }
 
   fillForm(data) {
-    data = data[0];
     data.date = new Date(data.date);
-    this.form.controls['journalNumber'].setValue(data.journalNumber);
+    this.form.controls['journalNumber'].setValue(data.referenceNumber);
     this.form.controls['narration'].setValue(data.narration);
     this.form.controls['date'].setValue({
       year: data.date.getFullYear(),
-      month: data.date.getMonth(),
+      month: data.date.getMonth() + 1,
       day: data.date.getDate(),
     });
     const particularsData = <FormArray>this.form.controls['particularsData'];
@@ -98,7 +111,9 @@ export class PopJournalEntryComponent implements OnInit {
       } else {
         array.patchValue({
           particulars: element.particulars,
-          amount: element.amount,
+          drcr: element.drcr,
+          debitAmount: element.debitAmount,
+          creditAmount: element.creditAmount,
         });
       }
     });
@@ -132,7 +147,7 @@ export class PopJournalEntryComponent implements OnInit {
 
   getLedgerNames() {
     this.dataCopy = this._journalEntryService
-      .getLedgerNames(this.paramId)
+      .getLedgerNames(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
@@ -153,7 +168,7 @@ export class PopJournalEntryComponent implements OnInit {
       this.popContnetId = this.editContentId;
       if (this.popContnetId !== '') {
         this._journalEntryService
-          .getFormData(this.paramId, this.popContnetId)
+          .getFormData(this.paramId, this.popContnetId, this.ownerName)
           .map(response => response.json())
           .subscribe(data => {
             this.fillForm(data.journalData);
@@ -197,11 +212,11 @@ export class PopJournalEntryComponent implements OnInit {
     user.endtotal = this.totalAmount;
     if (action === false) {
       this._journalEntryService
-        .editEntry(user, this.paramId, this.editContentId)
+        .editEntry(user, this.paramId, this.editContentId, this.ownerName)
         .subscribe(data => {});
     } else {
       this._journalEntryService
-        .createNewEntry(user, this.paramId)
+        .createNewEntry(user, this.paramId, this.ownerName)
         .subscribe(data => {});
     }
   }

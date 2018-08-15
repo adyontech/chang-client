@@ -199,7 +199,7 @@ export class JournalEntryComponent implements OnInit {
       user.date.month - 1,
       user.date.day
     ).getTime();
-
+    console.log(user);
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._journalEntryService

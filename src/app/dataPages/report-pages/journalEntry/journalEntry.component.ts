@@ -56,7 +56,6 @@ export class JournalEntryComponent implements OnInit {
 
   getRouteParam() {
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.paramId = params.id;
       this.ownerName = params.owner;
     });
@@ -177,7 +176,6 @@ export class JournalEntryComponent implements OnInit {
       .subscribe(data => {
         this.incomingData = data.journalData;
         this.mainIncomingData = data.journalData;
-        console.log(data);
         this.totalCredit = data.creditSum;
         this.totalDebit = data.debitSum;
       });

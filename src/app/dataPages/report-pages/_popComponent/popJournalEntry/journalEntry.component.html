@@ -16,25 +16,47 @@
         </div>
         <div class="card-body">
           <div class="card-block">
-            <form class="icons-tab-steps" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value, editupdate)" novalidate class="mt-3">
+            <form class="icons-tab-steps" id="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate class="mt-3">
               <div class="centered-content" style="margin-top:2%; width: 100%;">
                 <div class="content tab-content">
 
                   <div class="form-row">
-                    <div class="col-md-5  offset-md-4 form-group">
+                    <div class="col-md-4 offset-md-2 form-group">
                       <label>Journal Number</label>
+                      <span class="danger">*</span>
                       <input type="text" class="form-control" formControlName="journalNumber">
+                      <div [ngClass]="{'error': form.controls['journalNumber'].errors && !form.controls['journalNumber'].pristine}">
+                        <div *ngIf="form.controls['journalNumber'].errors && !form.controls['journalNumber'].pristine" class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['journalNumber'].errors.required">
+                            filed is required.
+                          </small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['journalNumber'].errors.patternInvalid">
+                            Invalid filed.
+                          </small>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
-
-                  <div class="form-row">
-                    <div class="col-md-5  offset-md-4 form-group">
+                    <div class="col-md-4 form-group">
                       <label>Date</label>
+                      <span class="danger">*</span>
                       <div class="input-group-append">
-                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker #de="ngbDatepicker" formControlName="date">
+                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')" [minDate]="minNgbDate"
+                          [maxDate]="maxNgbDate" #de="ngbDatepicker" formControlName="date">
                         <div class="input-group-text" (click)="de.toggle()">
                           <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                        </div>
+                      </div>
+                      <div [ngClass]="{'error': form.controls['date'].errors && !form.controls['date'].pristine}">
+                        <div *ngIf="form.controls['date'].errors && !form.controls['date'].pristine" class="error-msg">
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.required">
+                            filed is required.
+                          </small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.datevalidator">
+                            Invalid filed.
+                          </small>
+                          <small class="form-text text-muted danger" [hidden]="!form.controls['date'].errors.dateIncorrect && form.controls['date'].errors.datevalidator">
+                            Date should be between company period.
+                          </small>
                         </div>
                       </div>
                     </div>
@@ -42,95 +64,103 @@
                   <br>
                   <div class="col-md-10 offset-md-1">
                     <h5 class="form-group-header mb-3">
-                      Details
+                      Amount
                     </h5>
-                    <div formArrayName="particularsData">
-                      <div *ngFor="let address of formData.controls; let i=index">
-                        <div [formGroupName]="i">
-                          <div class="form-row mt-3">
-                            <div class="col-md-1 mt-3">
-                              <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
-                            </div>
-                            <div class="col-lg-4 col-md-4 offset-md-1 col-sm-6">
-                              <h6>Dr/Cr</h6>
-                              <select class="form-control" formControlName="drcr" (click)="resetDrCr($event, i)">
-                                <option value="dr" selected>DR</option>
-                                <option value="cr">CR</option>
-                              </select>
-                            </div>
-                            <div class="col-lg- col-md-4 col-sm-6">
-                              <h6>Particulars</h6>
-                              <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
-                              </ng-select>
-                              <!-- <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
-                                <span> Particulars is required</span>
-                              </small> -->
-                            </div>
-                          </div>
-                          <div class="form-row mt-3">
-                            <div class="offset-lg-2 col-lg-4 offset-md-2 col-md-4 col-sm-6">
-                              <h6>Debit Amount</h6>
-                              <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'dr'? null: true" (input)="totalSum(i)"
-                                formControlName="debitAmount">
-                              <!-- <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
-                                Amount is required
-                              </small> -->
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                              <h6>Credit Amount</h6>
-                              <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'cr'? null: true" (input)="totalSum(i)"
-                                formControlName="creditAmount">
-                              <!-- <small [hidden]="form.controls.particularsData.controls[i].controls.particulars.valid" class="text-danger">
-                                Amount is required
-                              </small> -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <table class="table table-responsive-md text-center">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Dr/Cr
+                            <span class="danger">*</span>
+                          </th>
+                          <th>Particulars
+                            <span class="danger">*</span>
+                          </th>
+                          <th>Debit Amount</th>
+                          <th>Credit Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody formArrayName="particularsData">
+                        <tr *ngFor="let address of formData.controls; let i=index" class="form-group" [formGroupName]="i">
+                          <td>
+                            <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
+                          </td>
+                          <td>
+                            <select class="form-control" formControlName="drcr" (click)="resetDrCr($event, i);totalSum(i)">
+                              <option value="dr" selected>DR</option>
+                              <option value="cr">CR</option>
+                            </select>
+                          </td>
+                          <td>
+                            <ng-select [items]="ledgerList" formControlName="particulars" placeholder="Particulars">
+                              <ng-template ng-header-tmp>
+                                <button style="height:70%; width:70%" type="button" class="btn btn-lg btn-outline-primary" id="openModalButton" (click)="open(ledger)">+ New</button>
+                              </ng-template>
+                            </ng-select>
+
+                          </td>
+                          <td>
+
+                            <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'dr'? null: true" (input)="totalSum(i)"
+                              formControlName="debitAmount">
+
+                          </td>
+                          <td>
+
+                            <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'cr'? null: true" (input)="totalSum(i)"
+                              formControlName="creditAmount">
+
+                          </td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+
 
                     <br>
                     <div class="row">
-                      <div class="col-md-3 col-sm-3">
+                      <div class="col-md-3">
                         <button type="button" href="javascript:void(0)" class="btn btn-raised btn-info" (click)="addParticular()" style="cursor: default">
-                          Add +
+                          Add another field +
                         </button>
                       </div>
-                      <div class="offset-md-2 col-md-3  col-sm-3">
+                      <div class=" offset-md-2 col-md-3">
                         <p class="p1">Debit Sum: Rs.{{this.debitSum}}</p>
                       </div>
-                      <div class="col-md-3  col-sm-3">
+                      <div class="col-md-3">
                         <p class="p1">Credit Sum: Rs {{this.creditSum}}</p>
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-md-12">
+                    <div class="row mt-3">
+                      <div class="col-xs-12 col-md-7 mt-3">
                         <div class="form-group">
                           <label>Narration</label>
-                          <textarea rows="5" formControlName="narration" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                          <textarea rows="5" formControlName="narration" class="form-control" placeholder="Here can be your description" value="Mike">
+                          </textarea>
                         </div>
                       </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="form-inline">
+                      <div class="col-xs-12 offset-xs-0 col-md-4 offset-md-1  mt-3">
                         <div class="form-group">
-                          <label for="upload">Attachment:</label>
-                          <div class="card-body">
-                            <div class="form-group">
-                              <div class="input-group">
+                          <label for="upload">Attachment</label>
+                          <div class="card-body" style=" margin-left: 35px;">
+                            <div class="input-group">
+                              <div class="upload-btnF-wrapper">
+                                <button type="button" class="btnF">Upload File</button>
                                 <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
                               </div>
-                              <div *ngIf="attachmentError">errririiriri</div>
                             </div>
+                            <div style="padding-right: 25px;">{{attachmentName}}</div>
+                            <div *ngIf="attachmentError" style="color: red">Max file size exceeded.</div>
                           </div>
+
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="text-align: center; margin-top: 20px">
-                    <button type="submit" class="btn btn-secondary">submit</button>
+                  <div class="btn-group  mt-3">
+                    <button type="button" (click)="onSubmit(form.value, editupdate)" class="btn btn-secondary" [disabled]="form.invalid">
+                      submit</button>
                   </div>
                 </div>
               </div>

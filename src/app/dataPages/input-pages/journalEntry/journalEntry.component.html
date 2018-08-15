@@ -64,8 +64,8 @@
                       <label>Date</label>
                       <span class="danger">*</span>
                       <div class="input-group-append">
-                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')"  [minDate]="minNgbDate" [maxDate]="maxNgbDate" #de="ngbDatepicker"
-                          formControlName="date">
+                        <input class="form-control" placeholder="dd.mm.yyyy" name="de" ngbDatepicker (input)="dateRangeValidator('date')" [minDate]="minNgbDate"
+                          [maxDate]="maxNgbDate" #de="ngbDatepicker" formControlName="date">
                         <div class="input-group-text" (click)="de.toggle()">
                           <i class="fa fa-calendar" style="cursor: pointer;"></i>
                         </div>
@@ -111,8 +111,8 @@
                           </td>
                           <td>
                             <select class="form-control" formControlName="drcr" (click)="resetDrCr($event, i);totalSum(i)">
-                              <option value="dr" selected>DR</option>
-                              <option value="cr">CR</option>
+                              <option value="Dr" selected>DR</option>
+                              <option value="Cr">CR</option>
                             </select>
                           </td>
                           <td>

@@ -25,38 +25,25 @@ export class PopJournalEntryService {
     this.token = this.windowStorage.token;
   }
 
-  getLedgerNames(compName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/ledgerNameList?token=${
+  getLedgerNames(compName, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/ledgerNameList?token=${
       this.token
-    }&&companyName=${compName}`;
+    }&&companyName=${compName}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 
-  getFormData(compName, id: string) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/journalFormData?token=${
+  getFormData(compName, id: string, owner) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/journalFormData?token=${
       this.token
-    }&&compName=${compName}&&dataId=${id}`;
+    }&&compName=${compName}&&dataId=${id}&&ownerName=${owner}`;
     return this.http.get(this._url);
   }
 
-  createNewEntry(user: any, compName) {
-    const form = new FormData();
-    for (const key of Object.keys(user)) {
-       if (user[key] instanceof Array || user[key] instanceof Object) {
-        form.append(key, JSON.stringify(user[key]));
-      } else {
-        form.append(key, user[key]);
-      }
-    }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/journalEntry?token=${
-      this.token
-    }&companyName=${compName}`;
-    return this.http.post(this._url, form).map((res: Response) => {
-      this.result = res.json();
-    });
-  }
-
-  editEntry(user: any, compName, docId) {
+  createNewEntry(user: any, compName, owner) {
     const form = new FormData();
     for (const key of Object.keys(user)) {
       if (user[key] instanceof Array || user[key] instanceof Object) {
@@ -65,12 +52,32 @@ export class PopJournalEntryService {
         form.append(key, user[key]);
       }
     }
-    this._url = `${this._globalVariableService.baseServerUrl}/api/journalEdit?token=${
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/journalEntry?token=${
       this.token
-    }&&companyName=${compName}&&docId=${docId}`;
-    return this.http.patch(this._url, form).map((res: Response) => {
+    }&companyName=${compName}&&ownerName=${owner}`;
+    return this.http.post(this._url, form).map((res: Response) => {
       this.result = res.json();
     });
   }
 
+  editEntry(user: any, compName, docId, owner) {
+    const form = new FormData();
+    for (const key of Object.keys(user)) {
+      if (user[key] instanceof Array || user[key] instanceof Object) {
+        form.append(key, JSON.stringify(user[key]));
+      } else {
+        form.append(key, user[key]);
+      }
+    }
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/journalEdit?token=${
+      this.token
+    }&&companyName=${compName}&&docId=${docId}&&ownerName=${owner}`;
+    return this.http.patch(this._url, form).map((res: Response) => {
+      this.result = res.json();
+    });
+  }
 }
