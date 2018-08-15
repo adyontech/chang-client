@@ -33,15 +33,6 @@ export class PaymentService {
     return this.http.get(this._url);
   }
 
-  getAllIncomingData(companyName, ownerName) {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/allPaymentStored?token=${
-      this.token
-    }&&companyName=${companyName}&&ownerName=${ownerName}`;
-    return this.http.get(this._url);
-  }
-
   deleteEntry(id, companyName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl

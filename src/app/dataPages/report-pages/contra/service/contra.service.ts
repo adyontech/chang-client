@@ -23,27 +23,22 @@ export class ContraService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData(selectionValue, companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/contraStored?token=${
+  getIncomingData(selectionValue, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/contraStored?token=${
       this.token
-    }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
+    }&&companyName=${companyName}&&selectionValue=${selectionValue}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
   }
 
-  getAllIncomingData(companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/allContraStored?token=${
+  deleteEntry(id, companyName, ownerName) {
+    this._url = `${
+      this._globalVariableService.baseServerUrl
+    }/api/deleteContraEntry?token=${
       this.token
-    }&&companyName=${companyName}`;
-    return this.http.get(this._url);
-    // return 0;
-  }
-
-  deleteEntry(id, companyName) {
-    this._url = `${this._globalVariableService.baseServerUrl}/api/deleteContraEntry?token=${
-      this.token
-    }&&companyName=${companyName}&&deleteId=${id}`;
+    }&&companyName=${companyName}&&deleteId=${id}&&ownerName=${ownerName}`;
     return this.http.delete(this._url);
     // return 0;
   }
-
 }

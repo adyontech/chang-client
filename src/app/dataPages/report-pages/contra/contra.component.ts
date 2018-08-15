@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ContraService } from './service/contra.service';
 import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
-
 @Component({
   selector: 'app-contra',
   templateUrl: './contra.component.html',
@@ -18,8 +17,7 @@ import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvari
 export class ContraComponent implements OnInit {
   closeResult: string;
   editContentId: String = '';
-  
-  
+
   public companyStartingDate;
   public companyEndingDate;
   public choosenStartDate;
@@ -32,7 +30,7 @@ export class ContraComponent implements OnInit {
   public maxNgbDate;
 
   public mainIncomingData = [];
-    public incomingData: Array<string> = [];
+  public incomingData: Array<string> = [];
 
   public dataCopy: any;
   public paramId: string;
@@ -44,17 +42,17 @@ export class ContraComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    public _contraService: ContraService,   public _globalCompanyService: GlobalCompanyService
- 
+    public _contraService: ContraService,
+    public _globalCompanyService: GlobalCompanyService
   ) {}
 
   ngOnInit() {
     this.getRouteParam();
-    this.onAccSelect('All');
+    this.getIncomingData('All');
     this.getGlobalCompanyData();
   }
 
-getRouteParam() {
+  getRouteParam() {
     this.route.params.subscribe(params => {
       this.paramId = params.id;
       this.ownerName = params.owner;
@@ -145,7 +143,6 @@ getRouteParam() {
     this.choosenEndDate = this.companyEndingDate;
   }
 
-
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -156,13 +153,6 @@ getRouteParam() {
     }
   }
 
-  onAccSelect(item: any): void {
-    if (item === 'All') {
-      this.getAllIncomingData(this.paramId);
-    } else {
-      this.getIncomingData(item, this.paramId);
-    }
-  }
   open(content, editId) {
     this.editContentId = editId;
     this.modalService.open(content, { size: 'lg' }).result.then(
@@ -175,9 +165,9 @@ getRouteParam() {
     );
   }
 
-  getIncomingData(selectionValue, compaName) {
+  getIncomingData(selectionValue) {
     this.dataCopy = this._contraService
-      .getIncomingData(selectionValue, compaName)
+      .getIncomingData(selectionValue, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.mainIncomingData = data.contraData;
@@ -185,9 +175,9 @@ getRouteParam() {
       });
   }
 
-  getAllIncomingData(compName) {
+  getAllIncomingData() {
     this.dataCopy = this._contraService
-      .getAllIncomingData(compName)
+      .getAllIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.mainIncomingData = data.contraData;
@@ -197,7 +187,7 @@ getRouteParam() {
 
   deleteEntry(id) {
     this._contraService
-      .deleteEntry(id, this.paramId)
+      .deleteEntry(id, this.paramId, this.ownerName)
       // .map(response => response.json())
       .subscribe(data => {});
   }
