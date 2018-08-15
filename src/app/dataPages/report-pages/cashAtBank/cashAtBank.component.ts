@@ -5,7 +5,7 @@ import { CashAtBankService } from './service/cashAtBank.service';
 import { GlobalCompanyService } from '../../../shared/globalServices/oneCallvariables.servce';
 
 @Component({
-  selector: 'app-cash-atabank',
+  selector: 'app-cash-at-bank',
   templateUrl: './cashAtBank.component.html',
   styleUrls: ['./cashAtBank.component.scss'],
 })
@@ -47,16 +47,6 @@ export class CashAtBankComponent implements OnInit {
     this.getGlobalCompanyData();
   }
 
-  onAccSelect(item: any): void {
-    this.csd = null;
-    this.ced = null;
-    if (item === 'All') {
-      // this.getAllIncomingData();
-    } else {
-      this.getIncomingData(item);
-    }
-  }
-
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
@@ -64,7 +54,7 @@ export class CashAtBankComponent implements OnInit {
       this.ownerName = params.owner;
     });
     this.breadcrumbs = [
-      { name: 'Ledger' },
+      { name: 'Cash at bank' },
       {
         name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
@@ -78,16 +68,20 @@ export class CashAtBankComponent implements OnInit {
       .map(response => response.json())
       .subscribe(data => {
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
-
-        // this.getIncomingData(this.ledgerList[0]);
       });
   }
   getIncomingData(value) {
+    this.csd = null;
+    this.ced = null;
     this.dataCopy = this._cashAtBankService
       .getIncomingData(value, this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        this.caseThrough(data.formData);
+        this.incomingData = data.formData;
+        this.mainIncomingData = data.formData;
+        this.debSum = data.debSum;
+        this.credSum = data.credSum;
+        this.sumTotal = Math.abs(this.debSum - this.credSum);
       });
   }
 
@@ -230,7 +224,7 @@ export class CashAtBankComponent implements OnInit {
         case 'journal': {
           for (let i = 0; i < el.data.particularsData.length; i++) {
             const check = this.ledgerList.includes(
-              el.data.particularsData[i].particulars[0].id
+              el.data.particularsData[i].particulars
             );
             if (!check) {
               let v1 = el.data.particularsData[i].debitAmount;
@@ -251,7 +245,7 @@ export class CashAtBankComponent implements OnInit {
 
   editData(id) {
     this.contentId = id;
-    // this._cashAtBankService.contentId = id;
+    this._cashAtBankService.contentId = id;
   }
 
   deleteData(id) {}

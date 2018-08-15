@@ -13,6 +13,7 @@ export class CashAtBankService {
   token: string;
   windowStorage: any;
   _url: string;
+  contentId: string;
 
   constructor(
     private http: Http,

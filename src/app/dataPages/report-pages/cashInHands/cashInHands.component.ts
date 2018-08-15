@@ -50,16 +50,6 @@ export class CashInHandsComponent implements OnInit {
     this.getGlobalCompanyData();
   }
 
-  onAccSelect(item: any): void {
-    this.csd = null;
-    this.ced = null;
-    if (item === 'All') {
-      // this.getAllIncomingData();
-    } else {
-      this.getIncomingData(item);
-    }
-  }
-
   getRouteParam() {
     this.route.params.subscribe(params => {
       // console.log(params.id);
@@ -67,7 +57,7 @@ export class CashInHandsComponent implements OnInit {
       this.ownerName = params.owner;
     });
     this.breadcrumbs = [
-      { name: 'Ledger' },
+      { name: 'Cash in hand' },
       {
         name: 'Dashboard',
         link: `/${this.ownerName}/${this.paramId}/dashboard`,
@@ -80,12 +70,13 @@ export class CashInHandsComponent implements OnInit {
       .getLedgerNameData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data);
         this.ledgerList = this.ledgerList.concat(data.ledgerData);
       });
   }
 
   getIncomingData(value) {
+    this.csd = null;
+    this.ced = null;
     this.dataCopy = this._cashInHandsService
       .getIncomingData(value, this.paramId, this.ownerName)
       .map(response => response.json())
@@ -95,7 +86,6 @@ export class CashInHandsComponent implements OnInit {
         this.debSum = data.debSum;
         this.credSum = data.credSum;
         this.sumTotal = Math.abs(this.debSum - this.credSum);
-        console.log(data);
       });
   }
 

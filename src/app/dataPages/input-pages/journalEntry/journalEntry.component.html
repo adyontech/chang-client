@@ -125,13 +125,13 @@
                           </td>
                           <td>
 
-                            <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'dr'? null: true" (input)="totalSum(i)"
+                            <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'Dr'? null: true" (input)="totalSum(i)"
                               formControlName="debitAmount">
 
                           </td>
                           <td>
 
-                            <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'cr'? null: true" (input)="totalSum(i)"
+                            <input type="text" required class="form-control" [attr.disabled]="address.get('drcr').value == 'Cr'? null: true" (input)="totalSum(i)"
                               formControlName="creditAmount">
 
                           </td>
