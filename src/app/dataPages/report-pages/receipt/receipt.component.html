@@ -116,7 +116,7 @@
               <tbody>
                 <tr *ngFor="let list of incomingData; let i=index">
                   <td> {{list.date | date}}</td>
-                  <td> {{list.receiptNumber}}</td>
+                  <td> {{list.referenceNumber}}</td>
                   <td>
                     <tr *ngFor="let parti of list.particularsData ">
                       <td style="border:0">{{parti.particulars}}</td>
