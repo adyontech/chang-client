@@ -37,6 +37,8 @@ export class JournalEntryComponent implements OnInit {
   public paramId: string;
   public ownerName: string;
 
+  public totalDebit = 0;
+  public totalCredit = 0;
   public accountTypeModel = 'All';
   public accountType: Array<string> = ['All', 'Dr', 'Cr'];
 
@@ -48,8 +50,8 @@ export class JournalEntryComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.getRouteParam();
-    this.onAccSelect('All');
     this.getGlobalCompanyData();
+    this.getIncomingData('All');
   }
 
   getRouteParam() {
@@ -154,14 +156,6 @@ export class JournalEntryComponent implements OnInit {
     }
   }
 
-  onAccSelect(item: any): void {
-    if (item === 'All') {
-      this.getAllIncomingData();
-    } else {
-      // type Activity = typeof Mydata;
-      this.getIncomingData(item);
-    }
-  }
   open(content, editId) {
     this.editContentId = editId;
     this.modalService.open(content, { size: 'lg' }).result.then(
@@ -174,42 +168,25 @@ export class JournalEntryComponent implements OnInit {
     );
   }
 
-  getIncomingData(selectionValue) {
+  getIncomingData(val) {
+    this.csd = null;
+    this.ced = null;
     this.dataCopy = this._journalEntryService
-      .getIncomingData(selectionValue, this.paramId, this.ownerName)
+      .getIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.incomingData = data.journalData;
         this.mainIncomingData = data.journalData;
-        this.onAccSelect('All');
-      });
-  }
-
-  getAllIncomingData() {
-    this.dataCopy = this._journalEntryService
-      .getAllIncomingData(this.paramId, this.ownerName)
-      .map(response => response.json())
-      .subscribe(data => {
         console.log(data);
-        this.incomingData = data.journalData;
-        this.mainIncomingData = data.journalData;
+        this.totalCredit = data.creditSum;
+        this.totalDebit = data.debitSum;
       });
   }
 
   deleteEntry(id) {
     this._journalEntryService
-      .deleteEntry(id, this.paramId)
+      .deleteEntry(id, this.paramId, this.ownerName)
       // .map(response => response.json())
       .subscribe(data => {});
   }
-}
-interface MyData {
-  commonJournalModel: string;
-  date: string;
-  deleteLedgerID: any;
-  file: string;
-  journalNumber: string;
-  narration: string;
-  particularsData: any;
-  voucherModelName: string;
 }

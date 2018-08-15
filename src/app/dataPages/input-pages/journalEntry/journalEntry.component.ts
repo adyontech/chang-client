@@ -156,7 +156,6 @@ export class JournalEntryComponent implements OnInit {
       });
   }
   dateRangeValidator(arg) {
-    console.log(arg);
     let dateError;
     const dateVal = this.form.get(arg).value;
     if (typeof dateVal === 'object') {
@@ -171,7 +170,6 @@ export class JournalEntryComponent implements OnInit {
       this.form.controls[arg].setErrors({ dateIncorrect: true });
     }
   }
-
   onFileChange(event) {
     this.attachmentError = false;
     const reader = new FileReader();
@@ -195,6 +193,13 @@ export class JournalEntryComponent implements OnInit {
       );
       return;
     }
+    console.log(user.date);
+    user.date = new Date(
+      user.date.year,
+      user.date.month - 1,
+      user.date.day
+    ).getTime();
+
     alertFunctions.SaveData().then(datsa => {
       if (datsa) {
         this._journalEntryService
@@ -209,7 +214,19 @@ export class JournalEntryComponent implements OnInit {
               this._toastrService.typeError('Error', data.message);
             }
           });
+        this.dateRefresh(user);
+      } else {
+        this.dateRefresh(user);
+        return;
       }
+    });
+  }
+  dateRefresh(user) {
+    user.date = new Date(user.date);
+    this.form.controls['date'].setValue({
+      year: user.date.getFullYear(),
+      month: user.date.getMonth() + 1,
+      day: user.date.getDate(),
     });
   }
 }

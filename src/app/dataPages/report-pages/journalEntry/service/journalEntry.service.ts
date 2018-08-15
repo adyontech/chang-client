@@ -24,30 +24,21 @@ export class JournalEntryService {
     this.token = this.windowStorage.token;
   }
 
-  getIncomingData(selectionValue, companyName, ownerName) {
+  getIncomingData(companyName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/journalStored?token=${
       this.token
-    }&&companyName=${companyName}&&selectionValue=${selectionValue}`;
+    }&&companyName=${companyName}&&ownerName=${ownerName}`;
     return this.http.get(this._url);
     // return 0;
   }
-
-  getAllIncomingData(companyName, ownerName) {
-    this._url = `${
-      this._globalVariableService.baseServerUrl
-    }/api/alljournalStored?token=${this.token}&&companyName=${companyName}`;
-    return this.http.get(this._url);
-    // return 0;
-  }
-
-  deleteEntry(id, companyName) {
+  deleteEntry(id, companyName, ownerName) {
     this._url = `${
       this._globalVariableService.baseServerUrl
     }/api/deleteJournalEntry?token=${
       this.token
-    }&&companyName=${companyName}&&deleteId=${id}`;
+    }&&companyName=${companyName}&&deleteId=${id}&&ownerName=${ownerName}`;
     return this.http.delete(this._url);
     // return 0;
   }
