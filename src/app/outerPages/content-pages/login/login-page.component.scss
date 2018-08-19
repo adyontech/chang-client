@@ -1,14 +1,17 @@
 .input-style {
-    height: 50px;
-    border: 1px solid #aab2ac;
+  height: 50px;
+  border: 1px solid #aab2ac;
 }
 
 .main-head {
-    width: 103%;
+  width: 103%;
 }
 
 @media (min-width:961px) {
-    .main-head {
-        width: 100%
-    }
+  .main-head {
+    width: 100%
+  }
+  .login-sec {
+    margin-left: 50px
+  }
 }

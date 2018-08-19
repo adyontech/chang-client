@@ -1,7 +1,17 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { LoginService } from './service/login-page.service';
-import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+import {
+  Router,
+  CanActivate,
+  ActivatedRoute,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Routes, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { any } from 'codelyzer/util/function';
