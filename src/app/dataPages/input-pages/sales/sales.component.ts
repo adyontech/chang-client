@@ -359,6 +359,7 @@ export class SalesComponent implements OnInit {
   }
 
   onSubmit(user) {
+    console.log(user)
     user.date = new Date(
       user.date.year,
       user.date.month - 1,

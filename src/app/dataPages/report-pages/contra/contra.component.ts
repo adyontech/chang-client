@@ -1,9 +1,5 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
-import {
-  NgbModal,
-  ModalDismissReasons,
-  NgbActiveModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { ContraService } from './service/contra.service';
@@ -168,16 +164,6 @@ export class ContraComponent implements OnInit {
   getIncomingData(selectionValue) {
     this.dataCopy = this._contraService
       .getIncomingData(selectionValue, this.paramId, this.ownerName)
-      .map(response => response.json())
-      .subscribe(data => {
-        this.mainIncomingData = data.contraData;
-        this.incomingData = data.contraData;
-      });
-  }
-
-  getAllIncomingData() {
-    this.dataCopy = this._contraService
-      .getAllIncomingData(this.paramId, this.ownerName)
       .map(response => response.json())
       .subscribe(data => {
         this.mainIncomingData = data.contraData;
