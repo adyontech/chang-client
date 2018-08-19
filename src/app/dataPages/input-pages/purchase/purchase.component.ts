@@ -31,6 +31,7 @@ export class PurchaseComponent implements OnInit {
   public paramId: string;
   public ownerId: string;
   public subTotal: number;
+
   public companyStateName: String;
   public totalAmount: number;
   public attachmentError: Boolean = false;

@@ -44,11 +44,6 @@
               <app-product-service [modalReference]="modalRef" [statePop]="'child'"></app-product-service>
             </div>
           </ng-template>
-
-          <button class="btn btn-lg btn-outline-primary" id="openModalButton" [hidden]="true" (click)="open(content)">
-            Launch demo modal
-          </button>
-
           <hr>
         </div>
       </div>
@@ -261,10 +256,10 @@
                                   <span class="fa fa-times pull-right" *ngIf="form.controls.particularsData.controls.length > 1" (click)="removeParticular(i)"></span>
                                 </td>
                                 <td width="30%">
-                                  <ng-select [items]="prsrList" (change)="selectedprsr($event, i)" (removed)="removed($event)" formControlName="nameOfProduct">
+                                  <ng-select [items]="prsrList" formControlName="nameOfProduct" placeholder="No party selected">
                                     <ng-template ng-header-tmp>
-                                      <p style="cursor: pointer;" id="openModalButton" (click)="open(content)">
-                                        + PrSr
+                                      <p style="cursor: pointer" id="openModalButton" (click)="open(content)">
+                                        + prsr
                                       </p>
                                     </ng-template>
                                   </ng-select>
@@ -428,12 +423,6 @@
   </div>
 </section>
 <section class="pb-3" style="background-color: white">
-  <div id="content" #content>
-
-    <!-- <div>
-      <input type="button" value="CPTURE" (click)="captureScreen()" />
-    </div> -->
-  </div>
   <div id="contentToConvert">
     <div class="row">
       <div class="col-sm-12 text-center" style="padding:  15px 50px">
@@ -557,7 +546,7 @@
                           yet far too little for the next 10.
                         </p>
                       </div>
-                      <div id="content" #content class="col-md-3 col-sm-12 text-center">
+                      <div class="col-md-3 col-sm-12 text-center">
                         <button value="CPTURE" (click)="captureScreen()" type="button" class="btn btn-primary btn-raised my-1">
                           <i class="fa fa-paper-plane-o"></i>
                           Download

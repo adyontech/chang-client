@@ -35,7 +35,6 @@ export class SalesComponent implements OnInit {
   public ownerId: string;
   public subTotal: number;
 
-  public normalDateFormat;
   public minNgbDate;
   public maxNgbDate;
   public companyStateName: String;
@@ -359,7 +358,7 @@ export class SalesComponent implements OnInit {
   }
 
   onSubmit(user) {
-    console.log(user)
+    console.log(user);
     user.date = new Date(
       user.date.year,
       user.date.month - 1,
