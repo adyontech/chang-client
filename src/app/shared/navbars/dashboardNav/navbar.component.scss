@@ -25,3 +25,9 @@
   min-height: 0 !important;
   height: 50px !important
 }
+
+@media (max-width:961px) {
+  .main-row {
+    width: 90%
+  }
+}

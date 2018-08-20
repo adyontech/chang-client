@@ -1,8 +1,8 @@
 <div style="background-color: #ffffff; position: relative; z-index: 999;">
   <div class="main-content pt-1">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 pt-2">
+      <div class="row main-row">
+        <div class="col-md-3 pt-2   d-none d-md-block">
           <a [routerLink]="['/gateway']">
             <i class="ft-home nav-item mr-2 ml-2 font-medium-3  headerFont" style="color: black !important"></i>
           </a>
@@ -16,7 +16,7 @@
             <i class="fa fa-th-list nav-item mr-2 ml-2 font-medium-3 blue-grey headerFont darken-4" style="color: black !important"></i>
           </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-12">
           <div style="width: 100%" class="btn-group">
             <ng-select style="float:right; height: 100%" class="custom" [items]="menuList" [placeholder]="placheloderValue" (add)="selected($event)"
               (change)="selected($event)">
@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3   d-none d-md-block">
           <ul class="navbar-nav" style="display: inline;float: right;">
             <li class="nav-item mt-1 mr-2 ml-2">
               <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen (click)="ToggleClass()">
